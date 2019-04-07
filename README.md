@@ -8,7 +8,7 @@
 
 功能要求：支持vapoursunth及avisynth（需要提前安装）
 
-要将视频作为输入源，需使用支持此功能的x265程序（如https://github.com/msg7086/x265-Yuuki-Asuna），并且在设置中开启。
+要将视频作为输入源，需使用支持此功能的x265程序（如https://github.com/msg7086/x265-Yuuki-Asuna ），并且在设置中开启。
 
 
 P.S 暂时不打算公开源码，需要源码的可以私信我，我会看情况展示部分源码。
