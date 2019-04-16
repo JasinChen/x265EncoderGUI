@@ -4,7 +4,7 @@
 
 系统要求：64位windows操作系统
 
-运行要求：运行本程序需要安装Microsoft visual c++ 2015
+运行要求：运行本程序需要安装Microsoft visual c++ 2017
 
 功能要求：支持vapoursunth及avisynth（需要提前安装）
 
