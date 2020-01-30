@@ -6,7 +6,7 @@
 
 运行要求：运行本程序需要安装Microsoft visual c++ 2017
 
-功能要求：支持vapoursynth及avisynth（需要自行安装，下一个版本将取消运行检测）
+功能要求：支持vapoursynth及avisynth（需要自行安装）
 
 要将视频作为输入源，需使用支持此功能的x265程序（如https://github.com/msg7086/x265-Yuuki-Asuna ），并且在设置中开启。
 
