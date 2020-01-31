@@ -1,0 +1,536 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>avs2yuv &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="avs2pcm" href="avs2pcm.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="avs2pcm.html" title="avs2pcm"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">avs2yuv</a><ul>
+<li><a class="reference internal" href="#line-by-line-breakdown">Line by line breakdown</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="avs2pcm.html"
+                        title="previous chapter">avs2pcm</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/FilterSDK/avs2yuv.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="avs2yuv">
+<h1>avs2yuv<a class="headerlink" href="#avs2yuv" title="Permalink to this headline">¶</a></h1>
+<p>avs2yuv reads a script and outputs raw video (YUV or RGB). It’s a
+stripped down version of the famous avs2yuv.</p>
+<p>Here’s avs2yuv.cpp:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#include &lt;stdio.h&gt;
+#include &lt;Windows.h&gt;
+#include &quot;avisynth.h&quot;
+
+#define MY_VERSION &quot;Avs2YUV 0.24&quot;
+
+const AVS_Linkage *AVS_linkage = 0;
+
+int __cdecl main(int argc, const char* argv[])
+{
+const char* infile = NULL;
+const char* outfile = NULL;
+FILE* out_fh;
+
+if (!strcmp(argv[1], &quot;-h&quot;)) {
+    fprintf(stderr, MY_VERSION &quot;\n&quot;
+        &quot;Usage: avs2yuv.exe in.avs out.raw\n&quot;);
+    return 2;
+} else {
+    infile = argv[1];
+    outfile = argv[2];
+}
+
+try {
+    char* colorformat;
+    typedef IScriptEnvironment* (__stdcall *DLLFUNC)(int);
+    IScriptEnvironment* env;
+    HMODULE avsdll = LoadLibrary(&quot;avisynth.dll&quot;);
+    if (!avsdll) {
+        fprintf(stderr, &quot;failed to load avisynth.dll\n&quot;);
+        return 2;
+    }
+
+    DLLFUNC CreateEnv = (DLLFUNC)GetProcAddress(avsdll, &quot;CreateScriptEnvironment&quot;);
+    if (!CreateEnv) {
+        fprintf(stderr, &quot;failed to load CreateScriptEnvironment()\n&quot;);
+        FreeLibrary(avsdll);
+        return 1;
+    }
+
+    env = CreateEnv(AVISYNTH_INTERFACE_VERSION);
+
+    AVS_linkage = env-&gt;GetAVSLinkage();
+    AVSValue arg(infile);
+    AVSValue res = env-&gt;Invoke(&quot;Import&quot;, AVSValue(&amp;arg, 1));
+    if (!res.IsClip()) {
+        fprintf(stderr, &quot;Error: &#39;%s&#39; didn&#39;t return a video clip.\n&quot;, infile);
+        FreeLibrary(avsdll);
+        return 1;
+    }
+
+    PClip clip = res.AsClip();
+
+    if (clip-&gt;GetVersion() &lt; 5) {
+        fprintf(stderr, &quot;Error: too old version (&#39;%d&#39;) of avisynth.dll loaded.\nplease install v2.60 or later.\n&quot;,
+            clip-&gt;GetVersion());
+        return 1;
+    }
+
+    VideoInfo vi = clip-&gt;GetVideoInfo();
+
+    if (!vi.HasVideo()) {
+        fprintf(stderr, &quot;Error: &#39;%s&#39; audio only clip.\n&quot;, infile);
+        FreeLibrary(avsdll);
+        return 1;
+    }
+
+    fprintf(stderr, &quot; %s:\n&quot;, infile);
+    fprintf(stderr, &quot; %dx%d,\n&quot;, vi.width, vi.height);
+    fprintf(stderr, &quot; %d/%d fps,\n&quot;, vi.fps_numerator, vi.fps_denominator);
+    fprintf(stderr, &quot; %d frames,\n&quot;, vi.num_frames);
+    if (vi.IsYUV()) {
+        colorformat = &quot;YUV&quot;;
+    } else {
+        colorformat = &quot;RGB&quot;;
+    }
+    fprintf(stderr, &quot; %s color format&quot;, colorformat);
+
+    out_fh = fopen(outfile, &quot;wb&quot;);
+    if (!out_fh) {
+        fprintf(stderr, &quot;fopen(\&quot;%s\&quot;) failed&quot;, outfile);
+        FreeLibrary(avsdll);
+        return 1;
+    }
+
+    static const int planes[] = {PLANAR_Y, PLANAR_U, PLANAR_V};
+
+    for (int frm = 0; frm &lt; vi.num_frames; ++frm) {
+        PVideoFrame f = clip-&gt;GetFrame(frm, env);
+
+        for (int p=0; p&lt;3; p++) { // for interleaved formats only the first plane (being the whole frame) is written
+            int height = f-&gt;GetHeight(planes[p]);
+            int rowsize = f-&gt;GetRowSize(planes[p]);
+            int pitch = f-&gt;GetPitch(planes[p]);
+            const BYTE* data = f-&gt;GetReadPtr(planes[p]);
+            for (int y=0; y&lt;height; y++) {
+                fwrite(data, 1, rowsize, out_fh);
+                data += pitch;
+            }
+        }
+    }
+
+    env-&gt;DeleteScriptEnvironment();
+    FreeLibrary(avsdll);
+    AVS_linkage = 0;
+
+} catch(AvisynthError err) {
+    fprintf(stderr, &quot;\nAvisynth error:\n%s\n&quot;, err.msg);
+    return 1;
+}
+
+fclose(out_fh);
+return 0;
+}
+</pre></div>
+</div>
+<p>Compile this file into an EXE named avs2yuv.exe. See
+<a class="reference internal" href="CompilingAvisynthPlugins.html"><span class="doc">compiling instructions</span></a>. Now open the
+command line and go to the folder where avs2yuv.exe and your script (called
+example.avs here) are located. Our script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ColorBars</span><span class="p">()</span>
+<span class="n">ConvertToYV12</span><span class="p">()</span>
+<span class="n">Trim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">Showframenumber</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Type the following on the command line (the name of the output clip can
+be arbitrary in our application):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">avs2yuv</span><span class="o">.</span><span class="n">exe</span> <span class="n">example</span><span class="o">.</span><span class="n">avs</span> <span class="n">output</span><span class="o">.</span><span class="n">raw</span>
+</pre></div>
+</div>
+<p>So the output file will contain five frames of YV12 data (640x480). The
+raw stream can be played with <a class="reference external" href="http://www.yuvtoolkit.com/">YUVtoolkit</a> for example. You can also
+import it in AviSynth using the plugin RawSource.</p>
+<div class="section" id="line-by-line-breakdown">
+<h2>Line by line breakdown<a class="headerlink" href="#line-by-line-breakdown" title="Permalink to this headline">¶</a></h2>
+<p>Here’s a line-by-line breakdown of avs2yuv.cpp.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;stdio.h&gt;</span>
+</pre></div>
+</div>
+<p>The header stdio.h contains objects like <a class="reference external" href="http://www.cplusplus.com/reference/cstdio/stderr/">stderr</a> (a pointer to a FILE
+object) and functions like <a class="reference external" href="http://www.cplusplus.com/reference/cstdio/fprintf/">fprintf</a>, <a class="reference external" href="http://www.cplusplus.com/reference/cstdio/fopen/">fopen</a> and <a class="reference external" href="http://www.cplusplus.com/reference/cstdio/fwrite/">fwrite</a>. Those
+will be used later on.</p>
+<p>The standard error stream (<em>stderr</em>) is the default destination for error
+messages and other diagnostic warnings. Like stdout, it is usually also
+directed by default to the text console (generally, on the screen).</p>
+<p><em>fprintf</em> writes formatted data to stream.</p>
+<p><em>fopen</em> opens the file whose name is specified in the parameter filename
+and associates it with a stream that can be identified in future
+operations by the FILE pointer returned.</p>
+<p><em>fwrite</em> writes data to a file which is opened bij <em>fopen</em>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &lt;Windows.h&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &quot;avisynth.h&quot;</span>
+</pre></div>
+</div>
+<p>This header declares all the classes and miscellaneous constants that
+you might need when accessing avisynth.dll.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#define MY_VERSION &quot;Avs2YUV 0.24&quot;</span>
+</pre></div>
+</div>
+<p>Defines the version number which will be printed (using the “-h”
+option) later on.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="n">AVS_Linkage</span> <span class="o">*</span><span class="n">AVS_linkage</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This declares and initializes the server pointers static storage
+<a class="reference internal" href="AVSLinkage.html"><span class="doc">AVS_Linkage</span></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">__cdecl</span> <span class="n">main</span><span class="p">(</span><span class="nb">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</pre></div>
+</div>
+<p>argv and argc are how command line arguments are passed to main() in C
+and C++ (you can name them the way you want to). argc will be the
+number of strings pointed to by the array argv. This will be one plus
+the number of arguments, with the first one being the name of the
+application. Thus when using the command line “avs2yuv.exe in.avs
+out.raw” we have argv[0]=”avs2yuv.exe”, argv[1]=”in.avs”,
+argv[2]=”out.raw” and argc=2.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">infile</span> <span class="o">=</span> <span class="n">NULL</span><span class="p">;</span>
+<span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">outfile</span> <span class="o">=</span> <span class="n">NULL</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>initialize infile and outfile as null pointers by setting them to
+<a class="reference external" href="http://www.cplusplus.com/reference/cstddef/NULL/">NULL</a>. We could have set them to 0 too since that’s the same in
+C/C++.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FILE</span><span class="o">*</span> <span class="n">out_fh</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>out_fh is declared as a pointer to a <a class="reference external" href="http://www.cplusplus.com/reference/cstdio/FILE/">FILE</a> object.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>if (!strcmp(argv[1], &quot;-h&quot;)) {
+    fprintf(stderr, MY_VERSION &quot;\n&quot;
+        &quot;Usage: avs2yuv.exe in.avs out.raw\n&quot;);
+    return 2;
+</pre></div>
+</div>
+<p>When using the command line “avs2yuv.exe -h” it will print to the
+console how the application should be used (‘h’ from help). The
+<a class="reference external" href="http://www.cplusplus.com/doc/tutorial/functions/">return</a> terminates the function main() (and thus the application).
+returning 0 means that your program executed without errors and
+returning a different int means it executed with errors.</p>
+<p>“Avs2YUV 0.24” (followed by an enter) “Usage: avs2yuv.exe in.avs
+out.raw” (followed by an enter)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">infile</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">outfile</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>When the second argument (argv[1]) is not ‘-h’ it will set infile to
+the name of the input file (being argv[1]) and outfile to the name of
+the output file (being argv[2]).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
+    <span class="n">char</span><span class="o">*</span> <span class="n">colorformat</span><span class="p">;</span>
+    <span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="n">env</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>env returns a pointer to the <a class="reference internal" href="Cplusplus_api.html#cplusplus-iscriptenvironment"><span class="std std-ref">IScriptEnvironment</span></a> interface.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HMODULE</span> <span class="n">avsdll</span> <span class="o">=</span> <span class="n">LoadLibrary</span><span class="p">(</span><span class="s2">&quot;avisynth.dll&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms684175(v=vs.85).aspx">LoadLibrary</a> loads the specified module (which is avisynth.dll here)
+into the address space of the process (the process being avs2yuv.exe
+here). When successful avsdll will be the handle to the module, else it
+will be NULL.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>if (!avsdll) {
+    fprintf(stderr, &quot;failed to load avisynth.dll\n&quot;);
+    return 2;
+}
+</pre></div>
+</div>
+<p>When avsdll is NULL (thus 0), !avsdll evaluates to one, and the error
+“failed to load avisynth.dll” is printed to the console.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="p">(</span><span class="n">__stdcall</span> <span class="o">*</span><span class="n">DLLFUNC</span><span class="p">)(</span><span class="nb">int</span><span class="p">);</span>
+<span class="n">DLLFUNC</span> <span class="n">CreateEnv</span> <span class="o">=</span> <span class="p">(</span><span class="n">DLLFUNC</span><span class="p">)</span><span class="n">GetProcAddress</span><span class="p">(</span><span class="n">avsdll</span><span class="p">,</span> <span class="s2">&quot;CreateScriptEnvironment&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="Cplusplus_api.html#cplusplus-createscriptenvironment"><span class="std std-ref">CreateScriptEnvironment</span></a> is exported by avisynth.dll and it is a
+pointer to the <a class="reference internal" href="Cplusplus_api.html#cplusplus-iscriptenvironment"><span class="std std-ref">IScriptEnvironment</span></a> interface. <a class="reference external" href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms683212(v=vs.85).aspx">GetProcAddress</a>
+will retrieve the address of the exported function (when failing it
+will return NULL).</p>
+<p>In order to do so you must declare a function pointer (called ‘DLLFUNC’
+here) with <em>exactly</em> the same prototype as the function it is supposed
+to represent. This is done in the first line (note that
+<a class="reference internal" href="Cplusplus_api.html#cplusplus-createscriptenvironment"><span class="std std-ref">CreateScriptEnvironment</span></a> has one parameter of type ‘int’)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">typedef</span> <span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="p">(</span><span class="n">__stdcall</span> <span class="o">*</span><span class="n">DLLFUNC</span><span class="p">)(</span><span class="nb">int</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The <a class="reference external" href="http://www.cplusplus.com/doc/tutorial/other_data_types/">typedef</a> declaration is used to construct shorter or more
+meaningful names (like ‘DLLFUNC’ here) for types that are already
+defined (like ‘IScriptEnvironment*’ here).</p>
+<p>In the second line the value of GetProcAddress is cast to the correct
+function pointer type.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">...</span> <span class="o">=</span> <span class="p">(</span><span class="n">DLLFUNC</span><span class="p">)</span><span class="n">GetProcAddress</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>We could also have used</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="p">(</span><span class="n">__stdcall</span> <span class="o">*</span><span class="n">CreateEnv</span><span class="p">)(</span><span class="nb">int</span><span class="p">)</span> <span class="o">=</span> <span class="n">NULL</span><span class="p">;</span>
+<span class="n">CreateEnv</span> <span class="o">=</span> <span class="p">(</span><span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="p">(</span><span class="n">__stdcall</span> <span class="o">*</span><span class="p">)(</span><span class="nb">int</span><span class="p">))</span><span class="n">GetProcAddress</span><span class="p">(</span><span class="n">avsdll</span><span class="p">,</span> <span class="s2">&quot;CreateScriptEnvironment&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>or shorter and less readable</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="p">(</span><span class="n">__stdcall</span> <span class="o">*</span><span class="n">CreateEnv</span><span class="p">)(</span><span class="nb">int</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="p">(</span><span class="n">__stdcall</span> <span class="o">*</span><span class="p">)(</span><span class="nb">int</span><span class="p">))</span><span class="n">GetProcAddress</span><span class="p">(</span><span class="n">avsdll</span><span class="p">,</span> <span class="s2">&quot;CreateScriptEnvironment&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>if (!CreateEnv) {
+    fprintf(stderr, &quot;failed to load CreateScriptEnvironment()\n&quot;);
+    FreeLibrary(avsdll);
+    return 1;
+}
+</pre></div>
+</div>
+<p>When CreateEnv is NULL (so GetProcAddress failed to retrieve the
+exported function) an error is written to the console. <a class="reference external" href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms683152(v=vs.85).aspx">FreeLibrary</a>
+frees the module from your memory.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span> <span class="o">=</span> <span class="n">CreateEnv</span><span class="p">(</span><span class="n">AVISYNTH_INTERFACE_VERSION</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This creates the script environment. Its members can be accessed by
+<a class="reference internal" href="Cplusplus_api.html#cplusplus-iscriptenvironment"><span class="std std-ref">env-&gt;…</span></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AVS_linkage</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">GetAVSLinkage</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>This gets the server pointers static storage <a class="reference internal" href="AVSLinkage.html"><span class="doc">AVS_Linkage</span></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AVSValue</span> <span class="n">arg</span><span class="p">(</span><span class="n">infile</span><span class="p">);</span>
+<span class="n">AVSValue</span> <span class="n">res</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">Invoke</span><span class="p">(</span><span class="s2">&quot;Import&quot;</span><span class="p">,</span> <span class="n">AVSValue</span><span class="p">(</span><span class="o">&amp;</span><span class="n">arg</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>This calls the <a class="reference external" href="http://avisynth.nl/index.php/Import">Import</a> function on the input file infile. So the
+script is loaded.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>if (!res.IsClip()) {
+    fprintf(stderr, &quot;Error: &#39;%s&#39; didn&#39;t return a video clip.\n&quot;, infile);
+    FreeLibrary(avsdll);
+    return 1;
+}
+</pre></div>
+</div>
+<p>f the return value of the script is not a clip an error is written to
+the console.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PClip</span> <span class="n">clip</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">AsClip</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">clip</span><span class="o">-&gt;</span><span class="n">GetVersion</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s2">&quot;Error: too old version (&#39;</span><span class="si">%d</span><span class="s2">&#39;) of avisynth.dll loaded.</span><span class="se">\n</span><span class="s2">please install v2.60 or later.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">clip</span><span class="o">-&gt;</span><span class="n">GetVersion</span><span class="p">());</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If the loaded avisynth.dll has an api version earlier than 5 an error
+is thrown. This is needed if you used functionality which doesn’t exist
+in older versions. Like using DeleteScriptEnvironment down the road to
+delete the script environment (yes it is easy to make it compatible
+with older api versions, but this is just for illustration). So it can
+be used to force a specific version.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">VideoInfo</span> <span class="n">vi</span> <span class="o">=</span> <span class="n">clip</span><span class="o">-&gt;</span><span class="n">GetVideoInfo</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="Cplusplus_api.html#cplusplus-getvideoinfo"><span class="std std-ref">GetVideoInfo</span></a> returns a <a class="reference internal" href="VideoInfo.html"><span class="doc">VideoInfo</span></a> structure of the clip.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>if (!vi.HasVideo()) {
+    fprintf(stderr, &quot;Error: &#39;%s&#39; audio only clip.\n&quot;, infile);
+    FreeLibrary(avsdll);
+    return 1;
+}
+</pre></div>
+</div>
+<p>Returns an error if the clip doesn’t contain video (in case it contains
+only audio for example).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s2">&quot; </span><span class="si">%s</span><span class="s2">:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">infile</span><span class="p">);</span>
+<span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s2">&quot; </span><span class="si">%d</span><span class="s2">x</span><span class="si">%d</span><span class="s2">,</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">vi</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">vi</span><span class="o">.</span><span class="n">height</span><span class="p">);</span>
+<span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s2">&quot; </span><span class="si">%d</span><span class="s2">/</span><span class="si">%d</span><span class="s2"> fps,</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">vi</span><span class="o">.</span><span class="n">fps_numerator</span><span class="p">,</span> <span class="n">vi</span><span class="o">.</span><span class="n">fps_denominator</span><span class="p">);</span>
+<span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s2">&quot; </span><span class="si">%d</span><span class="s2"> frames,</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">vi</span><span class="o">.</span><span class="n">num_frames</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">vi</span><span class="o">.</span><span class="n">IsYUV</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">colorformat</span> <span class="o">=</span> <span class="s2">&quot;YUV&quot;</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">colorformat</span> <span class="o">=</span> <span class="s2">&quot;RGB&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s2">&quot; </span><span class="si">%s</span><span class="s2"> color format&quot;</span><span class="p">,</span> <span class="n">colorformat</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Some information about the clip is written to the console.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">out_fh</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Creates an empty binary file and opens it for writing. It returns a
+file pointer called ‘out_fh’ here. Nb, ‘wb’ means write mode and
+binary.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>if (!out_fh) {
+    fprintf(stderr, &quot;fopen(\&quot;%s\&quot;) failed&quot;, outfile);
+    FreeLibrary(avsdll);
+    return 1;
+}
+</pre></div>
+</div>
+<p>When failing (thus when out_fh is NULL) an error is written to the
+console.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">static</span> <span class="n">const</span> <span class="nb">int</span> <span class="n">planes</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="n">PLANAR_Y</span><span class="p">,</span> <span class="n">PLANAR_U</span><span class="p">,</span> <span class="n">PLANAR_V</span><span class="p">};</span>
+</pre></div>
+</div>
+<p>All three planes will be processed. For interleaved formats,
+automatically, only the first plane (being the whole frame) will be
+written to the output file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="nb">int</span> <span class="n">frm</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">frm</span> <span class="o">&lt;</span> <span class="n">vi</span><span class="o">.</span><span class="n">num_frames</span><span class="p">;</span> <span class="o">++</span><span class="n">frm</span><span class="p">)</span> <span class="p">{</span>
+</pre></div>
+</div>
+<p>Run to all frames in the input file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PVideoFrame</span> <span class="n">f</span> <span class="o">=</span> <span class="n">clip</span><span class="o">-&gt;</span><span class="n">GetFrame</span><span class="p">(</span><span class="n">frm</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Gets frame ‘frm’.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="nb">int</span> <span class="n">p</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">p</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">;</span> <span class="n">p</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">int</span> <span class="n">height</span> <span class="o">=</span> <span class="n">f</span><span class="o">-&gt;</span><span class="n">GetHeight</span><span class="p">(</span><span class="n">planes</span><span class="p">[</span><span class="n">p</span><span class="p">]);</span>
+    <span class="nb">int</span> <span class="n">rowsize</span> <span class="o">=</span> <span class="n">f</span><span class="o">-&gt;</span><span class="n">GetRowSize</span><span class="p">(</span><span class="n">planes</span><span class="p">[</span><span class="n">p</span><span class="p">]);</span>
+    <span class="nb">int</span> <span class="n">pitch</span> <span class="o">=</span> <span class="n">f</span><span class="o">-&gt;</span><span class="n">GetPitch</span><span class="p">(</span><span class="n">planes</span><span class="p">[</span><span class="n">p</span><span class="p">]);</span>
+    <span class="n">const</span> <span class="n">BYTE</span><span class="o">*</span> <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">-&gt;</span><span class="n">GetReadPtr</span><span class="p">(</span><span class="n">planes</span><span class="p">[</span><span class="n">p</span><span class="p">]);</span>
+</pre></div>
+</div>
+<p>Gets the height, rowsize, pitch and a read pointer ‘data’ to the plane.
+See <a class="reference internal" href="InvertNeg.html"><span class="doc">InvertNeg</span></a> for more information.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="nb">int</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">y</span><span class="o">&lt;</span><span class="n">height</span><span class="p">;</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">fwrite</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">rowsize</span><span class="p">,</span> <span class="n">out_fh</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Writes ‘rowsize’ bytes from the block of memory pointed by ‘data’ to
+the current position in the file pointer ‘out_fh’.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">+=</span> <span class="n">pitch</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Move the read pointer to the next line.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span><span class="o">-&gt;</span><span class="n">DeleteScriptEnvironment</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>When all frames are processed the script environment is deleted.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FreeLibrary</span><span class="p">(</span><span class="n">avsdll</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Frees the library (avisynth.dll) from memory.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AVS_linkage</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">}</span> <span class="n">catch</span><span class="p">(</span><span class="n">AvisynthError</span> <span class="n">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Avisynth error:</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">err</span><span class="o">.</span><span class="n">msg</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>If a runtime error occurs, the <a class="reference external" href="http://avisynth.nl/index.php/Control_structures">try-catch statement</a> catches the
+error, and it is written to the console.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fclose</span><span class="p">(</span><span class="n">out_fh</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Closes the file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The application executed succesfully, so we return zero.</p>
+<div class="line-block">
+<div class="line">todo - static and dynamic linking (see above) -</div>
+<div class="line"><a class="reference external" href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms685090%28v=vs.85%29.aspx">http://msdn.microsoft.com/en-us/library/windows/desktop/ms685090%28v=vs.85%29.aspx</a></div>
+<div class="line"><a class="reference external" href="http://msdn.microsoft.com/en-us/library/d14wsce5.aspx">http://msdn.microsoft.com/en-us/library/d14wsce5.aspx</a></div>
+</div>
+<hr class="docutils" />
+<p>Back to <a class="reference internal" href="FilterSDK.html"><span class="doc">AviSynth FilterSDK</span></a></p>
+<p>$Date: 2014/10/27 22:04:54 $</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="avs2pcm.html" title="avs2pcm"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

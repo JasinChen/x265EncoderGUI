@@ -1,0 +1,171 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ColorBars / ColorBarsHD &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ColorYUV" href="coloryuv.html" />
+    <link rel="prev" title="Bob" href="bob.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="coloryuv.html" title="ColorYUV"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="bob.html" title="Bob"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="bob.html"
+                        title="previous chapter">Bob</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="coloryuv.html"
+                        title="next chapter">ColorYUV</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/corefilters/colorbars.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="colorbars-colorbarshd">
+<h1>ColorBars / ColorBarsHD<a class="headerlink" href="#colorbars-colorbarshd" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">ColorBars</span></code> (int “width”, int “height”, string “pixel_type”)</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ColorBars</span></code> filter produces a video clip containing SMPTE color bars
+(Rec. ITU-R BT.801-1) scaled to any image size. By default, a clip is
+produced of 640x480, RGB32 [16,235], 29.97 fps, 1 hour long, alpha channel
+opaque.
+The <code class="docutils literal notranslate"><span class="pre">ColorBarsHD</span></code> filter (added in <em>v2.60</em>) produces a video clip
+containing SMPTE color bars (Rec. ITU-R BT.709 / <a class="reference external" href="http://www.arib.or.jp/english/html/overview/img/arib_std-b28v1.0_e.pdf">arib std b28 v1.0</a>) scaled
+to any image size. By default, a clip is produced of 1288x720, YV24, 29.97
+fps, 1 hour long.</p>
+<p>For both filters, a test tone is also generated. Test tone is a 440Hz sine at
+48KHz, 16 bit, stereo. The tone pulses in the RIGHT speaker, being turned on
+and off once every second.</p>
+<p>For ColorBars the following pixel types are supported: “YUY2” (<em>v2.56</em>),
+“YV12” (<em>v2.56</em>), “YV24” (<em>v2.60</em>), or (default) “RGB32”. For ColorsBarsHD
+only “YV24” is supported.</p>
+<p>Note, that for example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ColorBars</span><span class="p">(</span><span class="n">pixel_type</span><span class="o">=</span><span class="s2">&quot;YUY2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>is almost equivalent with (the -I and +Q patterns have Y increased to the
+minimum legal value for RGB)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ColorBars</span><span class="p">(</span><span class="n">pixel_type</span><span class="o">=</span><span class="s2">&quot;RGB32&quot;</span><span class="p">)</span>
+<span class="n">ConvertToYUY2</span><span class="p">(</span><span class="n">matrix</span><span class="o">=</span><span class="s2">&quot;PC.601&quot;</span><span class="p">)</span>  <span class="c1"># doesn&#39;t scale the luma range</span>
+</pre></div>
+</div>
+<p>When directly generating YUV format data the color transitions are arranged
+to occur on a chroma aligned boundary.</p>
+<p>The lower part of ColorBars is called the pluge. From left to right it
+consists of: -I, white, +Q, black, -4/0/+4 IRE levels and black. The -4/0/4
+IRE levels can be used to set the brightness correctly. The -4 IRE and 0 IRE
+should have the same brightness, and the +4 IRE should be a little brighter
+than -4/0 IRE. The -I/+Q levels are not really interesting, since they are
+not used anymore for NTSC (analog TV), but they were used to set the
+chrominance correctly. More information about the colorbars and the pluge can
+be found <a class="reference external" href="http://avisynth.org/mediawiki/ColorBars_theory">here</a>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Changes:</th>
+<th class="head">&#160;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>v2.56</td>
+<td>Added pixel_type=”YUY2”/”YV12”.</td>
+</tr>
+<tr class="row-odd"><td>v2.60</td>
+<td><div class="first last line-block">
+<div class="line">Added pixel_type=”YV24” to ColorBars.</div>
+<div class="line">Initial release of ColorBarsHD.</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>$Date: 2011/04/17 03:58:18 $</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="coloryuv.html" title="ColorYUV"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="bob.html" title="Bob"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

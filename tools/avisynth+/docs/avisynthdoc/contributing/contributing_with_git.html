@@ -1,0 +1,413 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Contributing to AviSynth+ &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Invisible Tree" href="../index.html" />
+    <link rel="prev" title="Compiling AviSynth+" href="compiling_avsplus.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../index.html" title="Invisible Tree"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="compiling_avsplus.html" title="Compiling AviSynth+"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Contributing to AviSynth+</a><ul>
+<li><a class="reference internal" href="#installing-git">Installing git</a><ul>
+<li><a class="reference internal" href="#windows">Windows</a></li>
+<li><a class="reference internal" href="#linux">Linux</a></li>
+<li><a class="reference internal" href="#os-x">OS X</a></li>
+<li><a class="reference internal" href="#configuring-git">Configuring git</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#github">Github</a></li>
+<li><a class="reference internal" href="#forking">Forking</a></li>
+<li><a class="reference internal" href="#remotes">Remotes</a></li>
+<li><a class="reference internal" href="#checkouts">Checkouts</a></li>
+<li><a class="reference internal" href="#branching">Branching</a></li>
+<li><a class="reference internal" href="#committing">Committing</a></li>
+<li><a class="reference internal" href="#pushing">Pushing</a></li>
+<li><a class="reference internal" href="#creating-a-pull-request">Creating a pull request</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="compiling_avsplus.html"
+                        title="previous chapter">Compiling AviSynth+</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="next chapter">Invisible Tree</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/contributing/contributing_with_git.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="contributing-to-avisynth">
+<h1><a class="toc-backref" href="#id1">Contributing to AviSynth+</a><a class="headerlink" href="#contributing-to-avisynth" title="Permalink to this headline">¶</a></h1>
+<p>AviSynth+ uses <a class="reference external" href="https://git-scm.com/">git</a> as its distributed version control system (DVCS) of choice.
+This document is intended as a basic primer to help users unfamiliar with git,
+whether they have previously contributed to classic AviSynth (which uses the
+Concurrent Versions System, a.k.a. CVS), or are completely new to the project.
+It is not intended as a thorough treatment of any of these commands.  For that,
+you can refer to the <a class="reference external" href="https://git-scm.com/book/en/v2">Pro Git book</a>.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#contributing-to-avisynth" id="id1">Contributing to AviSynth+</a><ul>
+<li><a class="reference internal" href="#installing-git" id="id2">Installing git</a><ul>
+<li><a class="reference internal" href="#windows" id="id3">Windows</a></li>
+<li><a class="reference internal" href="#linux" id="id4">Linux</a></li>
+<li><a class="reference internal" href="#os-x" id="id5">OS X</a></li>
+<li><a class="reference internal" href="#configuring-git" id="id6">Configuring git</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#github" id="id7">Github</a></li>
+<li><a class="reference internal" href="#forking" id="id8">Forking</a></li>
+<li><a class="reference internal" href="#remotes" id="id9">Remotes</a></li>
+<li><a class="reference internal" href="#checkouts" id="id10">Checkouts</a></li>
+<li><a class="reference internal" href="#branching" id="id11">Branching</a></li>
+<li><a class="reference internal" href="#committing" id="id12">Committing</a></li>
+<li><a class="reference internal" href="#pushing" id="id13">Pushing</a></li>
+<li><a class="reference internal" href="#creating-a-pull-request" id="id14">Creating a pull request</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="installing-git">
+<h2><a class="toc-backref" href="#id2">Installing git</a><a class="headerlink" href="#installing-git" title="Permalink to this headline">¶</a></h2>
+<p>How to install git varies, depending on your operating system.</p>
+<div class="section" id="windows">
+<h3><a class="toc-backref" href="#id3">Windows</a><a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<p>Windows users should have installed msys2 first, as described in
+<a class="reference internal" href="compiling_avsplus.html"><span class="doc">Compiling AviSynth+</span></a></p>
+<p>With the msys2/mintty prompt open, install git:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pacman</span> <span class="o">-</span><span class="n">S</span> <span class="n">msys</span><span class="o">/</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>This is not the only way to install git on Windows, but considering
+this tutorial is meant to dovetail with the compiling tutorial, this
+is the recommended way.</p>
+</div>
+<div class="section" id="linux">
+<h3><a class="toc-backref" href="#id4">Linux</a><a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
+<p>You can install git through your distribution’s repositories.</p>
+</div>
+<div class="section" id="os-x">
+<h3><a class="toc-backref" href="#id5">OS X</a><a class="headerlink" href="#os-x" title="Permalink to this headline">¶</a></h3>
+<p>As per the instructions on the <a class="reference external" href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git#Installing-on-Mac">git main site</a>:</p>
+<p>Open a Terminal by clicking on Spotlight and typing ‘Terminal’ (without the quotes).
+Hit Enter and the Terminal will open.  Attempt to run git:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+</div>
+<p>And it should prompt you to install the Xcode Command Line Tools.</p>
+</div>
+<div class="section" id="configuring-git">
+<h3><a class="toc-backref" href="#id6">Configuring git</a><a class="headerlink" href="#configuring-git" title="Permalink to this headline">¶</a></h3>
+<p>In all of these cases, there’s some extra set up of git’s configuration
+that’s recommended to make things easier.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="k">global</span> <span class="n">user</span><span class="o">.</span><span class="n">name</span> <span class="s2">&quot;Your Name&quot;</span>
+</pre></div>
+</div>
+<p>Use the above command to set your name.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="k">global</span> <span class="n">user</span><span class="o">.</span><span class="n">email</span> <span class="s2">&quot;email address&quot;</span>
+</pre></div>
+</div>
+<p>And set your email.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="k">global</span> <span class="n">core</span><span class="o">.</span><span class="n">editor</span> <span class="s2">&quot;nano&quot;</span>
+</pre></div>
+</div>
+<p>This will set the default editor as nano. nano is easier for new users to
+navigate than vim, which is the default editor git uses on some platforms.
+The editor choice matters because when you go to make a commit, the editor
+is activated to let you type up a commit message.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="k">global</span> <span class="n">core</span><span class="o">.</span><span class="n">whitespace</span> <span class="s2">&quot;trailing-space,space-before-tab&quot;</span>
+</pre></div>
+</div>
+<p>This tells git to warn you about whitespace errors in commits.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="k">global</span> <span class="n">apply</span><span class="o">.</span><span class="n">whitespace</span> <span class="s2">&quot;fix&quot;</span>
+</pre></div>
+</div>
+<p>And this will tell git to attempt to fix any whitespace errors that are encountered.</p>
+</div>
+</div>
+<div class="section" id="github">
+<h2><a class="toc-backref" href="#id7">Github</a><a class="headerlink" href="#github" title="Permalink to this headline">¶</a></h2>
+<p>AviSynth+ hosts its code <a class="reference external" href="https://github.com/AviSynth/AviSynthPlus.git">on Github</a>.  Users wishing to contribute to AviSynth+
+should have their own account on Github as well.  Github’s own tutorials will
+assist you in setting up your account and generating the correct authentication
+signatures, so I won’t be covering that part.</p>
+</div>
+<div class="section" id="forking">
+<h2><a class="toc-backref" href="#id8">Forking</a><a class="headerlink" href="#forking" title="Permalink to this headline">¶</a></h2>
+<p>git as a whole relies on the concept of “forking is good”, even though the way
+it plays out in reality is that such forks are more akin to personal branches,
+not to a ‘fork’ in the way that projects sometimes break up and part ways (see:
+AviSynth+ and classic AviSynth, Libav and FFmpeg, LibreSSL and OpenSSL, etc.).
+Github provides a streamlined way for these personal branches to submit their
+changes back to the upstream project for inclusion.  This is what a ‘pull request’
+is.  Of course, any of these personal branches could effect a fork the way
+that term is traditionally understood, if the changes diverge too much from upstream
+and/or if upstream rejects the changes for any number of reasons.</p>
+<p>Anyway, now that your Github account is set up, navigate to AviSynth+’s repository
+and click the Fork button.</p>
+<img alt="../../_images/github-fork.png" src="../../_images/github-fork.png" />
+<p>Github will spawn an AviSynthPlus repository under your account, and give you
+the command to clone a copy which you can use to push your changes to your
+personal AviSynthPlus repo on Github.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;/</span><span class="n">AviSynthPlus</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>The command ‘git clone’ creates a copy of the AviSynth+ source code on your local
+computer.</p>
+<p>Enter the newly-created repo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">AviSynthPlus</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="remotes">
+<h2><a class="toc-backref" href="#id9">Remotes</a><a class="headerlink" href="#remotes" title="Permalink to this headline">¶</a></h2>
+<p>git allows you to keep track of the changes in multiple other repositories at once;
+these are called ‘remotes’.</p>
+<p>Logically, the first remote you should track is the upstream project, so that you
+can grab any changes that occur upstream:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">upstream</span> <span class="n">git</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">AviSynth</span><span class="o">/</span><span class="n">AviSynthPlus</span><span class="o">.</span><span class="n">git</span>
+<span class="n">git</span> <span class="n">fetch</span> <span class="n">upstream</span>
+</pre></div>
+</div>
+<p>This is a two-step process.  Let’s break it down: <em>git remote</em> is the name of the
+main command, ‘add’ is the command to tell <em>git remote</em> to add a new remote,
+‘upstream’ is the name you’re assigning this new remote, and the URL is the location
+you want to track.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="13%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Command</th>
+<th class="head">Subcommand</th>
+<th class="head">Name</th>
+<th class="head">URL</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>git remote</td>
+<td>add</td>
+<td>upstream</td>
+<td>git://github.com/AviSynth/AviSynthPlus.git</td>
+</tr>
+</tbody>
+</table>
+<p>On its own, though, this only sets up the bookmark.  It doesn’t
+actually get you the record of the changes.</p>
+<p><em>git fetch</em> is what actually pulls in the record of the changes made to upstream,
+if any have been made.  It also shows a summary of which branches in upstream’s repository
+have been added, changed, or deleted.  <em>git fetch</em> does not integrate those changes into
+the corresponding branches in your personal repository, so you can safely ignore
+changes that may break your own changes, or if you want to divert a branch from upstream
+into a differently-named branch locally.</p>
+<p>So what happens if there <em>are</em> changes you want to stay current on?  Well, let’s say
+that the ‘upstream’ remote has two branches: <em>master</em> (the default name for the main branch
+of a repository created with git) and <em>feature</em>, which contains some extra things in the
+process of being developed.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">merge</span> <span class="n">upstream</span><span class="o">/</span><span class="n">master</span>
+</pre></div>
+</div>
+<p>This will merge the contents of upstream’s ‘master’ branch into the branch you’re currently
+sitting on.  If you’ve not made any changes at all to that branch, it should do a simple
+fast-forward, appearing as though you’d freshly cloned the repository with those commits
+already present.  If there are any differences, it will end up with a merge commit.  In the
+worst-case scenario, conflicts arise.  git provides the <em>mergetool</em> command to help mediate
+this, but the workflow for handling conflicts is beyond the scope of this primer.</p>
+</div>
+<div class="section" id="checkouts">
+<h2><a class="toc-backref" href="#id10">Checkouts</a><a class="headerlink" href="#checkouts" title="Permalink to this headline">¶</a></h2>
+<p>So dealing with <em>master</em> is all good and fine, but what if you want to work with
+the <em>feature</em> branch?  To do that:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="n">feature</span>
+</pre></div>
+</div>
+<p>Which will move you onto the <em>feature</em> branch.  To move back to master, just use
+<em>git checkout</em> again:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="n">master</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="branching">
+<h2><a class="toc-backref" href="#id11">Branching</a><a class="headerlink" href="#branching" title="Permalink to this headline">¶</a></h2>
+<p>Now that you have your own AviSynth+ local repository and have created a remote to
+track upstream, you want to get to making your changes.  To keep the commit history
+clean, create a new branch with a unique name.  While it’s possible to do this in
+two steps by using <em>git branch</em> and then <em>git checkout</em>, it’s also possible to do
+it in one step with just <em>git checkout</em>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">newbranch</span>
+</pre></div>
+</div>
+<p>This will create a branch from the branch you had just been on.  So if you’re on
+<em>master</em>, <em>newbranch</em> will have all of the commits on <em>master</em> up to the point it
+was created.</p>
+</div>
+<div class="section" id="committing">
+<h2><a class="toc-backref" href="#id12">Committing</a><a class="headerlink" href="#committing" title="Permalink to this headline">¶</a></h2>
+<p>When you’ve made some changes to one or multiple files, the next step is to commit them.
+This means that the changes are logged into the git history of the repository, and
+if warranted, a patch can be created of only <em>those</em> changes.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">status</span>
+</pre></div>
+</div>
+<p>This will show you all files that have been changed.</p>
+<img alt="../../_images/git_status.png" src="../../_images/git_status.png" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">add</span> <span class="n">file1</span> <span class="n">file2</span>
+</pre></div>
+</div>
+<p>This command tells git to track the changes of those files, readying them for a commit.
+If you run <em>git status</em> again, the color of the text will have changed from brown to
+green, with a description prefixed to it:</p>
+<img alt="../../_images/git_status2.png" src="../../_images/git_status2.png" />
+<p>Alternatively,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">add</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>will add all changed files.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">commit</span>
+</pre></div>
+</div>
+<p>Will do the actual commit (you can also combine <em>git add .</em> and <em>git commit</em> into one step by
+using <em>git commit -a</em>).  At this point, nano (or the text editor of your choice) will
+appear:</p>
+<img alt="../../_images/git_commit.png" src="../../_images/git_commit.png" />
+<p>Type in a descriptive message about the changes, and then tell nano to exit (Ctrl+X), which will
+prompt you to approve the changes before it commits them.  Preferably, the commit message
+should be formatted like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="n">area</span><span class="o">*</span><span class="p">:</span> <span class="o">*</span><span class="n">short</span> <span class="n">description</span><span class="o">*</span>
+
+<span class="o">*</span><span class="n">long</span> <span class="n">description</span><span class="p">,</span> <span class="k">if</span> <span class="n">necessary</span><span class="o">*</span>
+</pre></div>
+</div>
+<p>The short description should fall below the 80-character margin the rest of the text in nano
+adheres to. It makes it nicer for those browsing the log.</p>
+<p>Make sure that changes are topical.  Don’t throw unrelated changes into the same commit.
+Whitespace and formatting changes should always be in separate commits unless it happens
+to be a consequence of the exact change made (a single space or newline disappearing
+amidst changes all around it is one thing, but all the rest of the whitespace in the file
+changing at once with unrelated changes interspersed throughout it is not okay).</p>
+</div>
+<div class="section" id="pushing">
+<h2><a class="toc-backref" href="#id13">Pushing</a><a class="headerlink" href="#pushing" title="Permalink to this headline">¶</a></h2>
+<p>Pushing is the act of uploading the changes you’ve made to your repository to the
+publically-available URL that everyone else can see (in our case, your Github account).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="o">&lt;</span><span class="n">branchname</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Where &lt;branchname&gt; is the name of the branch you’re making available or updating.</p>
+</div>
+<div class="section" id="creating-a-pull-request">
+<h2><a class="toc-backref" href="#id14">Creating a pull request</a><a class="headerlink" href="#creating-a-pull-request" title="Permalink to this headline">¶</a></h2>
+<p>Now that you have your changes pushed up onto Github, you can make a pull request of
+these changes back to AviSynth+.</p>
+<p>On your personal AviSynth+ repository, use the ‘Branch’ button (1) to select the branch
+you want to create a pull request from.  Then hit the ‘New pull request’ button (2) to
+have Github create the pull request for you.</p>
+<img alt="../../_images/pullrequest.png" src="../../_images/pullrequest.png" />
+<p>On the ‘Open a pull request’ page you can select exactly which branch and fork
+the pull request should go to.  Write up a short title to describe the changes
+you’ve made, and in the comment box, write a longer and more thorough description
+if you feel it’s necessary (or if you were overly vague in the title).  Finally,
+click the ‘Create pull request’ button, and the pull request will be made.</p>
+<p>The project administration can then review your changes and suggest fixes that
+might be needed.  If you add additional commits to your branch that you opened
+the pull request with, then the new commits will show up in the pull request.</p>
+<p>Back to the <a class="reference internal" href="../../index.html"><span class="doc">main page</span></a></p>
+<p>$Date: 2016-07-04 16:51:06 -04:00 $</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../index.html" title="Invisible Tree"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="compiling_avsplus.html" title="Compiling AviSynth+"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

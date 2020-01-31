@@ -1,0 +1,597 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AviSynth, variable framerate (vfr) video and hybrid video &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Importing media into AviSynth" href="importing_media.html" />
+    <link rel="prev" title="Colorimetry" href="colorimetry.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="importing_media.html" title="Importing media into AviSynth"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="colorimetry.html" title="Colorimetry"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">AviSynth, variable framerate (vfr) video and hybrid video</a><ul>
+<li><a class="reference internal" href="#variable-framerate-and-hybrid-video">Variable framerate and hybrid video</a></li>
+<li><a class="reference internal" href="#how-to-recognize-vfr-content-mkv-mp4">How to recognize vfr content (mkv/mp4)</a></li>
+<li><a class="reference internal" href="#opening-mpeg-2-hybrid-video-in-avisynth-and-re-encoding">Opening MPEG-2 hybrid video in AviSynth and re-encoding</a><ul>
+<li><a class="reference internal" href="#encoding-to-cfr-23-976-fps-or-29-97-fps">encoding to cfr (23.976 fps or 29.97 fps)</a></li>
+<li><a class="reference internal" href="#encoding-to-cfr-120-fps">encoding to cfr - 120 fps</a></li>
+<li><a class="reference internal" href="#encoding-to-vfr-mkv">encoding to vfr (mkv)</a></li>
+<li><a class="reference internal" href="#encoding-to-vfr-mp4">encoding to vfr (mp4)</a></li>
+<li><a class="reference internal" href="#summary-of-the-methods">summary of the methods</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#opening-non-mpeg-2-hybrid-video-in-avisynth-and-re-encoding">Opening non MPEG-2 hybrid video in AviSynth and re-encoding</a><ul>
+<li><a class="reference internal" href="#opening-non-avi-vfr-content-in-avisynth">opening non-avi vfr content in AviSynth</a></li>
+<li><a class="reference internal" href="#re-encoding-120-fps-video">re-encoding 120 fps video</a></li>
+<li><a class="reference internal" href="#converting-vfr-to-cfr-avi-for-avisynth">converting vfr to cfr avi for AviSynth</a></li>
+<li><a class="reference internal" href="#encoding-to-mpeg-2-vfr-video">encoding to MPEG-2 vfr video</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#audio-synchronization">Audio synchronization</a></li>
+<li><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="colorimetry.html"
+                        title="previous chapter">Colorimetry</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="importing_media.html"
+                        title="next chapter">Importing media into AviSynth</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/advancedtopics/hybrid_video.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="avisynth-variable-framerate-vfr-video-and-hybrid-video">
+<h1><a class="toc-backref" href="#id2">AviSynth, variable framerate (vfr) video and hybrid video</a><a class="headerlink" href="#avisynth-variable-framerate-vfr-video-and-hybrid-video" title="Permalink to this headline">¶</a></h1>
+<p>There are two kinds of video when considering framerate, constant framerate
+(cfr) video and variable framerate (vfr) video. For cfr video the frames have
+a constant duration, and for vfr video the frames have a non-constant
+duration. Many editing programs (including VirtualDub and AviSynth) assume
+that the video is cfr, partly because avi doesn’t support vfr. This won’t
+change in the near future for <a class="reference external" href="http://forum.doom9.org/showthread.php?s=&amp;threadid=69132">various reasons</a>. Although the avi container
+doesn’t support vfr, there are several containers (mkv, mp4 and wmv/asf for
+example) which do support vfr.</p>
+<p>Hybrid video is commonly defined as being a mix of pulled-down material and
+non-pulled-down material (where the pulldown can be of fields, as in standard
+3:2 pulldown, or full frames). It’s not relevant whether the pulldown is hard
+(the fields/frames are duplicated before the encoding) or soft (adding the
+appriopriate flags in the stream which indicate which fields/frames should be
+duplicated during playback). So, it can be either cfr or vfr. Thus hybrid
+video is simply video with different base framerates (for example 8, 12, and
+16 fps at which anime is often drawn). The base framerate is the rate before
+any pulldown. What makes hybrids challenging is the need to decide what final
+framerate to use.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#avisynth-variable-framerate-vfr-video-and-hybrid-video" id="id2">AviSynth, variable framerate (vfr) video and hybrid video</a><ul>
+<li><a class="reference internal" href="#variable-framerate-and-hybrid-video" id="id3">Variable framerate and hybrid video</a></li>
+<li><a class="reference internal" href="#how-to-recognize-vfr-content-mkv-mp4" id="id4">How to recognize vfr content (mkv/mp4)</a></li>
+<li><a class="reference internal" href="#opening-mpeg-2-hybrid-video-in-avisynth-and-re-encoding" id="id5">Opening MPEG-2 hybrid video in AviSynth and re-encoding</a><ul>
+<li><a class="reference internal" href="#encoding-to-cfr-23-976-fps-or-29-97-fps" id="id6">encoding to cfr (23.976 fps or 29.97 fps)</a></li>
+<li><a class="reference internal" href="#encoding-to-cfr-120-fps" id="id7">encoding to cfr - 120 fps</a></li>
+<li><a class="reference internal" href="#encoding-to-vfr-mkv" id="id8">encoding to vfr (mkv)</a></li>
+<li><a class="reference internal" href="#encoding-to-vfr-mp4" id="id9">encoding to vfr (mp4)</a></li>
+<li><a class="reference internal" href="#summary-of-the-methods" id="id10">summary of the methods</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#opening-non-mpeg-2-hybrid-video-in-avisynth-and-re-encoding" id="id11">Opening non MPEG-2 hybrid video in AviSynth and re-encoding</a><ul>
+<li><a class="reference internal" href="#opening-non-avi-vfr-content-in-avisynth" id="id12">opening non-avi vfr content in AviSynth</a></li>
+<li><a class="reference internal" href="#re-encoding-120-fps-video" id="id13">re-encoding 120 fps video</a></li>
+<li><a class="reference internal" href="#converting-vfr-to-cfr-avi-for-avisynth" id="id14">converting vfr to cfr avi for AviSynth</a></li>
+<li><a class="reference internal" href="#encoding-to-mpeg-2-vfr-video" id="id15">encoding to MPEG-2 vfr video</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#audio-synchronization" id="id16">Audio synchronization</a></li>
+<li><a class="reference internal" href="#references" id="id17">References</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="variable-framerate-and-hybrid-video">
+<h2><a class="toc-backref" href="#id3">Variable framerate and hybrid video</a><a class="headerlink" href="#variable-framerate-and-hybrid-video" title="Permalink to this headline">¶</a></h2>
+<p>It’s important to understand that usually video is cfr. There is one example
+where converting to vfr can be very useful, which is hybrid video. Hybrid
+video is video with different base framerates (for example 8, 12, and 16 fps
+at which anime is often drawn). The most common example of hybrid video
+consists of parts that are interlaced/progressive NTSC (29.97 fps) and other
+parts which are FILM (telecined from 23.976 fps to 29.97 fps). For soft
+pulldown, the NTSC part (also called video part) is played back at 29.97 fps
+and the telecined part also by duplicating fields (to go from 23.976 fps to
+29.97 fps). For hard pulldown, it is played back at 29.97 fps without adding
+any fields. Other examples of hybrid video include many of the modern anime
+TV Series, many of the Sci-Fi TV Series, such as Stargate: SG1, Star Trek:
+TNG, and Babylon 5), and many of the “Making Of” documentaries included on
+DVD.</p>
+<p>Examples of hybrid video include many of the modern anime TV Series, many of
+the Sci-Fi TV Series (such as Stargate: SG1, Star Trek: TNG, and Babylon 5),
+and many of the “Making Of” documentaries included on DVD.</p>
+<p>The TIVTC package is designed to work with hybrid video losslessly, while the
+Decomb package has routines to convert to cfr via blending.</p>
+</div>
+<div class="section" id="how-to-recognize-vfr-content-mkv-mp4">
+<h2><a class="toc-backref" href="#id4">How to recognize vfr content (mkv/mp4)</a><a class="headerlink" href="#how-to-recognize-vfr-content-mkv-mp4" title="Permalink to this headline">¶</a></h2>
+<p>Here are some ways to determine if the mkv/mp4 is vfr:</p>
+<p><em>mpeg-2:</em> DGIndex will report a Film/Video percentage, which can tell you
+much hybrid content a soft-pulldowned file has. It will not work with hard
+pulldown, and isn’t always accurate if hard/soft are mixed.</p>
+<p><em>mkv:</em> get timecodes file using <a class="reference external" href="http://haali.cs.msu.ru/mkv/mkv2vfr.exe">mkv2vfr</a> to check this.</p>
+<p><em>mp4:</em> this can be found out by using mp4dump (from the <a class="reference external" href="http://www.rarewares.org/mp4.html">MPEG4 tools by
+MPEG4ip package</a>). Open a dos prompt and type (using appropriate paths)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mp4dump</span> <span class="o">-</span><span class="n">verbose</span><span class="o">=</span><span class="mi">2</span> <span class="n">holly_xvid</span><span class="o">.</span><span class="n">mp4</span> <span class="o">&gt;</span> <span class="n">log</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>Open the log file, and look for output like this (look up the stts atom to
+figure out the length of each frame):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span> <span class="n">stts</span>
+       <span class="n">version</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">(</span><span class="mh">0x00</span><span class="p">)</span>
+       <span class="n">flags</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">(</span><span class="mh">0x000000</span><span class="p">)</span>
+       <span class="n">entryCount</span> <span class="o">=</span> <span class="mi">41</span> <span class="p">(</span><span class="mh">0x00000029</span><span class="p">)</span>
+        <span class="n">sampleCount</span> <span class="o">=</span> <span class="mi">3</span> <span class="p">(</span><span class="mh">0x00000003</span><span class="p">)</span>
+        <span class="n">sampleDelta</span> <span class="o">=</span> <span class="mi">1000</span> <span class="p">(</span><span class="mh">0x000003e8</span><span class="p">)</span>
+        <span class="n">sampleCount</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">(</span><span class="mh">0x00000001</span><span class="p">)</span>
+        <span class="n">sampleDelta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2000</span> <span class="p">(</span><span class="mh">0x000007d0</span><span class="p">)</span>
+        <span class="n">sampleCount</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span> <span class="p">(</span><span class="mh">0x00000003</span><span class="p">)</span>
+        <span class="n">sampleDelta</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1000</span> <span class="p">(</span><span class="mh">0x000003e8</span><span class="p">)</span>
+        <span class="n">sampleCount</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">(</span><span class="mh">0x00000001</span><span class="p">)</span>
+        <span class="n">sampleDelta</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2000</span> <span class="p">(</span><span class="mh">0x000007d0</span><span class="p">)</span>
+        <span class="n">etc</span> <span class="o">...</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><em>sampleDelta</em> indicates how long the frames get displayed and <em>sampleCount</em>
+tells how many frames. Thus on the example above:</div>
+<div class="line">3 frames are displayed with length 1000</div>
+<div class="line">1 frame are displayed with length 2000</div>
+<div class="line">3 frames with length 1000</div>
+<div class="line">1 frame with length 2000</div>
+<div class="line">etc …</div>
+</div>
+<p>The time values are not seconds, but “ticks”, which you have to calculate
+into seconds via the “timescale” value.  This “timescale” is stored in
+timescale atom for the video track (make sure that you look at the right
+timescale for your track, cause every track has its own timescale). Look for
+output like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span> <span class="n">mdia</span>
+    <span class="nb">type</span> <span class="n">mdhd</span>
+<span class="o">...</span>
+     <span class="n">timeScale</span> <span class="o">=</span> <span class="mi">24976</span> <span class="p">(</span><span class="mh">0x00006190</span><span class="p">)</span>
+     <span class="n">duration</span> <span class="o">=</span> <span class="mi">208000</span> <span class="p">(</span><span class="mh">0x00032c80</span><span class="p">)</span>
+     <span class="n">language</span> <span class="o">=</span> <span class="mi">21956</span> <span class="p">(</span><span class="mh">0x55c4</span><span class="p">)</span>
+     <span class="n">reserved</span> <span class="o">=</span> <span class="o">&lt;</span><span class="mi">2</span> <span class="nb">bytes</span><span class="o">&gt;</span> <span class="mi">00</span> <span class="mi">00</span>
+</pre></div>
+</div>
+<p>In this example the timeScale is 24976. Most of the frames have a length of
+1000. 1000/24976 = 0.04 which means each frame of the first 3 gets displayed
+with a length of 0.04 seconds, which is the equivalent to 25 fps (1/25 =
+0.04). The next frame has a length of 2000. 2000/24976 = 0.08 which means
+that it is displayed with a length of 0.08, which is the equivalent to 12.5
+fps (1/12.5 = 0.08). etc …</p>
+<p>The log file above comes from a video which is in fact hybrid.</p>
+</div>
+<div class="section" id="opening-mpeg-2-hybrid-video-in-avisynth-and-re-encoding">
+<h2><a class="toc-backref" href="#id5">Opening MPEG-2 hybrid video in AviSynth and re-encoding</a><a class="headerlink" href="#opening-mpeg-2-hybrid-video-in-avisynth-and-re-encoding" title="Permalink to this headline">¶</a></h2>
+<p>Assuming you have hybrid video, there are several ways to encode it. They are
+listed below. The first method is to convert it to cfr video (either 23.976
+or 29.97 fps). The second one is to encode it at 120 fps using avi and
+dropped frames (where duplicate frames are dropped upon playback). The third
+one is to create true vfr using the mkv or mp4 container.</p>
+<div class="section" id="encoding-to-cfr-23-976-fps-or-29-97-fps">
+<h3><a class="toc-backref" href="#id6">encoding to cfr (23.976 fps or 29.97 fps)</a><a class="headerlink" href="#encoding-to-cfr-23-976-fps-or-29-97-fps" title="Permalink to this headline">¶</a></h3>
+<p>If we choose the video rate, the video sequences will be OK, but the FILM
+sequences will not be decimated, appearing slightly jumpy (due to the
+duplicated frames). On the other hand, if we choose the FILM rate, the FILM
+sequences will be OK, but the video sequences will be decimated, appearing
+jumpy (due to the “missing” frames). Additionally, when encoding to 29.97
+fps, you will get lower quality for the same file size, because of the 25%
+greater number of frames. It’s a tough decision which to choose. If the clip
+is mostly FILM you might choose 23.976 fps, and if the clip is mostly video
+you might choose 29.97 fps. The source also is a factor. If the majority of
+the video portions are fairly static “talking heads”, for example, you might
+be able to decimate them to 23.976 fps without any obvious stutter on
+playback.</p>
+<p>When you create your d2v project file you will see whether the clip is mostly
+video (NTSC) or FILM (in the information box). However, many of these hybrids
+are encoded entirely as NTSC, with the film portions being “hard telecined”
+(the already telecined extra fields having also been encoded) so you’ll have
+to examine the source carefully to determine what you have, and how you wish
+to treat it.</p>
+<p>The AviSynth plugins Decomb and TIVTC provide two special decimation modes to
+better handle hybrid clips by blending. This will eat bitrate quickly, but it
+appears very smooth. Here is a typical script to enable this mode of
+operation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Telecide</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">guide</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Decimate</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">X</span><span class="p">)</span> <span class="c1"># tweak &quot;threshold&quot; for film/video detection</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TFM</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">TDecimate</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">hybrid</span><span class="o">=</span><span class="n">X</span><span class="p">)</span> <span class="c1"># tweak &quot;vidThresh&quot; for film/video detection</span>
+</pre></div>
+</div>
+<p>There are 2 factors that enable Decimate to treat the film and nonfilm
+portions appropriately. First, when Telecide declares guide=1, it is able to
+pass information to Decimate about which frames are derived from film and
+which from video. For this mechanism to work, Decimate must immediately
+follow Telecide. Clearly, the better job you do with pattern locking in
+Telecide (by tweaking parameters as required), the better job Decimate can
+do.</p>
+<p>The second factor is the threshold. If a cycle of frames is seen that does
+not have a duplicate, then the cycle is treated as video. The threshold
+determines what percentage of frame difference is considered to be a
+duplicate. Note that threshold=0 disables the second factor.</p>
+<p>Make sure to get the field order correct - DVDs are generally order=1, and
+captured video is generally order=0. The included DecombTutorial?.html
+explains how to determine the field order.</p>
+<p><em>Mostly Film Clips (mode=3)</em></p>
+<p>When the clip is mostly film, we want to decimate the film portions normally
+so they will be smooth. For the nonfilm portions, we want to reduce their
+frame rate by blend decimating each cycle of frames from 5 frames to 4
+frames. Video sequences so rendered appear smoother than when they are
+decimated as film. Set Decimate to mode=3, or TDecimate to hybrid=1 for this
+behavior.</p>
+<p>Another IVTC was developed specifically to handle hybrid material without
+blended frames: SmartDecimate. While you do get “clean” frames as a result,
+it also may play with slightly more stutter than does Decomb’s result. A
+typical script might go:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">B</span> <span class="o">=</span> <span class="n">TDeint</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># or KernelBob(order=1)</span>
+<span class="n">SmartDecimate</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In order to keep the result as smooth playing as possible, it will insert the
+“Smart Bobbed” frames from time to time.</p>
+<p><em>Mostly Video Clips (mode=1)</em></p>
+<p>When the clip is mostly video, we want to avoid decimating the video portions
+in order to keep playback as smooth as possible. For the film portions, we
+want to leave them at the video rate but change the duplicated frames into
+frame blends so it is not so obvious. Set Decimate to mode=1, or TDecimate to
+hybrid=3 for this behavior.</p>
+<p>In this case you may also consider leaving it interlaced and encoding as
+such, especially if you’ll be watching on a TV later.</p>
+</div>
+<div class="section" id="encoding-to-cfr-120-fps">
+<h3><a class="toc-backref" href="#id7">encoding to cfr - 120 fps</a><a class="headerlink" href="#encoding-to-cfr-120-fps" title="Permalink to this headline">¶</a></h3>
+<p>For this you’ll need <a class="reference external" href="http://bengal.missouri.edu/~kes25c/">TIVTC and avi_tc</a>. Start by creating a
+<a class="reference external" href="http://www.avisynth.org/VariableFrameRateVideo">decimated avi with timecodes.txt</a>,
+but skip the muxing. Then open tc-gui’s tc2cfr tab and add your files or
+use this command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tc2cfr</span> <span class="mi">120000</span><span class="o">/</span><span class="mi">1001</span> <span class="n">c</span><span class="p">:</span>\<span class="n">video</span>\<span class="n">video</span><span class="o">.</span><span class="n">avi</span> <span class="n">c</span><span class="p">:</span>\<span class="n">video</span>\<span class="n">timecodes</span><span class="o">.</span><span class="n">txt</span> <span class="n">c</span><span class="p">:</span>\<span class="n">video</span>\<span class="n">video</span><span class="o">-</span><span class="mf">120.</span><span class="n">avi</span>
+</pre></div>
+</div>
+<p>Then mux with your audio. This works because tc2cfr creates an avi with drop
+frames filling in the extra space with drop frames to create a smooth 120fps
+avi.</p>
+</div>
+<div class="section" id="encoding-to-vfr-mkv">
+<span id="create-vfr-mkv"></span><h3><a class="toc-backref" href="#id8">encoding to vfr (mkv)</a><a class="headerlink" href="#encoding-to-vfr-mkv" title="Permalink to this headline">¶</a></h3>
+<p>First download <a class="reference external" href="http://www.bunkus.org/videotools/mkvtoolnix/downloads.html">mkvtoolnix</a>. We will use this to mux our video into the MKV
+container WITH a timecode adjustment file. Make sure that you have the latest
+version (4.9.1 as of this writing), as older ones read timecodes incorrectly.</p>
+<p>There are several AviSynth plugins that you can use to generate the VFR video
+and required timecode file. An example is given below using the
+<a class="reference external" href="http://webpages.charter.net/falconx/decombvfrmod.html">Decomb521VFR</a> plugin. Another alternative is the TDecimate plugin contained
+in the <a class="reference external" href="http://www.missouri.edu/~kes25c/">TIVTC</a> package. See their respective documentations to learn more
+about tweaking them.</p>
+<p>The <a class="reference external" href="http://avisynth.org/warpenterprises/">DeDup</a> plugin removes duplicate frames but does not change the
+framerate (leaving jerky video if not decimated first), so it won’t be
+included. It can still be used after either method by using their timecodes
+as input to DeDup.</p>
+<p><em>Decomb521VFR</em></p>
+<p>Add this to your script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Decomb521VFR_Decimate</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="n">true</span><span class="p">,</span> <span class="n">timecodes</span><span class="o">=</span><span class="s2">&quot;timecodes.txt&quot;</span><span class="p">,</span> <span class="n">vfrstats</span><span class="o">=</span><span class="s2">&quot;stats.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Open this script in VirtualDub, it will create the timecodes and stats files,
+then encode. It will seem to freeze at first, because it examines every frame
+on the first load.</p>
+<p><em>TIVTC</em></p>
+<p>This is a 2-pass mode. Add this to your script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TFM</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;tfm.txt&quot;</span><span class="p">)</span>
+<span class="n">TDecimate</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;stats.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Open this and play through it in VirtualDub. Then close it, comment those
+lines out (or start a second script) and add:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TFM</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">input</span><span class="o">=</span><span class="s2">&quot;tfm.txt&quot;</span><span class="p">)</span>
+<span class="n">TDecimate</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">hybrid</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dupthresh</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="nb">input</span><span class="o">=</span><span class="s2">&quot;stats.txt&quot;</span><span class="p">,</span> <span class="n">tfmin</span><span class="o">=</span><span class="s2">&quot;tfm.txt&quot;</span><span class="p">,</span> <span class="n">mkvout</span><span class="o">=</span><span class="s2">&quot;timecodes.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Load and encode.</p>
+<p><em>framerate</em></p>
+<p>If you’re encoding to a specific size using a bitrate calculator, vfr
+decimation will mess up the calculations. To make them work again add these
+to your script:</p>
+<p>Before decimation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">oldcount</span> <span class="o">=</span> <span class="n">framecount</span> <span class="c1"># this line must be before decimation</span>
+<span class="n">oldfps</span> <span class="o">=</span> <span class="n">framerate</span>
+</pre></div>
+</div>
+<p>End of script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">averagefps</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">framecount</span><span class="p">)</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">oldcount</span><span class="p">))</span><span class="o">*</span><span class="n">oldfps</span>
+<span class="n">AssumeFPS</span><span class="p">(</span><span class="n">averagefps</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now mux to MKV:</p>
+<ol class="arabic simple">
+<li>Open mmg.exe (mkvmerge gui)</li>
+<li>Add your video stream file</li>
+<li>Add your audio stream file</li>
+<li>Click on the imported video track</li>
+<li>Browse for the “timecodes.txt” timecode file</li>
+<li>Click on the audio track</li>
+<li>If your audio already needs a delay, set one</li>
+<li>Start muxing</li>
+</ol>
+<p>To play it you need a Matroska splitter. For AVC you will need <a class="reference external" href="http://haali.cs.msu.ru/mkv/">Haali’s
+Splitter</a>, but for ASP you can use it or <a class="reference external" href="http://sourceforge.net/projects/guliverkli/">Gabest’s Splitter</a>.</p>
+</div>
+<div class="section" id="encoding-to-vfr-mp4">
+<h3><a class="toc-backref" href="#id9">encoding to vfr (mp4)</a><a class="headerlink" href="#encoding-to-vfr-mp4" title="Permalink to this headline">¶</a></h3>
+<p>If you create a 120 fps avi with drop-frames, however, the mp4 muxed from it
+will remove them along with any n-vops the encoder creates, leaving vfr. A
+more laborous way is to encode multiple cfr avi files (some with 23.976 fps
+film and some with 29.97 fps video) and join them directly into one vfr mp4
+file with mp4box and the -cat option.</p>
+<p>A third, much easier, method is to encode using the MKV method and then
+processing the video with tc2mp4: more details on tc2mp4 can be found on the
+[<a class="reference external" href="http://forum.doom9.org/showthread.php?t=112199">Doom9 forums</a>].</p>
+</div>
+<div class="section" id="summary-of-the-methods">
+<h3><a class="toc-backref" href="#id10">summary of the methods</a><a class="headerlink" href="#summary-of-the-methods" title="Permalink to this headline">¶</a></h3>
+<p>Summing up the advantages and disadvantages of the above mentioned methods.
+When encoding to 23.976 or 29.97 fps the clip will be cfr (which editors like
+AviSynth and Virtualdub need), but it may look jumpy on playback due to
+duplicated or missing frames. That can be avoided with blending, but encoders
+can’t work as well with that. When encoding to 120 fps using drop frames, the
+clip is cfr, not jumpy on playback, and very compatible. Encoding to mkv
+using true vfr (using timecodes) neither loses nor duplicates frames, however
+it is not nearly as broadly supported as AVI.</p>
+</div>
+</div>
+<div class="section" id="opening-non-mpeg-2-hybrid-video-in-avisynth-and-re-encoding">
+<h2><a class="toc-backref" href="#id11">Opening non MPEG-2 hybrid video in AviSynth and re-encoding</a><a class="headerlink" href="#opening-non-mpeg-2-hybrid-video-in-avisynth-and-re-encoding" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to open vfr video in AviSynth without losing sync:
+DirectShowSource. The most common formats that support hybrid video (vfr) are
+<strong>mkv</strong>, <strong>mp4</strong>, <strong>wmv</strong>, and <strong>rmvb</strong>, and the methods below work for all
+of them; however, if the source is mkv, you can also use  <a class="reference external" href="http://haali.cs.msu.ru/mkv/mkv2vfr.exe">mkv2vfr</a> and
+AviSource.</p>
+<div class="section" id="opening-non-avi-vfr-content-in-avisynth">
+<h3><a class="toc-backref" href="#id12">opening non-avi vfr content in AviSynth</a><a class="headerlink" href="#opening-non-avi-vfr-content-in-avisynth" title="Permalink to this headline">¶</a></h3>
+<p>The best way to get all frames while keeping sync and timing is to convert to
+a common framerate, such as 120 fps for 24/30 (or rather 119.88). (Always use
+convertfps=true, which adds frames like ChangeFPS, or your audio * will* go
+out of sync.)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DirectShowSource</span><span class="p">(</span><span class="s2">&quot;F:\Hybrid</span><span class="se">\v</span><span class="s2">fr.mp4&quot;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mf">119.88</span><span class="p">,</span> <span class="n">convertfps</span><span class="o">=</span><span class="n">true</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can also open it as 30p, which then has to be re-decimated but has less
+frames to deal with, or 24p, breaking any 30p sections:</p>
+<p>Re-encoding to 23.976 or 29.97 fps:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DirectShowSource</span><span class="p">(</span><span class="s2">&quot;F:\Hybrid</span><span class="se">\v</span><span class="s2">fr.mkv&quot;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mf">29.97</span><span class="p">,</span> <span class="n">convertfps</span><span class="o">=</span><span class="n">true</span><span class="p">)</span> <span class="c1"># or fps=23.976</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DirectShowSource</span><span class="p">(</span><span class="s2">&quot;F:\Hybrid</span><span class="se">\v</span><span class="s2">fr_startrek.mkv&quot;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mf">119.88</span><span class="p">,</span> <span class="n">convertfps</span><span class="o">=</span><span class="n">true</span><span class="p">)</span>
+<span class="n">FDecimate</span><span class="p">(</span><span class="mf">29.97</span><span class="p">)</span> <span class="c1"># or FDecimate(23.976)</span>
+</pre></div>
+</div>
+<p>Another way is to find out the average framerate (by dividing the total
+number of frames by the duration in seconds) and use this rate in
+DirectShowSource. Depending on the duration of a frame, frames will be added
+or dropped to keep sync, and it’s almost guaranteed to stutter.
+DirectShowSource will not telecine.</p>
+</div>
+<div class="section" id="re-encoding-120-fps-video">
+<h3><a class="toc-backref" href="#id13">re-encoding 120 fps video</a><a class="headerlink" href="#re-encoding-120-fps-video" title="Permalink to this headline">¶</a></h3>
+<p>The easiest way to convert vfr sources back into vfr in AviSynth is by using
+<a class="reference external" href="http://akuvian.org/src/avisynth/dedup/">DeDup.</a></p>
+<p>1st pass:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DupMC</span><span class="p">(</span><span class="n">log</span><span class="o">=</span><span class="s2">&quot;stats.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>2nd pass:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DeDup</span><span class="p">(</span><span class="n">threshold</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span><span class="n">maxcopies</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">maxdrops</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">dec</span><span class="o">=</span><span class="n">true</span><span class="p">,</span><span class="n">log</span><span class="o">=</span><span class="s2">&quot;stats.txt&quot;</span><span class="p">,</span><span class="n">times</span><span class="o">=</span><span class="s2">&quot;timecodes.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>TIVTC can also do this:</p>
+<p>1st pass:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TFM</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">pp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">TDecimate</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">output</span><span class="o">=</span><span class="s2">&quot;stats.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>2nd pass:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TFM</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">pp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">TDecimate</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span><span class="n">hybrid</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="nb">input</span><span class="o">=</span><span class="s2">&quot;stats.txt&quot;</span><span class="p">,</span><span class="n">mkvout</span><span class="o">=</span><span class="s2">&quot;timecodes.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once you’ve encoded your file, mux back to mkv or 120 fps avi.</p>
+<p>This will chop out all the duplicate frames directshowsource inserts, while
+keeping framecount and timing nearly identical. But do not use the timecode
+file from the input video, use the new one. They may not be identical. (Of
+course you can play with parameters if you want to use more of the
+functionality of dedup.)</p>
+</div>
+<div class="section" id="converting-vfr-to-cfr-avi-for-avisynth">
+<h3><a class="toc-backref" href="#id14">converting vfr to cfr avi for AviSynth</a><a class="headerlink" href="#converting-vfr-to-cfr-avi-for-avisynth" title="Permalink to this headline">¶</a></h3>
+<p>You can avoid analysing and decimating by using special tools to get a
+minimal constant-rate avi to feed avisynth. After processing and re-encoding,
+use tc2cfr or mmg on the output with the original timecodes to regain vfr and
+full sync. (If you perform any kind of decimation or frame-rate change you’ll
+have to edit the timecode file yourself, although dedup does have a timesin
+parameter.)</p>
+<p><em>avi</em></p>
+<p><a class="reference external" href="http://bengal.missouri.edu/~kes25c/">avi_tc</a> will create a timecode and normal video, if the avi uses drop
+frames and not n-vops or fully encoded frames. It also requires that no audio
+or secondary tracks are present. To use it, open tc-gui and add your file, or
+use the following command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cfr2tc</span> <span class="n">c</span><span class="p">:</span>\<span class="n">video</span>\<span class="n">video</span><span class="o">-</span><span class="mf">120.</span><span class="n">avi</span> <span class="n">c</span><span class="p">:</span>\<span class="n">video</span>\<span class="n">video</span><span class="o">.</span><span class="n">avi</span> <span class="n">c</span><span class="p">:</span>\<span class="n">video</span>\<span class="n">timecodes</span><span class="o">.</span><span class="n">txt</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p><em>mkv</em></p>
+<p><a class="reference external" href="http://haali.cs.msu.ru/mkv/mkv2vfr.exe">mkv2vfr</a> extracts all video frames from Matroska to a normal AVI file and a
+timecode file. This will only work if the mkv is in vfw-mode. The command-
+line to use it is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkv2vfr</span><span class="o">.</span><span class="n">exe</span> <span class="nb">input</span><span class="o">.</span><span class="n">mkv</span> <span class="n">output</span><span class="o">.</span><span class="n">avi</span> <span class="n">timecodes</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="encoding-to-mpeg-2-vfr-video">
+<h3><a class="toc-backref" href="#id15">encoding to MPEG-2 vfr video</a><a class="headerlink" href="#encoding-to-mpeg-2-vfr-video" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://forum.doom9.org/showthread.php?t=93691">http://forum.doom9.org/showthread.php?t=93691</a></p>
+<p>I didn’t look at it yet, so i can’t give any comments/hints.</p>
+</div>
+</div>
+<div class="section" id="audio-synchronization">
+<h2><a class="toc-backref" href="#id16">Audio synchronization</a><a class="headerlink" href="#audio-synchronization" title="Permalink to this headline">¶</a></h2>
+<p>Several methods are discussed to encode your video (at 23.976, 29.97 or vfr
+video). You might wonder why your audio stays in sync regardless of the
+method you used to encode your video. Prior to encoding, the video and audio
+have the same duration, so they start out in sync. The following two
+situations might occur:</p>
+<ul class="simple">
+<li>you change the framerate of the stream by speeding it up or slowing
+it down (as is often done by PAL-FILM conversions). This implies that the
+duration of the video stream will change, and hence the audio stream will
+become out of sync.</li>
+<li>you change the framerate of the stream by adding or removing frames.
+This implies that the duration of the video stream will remain the same,
+and hence the audio stream will be in sync.</li>
+</ul>
+<p>If you encode the video stream at 23.976 or 29.97 fps (both cfr) by using
+Decimate(mode=3, threshold=1.0) or Decimate(mode=1, threshold=1.0), frames
+will be removed or added, and thus your audio stream will be in sync. By a
+similar reasoning the vfr encoding will be in sync.</p>
+<p>Finally, suppose you open vfr video in AviSynth with DirectShowSource.
+Compare the following</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DirectShowSource</span><span class="p">(</span><span class="s2">&quot;F:\Hybrid</span><span class="se">\v</span><span class="s2">fr_startrek.mkv&quot;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mf">29.97</span><span class="p">)</span> <span class="c1"># or fps=23.976</span>
+</pre></div>
+</div>
+<p>and</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DirectShowSource</span><span class="p">(</span><span class="s2">&quot;F:\Hybrid</span><span class="se">\v</span><span class="s2">fr_startrek.mkv&quot;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mf">29.97</span><span class="p">,</span> <span class="n">convertfps</span><span class="o">=</span><span class="n">true</span><span class="p">)</span> <span class="c1"># or fps=23.976</span>
+</pre></div>
+</div>
+<p>The former will be out of sync since 24p sections are speeded up, and the
+latter will be in sync since frames are added to convert it to cfr.</p>
+<p><strong>To Do:</strong></p>
+<ul class="simple">
+<li>tc2mp4, subs/Aegisub and ffmpegsource for timecode file:
+<a class="reference external" href="http://forums.animesuki.com/showthread.php?t=34738">http://forums.animesuki.com/showthread.php?t=34738</a>
+<a class="reference external" href="http://forum.doom9.org/showthread.php?t=112199">http://forum.doom9.org/showthread.php?t=112199</a></li>
+<li>download <a class="reference external" href="http://fcchandler.home.comcast.net/WMVTIMES.exe">WMVTIMES.exe</a>.</li>
+<li><a class="reference external" href="http://forum.doom9.org/showthread.php?t=135889&amp;page=2">subs also</a></li>
+<li><a class="reference external" href="http://forum.doom9.org/showthread.php?t=137899">how to determine whether a video (MP4) is vfr or not?</a></li>
+<li>Wilbert: I don’t understand the comment about DeDup in “encoding to
+vfr (mkv)”: need to investigate.</li>
+</ul>
+</div>
+<div class="section" id="references">
+<h2><a class="toc-backref" href="#id17">References</a><a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p>Essential reading:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.doom9.org/ivtc-tut.htm">Force Film, IVTC, and Deinterlacing and more</a> (an article written by some people from at doom9).</li>
+<li>Creating <a class="reference external" href="http://www.masteryoshidino.com/hentai/anime-encoding.htm">120 fps video</a>.</li>
+<li>Documentation of <a class="reference external" href="http://webpages.charter.net/falconx/decombvfrmod.html">Decomb521VFR</a>.</li>
+<li>About <a class="reference external" href="http://forum.doom9.org/showthread.php?s=&amp;threadid=80673">Decomb521VFR1.0</a> mod for automated Matroska VFR.</li>
+<li><a class="reference external" href="http://forum.doom9.org/showthread.php?t=73819">Mkvextract GUI</a> by DarkDudae.</li>
+</ul>
+<p><em>Besides all people who contributed to the tools mentioned in this guide, the
+author of this tutorial (Wilbert) would like to thank bond, manono, tritical
+and foxyshadis for their useful suggestions and corrections of this
+tutorial.</em></p>
+<p>$Date: 2011/12/04 15:28:20 $</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="importing_media.html" title="Importing media into AviSynth"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="colorimetry.html" title="Colorimetry"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

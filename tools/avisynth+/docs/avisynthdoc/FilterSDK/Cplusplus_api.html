@@ -1,0 +1,1320 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>C++ API &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="DataAlignment" href="DataAlignment.html" />
+    <link rel="prev" title="CompilingAviSynthPlugins" href="CompilingAvisynthPlugins.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="DataAlignment.html" title="DataAlignment"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="CompilingAvisynthPlugins.html" title="CompilingAviSynthPlugins"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">C++ API</a><ul>
+<li><a class="reference internal" href="#createscriptenvironment">CreateScriptEnvironment</a></li>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#avisyntherror">AvisynthError</a></li>
+<li><a class="reference internal" href="#videoframebuffer">VideoFrameBuffer</a></li>
+<li><a class="reference internal" href="#videoframe">VideoFrame</a><ul>
+<li><a class="reference internal" href="#getpitch">GetPitch</a></li>
+<li><a class="reference internal" href="#getrowsize">GetRowSize</a></li>
+<li><a class="reference internal" href="#getheight">GetHeight</a></li>
+<li><a class="reference internal" href="#getreadptr">GetReadPtr</a></li>
+<li><a class="reference internal" href="#getwriteptr">GetWritePtr</a></li>
+<li><a class="reference internal" href="#iswritable">IsWritable</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#alignplanar">AlignPlanar</a></li>
+<li><a class="reference internal" href="#fillborder">FillBorder</a></li>
+<li><a class="reference internal" href="#convertaudio">ConvertAudio</a></li>
+<li><a class="reference internal" href="#iscriptenvironment">IScriptEnvironment</a><ul>
+<li><a class="reference internal" href="#throwerror">ThrowError</a></li>
+<li><a class="reference internal" href="#getcpuflags">GetCPUFlags</a></li>
+<li><a class="reference internal" href="#savestring">SaveString</a></li>
+<li><a class="reference internal" href="#sprintf-and-vsprintf">Sprintf and VSprintf</a></li>
+<li><a class="reference internal" href="#invoke">Invoke</a></li>
+<li><a class="reference internal" href="#bitblt">BitBlt</a></li>
+<li><a class="reference internal" href="#atexit">AtExit</a></li>
+<li><a class="reference internal" href="#addfunction">AddFunction</a></li>
+<li><a class="reference internal" href="#makewritable">MakeWritable</a></li>
+<li><a class="reference internal" href="#functionexists">FunctionExists</a></li>
+<li><a class="reference internal" href="#getvar">GetVar</a></li>
+<li><a class="reference internal" href="#getvardef-v6">GetVarDef, v6</a></li>
+<li><a class="reference internal" href="#setvar">SetVar</a></li>
+<li><a class="reference internal" href="#setglobalvar">SetGlobalVar</a></li>
+<li><a class="reference internal" href="#pushcontext">PushContext</a></li>
+<li><a class="reference internal" href="#popcontext">PopContext</a></li>
+<li><a class="reference internal" href="#popcontextglobal">PopContextGlobal</a></li>
+<li><a class="reference internal" href="#newvideoframe">NewVideoFrame</a></li>
+<li><a class="reference internal" href="#checkversion">CheckVersion</a></li>
+<li><a class="reference internal" href="#subframe">Subframe</a></li>
+<li><a class="reference internal" href="#subframeplanar">SubframePlanar</a></li>
+<li><a class="reference internal" href="#setmemorymax">SetMemoryMax</a></li>
+<li><a class="reference internal" href="#setworkingdir">SetWorkingDir</a></li>
+<li><a class="reference internal" href="#deletescriptenvironment-v5">DeleteScriptEnvironment, v5</a></li>
+<li><a class="reference internal" href="#applymessage-v5">ApplyMessage, v5</a></li>
+<li><a class="reference internal" href="#getavslinkage-v5">GetAVSLinkage, v5</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pvideoframe">PVideoFrame</a></li>
+<li><a class="reference internal" href="#iclip">IClip</a><ul>
+<li><a class="reference internal" href="#getversion">GetVersion</a></li>
+<li><a class="reference internal" href="#getframe">GetFrame</a></li>
+<li><a class="reference internal" href="#getparity">GetParity</a></li>
+<li><a class="reference internal" href="#getaudio">GetAudio</a></li>
+<li><a class="reference internal" href="#setcachehints">SetCacheHints</a></li>
+<li><a class="reference internal" href="#getvideoinfo">GetVideoInfo</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pclip">PClip</a></li>
+<li><a class="reference internal" href="#avsvalue">AVSValue</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#structures">Structures</a></li>
+<li><a class="reference internal" href="#constants">Constants</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="CompilingAvisynthPlugins.html"
+                        title="previous chapter">CompilingAviSynthPlugins</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="DataAlignment.html"
+                        title="next chapter">DataAlignment</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/FilterSDK/Cplusplus_api.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="c-api">
+<h1><a class="toc-backref" href="#id1">C++ API</a><a class="headerlink" href="#c-api" title="Permalink to this headline">¶</a></h1>
+<p>The header, avisynth.h, declares all the classes, structures and
+miscellaneous constants of the C++ API that you might need when writing
+a plugin. All external plugins should #include it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &quot;avisynth.h&quot;</span>
+</pre></div>
+</div>
+<p>Note, sometimes there is a reference to a version number of the plugin
+api (for example v3 or v6). This refers to the value of
+<a class="reference internal" href="AviSynthInterfaceVersion.html"><span class="doc">AVISYNTH_INTERFACE_VERSION</span></a>. The
+classes and miscellaneous constants are described below.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#c-api" id="id1">C++ API</a><ul>
+<li><a class="reference internal" href="#createscriptenvironment" id="id2">CreateScriptEnvironment</a></li>
+<li><a class="reference internal" href="#classes" id="id3">Classes</a><ul>
+<li><a class="reference internal" href="#avisyntherror" id="id4">AvisynthError</a></li>
+<li><a class="reference internal" href="#videoframebuffer" id="id5">VideoFrameBuffer</a></li>
+<li><a class="reference internal" href="#videoframe" id="id6">VideoFrame</a><ul>
+<li><a class="reference internal" href="#getpitch" id="id7">GetPitch</a></li>
+<li><a class="reference internal" href="#getrowsize" id="id8">GetRowSize</a></li>
+<li><a class="reference internal" href="#getheight" id="id9">GetHeight</a></li>
+<li><a class="reference internal" href="#getreadptr" id="id10">GetReadPtr</a></li>
+<li><a class="reference internal" href="#getwriteptr" id="id11">GetWritePtr</a></li>
+<li><a class="reference internal" href="#iswritable" id="id12">IsWritable</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#alignplanar" id="id13">AlignPlanar</a></li>
+<li><a class="reference internal" href="#fillborder" id="id14">FillBorder</a></li>
+<li><a class="reference internal" href="#convertaudio" id="id15">ConvertAudio</a></li>
+<li><a class="reference internal" href="#iscriptenvironment" id="id16">IScriptEnvironment</a><ul>
+<li><a class="reference internal" href="#throwerror" id="id17">ThrowError</a></li>
+<li><a class="reference internal" href="#getcpuflags" id="id18">GetCPUFlags</a></li>
+<li><a class="reference internal" href="#savestring" id="id19">SaveString</a></li>
+<li><a class="reference internal" href="#sprintf-and-vsprintf" id="id20">Sprintf and VSprintf</a></li>
+<li><a class="reference internal" href="#invoke" id="id21">Invoke</a></li>
+<li><a class="reference internal" href="#bitblt" id="id22">BitBlt</a></li>
+<li><a class="reference internal" href="#atexit" id="id23">AtExit</a></li>
+<li><a class="reference internal" href="#addfunction" id="id24">AddFunction</a></li>
+<li><a class="reference internal" href="#makewritable" id="id25">MakeWritable</a></li>
+<li><a class="reference internal" href="#functionexists" id="id26">FunctionExists</a></li>
+<li><a class="reference internal" href="#getvar" id="id27">GetVar</a></li>
+<li><a class="reference internal" href="#getvardef-v6" id="id28">GetVarDef, v6</a></li>
+<li><a class="reference internal" href="#setvar" id="id29">SetVar</a></li>
+<li><a class="reference internal" href="#setglobalvar" id="id30">SetGlobalVar</a></li>
+<li><a class="reference internal" href="#pushcontext" id="id31">PushContext</a></li>
+<li><a class="reference internal" href="#popcontext" id="id32">PopContext</a></li>
+<li><a class="reference internal" href="#popcontextglobal" id="id33">PopContextGlobal</a></li>
+<li><a class="reference internal" href="#newvideoframe" id="id34">NewVideoFrame</a></li>
+<li><a class="reference internal" href="#checkversion" id="id35">CheckVersion</a></li>
+<li><a class="reference internal" href="#subframe" id="id36">Subframe</a></li>
+<li><a class="reference internal" href="#subframeplanar" id="id37">SubframePlanar</a></li>
+<li><a class="reference internal" href="#setmemorymax" id="id38">SetMemoryMax</a></li>
+<li><a class="reference internal" href="#setworkingdir" id="id39">SetWorkingDir</a></li>
+<li><a class="reference internal" href="#deletescriptenvironment-v5" id="id40">DeleteScriptEnvironment, v5</a></li>
+<li><a class="reference internal" href="#applymessage-v5" id="id41">ApplyMessage, v5</a></li>
+<li><a class="reference internal" href="#getavslinkage-v5" id="id42">GetAVSLinkage, v5</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pvideoframe" id="id43">PVideoFrame</a></li>
+<li><a class="reference internal" href="#iclip" id="id44">IClip</a><ul>
+<li><a class="reference internal" href="#getversion" id="id45">GetVersion</a></li>
+<li><a class="reference internal" href="#getframe" id="id46">GetFrame</a></li>
+<li><a class="reference internal" href="#getparity" id="id47">GetParity</a></li>
+<li><a class="reference internal" href="#getaudio" id="id48">GetAudio</a></li>
+<li><a class="reference internal" href="#setcachehints" id="id49">SetCacheHints</a></li>
+<li><a class="reference internal" href="#getvideoinfo" id="id50">GetVideoInfo</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pclip" id="id51">PClip</a></li>
+<li><a class="reference internal" href="#avsvalue" id="id52">AVSValue</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#structures" id="id53">Structures</a></li>
+<li><a class="reference internal" href="#constants" id="id54">Constants</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="createscriptenvironment">
+<span id="cplusplus-createscriptenvironment"></span><h2><a class="toc-backref" href="#id2">CreateScriptEnvironment</a><a class="headerlink" href="#createscriptenvironment" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="n">__stdcall</span> <span class="n">CreateScriptEnvironment</span><span class="p">(</span><span class="nb">int</span> <span class="n">version</span> <span class="o">=</span> <span class="n">AVISYNTH_INTERFACE_VERSION</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>AviSynth exports this. It enables you to use AviSynth as a library,
+without writing an AviSynth script or without going through AVIFile.
+[todo add link]</p>
+</div>
+<div class="section" id="classes">
+<h2><a class="toc-backref" href="#id3">Classes</a><a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="avisyntherror">
+<span id="cplusplus-avisyntherror"></span><h3><a class="toc-backref" href="#id4">AvisynthError</a><a class="headerlink" href="#avisyntherror" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AvisynthError</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">_msg</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Wrap your code in try/catch statements to enable exception handling.
+AvisynthError will tell you what’s wrong.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">try</span>
+<span class="p">{</span>
+    <span class="n">Val</span> <span class="o">=</span> <span class="n">Env</span><span class="o">-&gt;</span><span class="n">Invoke</span><span class="p">(</span><span class="s2">&quot;Import&quot;</span><span class="p">,</span> <span class="n">Args</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">Clip</span> <span class="o">=</span> <span class="n">Val</span><span class="o">.</span><span class="n">AsClip</span><span class="p">();</span>
+    <span class="n">VidInfo</span> <span class="o">=</span> <span class="n">Clip</span><span class="o">-&gt;</span><span class="n">GetVideoInfo</span><span class="p">();</span>
+    <span class="n">Frame</span> <span class="o">=</span> <span class="n">Clip</span><span class="o">-&gt;</span><span class="n">GetFrame</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="n">Env</span><span class="p">);</span>
+<span class="p">}</span>
+ <span class="n">catch</span> <span class="p">(</span><span class="n">AvisynthError</span> <span class="n">err</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">err</span><span class="o">.</span><span class="n">msg</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="videoframebuffer">
+<span id="cplusplus-videoframebuffer"></span><h3><a class="toc-backref" href="#id5">VideoFrameBuffer</a><a class="headerlink" href="#videoframebuffer" title="Permalink to this headline">¶</a></h3>
+<p>VideoFrameBuffer (VFB) holds information about a memory block which is
+used for video data. For efficiency, instances of this class are not
+deleted when the refcount reaches zero; instead they are stored in a
+linked list to be reused. The instances are deleted when the
+corresponding AVS file is closed. Or more accurately, a
+VideoFrameBuffer once new’d generally is not released until the
+IScriptEnvironment is deleted, except if SetMemoryMax is exceeded by
+too much then not in use VideoFrameBuffer’s are forcible deleted until
+SetMemoryMax is satisfied.</p>
+</div>
+<div class="section" id="videoframe">
+<span id="cplusplus-videoframe"></span><h3><a class="toc-backref" href="#id6">VideoFrame</a><a class="headerlink" href="#videoframe" title="Permalink to this headline">¶</a></h3>
+<p>VideoFrame holds a “window” into a VideoFrameBuffer. Operator new is
+overloaded to recycle class instances. Its members can be called by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PVideoFrame</span> <span class="n">src</span> <span class="o">=</span> <span class="n">child</span><span class="o">-&gt;</span><span class="n">GetFrame</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+<span class="n">src</span><span class="o">-&gt;</span><span class="n">GetReadPtr</span><span class="p">(</span><span class="o">..</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>VideoFrame has the following members: GetPitch, GetRowSize, GetHeight,
+GetReadPtr, GetWritePtr and IsWritable.</p>
+<p>All those filters (except IsWritable) will give you a property (pitch,
+rowsize, etc …) of a plane (of the frame it points to). The
+interleaved formats (BGR(A) or YUY2) consist of one plane, and the
+planar formats consists of one (Y) or three (YUV) planes. The default
+plane is just the first plane (which is plane Y for the planar
+formats).</p>
+<div class="section" id="getpitch">
+<span id="cplusplus-getpitch"></span><h4><a class="toc-backref" href="#id7">GetPitch</a><a class="headerlink" href="#getpitch" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">GetPitch</span><span class="p">(</span><span class="nb">int</span> <span class="n">plane</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The “pitch” (also called stride) of a frame buffer is the offset (in
+bytes) from the beginning of one scan line to the beginning of the
+next. The source and destination buffers won’t necessarily have the
+same pitch. The pitch can vary among frames in a clip, and it can
+differ from the width of the clip. [todo add link]</p>
+<div class="line-block">
+<div class="line">The scan line will be padded to a multiple of 8 (if necessary) due to
+speed reasons, so the pitch will always be a multiple of 8. Image
+processing is expensive, so SIMD instructions are used to speed tasks
+up:</div>
+</div>
+<div class="line-block">
+<div class="line">SSE uses 128 bit = 16 byte registers, so 8 YUY2 pixels can be processed
+the same time.</div>
+</div>
+<div class="line-block">
+<div class="line">AVX uses 256 bit = 32 byte registers, so 16 YUY2 pixels can be
+processed the same time.</div>
+</div>
+<p>NOTE that the pitch can change anytime, so in most use cases you must
+request the pitch dynamically.</p>
+<p>Usage:</p>
+<p>GetPitch must be used on every plane (interleaved like YUY2 means 1
+plane…) of every PVideoFrame that you want to read or write to. It is
+the only way to get the size of the Video Buffer (e.g. get the size of
+PVideoFrame):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">buffer_size</span> <span class="o">=</span> <span class="n">src</span><span class="o">-&gt;</span><span class="n">GetPitch</span><span class="p">()</span> <span class="o">*</span> <span class="n">src</span><span class="o">-&gt;</span><span class="n">GetHeight</span><span class="p">();</span> <span class="o">//</span><span class="n">YUY2</span><span class="p">,</span> <span class="n">interleaved</span>
+</pre></div>
+</div>
+<p>This will give you the pitch of the U-plane (it will be zero if the
+plane doesn’t exist):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PVideoFrame</span> <span class="n">src</span> <span class="o">=</span> <span class="n">child</span><span class="o">-&gt;</span><span class="n">GetFrame</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+<span class="n">const</span> <span class="nb">int</span> <span class="n">src_pitchUV</span> <span class="o">=</span> <span class="n">src</span><span class="o">-&gt;</span><span class="n">GetPitch</span><span class="p">(</span><span class="n">PLANAR_U</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getrowsize">
+<span id="cplusplus-getrowsize"></span><h4><a class="toc-backref" href="#id8">GetRowSize</a><a class="headerlink" href="#getrowsize" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">GetRowSize</span><span class="p">(</span><span class="nb">int</span> <span class="n">plane</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>GetRowSize gives the length of each row in bytes (thus not in pixels).
+It’s usually equal to the pitch or slightly less, but it may be
+significantly less if the frame in question has been through Crop. This
+will give you the rowsize of a frame for the interleaved formats, or
+the rowsize of the Y-plane for the planar formats (being the default
+plane).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="nb">int</span> <span class="n">src_width</span> <span class="o">=</span> <span class="n">src</span><span class="o">-&gt;</span><span class="n">GetRowSize</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getheight">
+<span id="cplusplus-getheight"></span><h4><a class="toc-backref" href="#id9">GetHeight</a><a class="headerlink" href="#getheight" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">GetHeight</span><span class="p">(</span><span class="nb">int</span> <span class="n">plane</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>GetHeight gives the height of the plane in pixels.</p>
+</div>
+<div class="section" id="getreadptr">
+<span id="cplusplus-getreadptr"></span><h4><a class="toc-backref" href="#id10">GetReadPtr</a><a class="headerlink" href="#getreadptr" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="n">BYTE</span><span class="o">*</span> <span class="n">GetReadPtr</span><span class="p">(</span><span class="nb">int</span> <span class="n">plane</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>GetReadPtr gives you a read pointer to a plane. This will give a read
+pointer to the default plane:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PVideoFrame</span> <span class="n">src</span> <span class="o">=</span> <span class="n">child</span><span class="o">-&gt;</span><span class="n">GetFrame</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+<span class="n">const</span> <span class="n">unsigned</span> <span class="n">char</span><span class="o">*</span> <span class="n">srcp</span> <span class="o">=</span> <span class="n">src</span><span class="o">-&gt;</span><span class="n">GetReadPtr</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getwriteptr">
+<span id="cplusplus-getwriteptr"></span><h4><a class="toc-backref" href="#id11">GetWritePtr</a><a class="headerlink" href="#getwriteptr" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BYTE</span><span class="o">*</span> <span class="n">GetWritePtr</span><span class="p">(</span><span class="nb">int</span> <span class="n">plane</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="n">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>GetWritePtr gives you a write pointer to a plane.</p>
+<p>Any buffer you get from NewVideoFrame is guaranteed to be writable (as
+long as you only assign it to one PVideoFrame). Our filter’s dst came
+from NewVideoFrame, so we can safely call dst-&gt;GetWritePtr(). However,
+frames you get from other clips via GetFrame may not be writable, in
+which case GetWritePtr() will return a null pointer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PVideoFrame</span> <span class="n">dst</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">NewVideoFrame</span><span class="p">(</span><span class="n">vi</span><span class="p">);</span>
+<span class="n">unsigned</span> <span class="n">char</span><span class="o">*</span> <span class="n">dstp</span> <span class="o">=</span> <span class="n">dst</span><span class="o">-&gt;</span><span class="n">GetWritePtr</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>If you want to write a frame which is not new (the source frame for
+example), you will have to call MakeWritable first:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PVideoFrame</span> <span class="n">src</span> <span class="o">=</span> <span class="n">child</span><span class="o">-&gt;</span><span class="n">GetFrame</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+<span class="n">env</span><span class="o">-&gt;</span><span class="n">MakeWritable</span><span class="p">(</span><span class="o">&amp;</span><span class="n">src</span><span class="p">);</span>
+<span class="n">unsigned</span> <span class="n">char</span><span class="o">*</span> <span class="n">srcp</span> <span class="o">=</span> <span class="n">src</span><span class="o">-&gt;</span><span class="n">GetWritePtr</span><span class="p">(</span><span class="n">PLANAR_Y</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>See IsWritable for more details.</p>
+</div>
+<div class="section" id="iswritable">
+<span id="cplusplus-iswritable"></span><h4><a class="toc-backref" href="#id12">IsWritable</a><a class="headerlink" href="#iswritable" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">bool</span> <span class="n">IsWritable</span><span class="p">()</span> <span class="n">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>All frame buffers are readable, but not all are writable. This method
+can be used to find out if a buffer is writable or not, and there’s a
+MakeWritable callback (described below) to ensure that it is.</p>
+<p>The rule about writability is this: A buffer is writable if and only if
+there is exactly one PVideoFrame pointing to it. In other words, you
+can only write to a buffer if no one else might be reading it. This
+rule guarantees that as long as you hold on to a PVideoFrame and don’t
+write to it yourself, that frame will remain unchanged. The only
+drawback is that you can’t have two PVideoFrames pointing to a writable
+buffer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PVideoFrame</span> <span class="n">src</span> <span class="o">=</span> <span class="n">child</span><span class="o">-&gt;</span><span class="n">GetFrame</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">src</span><span class="o">-&gt;</span><span class="n">IsWritetable</span><span class="p">())</span> <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="alignplanar">
+<span id="cplusplus-alignplanar"></span><h3><a class="toc-backref" href="#id13">AlignPlanar</a><a class="headerlink" href="#alignplanar" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AlignPlanar</span><span class="p">(</span><span class="n">PClip</span> <span class="n">_clip</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>AlignPlanar does nothing, if the pitch of a frame is at least mod16 (16
+bytes, being the default frame alignment for luma and chroma).
+Otherwise it realigns the image, by blitting it to a larger buffer.</p>
+<p>Filters can enforce a lower pitch, but they must always apply the
+AlignPlanar filter after itself, if they intend to return a frame with
+a lower pitch. VFW delivers a 4 byte alignment for example, so the
+AlignPlanar filters needs to be applied on all frames when using
+AviSource.</p>
+</div>
+<div class="section" id="fillborder">
+<span id="cplusplus-fillborder"></span><h3><a class="toc-backref" href="#id14">FillBorder</a><a class="headerlink" href="#fillborder" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FillBorder</span><span class="p">(</span><span class="n">PClip</span> <span class="n">_clip</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This function fills up the right side of the picture on planar images
+with duplicates of the rightmost pixel if the planes are not aligned.
+That is, if src-&gt;GetRowSize(PLANAR_Y) !=
+src-&gt;GetRowSize(PLANAR_Y_ALIGNED).</p>
+</div>
+<div class="section" id="convertaudio">
+<span id="cplusplus-convertaudio"></span><h3><a class="toc-backref" href="#id15">ConvertAudio</a><a class="headerlink" href="#convertaudio" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ConvertAudio</span><span class="p">(</span><span class="n">PClip</span> <span class="n">_clip</span><span class="p">,</span> <span class="nb">int</span> <span class="n">prefered_format</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>ConvertAudio converts the sample type of the audio to one of the
+following sample types: SAMPLE_INT8 (8 bits), SAMPLE_INT16 (16 bits),
+SAMPLE_INT24 (24 bits), SAMPLE_INT32 (32 bits) or SAMPLE_FLOAT (float).</p>
+<p>The following example converts the sample type of the clip child to
+SAMPLE_INT16 (16 bit) if the input isn’t 16 bit.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ConvertAudio</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">SAMPLE_INT16</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="iscriptenvironment">
+<span id="cplusplus-iscriptenvironment"></span><h3><a class="toc-backref" href="#id16">IScriptEnvironment</a><a class="headerlink" href="#iscriptenvironment" title="Permalink to this headline">¶</a></h3>
+<p>AviSynth exports an IScriptEnvironment interface. It enables you to use
+AviSynth as a library, without writing an AVS script or without going
+through AVIFile. Its members can be called by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="n">env</span>
+<span class="n">env</span><span class="o">-&gt;</span><span class="n">Invoke</span><span class="p">(</span><span class="o">..</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>IScriptEnvironment has the following members: ThrowError, GetCPUFlags,
+SaveString, Sprintf, VSprintf, Invoke, BitBlt, AtExit, AddFunction,
+MakeWritable, FunctionExists, GetVar, GetVarDef, SetVar, SetGlobalVar,
+PushContext, PopContext, NewVideoFrame, CheckVersion, Subframe,
+SubframePlanar, SetMemoryMax, SetWorkingDir, DeleteScriptEnvironment
+and ApplyMessage. They are described in the following subsections.</p>
+<div class="section" id="throwerror">
+<span id="cplusplus-throwerror"></span><h4><a class="toc-backref" href="#id17">ThrowError</a><a class="headerlink" href="#throwerror" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__declspec</span><span class="p">(</span><span class="n">noreturn</span><span class="p">)</span> <span class="n">virtual</span> <span class="n">void</span> <span class="n">__stdcall</span> <span class="n">ThrowError</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">fmt</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>ThrowError throws an exception (of type AvisynthError). Usually, your
+error message will end up being displayed on the user’s screen in lieu
+of the video clip they were expecting:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>if (!vi.IsRGB()) {
+    env-&gt;ThrowError(&quot;RGBAdjust requires RGB input&quot;);
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="getcpuflags">
+<span id="cplusplus-getcpuflags"></span><h4><a class="toc-backref" href="#id18">GetCPUFlags</a><a class="headerlink" href="#getcpuflags" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">long</span> <span class="n">GetCPUFlags</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>GetCPUFlags returns the instruction set of your CPU. To find out if
+you’re running for example on a CPU that supports MMX, test:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span><span class="o">-&gt;</span><span class="n">GetCPUFlags</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">CPUF_MMX</span>
+</pre></div>
+</div>
+<p>There’s a complete list of flags in avisynth.h.</p>
+</div>
+<div class="section" id="savestring">
+<span id="cplusplus-savestring"></span><h4><a class="toc-backref" href="#id19">SaveString</a><a class="headerlink" href="#savestring" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">char</span><span class="o">*</span> <span class="n">SaveString</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="nb">int</span> <span class="n">length</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This function copies its argument to a safe “permanent” location and
+returns a pointer to the new location. Each ScriptEnvironment instance
+has a buffer set aside for storing strings, which is expanded as
+needed. The strings are not deleted until the ScriptEnvironment
+instance goes away (when the script file is closed, usually). This is
+usually all the permanence that is needed, since all related filter
+instances will already be gone by then. The returned pointer is not
+const-qualified, and you’re welcome to write to it, as long as you
+don’t stray beyond the bounds of the string.</p>
+<p>Example usage (converting a string to upper case):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AVSValue</span> <span class="n">UCase</span><span class="p">(</span><span class="n">AVSValue</span> <span class="n">args</span><span class="p">,</span> <span class="n">void</span><span class="o">*</span><span class="p">,</span> <span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="n">env</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">_strupr</span><span class="p">(</span><span class="n">env</span><span class="o">-&gt;</span><span class="n">SaveString</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">AsString</span><span class="p">()));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sprintf-and-vsprintf">
+<span id="cplusplus-sprintf-vsprintf"></span><h4><a class="toc-backref" href="#id20">Sprintf and VSprintf</a><a class="headerlink" href="#sprintf-and-vsprintf" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">char</span><span class="o">*</span> <span class="n">Sprintf</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">fmt</span><span class="p">,</span> <span class="o">...</span><span class="p">);</span>
+<span class="n">virtual</span> <span class="n">char</span><span class="o">*</span> <span class="n">VSprintf</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">char</span><span class="o">*</span> <span class="n">val</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>These store strings away in the same way as SaveString, but they treat
+their arguments like printf and vprintf. Currently there’s a size limit
+of 4096 characters on strings created this way. (The implementation
+uses _vsnprintf, so you don’t need to worry about buffer overrun.)</p>
+</div>
+<div class="section" id="invoke">
+<span id="cplusplus-invoke"></span><h4><a class="toc-backref" href="#id21">Invoke</a><a class="headerlink" href="#invoke" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">AVSValue</span> <span class="n">Invoke</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">name</span><span class="p">,</span> <span class="n">const</span> <span class="n">AVSValue</span> <span class="n">args</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span><span class="o">**</span> <span class="n">arg_names</span><span class="o">=</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You can use this to call a script function. There are many script
+functions which can be useful from other filters; for example, the Bob
+filter uses SeparateFields, and several source filters use
+UnalignedSplice. Some functions, like Weave, are implemented entirely
+in terms of other functions. If you’re calling a function taking
+exactly one argument, you can simply pass it in the args parameter;
+Invoke will convert it into an array for you. In order to call a
+function taking multiple arguments, you will need to create the array
+yourself; it can be done like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AVSValue</span> <span class="n">up_args</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">child</span><span class="p">,</span> <span class="mi">384</span><span class="p">,</span> <span class="mi">288</span><span class="p">};</span>
+<span class="n">PClip</span> <span class="n">resized</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">Invoke</span><span class="p">(</span><span class="s2">&quot;LanczosResize&quot;</span><span class="p">,</span> <span class="n">AVSValue</span><span class="p">(</span><span class="n">up_args</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span><span class="o">.</span><span class="n">AsClip</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>In this case LanczosResize would need to have a parameter-type string
+like “cii”.</p>
+<p>The arg_names parameter can be used to specify named arguments. Named
+arguments can also be given positionally, if you prefer.</p>
+<p>Invoke throws IScriptEnvironment::NotFound if it can’t find a matching
+function prototype. You should be prepared to catch this unless you
+know that the function exists and will accept the given arguments.</p>
+</div>
+<div class="section" id="bitblt">
+<span id="cplusplus-bitblt"></span><h4><a class="toc-backref" href="#id22">BitBlt</a><a class="headerlink" href="#bitblt" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">void</span> <span class="n">BitBlt</span><span class="p">(</span><span class="n">unsigned</span> <span class="n">char</span><span class="o">*</span> <span class="n">dstp</span><span class="p">,</span> <span class="nb">int</span> <span class="n">dst_pitch</span><span class="p">,</span> <span class="n">const</span> <span class="n">unsigned</span> <span class="n">char</span><span class="o">*</span> <span class="n">srcp</span><span class="p">,</span> <span class="nb">int</span> <span class="n">src_pitch</span><span class="p">,</span> <span class="nb">int</span> <span class="n">row_size</span><span class="p">,</span> <span class="nb">int</span> <span class="n">height</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This brilliantly-named function does a line-by-line copy from the
+source to the destination. It’s useful for quite a number of things;
+the built-in filters DoubleWeave, FlipVertical, AddBorders,
+PeculiarBlend, StackVertical, StackHorizontal, and ShowFiveVersions all
+use it to do their dirty work.</p>
+<p>In AddBorders it’s to copy the Y-plane from the source to the
+destination frame (for planar formats):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="nb">int</span> <span class="n">initial_black</span> <span class="o">=</span> <span class="n">top</span><span class="o">*</span><span class="n">dst_pitch</span> <span class="o">+</span> <span class="n">vi</span><span class="o">.</span><span class="n">BytesFromPixels</span><span class="p">(</span><span class="n">left</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">vi</span><span class="o">.</span><span class="n">IsPlanar</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">BitBlt</span><span class="p">(</span><span class="n">dstp</span><span class="o">+</span><span class="n">initial_black</span><span class="p">,</span> <span class="n">dst_pitch</span><span class="p">,</span> <span class="n">srcp</span><span class="p">,</span> <span class="n">src_pitch</span><span class="p">,</span> <span class="n">src_row_size</span><span class="p">,</span> <span class="n">src_height</span><span class="p">);</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>left is the number of pixels which is added to the left, top the number
+which is added to the top. So the first source pixel, srcp[0], is
+copied to its new location dstp[x], and so on. The remaining bytes are
+zeroed and can be refilled later on.</p>
+</div>
+<div class="section" id="atexit">
+<span id="cplusplus-atexit"></span><h4><a class="toc-backref" href="#id23">AtExit</a><a class="headerlink" href="#atexit" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">void</span> <span class="n">AtExit</span><span class="p">(</span><span class="n">ShutdownFunc</span> <span class="n">function</span><span class="p">,</span> <span class="n">void</span><span class="o">*</span> <span class="n">user_data</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>When IScriptEnvironment is deleted on script close the AtExit functions
+get run. When you register the function you can optionally provide some
+user data. When the function is finally called this data will be
+provided as the argument to the procedure.</p>
+<p>The example below (thanks to tsp) loads a library and automatically
+unloads it (by using AtExit) after the script is closed. It can be
+useful when your plugin depends on a library and you want to load the
+library in your script (the plugin fft3dfilter.dll depends on the
+library fftw3.dll for example):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">__cdecl</span> <span class="n">UnloadDll</span><span class="p">(</span><span class="n">void</span><span class="o">*</span> <span class="n">hinst</span><span class="p">,</span> <span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="n">env</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">hinst</span><span class="p">)</span>
+    <span class="n">FreeLibrary</span><span class="p">(</span><span class="n">static_cast</span><span class="o">&lt;</span><span class="n">HMODULE</span><span class="o">&gt;</span><span class="p">(</span><span class="n">hinst</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="n">AVSValue</span> <span class="n">__cdecl</span> <span class="n">LoadDll</span><span class="p">(</span><span class="n">AVSValue</span> <span class="n">args</span><span class="p">,</span> <span class="n">void</span><span class="o">*</span> <span class="n">user_data</span><span class="p">,</span> <span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="n">env</span><span class="p">){</span>
+    <span class="n">HMODULE</span> <span class="n">hinst</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">hinst</span> <span class="o">=</span> <span class="n">LoadLibrary</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">AsString</span><span class="p">());</span> <span class="o">//</span> <span class="n">loads</span> <span class="n">a</span> <span class="n">library</span>
+    <span class="n">env</span><span class="o">-&gt;</span><span class="n">AtExit</span><span class="p">(</span><span class="n">UnloadDll</span><span class="p">,</span> <span class="n">hinst</span><span class="p">);</span> <span class="o">//</span> <span class="n">calls</span> <span class="n">UnloadDll</span> <span class="n">to</span> <span class="n">unload</span> <span class="n">the</span> <span class="n">library</span> <span class="n">upon</span> <span class="n">script</span> <span class="n">exit</span>
+    <span class="k">return</span> <span class="n">hinst</span><span class="o">!=</span><span class="n">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="addfunction">
+<span id="cplusplus-addfunction"></span><h4><a class="toc-backref" href="#id24">AddFunction</a><a class="headerlink" href="#addfunction" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">void</span> <span class="n">__stdcall</span> <span class="n">AddFunction</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">name</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">params</span><span class="p">,</span> <span class="n">ApplyFunc</span> <span class="n">apply</span><span class="p">,</span> <span class="n">void</span><span class="o">*</span> <span class="n">user_data</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The main purpose of the AvisynthPluginInit2 (or AvisynthPluginInit3)
+function is to call env-&gt;AddFunction.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span><span class="o">-&gt;</span><span class="n">AddFunction</span><span class="p">(</span><span class="s2">&quot;Sepia&quot;</span><span class="p">,</span> <span class="s2">&quot;c[color]i[mode]s&quot;</span><span class="p">,</span> <span class="n">Create_Sepia</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>AddFunction is called to let Avisynth know of the existence of our
+filter. It just registers a function with Avisynth’s internal function
+table. This function takes four arguments: the name of the new script
+function; the parameter-type string; the C++ function implementing the
+script function; and the user_data cookie.</p>
+<p>The added function is of type AVSValue and can therefore return any
+AVSValue. Here are a few options how to return from the “added”
+function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AVSValue</span> <span class="n">__cdecl</span> <span class="n">returnSomething</span><span class="p">(</span><span class="n">AVSValue</span> <span class="n">args</span><span class="p">,</span> <span class="n">void</span><span class="o">*</span> <span class="n">user_data</span><span class="p">,</span> <span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="n">env</span><span class="p">){</span>
+
+<span class="n">char</span> <span class="o">*</span><span class="n">strlit</span> <span class="o">=</span> <span class="s2">&quot;AnyOldName&quot;</span><span class="p">;</span>
+<span class="nb">int</span> <span class="nb">len</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">strlit</span><span class="p">);</span>
+<span class="n">char</span> <span class="o">*</span><span class="n">s</span> <span class="o">=</span> <span class="n">new</span> <span class="n">char</span><span class="p">[</span><span class="nb">len</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="o">==</span><span class="n">NULL</span><span class="p">)</span>
+    <span class="n">env</span><span class="o">-&gt;</span><span class="n">ThrowError</span><span class="p">(</span><span class="s2">&quot;Cannot allocate string mem&quot;</span><span class="p">);</span>
+
+<span class="n">strcpy</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">strlit</span><span class="p">);</span> <span class="o">//</span> <span class="n">duplicate</span>
+<span class="n">char</span> <span class="o">*</span><span class="n">e</span> <span class="o">=</span> <span class="n">s</span><span class="o">+</span><span class="nb">len</span><span class="p">;</span> <span class="o">//</span> <span class="n">point</span> <span class="n">at</span> <span class="n">null</span>
+
+<span class="o">//</span> <span class="n">make</span> <span class="n">safe</span> <span class="n">copy</span> <span class="n">of</span> <span class="n">string</span> <span class="p">(</span><span class="n">memory</span> <span class="ow">is</span> <span class="n">freed</span> <span class="n">on</span> <span class="n">Avisynth</span> <span class="n">closure</span><span class="p">)</span>
+<span class="n">AVSValue</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">SaveString</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">e</span><span class="o">-</span><span class="n">s</span><span class="p">);</span> <span class="o">//</span> <span class="n">e</span><span class="o">-</span><span class="n">s</span> <span class="ow">is</span> <span class="n">text</span> <span class="nb">len</span> <span class="n">only</span> <span class="p">(</span><span class="n">excl</span> <span class="n">null</span><span class="p">)</span> <span class="p">{</span><span class="n">SaveString</span> <span class="n">uses</span> <span class="n">memcpy</span><span class="p">)</span>
+
+<span class="o">//</span> <span class="n">alternative</span><span class="p">,</span> <span class="n">Avisynth</span> <span class="n">uses</span> <span class="n">strlen</span> <span class="n">to</span> <span class="n">ascertain</span> <span class="n">length</span>
+<span class="o">//</span> <span class="n">AVSValue</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">SaveString</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+
+<span class="n">delete</span> <span class="p">[]</span><span class="n">s</span><span class="p">;</span> <span class="o">//</span> <span class="n">delete</span> <span class="n">our</span> <span class="n">temp</span> <span class="n">s</span> <span class="n">buffer</span>
+<span class="k">return</span> <span class="n">ret</span><span class="p">;</span> <span class="o">//</span> <span class="k">return</span> <span class="n">saved</span> <span class="n">string</span> <span class="k">as</span> <span class="n">AVSValue</span>
+
+<span class="o">//</span> <span class="n">alternative</span> <span class="n">to</span> <span class="n">MOST</span> <span class="n">of</span> <span class="n">above</span> <span class="n">code</span> <span class="n">char</span><span class="o">*</span> <span class="n">converted</span> <span class="n">to</span> <span class="n">AVSValue</span><span class="o">.</span>
+<span class="o">//</span> <span class="k">return</span> <span class="n">strlit</span><span class="p">;</span>
+
+<span class="o">//</span> <span class="n">alternative</span> <span class="n">to</span> <span class="n">ALL</span> <span class="n">of</span> <span class="n">above</span> <span class="n">code</span> <span class="n">char</span><span class="o">*</span> <span class="n">converted</span> <span class="n">to</span> <span class="n">AVSValue</span><span class="o">.</span>
+<span class="o">//</span> <span class="k">return</span> <span class="s2">&quot;AnyOldName&quot;</span><span class="p">;</span>
+
+<span class="o">//</span> <span class="n">String</span> <span class="n">literals</span> <span class="n">are</span> <span class="n">read</span> <span class="n">only</span> <span class="ow">and</span> <span class="n">at</span> <span class="n">constant</span> <span class="n">address</span> <span class="ow">and</span> <span class="n">so</span> <span class="n">need</span> <span class="ow">not</span> <span class="n">be</span> <span class="n">saved</span><span class="o">.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="makewritable">
+<span id="cplusplus-makewritable"></span><h4><a class="toc-backref" href="#id25">MakeWritable</a><a class="headerlink" href="#makewritable" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="nb">bool</span> <span class="n">__stdcall</span> <span class="n">MakeWritable</span><span class="p">(</span><span class="n">PVideoFrame</span><span class="o">*</span> <span class="n">pvf</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>MakeWritable only copies the active part of the frame to a completely
+new frame with a default pitch. You need this to recieve a valid write
+pointer to an existing frame.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PVideoFrame</span> <span class="n">src</span> <span class="o">=</span> <span class="n">child</span><span class="o">-&gt;</span><span class="n">GetFrame</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+<span class="n">env</span><span class="o">-&gt;</span><span class="n">MakeWritable</span><span class="p">(</span><span class="o">&amp;</span><span class="n">src</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="functionexists">
+<span id="cplusplus-functionexists"></span><h4><a class="toc-backref" href="#id26">FunctionExists</a><a class="headerlink" href="#functionexists" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="nb">bool</span> <span class="n">__stdcall</span> <span class="n">FunctionExists</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">name</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>FunctionExists returns true if the specified filter exists, otherwise
+returns false:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">env</span><span class="o">-&gt;</span><span class="n">FunctionExists</span><span class="p">(</span><span class="s2">&quot;Import&quot;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">env</span><span class="o">-&gt;</span><span class="n">ThrowError</span><span class="p">(</span><span class="s2">&quot;Yes, the IMPORT function exist.&quot;</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">env</span><span class="o">-&gt;</span><span class="n">ThrowError</span><span class="p">(</span><span class="s2">&quot;No, the IMPORT function don&#39;t exist.&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getvar">
+<span id="cplusplus-getvar"></span><h4><a class="toc-backref" href="#id27">GetVar</a><a class="headerlink" href="#getvar" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">AVSValue</span> <span class="n">__stdcall</span> <span class="n">GetVar</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">name</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>GetVar can be used to access AviSynth variables. It will throw an error
+if the variable doesn’t exist.</p>
+<p>Internal and external (plugin) functions are, for example, exported as
+AviSynth variables:</p>
+<ul class="simple">
+<li>$InternalFunctions$ Should contain a string consisting of function
+names of all internal functions.</li>
+<li>$InternalFunctions!Functionname!Param$ Should contain all
+parameters for each internal function.</li>
+<li>$PluginFunctions$ Should contain a string of all plugins in your
+autoloading plugin folder.</li>
+<li>$Plugin!Functionname!Param$ Should contain all parameters.</li>
+</ul>
+<p>Use env-&gt;GetVar() to access them. This example returns a string
+consisting of all parameters of ConvertToYV12:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">plugin_dir</span><span class="p">;</span>
+<span class="n">plugin_dir</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">GetVar</span><span class="p">(</span><span class="s2">&quot;$Plugin!ConverttoYV12!Param$&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">AsString</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>This example returns the plugin folder which is used to autoload your
+plugins (and returns an error if it’s not set):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">try</span> <span class="p">{</span>
+    <span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">plugin_dir</span><span class="p">;</span>
+    <span class="n">plugin_dir</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">GetVar</span><span class="p">(</span><span class="s2">&quot;$PluginDir$&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">AsString</span><span class="p">();</span>
+    <span class="n">env</span><span class="o">-&gt;</span><span class="n">ThrowError</span><span class="p">(</span><span class="n">plugin_dir</span><span class="p">);</span>
+<span class="p">}</span> <span class="n">catch</span><span class="p">(</span><span class="o">...</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">env</span><span class="o">-&gt;</span><span class="n">ThrowError</span><span class="p">(</span><span class="s2">&quot;Plugin directory not set.&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you are making a conditional filter you can use it to get the
+current framenumber:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>// Get current frame number
+AVSValue cf = env-&gt;GetVar(&quot;current_frame&quot;);
+if (!cf.IsInt())
+    env-&gt;ThrowError(&quot;MinMaxAudio: This filter can only be used within ConditionalFilter&quot;);
+int n = cf.AsInt();
+PVideoFrame src = child-&gt;GetFrame(n, env);
+</pre></div>
+</div>
+</div>
+<div class="section" id="getvardef-v6">
+<span id="cplusplus-getvardef"></span><h4><a class="toc-backref" href="#id28">GetVarDef, v6</a><a class="headerlink" href="#getvardef-v6" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">AVSValue</span> <span class="n">__stdcall</span> <span class="n">GetVarDef</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">name</span><span class="p">,</span> <span class="n">const</span> <span class="n">AVSValue</span><span class="o">&amp;</span> <span class="n">def</span><span class="o">=</span><span class="n">AVSValue</span><span class="p">())</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>GetVarDef can be used to access AviSynth variables. It will return
+‘def’ if the variable doesn’t exist (instead of throwing an error):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">error</span><span class="p">;</span>
+<span class="n">AVSValue</span> <span class="n">error</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">GetVarDef</span><span class="p">(</span><span class="s2">&quot;VarUnknown&quot;</span><span class="p">,</span> <span class="n">AVSValue</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">));</span> <span class="o">//</span> <span class="n">returns</span> <span class="o">-</span><span class="mi">1</span> <span class="n">when</span> <span class="s1">&#39;VarUnknown&#39;</span> <span class="n">doesn</span><span class="s1">&#39;t exist</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="o">==-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">env</span><span class="o">-&gt;</span><span class="n">ThrowError</span><span class="p">(</span><span class="s2">&quot;Plugin: The variable &#39;VarUnknown&#39; doesn&#39;t exist!&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setvar">
+<span id="cplusplus-setvar"></span><h4><a class="toc-backref" href="#id29">SetVar</a><a class="headerlink" href="#setvar" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="nb">bool</span> <span class="n">__stdcall</span> <span class="n">SetVar</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">name</span><span class="p">,</span> <span class="n">const</span> <span class="n">AVSValue</span><span class="o">&amp;</span> <span class="n">val</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>It will return true if the variable was created and filled with the
+given value. It will return false in case the variable was already
+there and we just updated its value.</p>
+<p>SetVar can be used to set/create AviSynth variables. The created
+variables are only visible in the local scope, e.g. script functions
+have a new scope.</p>
+<p>This example sets the autoloading plugin folder to <code class="docutils literal notranslate"><span class="pre">&quot;C:\\&quot;</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">env</span><span class="o">-&gt;</span><span class="n">SetVar</span><span class="p">(</span><span class="s2">&quot;$PluginDir$&quot;</span><span class="p">,</span> <span class="n">AVSValue</span><span class="p">(</span><span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)))</span> <span class="p">{</span>
+    <span class="o">//</span><span class="n">variable</span> <span class="n">was</span> <span class="n">created</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="o">//</span><span class="n">variable</span> <span class="n">was</span> <span class="n">already</span> <span class="n">existing</span> <span class="ow">and</span> <span class="n">updated</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This example sets variables in GetFrame which can be accessed later on
+in a script within the conditional environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">saves</span> <span class="n">the</span> <span class="n">blue</span> <span class="n">value</span> <span class="n">of</span> <span class="n">a</span> <span class="n">pixel</span>
+<span class="nb">int</span> <span class="n">BlueValue</span><span class="p">;</span>
+<span class="n">BlueValue</span> <span class="o">=</span> <span class="n">srcp</span><span class="p">[</span><span class="n">x</span><span class="p">];</span>
+<span class="n">env</span><span class="o">-&gt;</span><span class="n">SetVar</span><span class="p">(</span><span class="s2">&quot;BlueValue&quot;</span><span class="p">,</span> <span class="n">AVSValue</span><span class="p">(</span><span class="n">BlueValue</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setglobalvar">
+<span id="cplusplus-setglobalvar"></span><h4><a class="toc-backref" href="#id30">SetGlobalVar</a><a class="headerlink" href="#setglobalvar" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="nb">bool</span> <span class="n">__stdcall</span> <span class="n">SetGlobalVar</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">name</span><span class="p">,</span> <span class="n">const</span> <span class="n">AVSValue</span><span class="o">&amp;</span> <span class="n">val</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Usage:</p>
+<p>SetGlobalVar can be used to create or set AviSynth variables that are
+visible within global scope. It is possible that a single filter may
+want to use SetVar in order to exchange signals to possible other
+instances of itself.</p>
+<p>There are at least 4 different components that make use of
+Set(Global)Var functions:</p>
+<ul class="simple">
+<li>the core itself</li>
+<li>the user within the avs script</li>
+<li>filters/plugins</li>
+<li>a custom application that invoked the environment</li>
+</ul>
+<p>All of above may have their own requirements for the SetVar function.
+Some may want to be visible globally, others may not.</p>
+</div>
+<div class="section" id="pushcontext">
+<span id="cplusplus-pushcontext"></span><h4><a class="toc-backref" href="#id31">PushContext</a><a class="headerlink" href="#pushcontext" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">void</span> <span class="n">__stdcall</span> <span class="n">PushContext</span><span class="p">(</span><span class="nb">int</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">// TODO - see (also similar functions)</div>
+<div class="line"><a class="reference external" href="http://forum.doom9.org/showthread.php?p=1595750#post1595750">http://forum.doom9.org/showthread.php?p=1595750#post1595750</a></div>
+</div>
+</div>
+<div class="section" id="popcontext">
+<span id="cplusplus-popcontext"></span><h4><a class="toc-backref" href="#id32">PopContext</a><a class="headerlink" href="#popcontext" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">void</span> <span class="n">__stdcall</span> <span class="n">PopContext</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>?</p>
+</div>
+<div class="section" id="popcontextglobal">
+<span id="cplusplus-popcontextglobal"></span><h4><a class="toc-backref" href="#id33">PopContextGlobal</a><a class="headerlink" href="#popcontextglobal" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">void</span> <span class="n">__stdcall</span> <span class="n">PopContextGlobal</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>?</p>
+</div>
+<div class="section" id="newvideoframe">
+<span id="cplusplus-newvideoframe"></span><h4><a class="toc-backref" href="#id34">NewVideoFrame</a><a class="headerlink" href="#newvideoframe" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">PVideoFrame</span> <span class="n">__stdcall</span> <span class="n">NewVideoFrame</span><span class="p">(</span><span class="n">const</span> <span class="n">VideoInfo</span><span class="o">&amp;</span> <span class="n">vi</span><span class="p">,</span> <span class="nb">int</span> <span class="n">align</span><span class="o">=</span><span class="n">FRAME_ALIGN</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="o">//</span> <span class="n">default</span> <span class="n">align</span> <span class="ow">is</span> <span class="mi">16</span>
+</pre></div>
+</div>
+<p>The NewVideoFrame callback allocates space for a video frame of the
+supplied size. (In this case it will hold our filter’s output.) The
+frame buffer is uninitialized raw memory (except that in the debug
+build it gets filled with the repeating byte pattern 0A 11 0C A7 ED,
+which is easy to recognize because it looks like “ALLOCATED”). “vi” is
+a protected member of GenericVideoFilter. It is a structure of type
+VideoInfo, which contains information about the clip (like frame size,
+frame rate, pixel format, audio sample rate, etc.). NewVideoFrame uses
+the information in this structure to return a frame buffer of the
+appropriate size.</p>
+<p>The following example creates a new VideoInfo structure and creates a
+new video frame from it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">VideoInfo</span> <span class="n">vi</span><span class="p">;</span>
+<span class="n">PVideoFrame</span> <span class="n">frame</span><span class="p">;</span>
+<span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">vi</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">VideoInfo</span><span class="p">));</span>
+<span class="n">vi</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">640</span><span class="p">;</span>
+<span class="n">vi</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">480</span><span class="p">;</span>
+<span class="n">vi</span><span class="o">.</span><span class="n">fps_numerator</span> <span class="o">=</span> <span class="mi">30000</span><span class="p">;</span>
+<span class="n">vi</span><span class="o">.</span><span class="n">fps_denominator</span> <span class="o">=</span> <span class="mi">1001</span><span class="p">;</span>
+<span class="n">vi</span><span class="o">.</span><span class="n">num_frames</span> <span class="o">=</span> <span class="mi">107892</span><span class="p">;</span> <span class="o">//</span> <span class="mi">1</span> <span class="n">hour</span>
+<span class="n">vi</span><span class="o">.</span><span class="n">pixel_type</span> <span class="o">=</span> <span class="n">VideoInfo</span><span class="p">::</span><span class="n">CS_BGR32</span><span class="p">;</span>
+<span class="n">vi</span><span class="o">.</span><span class="n">sample_type</span> <span class="o">=</span> <span class="n">SAMPLE_FLOAT</span><span class="p">;</span>
+<span class="n">vi</span><span class="o">.</span><span class="n">nchannels</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="n">vi</span><span class="o">.</span><span class="n">audio_samples_per_second</span> <span class="o">=</span> <span class="mi">48000</span><span class="p">;</span>
+<span class="n">vi</span><span class="o">.</span><span class="n">num_audio_samples</span> <span class="o">=</span> <span class="n">vi</span><span class="o">.</span><span class="n">AudioSamplesFromFrames</span><span class="p">(</span><span class="n">vi</span><span class="o">.</span><span class="n">num_frames</span><span class="p">);</span>
+<span class="n">frame</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">NewVideoFrame</span><span class="p">(</span><span class="n">vi</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="checkversion">
+<span id="cplusplus-checkversion"></span><h4><a class="toc-backref" href="#id35">CheckVersion</a><a class="headerlink" href="#checkversion" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">void</span> <span class="n">__stdcall</span> <span class="n">CheckVersion</span><span class="p">(</span><span class="nb">int</span> <span class="n">version</span> <span class="o">=</span> <span class="n">AVISYNTH_INTERFACE_VERSION</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>CheckVersion checks the interface version (avisynth.h). It throws an
+error if ‘version’ is bigger than the used interface version. The
+following interface versions are in use:</p>
+<p>AVISYNTH_INTERFACE_VERSION = 1 (v1.0-v2.0.8), 2 (v2.5.0-v2.5.5), 3
+(v2.5.6-v2.5.8), 5 (v2.6.0a1-v2.6.0a5), or 6 (v2.6.0) [version 4 doesn’t exist].</p>
+<p>This example will throw an error if v2.5x or an older AviSynth version
+is being used:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span><span class="o">-&gt;</span><span class="n">CheckVersion</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This can be used in a plugin, for example, if it needs at least a
+certain interface version for it to work.</p>
+</div>
+<div class="section" id="subframe">
+<span id="cplusplus-subframe"></span><h4><a class="toc-backref" href="#id36">Subframe</a><a class="headerlink" href="#subframe" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">PVideoFrame</span> <span class="n">__stdcall</span> <span class="n">Subframe</span><span class="p">(</span><span class="n">PVideoFrame</span> <span class="n">src</span><span class="p">,</span> <span class="nb">int</span> <span class="n">rel_offset</span><span class="p">,</span> <span class="nb">int</span> <span class="n">new_pitch</span><span class="p">,</span> <span class="nb">int</span> <span class="n">new_row_size</span><span class="p">,</span> <span class="nb">int</span> <span class="n">new_height</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Subframe (for interleaved formats) extracts a part of a video frame.
+For planar formats use SubframePlanar. For examples see SubframePlanar.</p>
+</div>
+<div class="section" id="subframeplanar">
+<span id="cplusplus-subframeplanar"></span><h4><a class="toc-backref" href="#id37">SubframePlanar</a><a class="headerlink" href="#subframeplanar" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">PVideoFrame</span> <span class="n">__stdcall</span> <span class="n">SubframePlanar</span><span class="p">(</span><span class="n">PVideoFrame</span> <span class="n">src</span><span class="p">,</span> <span class="nb">int</span> <span class="n">rel_offset</span><span class="p">,</span> <span class="nb">int</span> <span class="n">new_pitch</span><span class="p">,</span> <span class="nb">int</span> <span class="n">new_row_size</span><span class="p">,</span> <span class="nb">int</span> <span class="n">new_height</span><span class="p">,</span> <span class="nb">int</span> <span class="n">rel_offsetU</span><span class="p">,</span> <span class="nb">int</span> <span class="n">rel_offsetV</span><span class="p">,</span> <span class="nb">int</span> <span class="n">new_pitchUV</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>SubframePlanar (for planar formats) extracts a part of a video frame.
+The example below returns the first field of a frame:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vi</span><span class="o">.</span><span class="n">height</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">;</span> <span class="o">//</span> <span class="n">sets</span> <span class="n">new</span> <span class="n">height</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">constructor</span>
+<span class="n">PVideoFrame</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">child</span><span class="o">-&gt;</span><span class="n">GetFrame</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">vi</span><span class="o">.</span><span class="n">IsPlanar</span><span class="p">())</span> <span class="p">{</span> <span class="o">//</span> <span class="n">SubframePlanar</span> <span class="n">works</span> <span class="n">on</span> <span class="n">planar</span> <span class="n">formats</span> <span class="n">only</span>
+    <span class="n">const</span> <span class="nb">int</span> <span class="n">frame_pitch</span> <span class="o">=</span> <span class="n">frame</span><span class="o">-&gt;</span><span class="n">GetPitch</span><span class="p">(</span><span class="n">PLANAR_Y</span><span class="p">);</span>
+    <span class="n">const</span> <span class="nb">int</span> <span class="n">frame_width</span> <span class="o">=</span> <span class="n">frame</span><span class="o">-&gt;</span><span class="n">GetRowSize</span><span class="p">(</span><span class="n">PLANAR_Y</span><span class="p">);</span>
+    <span class="n">const</span> <span class="nb">int</span> <span class="n">frame_height</span> <span class="o">=</span> <span class="n">frame</span><span class="o">-&gt;</span><span class="n">GetHeight</span><span class="p">(</span><span class="n">PLANAR_Y</span><span class="p">);</span>
+    <span class="n">const</span> <span class="nb">int</span> <span class="n">frame_pitchUV</span> <span class="o">=</span> <span class="n">frame</span><span class="o">-&gt;</span><span class="n">GetPitch</span><span class="p">(</span><span class="n">PLANAR_U</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">SubframePlanar</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">frame_pitch</span><span class="p">,</span> <span class="n">frame_width</span><span class="p">,</span> <span class="n">frame_height</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">frame_pitchUV</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note that it copies the first row of pixels and moves on to the third
+row (by moving the offset by ‘2*frame_pitch’). After frame_height/2 it
+stops reading.</p>
+<p>The following example keeps the left 100 pixels of a clip (it leaves
+the height unaltered) and throws away the rest:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vi</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="o">//</span> <span class="n">sets</span> <span class="n">new</span> <span class="n">width</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">constructor</span>
+<span class="n">PVideoFrame</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">child</span><span class="o">-&gt;</span><span class="n">GetFrame</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">vi</span><span class="o">.</span><span class="n">IsPlanar</span><span class="p">())</span> <span class="p">{</span> <span class="o">//</span> <span class="n">SubframePlanar</span> <span class="n">works</span> <span class="n">on</span> <span class="n">planar</span> <span class="n">formats</span> <span class="n">only</span>
+    <span class="n">const</span> <span class="nb">int</span> <span class="n">frame_pitch</span> <span class="o">=</span> <span class="n">frame</span><span class="o">-&gt;</span><span class="n">GetPitch</span><span class="p">(</span><span class="n">PLANAR_Y</span><span class="p">);</span>
+    <span class="n">const</span> <span class="nb">int</span> <span class="n">frame_height</span> <span class="o">=</span> <span class="n">frame</span><span class="o">-&gt;</span><span class="n">GetHeight</span><span class="p">(</span><span class="n">PLANAR_Y</span><span class="p">);</span>
+    <span class="n">const</span> <span class="nb">int</span> <span class="n">frame_pitchUV</span> <span class="o">=</span> <span class="n">frame</span><span class="o">-&gt;</span><span class="n">GetPitch</span><span class="p">(</span><span class="n">PLANAR_U</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">SubframePlanar</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">frame_pitch</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">frame_height</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">frame_pitchUV</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note that it copies 100 pixels and moves on to the next row (by moving
+the offset by ‘frame_pitch’).</p>
+<p>You need to check somewhere that the source frames is more than 100
+pixels wide, otherwise throw an error.</p>
+</div>
+<div class="section" id="setmemorymax">
+<span id="cplusplus-setmemorymax"></span><h4><a class="toc-backref" href="#id38">SetMemoryMax</a><a class="headerlink" href="#setmemorymax" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="nb">int</span> <span class="n">__stdcall</span> <span class="n">SetMemoryMax</span><span class="p">(</span><span class="nb">int</span> <span class="n">mem</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>There is a builtin cache automatically inserted in between all filters.
+You can use SetmemoryMax to increase the size.</p>
+<p>SetMemoryMax only sets the size of the frame buffer cache. It is
+independent of any other memory allocation. Memory usage due to the
+frame cache should ramp up pretty quickly to the limited value and stay
+there. Setting a lower SetMemoryMax value will make more memory
+available for other purposes and provide less cache buffer frames. It
+is pointless having more buffers available than are needed by the
+scripts temporal requirements. If each and every frame generated at
+each and every stage of a script is only ever used once then the cache
+is entirely useless. By definition a cache is only useful if a
+generated element is needed a second or subsequent time.</p>
+</div>
+<div class="section" id="setworkingdir">
+<span id="cplusplus-setworkingdir"></span><h4><a class="toc-backref" href="#id39">SetWorkingDir</a><a class="headerlink" href="#setworkingdir" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="nb">int</span> <span class="n">__stdcall</span> <span class="n">SetWorkingDir</span><span class="p">(</span><span class="n">const</span> <span class="n">char</span> <span class="o">*</span> <span class="n">newdir</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Sets the default directory for AviSynth.</p>
+</div>
+<div class="section" id="deletescriptenvironment-v5">
+<span id="cplusplus-deletescriptenvironment"></span><h4><a class="toc-backref" href="#id40">DeleteScriptEnvironment, v5</a><a class="headerlink" href="#deletescriptenvironment-v5" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">void</span> <span class="n">__stdcall</span> <span class="n">DeleteScriptEnvironment</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Provides a method to delete the ScriptEnvironment which is created with
+CreateScriptEnvironment.</p>
+</div>
+<div class="section" id="applymessage-v5">
+<span id="cplusplus-applymessage"></span><h4><a class="toc-backref" href="#id41">ApplyMessage, v5</a><a class="headerlink" href="#applymessage-v5" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">void</span> <span class="n">_stdcall</span> <span class="n">ApplyMessage</span><span class="p">(</span><span class="n">PVideoFrame</span><span class="o">*</span> <span class="n">frame</span><span class="p">,</span> <span class="n">const</span> <span class="n">VideoInfo</span><span class="o">&amp;</span> <span class="n">vi</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">message</span><span class="p">,</span> <span class="nb">int</span> <span class="n">size</span><span class="p">,</span> <span class="nb">int</span> <span class="n">textcolor</span><span class="p">,</span> <span class="nb">int</span> <span class="n">halocolor</span><span class="p">,</span> <span class="nb">int</span> <span class="n">bgcolor</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>ApplyMessage writes text on a frame. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">char</span> <span class="n">BUF</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
+<span class="n">PVideoFrame</span> <span class="n">src</span> <span class="o">=</span> <span class="n">child</span><span class="o">-&gt;</span><span class="n">GetFrame</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+<span class="n">env</span><span class="o">-&gt;</span><span class="n">MakeWritable</span><span class="p">(</span><span class="o">&amp;</span><span class="n">src</span><span class="p">);</span>
+<span class="n">sprintf</span><span class="p">(</span><span class="n">BUF</span><span class="p">,</span> <span class="s2">&quot;Filter: Frame </span><span class="si">%d</span><span class="s2"> is processed.&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+<span class="n">env</span><span class="o">-&gt;</span><span class="n">ApplyMessage</span><span class="p">(</span><span class="o">&amp;</span><span class="n">src</span><span class="p">,</span> <span class="n">vi</span><span class="p">,</span> <span class="n">BUF</span><span class="p">,</span> <span class="n">vi</span><span class="o">.</span><span class="n">width</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mh">0xf0f080</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getavslinkage-v5">
+<span id="cplusplus-getavslinkage"></span><h4><a class="toc-backref" href="#id42">GetAVSLinkage, v5</a><a class="headerlink" href="#getavslinkage-v5" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">const</span> <span class="n">AVS_Linkage</span><span class="o">*</span> <span class="n">const</span> <span class="n">__stdcall</span> <span class="n">GetAVSLinkage</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Returns the <a class="reference internal" href="AVSLinkage.html"><span class="doc">AVSLinkage</span></a>.</p>
+<p>todo: how and when to use that …</p>
+</div>
+</div>
+<div class="section" id="pvideoframe">
+<span id="cplusplus-pvideoframe"></span><h3><a class="toc-backref" href="#id43">PVideoFrame</a><a class="headerlink" href="#pvideoframe" title="Permalink to this headline">¶</a></h3>
+<p>PVideoFrame is a smart pointer to VideoFrame.</p>
+<p>In this example it gives a pointer to frame ‘n’ from child:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PVideoFrame</span> <span class="n">src</span> <span class="o">=</span> <span class="n">child</span><span class="o">-&gt;</span><span class="n">GetFrame</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>“child” is a protected member of GenericVideoFilter, of type PClip. It
+contains the clip that was passed to the constructor. For our filter to
+produce frame n we need the corresponding frame of the input. If you
+need a different frame from the input, all you have to do is pass a
+different frame number to child-&gt;GetFrame.</p>
+<p>In this example it gives a pointer to a new created VideoFrame from vi
+(which is a VideoInfo structure):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PVideoFrame</span> <span class="n">dst</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">NewVideoFrame</span><span class="p">(</span><span class="n">vi</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>“vi” is another protected member of GenericVideoFilter (the only other
+member, actually). It is a structure of type VideoInfo, which contains
+information about the clip (like frame size, frame rate, pixel format,
+audio sample rate, etc.). NewVideoFrame uses the information in this
+struct to return a frame buffer of the appropriate size.</p>
+</div>
+<div class="section" id="iclip">
+<span id="cplusplus-iclip"></span><h3><a class="toc-backref" href="#id44">IClip</a><a class="headerlink" href="#iclip" title="Permalink to this headline">¶</a></h3>
+<p>An Avisynth filter is simply a C++ class implementing the IClip
+interface. IClip has four pure virtual methods: GetVideoInfo, GetFrame,
+GetParity, and GetAudio. The class GenericVideoFilter is a simple
+do-nothing filter defined in avisynth.h. It derives from IClip and
+implements all four methods. Most filters can inherit from
+GenericVideoFilter rather than directly from IClip; this saves you from
+having to implement methods that you don’t care about, like GetAudio.</p>
+<p>IClip has the following members: GetVersion, GetFrame, GetParity,
+GetAudio, SetCacheHints and GetVideoInfo. They are described in the
+following subsections.</p>
+<div class="section" id="getversion">
+<span id="cplusplus-getversion"></span><h4><a class="toc-backref" href="#id45">GetVersion</a><a class="headerlink" href="#getversion" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="nb">int</span> <span class="n">__stdcall</span> <span class="n">GetVersion</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">AVISYNTH_INTERFACE_VERSION</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>GetVersion returns the interface version of the loaded avisynth.dll:</p>
+<p>AVISYNTH_INTERFACE_VERSION = 1 (v1.0-v2.0.8), 2 (v2.5.0-v2.5.5), 3
+(v2.5.6-v2.5.8), 5 (v2.6.0a1-v2.6.0a5), or 6 (v2.6.0) [version 4 doesn’t exist].</p>
+</div>
+<div class="section" id="getframe">
+<span id="cplusplus-getframe"></span><h4><a class="toc-backref" href="#id46">GetFrame</a><a class="headerlink" href="#getframe" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">PVideoFrame</span> <span class="n">__stdcall</span> <span class="n">GetFrame</span><span class="p">(</span><span class="nb">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="n">env</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>GetFrame returns a video frame. In this example, the even frames (0, 2,
+4, …) of ‘child’ are returned:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PVideoFrame</span> <span class="n">src</span> <span class="o">=</span> <span class="n">child</span><span class="o">-&gt;</span><span class="n">GetFrame</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You should do all the GetFrame() calls BEFORE you get any pointers and
+start manipulating any data.</p>
+</div>
+<div class="section" id="getparity">
+<span id="cplusplus-getparity"></span><h4><a class="toc-backref" href="#id47">GetParity</a><a class="headerlink" href="#getparity" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="nb">bool</span> <span class="n">__stdcall</span> <span class="n">GetParity</span><span class="p">(</span><span class="nb">int</span> <span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>GetParity returns the field parity if the clip is field-based,
+otherwise it returns the parity of first field of a frame. In other
+words, it distinguishes between top field first (TFF) and bottom field
+first (BFF). When it returns true, it means that this frame should be
+considered TFF, otherwise it should be considered BFF.</p>
+</div>
+<div class="section" id="getaudio">
+<span id="cplusplus-getaudio"></span><h4><a class="toc-backref" href="#id48">GetAudio</a><a class="headerlink" href="#getaudio" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">void</span> <span class="n">__stdcall</span> <span class="n">GetAudio</span><span class="p">(</span><span class="n">void</span><span class="o">*</span> <span class="n">buf</span><span class="p">,</span> <span class="n">__int64</span> <span class="n">start</span><span class="p">,</span> <span class="n">__int64</span> <span class="n">count</span><span class="p">,</span> <span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="n">env</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Audio processing is handled through the GetAudio method. You must fill
+in the buffer with count samples beginning at the sample start. A
+sample may vary from one to four bytes, depending on whether the audio
+is 8, 16, 24 or 32-bit (float is also 32-bit). The flag vi.SampleType()
+will tell you this.</p>
+<p>If you cannot do your audio processing in-place, you must allocate your
+own buffer for the source audio using new or malloc.</p>
+<p>In this example, the audio of frame ‘n’ is returned (in the buffer
+‘samples’):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">VideoInfo</span> <span class="n">vi</span> <span class="o">=</span> <span class="n">child</span><span class="o">-&gt;</span><span class="n">GetVideoInfo</span><span class="p">();</span>
+<span class="n">PVideoFrame</span> <span class="n">src</span> <span class="o">=</span> <span class="n">child</span><span class="o">-&gt;</span><span class="n">GetFrame</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+<span class="n">const</span> <span class="n">__int64</span> <span class="n">start</span> <span class="o">=</span> <span class="n">vi</span><span class="o">.</span><span class="n">AudioSamplesFromFrames</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+<span class="n">const</span> <span class="n">__int64</span> <span class="n">count</span> <span class="o">=</span> <span class="n">vi</span><span class="o">.</span><span class="n">AudioSamplesFromFrames</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">SFLOAT</span><span class="o">*</span> <span class="n">samples</span> <span class="o">=</span> <span class="n">new</span> <span class="n">SFLOAT</span><span class="p">[</span><span class="n">count</span><span class="o">*</span><span class="n">vi</span><span class="o">.</span><span class="n">AudioChannels</span><span class="p">()];</span>
+<span class="n">child</span><span class="o">-&gt;</span><span class="n">GetAudio</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">start</span><span class="p">),</span> <span class="n">count</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="setcachehints">
+<span id="cplusplus-setcachehints"></span><h4><a class="toc-backref" href="#id49">SetCacheHints</a><a class="headerlink" href="#setcachehints" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">__stdcall</span> <span class="n">SetCacheHints</span><span class="p">(</span><span class="nb">int</span> <span class="n">cachehints</span><span class="p">,</span> <span class="nb">int</span> <span class="n">frame_range</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+<span class="o">//</span> <span class="n">We</span> <span class="n">do</span> <span class="ow">not</span> <span class="k">pass</span> <span class="n">cache</span> <span class="n">requests</span> <span class="n">upwards</span><span class="p">,</span> <span class="n">only</span> <span class="n">to</span> <span class="n">the</span> <span class="nb">next</span> <span class="nb">filter</span><span class="o">.</span>
+
+<span class="o">//</span> <span class="nb">int</span> <span class="n">__stdcall</span> <span class="n">SetCacheHints</span><span class="p">(</span><span class="nb">int</span> <span class="n">cachehints</span><span class="p">,</span> <span class="nb">int</span> <span class="n">frame_range</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+<span class="o">//</span> <span class="n">We</span> <span class="n">do</span> <span class="ow">not</span> <span class="k">pass</span> <span class="n">cache</span> <span class="n">requests</span> <span class="n">upwards</span><span class="p">,</span> <span class="n">only</span> <span class="n">to</span> <span class="n">the</span> <span class="nb">next</span> <span class="nb">filter</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>SetCacheHints should be used in filters that request multiple frames
+from any single PClip source per input GetFrame call. frame_range is
+maximal 21.</p>
+<p>The possible values of cachehints are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>CACHE_NOTHING=0    // Filter requested no caching.
+CACHE_RANGE=1      // An explicit cache of &quot;frame_range&quot; frames around the current frame.
+CACHE_ALL=2        // This is default operation, a simple LRU cache.
+CACHE_AUDIO=3      // Audio caching.
+CACHE_AUDIO_NONE=4 // Filter requested no audio caching.
+CACHE_AUDIO_AUTO=5 // Audio caching (difference with CACHE_AUDIO?).
+</pre></div>
+</div>
+<p>When caching video frames (cachehints=0, 1, 2), frame_range is the
+radius around the current frame. When caching audio samples
+(cachehints=3, 4, 5), the value 0 creates a default buffer of 64kb and
+positive values allocate frame_range bytes for the cache.</p>
+<p>E.g. If you have a single PClip source, i.e. child and you get asked
+for frame 100 and you in turn then ask for frames 98, 99, 100, 101 and
+102 then you need to call CACHE_RANGE with frame_range set to 3:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">child</span><span class="o">-&gt;</span><span class="n">SetCacheHints</span><span class="p">(</span><span class="n">CACHE_RANGE</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Frames outside the specified radius are candidate for normal LRU
+caching.</p>
+<div class="line-block">
+<div class="line">// TODO - describe input and output for v5 //</div>
+<div class="line"><a class="reference external" href="http://forum.doom9.org/showthread.php?p=1595750#post1595750">http://forum.doom9.org/showthread.php?p=1595750#post1595750</a></div>
+</div>
+</div>
+<div class="section" id="getvideoinfo">
+<span id="cplusplus-getvideoinfo"></span><h4><a class="toc-backref" href="#id50">GetVideoInfo</a><a class="headerlink" href="#getvideoinfo" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtual</span> <span class="n">const</span> <span class="n">VideoInfo</span><span class="o">&amp;</span> <span class="n">__stdcall</span> <span class="n">GetVideoInfo</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>GetVideoInfo returns a <a class="reference internal" href="VideoInfo.html"><span class="doc">VideoInfo</span></a> structure.</p>
+</div>
+</div>
+<div class="section" id="pclip">
+<span id="cplusplus-pclip"></span><h3><a class="toc-backref" href="#id51">PClip</a><a class="headerlink" href="#pclip" title="Permalink to this headline">¶</a></h3>
+<p>PClip is a smart pointer to an IClip, and IClip is a generic abstract
+class.. It maintains a reference count on the IClip object and
+automagically deletes it when the last PClip referencing it goes away.
+For obvious reasons, you should always use PClip rather than IClip* to
+refer to clips.</p>
+<p>Like a genuine pointer, a PClip is only four bytes long, so you can
+pass it around by value. Also like a pointer, a PClip can be assigned a
+null value (0), which is often useful as a sentinel. Unlike a pointer,</p>
+<p>PClip is initialized to 0 by default.</p>
+<p>You’ll need to make sure your class doesn’t contain any circular PClip
+references, or any PClips sitting in dynamically allocated memory that
+you forget to delete. Other than that, you don’t have to worry about
+the reference-counting machinery.</p>
+<p>AviSynth filters have a standardized output channel via IClip, but
+(unlike VirtualDub filters) no standardized input channel. Each filter
+is responsible for obtaining its own source material – usually (as in
+this case) from another clip, but sometimes from several different
+clips, or from a file.</p>
+<p>The clip functionality must be provided by some concrete subclass of
+IClip which implements the functions GetFrame(), etc. So you cannot
+create a PClip without having an appropriate IClip subclass. For most
+filters, the GenericVideoFilter class provides the basis for this, but
+‘source’ filters (which is basically what you have) do not have a
+parent clip and so GenericVideoFilter is not appropriate.</p>
+</div>
+<div class="section" id="avsvalue">
+<span id="cplusplus-avsvalue"></span><h3><a class="toc-backref" href="#id52">AVSValue</a><a class="headerlink" href="#avsvalue" title="Permalink to this headline">¶</a></h3>
+<p>AVSValue is a variant type which can hold any one of the following
+types: a boolean value (true/false); an integer; a floating-point
+number; a string; a video clip (PClip); an array of AVSValues; or
+nothing (“undefined”).</p>
+<p>It holds an array of AVSValues in the following way:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AVSValue</span><span class="p">(</span><span class="n">const</span> <span class="n">AVSValue</span><span class="o">*</span> <span class="n">a</span><span class="p">,</span> <span class="nb">int</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span> <span class="nb">type</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="p">;</span> <span class="n">array</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span> <span class="n">array_size</span> <span class="o">=</span> <span class="n">size</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AVSValue</span> <span class="n">up_args</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">child</span><span class="p">,</span> <span class="mi">384</span><span class="p">,</span> <span class="mi">288</span><span class="p">};</span>
+<span class="n">PClip</span> <span class="n">resized</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">Invoke</span><span class="p">(</span><span class="s2">&quot;LanczosResize&quot;</span><span class="p">,</span> <span class="n">AVSValue</span><span class="p">(</span><span class="n">up_args</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span><span class="o">.</span><span class="n">AsClip</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Note that</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AVSValue</span><span class="p">(</span><span class="n">up_args</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>returns the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">;</span> <span class="p">{</span><span class="n">child</span><span class="p">,</span> <span class="mi">384</span><span class="p">,</span> <span class="mi">288</span><span class="p">};</span> <span class="mi">3</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Also Invoke returns an AVSValue (see its declaration) which in that
+case is a PClip.</p>
+</div>
+</div>
+<div class="section" id="structures">
+<span id="cplusplus-structures"></span><h2><a class="toc-backref" href="#id53">Structures</a><a class="headerlink" href="#structures" title="Permalink to this headline">¶</a></h2>
+<p>The following structure is available: VideoInfo structure. It holds
+global information about a clip (i.e. information that does not depend
+on the framenumber). The GetVideoInfo method in IClip returns this
+structure. A description (for AVISYNTH_INTERFACE_VERSION=6) of it can
+be found <a class="reference internal" href="VideoInfo.html"><span class="doc">here</span></a>.</p>
+</div>
+<div class="section" id="constants">
+<span id="cplusplus-constants"></span><h2><a class="toc-backref" href="#id54">Constants</a><a class="headerlink" href="#constants" title="Permalink to this headline">¶</a></h2>
+<p>The following constants are defined in avisynth.h:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">Audio</span> <span class="n">Sample</span> <span class="n">information</span>
+<span class="n">typedef</span> <span class="nb">float</span> <span class="n">SFLOAT</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">enum</span> <span class="p">{</span> <span class="o">//</span> <span class="n">sample</span> <span class="n">types</span>
+    <span class="n">SAMPLE_INT8</span> <span class="o">=</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">SAMPLE_INT16</span> <span class="o">=</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">SAMPLE_INT24</span> <span class="o">=</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">SAMPLE_INT32</span> <span class="o">=</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">SAMPLE_FLOAT</span> <span class="o">=</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">4</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">enum</span> <span class="p">{</span> <span class="o">//</span> <span class="n">plane</span> <span class="n">types</span>
+    <span class="n">PLANAR_Y</span> <span class="o">=</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">PLANAR_U</span> <span class="o">=</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">PLANAR_V</span> <span class="o">=</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">PLANAR_ALIGNED</span> <span class="o">=</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">PLANAR_Y_ALIGNED</span> <span class="o">=</span> <span class="n">PLANAR_Y</span> <span class="o">|</span> <span class="n">PLANAR_ALIGNED</span><span class="p">,</span>
+    <span class="n">PLANAR_U_ALIGNED</span> <span class="o">=</span> <span class="n">PLANAR_U</span> <span class="o">|</span> <span class="n">PLANAR_ALIGNED</span><span class="p">,</span>
+    <span class="n">PLANAR_V_ALIGNED</span> <span class="o">=</span> <span class="n">PLANAR_V</span> <span class="o">|</span> <span class="n">PLANAR_ALIGNED</span><span class="p">,</span>
+    <span class="n">PLANAR_A</span> <span class="o">=</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">4</span><span class="p">,</span> <span class="o">//</span> <span class="n">v5</span>
+    <span class="n">PLANAR_R</span> <span class="o">=</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">5</span><span class="p">,</span> <span class="o">//</span> <span class="n">v5</span>
+    <span class="n">PLANAR_G</span> <span class="o">=</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">6</span><span class="p">,</span> <span class="o">//</span> <span class="n">v5</span>
+    <span class="n">PLANAR_B</span> <span class="o">=</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">7</span><span class="p">,</span> <span class="o">//</span> <span class="n">v5</span>
+    <span class="n">PLANAR_A_ALIGNED</span> <span class="o">=</span> <span class="n">PLANAR_A</span> <span class="o">|</span> <span class="n">PLANAR_ALIGNED</span><span class="p">,</span> <span class="o">//</span> <span class="n">v5</span>
+    <span class="n">PLANAR_R_ALIGNED</span> <span class="o">=</span> <span class="n">PLANAR_R</span> <span class="o">|</span> <span class="n">PLANAR_ALIGNED</span><span class="p">,</span> <span class="o">//</span> <span class="n">v5</span>
+    <span class="n">PLANAR_G_ALIGNED</span> <span class="o">=</span> <span class="n">PLANAR_G</span> <span class="o">|</span> <span class="n">PLANAR_ALIGNED</span><span class="p">,</span> <span class="o">//</span> <span class="n">v5</span>
+    <span class="n">PLANAR_B_ALIGNED</span> <span class="o">=</span> <span class="n">PLANAR_B</span> <span class="o">|</span> <span class="n">PLANAR_ALIGNED</span><span class="p">,</span> <span class="o">//</span> <span class="n">v5</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>enum { // cache types
+    // Old 2.5 poorly defined cache hints (v3).
+    // Reserve values used by 2.5 API
+    // Do not use in new filters
+    CACHE_25_NOTHING = 0,    // Filter requested no caching.
+    CACHE_25_RANGE = 1,      // An explicit cache of &quot;frame_range&quot; frames around the current frame.
+    CACHE_25_ALL = 2,        // This is default operation, a simple LRU cache.
+    CACHE_25_AUDIO = 3,      // Audio caching.
+    CACHE_25_AUDIO_NONE = 4, // Filter requested no audio caching.
+    CACHE_25_AUDIO_AUTO = 5, // Audio caching (difference with CACHE_AUDIO?).
+
+    // New 2.6 explicitly defined cache hints (v5).
+    CACHE_NOTHING = 10,       // Do not cache video.
+    CACHE_WINDOW = 11,        // Hard protect upto X frames within a range of X from the current frame N.
+    CACHE_GENERIC = 12,       // LRU cache upto X frames.
+    CACHE_FORCE_GENERIC = 13, // LRU cache upto X frames, override any previous CACHE_WINDOW.
+
+    CACHE_GET_POLICY = 30, // Get the current policy.
+    CACHE_GET_WINDOW = 31, // Get the current window h_span.
+    CACHE_GET_RANGE = 32,  // Get the current generic frame range.
+
+    CACHE_AUDIO = 50,         // Explicitly do cache audio, X byte cache.
+    CACHE_AUDIO_NOTHING = 51, // Explicitly do not cache audio.
+    CACHE_AUDIO_NONE = 52,    // Audio cache off (auto mode), X byte intial cache.
+    CACHE_AUDIO_AUTO = 53,    // Audio cache on (auto mode), X byte intial cache.
+
+    CACHE_GET_AUDIO_POLICY = 70, // Get the current audio policy.
+    CACHE_GET_AUDIO_SIZE = 71,   // Get the current audio cache size.
+
+    CACHE_PREFETCH_FRAME = 100, // Queue request to prefetch frame N.
+    CACHE_PREFETCH_GO = 101,    // Action video prefetches.
+
+    CACHE_PREFETCH_AUDIO_BEGIN = 120,   // Begin queue request transaction to prefetch audio (take critical section).
+    CACHE_PREFETCH_AUDIO_STARTLO = 121, // Set low 32 bits of start.
+    CACHE_PREFETCH_AUDIO_STARTHI = 122, // Set high 32 bits of start.
+    CACHE_PREFETCH_AUDIO_COUNT = 123,   // Set low 32 bits of length.
+    CACHE_PREFETCH_AUDIO_COMMIT = 124,  // Enqueue request transaction to prefetch audio (release critical section).
+    CACHE_PREFETCH_AUDIO_GO = 125,      // Action audio prefetches.
+
+    CACHE_GETCHILD_CACHE_MODE = 200, // Cache ask Child for desired video cache mode.
+    CACHE_GETCHILD_CACHE_SIZE = 201, // Cache ask Child for desired video cache size.
+    CACHE_GETCHILD_AUDIO_MODE = 202, // Cache ask Child for desired audio cache mode.
+    CACHE_GETCHILD_AUDIO_SIZE = 203, // Cache ask Child for desired audio cache size.
+
+    CACHE_GETCHILD_COST = 220, // Cache ask Child for estimated processing cost.
+    CACHE_COST_ZERO = 221,     // Child response of zero cost (ptr arithmetic only).
+    CACHE_COST_UNIT = 222,     // Child response of unit cost (less than or equal 1 full frame blit).
+    CACHE_COST_LOW = 223,      // Child response of light cost. (Fast)
+    CACHE_COST_MED = 224,      // Child response of medium cost. (Real time)
+    CACHE_COST_HI = 225,       // Child response of heavy cost. (Slow)
+
+    CACHE_GETCHILD_THREAD_MODE = 240, // Cache ask Child for thread safetyness.
+    CACHE_THREAD_UNSAFE = 241,        // Only 1 thread allowed for all instances. 2.5 filters default!
+    CACHE_THREAD_CLASS = 242,         // Only 1 thread allowed for each instance. 2.6 filters default!
+    CACHE_THREAD_SAFE = 243,          // Allow all threads in any instance.
+    CACHE_THREAD_OWN = 244,           // Safe but limit to 1 thread, internally threaded.
+
+    CACHE_GETCHILD_ACCESS_COST = 260, // Cache ask Child for preferred access pattern.
+    CACHE_ACCESS_RAND = 261,          // Filter is access order agnostic.
+    CACHE_ACCESS_SEQ0 = 262,          // Filter prefers sequential access (low cost)
+    CACHE_ACCESS_SEQ1 = 263,          // Filter needs sequential access (high cost)
+};
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">enum</span> <span class="p">{</span> <span class="o">//</span> <span class="n">For</span> <span class="n">GetCPUFlags</span><span class="o">.</span> <span class="n">These</span> <span class="n">are</span> <span class="n">backwards</span><span class="o">-</span><span class="n">compatible</span> <span class="k">with</span> <span class="n">those</span> <span class="ow">in</span> <span class="n">VirtualDub</span><span class="o">.</span>
+    <span class="o">/*</span> <span class="n">oldest</span> <span class="n">CPU</span> <span class="n">to</span> <span class="n">support</span> <span class="n">extension</span> <span class="o">*/</span>
+    <span class="n">CPUF_FORCE</span> <span class="o">=</span> <span class="mh">0x01</span><span class="p">,</span>       <span class="o">//</span> <span class="n">N</span><span class="o">/</span><span class="n">A</span>
+    <span class="n">CPUF_FPU</span> <span class="o">=</span> <span class="mh">0x02</span><span class="p">,</span>         <span class="o">//</span> <span class="mi">386</span><span class="o">/</span><span class="mi">486</span><span class="n">DX</span>
+    <span class="n">CPUF_MMX</span> <span class="o">=</span> <span class="mh">0x04</span><span class="p">,</span>         <span class="o">//</span> <span class="n">P55C</span><span class="p">,</span> <span class="n">K6</span><span class="p">,</span> <span class="n">PII</span>
+    <span class="n">CPUF_INTEGER_SSE</span> <span class="o">=</span> <span class="mh">0x08</span><span class="p">,</span> <span class="o">//</span> <span class="n">PIII</span><span class="p">,</span> <span class="n">Athlon</span>
+    <span class="n">CPUF_SSE</span> <span class="o">=</span> <span class="mh">0x10</span><span class="p">,</span>         <span class="o">//</span> <span class="n">PIII</span><span class="p">,</span> <span class="n">Athlon</span> <span class="n">XP</span><span class="o">/</span><span class="n">MP</span>
+    <span class="n">CPUF_SSE2</span> <span class="o">=</span> <span class="mh">0x20</span><span class="p">,</span>        <span class="o">//</span> <span class="n">PIV</span><span class="p">,</span> <span class="n">K8</span>
+    <span class="n">CPUF_3DNOW</span> <span class="o">=</span> <span class="mh">0x40</span><span class="p">,</span>       <span class="o">//</span> <span class="n">K6</span><span class="o">-</span><span class="mi">2</span>
+    <span class="n">CPUF_3DNOW_EXT</span> <span class="o">=</span> <span class="mh">0x80</span><span class="p">,</span>   <span class="o">//</span> <span class="n">Athlon</span>
+    <span class="n">CPUF_X86_64</span> <span class="o">=</span> <span class="mh">0xA0</span><span class="p">,</span>      <span class="o">//</span> <span class="n">Hammer</span> <span class="p">(</span><span class="n">note</span><span class="p">:</span> <span class="n">equiv</span><span class="o">.</span> <span class="n">to</span> <span class="mi">3</span><span class="n">DNow</span> <span class="o">+</span> <span class="n">SSE2</span><span class="p">,</span> <span class="n">which</span> <span class="n">only</span> <span class="n">Hammer</span> <span class="n">will</span> <span class="n">have</span> <span class="n">anyway</span><span class="p">)</span>
+    <span class="n">CPUF_SSE3</span> <span class="o">=</span> <span class="mh">0x100</span><span class="p">,</span>       <span class="o">//</span> <span class="n">PIV</span><span class="o">+</span><span class="p">,</span> <span class="n">K8</span> <span class="n">Venice</span>
+
+    <span class="o">//</span> <span class="n">Additional</span> <span class="n">CPU</span> <span class="n">flags</span> <span class="ow">in</span> <span class="mf">2.6</span> <span class="p">(</span><span class="n">v5</span><span class="p">)</span><span class="o">.</span>
+    <span class="n">CPUF_SSSE3</span> <span class="o">=</span> <span class="mh">0x200</span><span class="p">,</span>     <span class="o">//</span> <span class="n">Core</span> <span class="mi">2</span>
+    <span class="n">CPUF_SSE4</span> <span class="o">=</span> <span class="mh">0x400</span><span class="p">,</span>      <span class="o">//</span> <span class="n">Penryn</span><span class="p">,</span> <span class="n">Wolfdale</span><span class="p">,</span> <span class="n">Yorkfield</span>
+    <span class="n">CPUF_SSE4_1</span> <span class="o">=</span> <span class="mh">0x400</span><span class="p">,</span>
+    <span class="n">CPUF_SSE4_2</span> <span class="o">=</span> <span class="mh">0x1000</span><span class="p">,</span>   <span class="o">//</span>  <span class="n">Nehalem</span> <span class="p">(</span><span class="n">note</span> <span class="n">this</span> <span class="n">was</span> <span class="mh">0x800</span> <span class="ow">in</span> <span class="n">v5</span><span class="p">)</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>Back to <a class="reference internal" href="FilterSDK.html"><span class="doc">AviSynth FilterSDK</span></a></p>
+<p>$Date: 2015/01/13 00:24:50 $</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="DataAlignment.html" title="DataAlignment"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="CompilingAvisynthPlugins.html" title="CompilingAviSynthPlugins"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

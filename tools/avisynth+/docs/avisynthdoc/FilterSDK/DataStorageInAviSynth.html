@@ -1,0 +1,274 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>DataStorageInAviSynth &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Debugging instructions" href="DebuggingAvisynthPlugins.html" />
+    <link rel="prev" title="DataAlignment" href="DataAlignment.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="DebuggingAvisynthPlugins.html" title="Debugging instructions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="DataAlignment.html" title="DataAlignment"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">DataStorageInAviSynth</a><ul>
+<li><a class="reference internal" href="#part-1-actual-memory-storage">Part 1: Actual memory storage</a><ul>
+<li><a class="reference internal" href="#interleaved-formats">Interleaved formats</a></li>
+<li><a class="reference internal" href="#planar-formats">Planar formats</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#part-2-how-does-this-affect-me-as-a-user">Part 2: How does this affect me as a user?</a></li>
+<li><a class="reference internal" href="#more-information">More information</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="DataAlignment.html"
+                        title="previous chapter">DataAlignment</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="DebuggingAvisynthPlugins.html"
+                        title="next chapter">Debugging instructions</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/FilterSDK/DataStorageInAviSynth.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="datastorageinavisynth">
+<h1>DataStorageInAviSynth<a class="headerlink" href="#datastorageinavisynth" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="part-1-actual-memory-storage">
+<h2>Part 1: Actual memory storage<a class="headerlink" href="#part-1-actual-memory-storage" title="Permalink to this headline">¶</a></h2>
+<p><strong>Warning:</strong> <em>technical.</em> Most users will only need to read (and understand)
+Part 2.</p>
+<p>In AviSynth, we process pixels of video data. These are stored in the memory
+in the form of data arrays. As noted elsewhere (like the <a class="reference internal" href="../faq/faq_sections.html"><span class="doc">AviSynth FAQ</span></a>)
+there are two different colorspaces in v1.0x/2.0x, RGB and YUY2, with a third
+YV12 added in v2.5. These colorspaces store their data in different ways.</p>
+<div class="section" id="interleaved-formats">
+<h3>Interleaved formats<a class="headerlink" href="#interleaved-formats" title="Permalink to this headline">¶</a></h3>
+<p><strong>RGB</strong> (also known as RGB24): Every pixel is associated with three bytes of
+data: one red, one green, and one blue. They are interleaved (mixed) in the
+memory like this <code class="docutils literal notranslate"><span class="pre">RGBRGBRGBRGB</span></code>. Since data is most easily read in words of
+four bytes, most functions actually process 4 pixels at the same time in
+order to be able to read 3 words in a row. Usually memory is allocated as
+<code class="docutils literal notranslate"><span class="pre">aligned</span></code> which means that it always allocate memory in words of 4 bytes.
+Since the 3 to 4 relation isn’t easy to map, RGB24 is very difficult to work
+with, and in general isn’t recommended.</p>
+<p><strong>RGBA</strong> (also known as RGB32): This is an extension of RGB where a fourth
+color channel has been added. This is called the alpha channel, and is a
+definition of transparency in the pixel. For an explanation of how the alpha
+channel is used see <a class="reference internal" href="../corefilters/layer.html"><span class="doc">Mask and Layer</span></a>. In general however, you shouldn’t rely
+on filters processing alpha correctly - in some cases filters will even
+produce garbage in this channel.</p>
+<p>RGBA also makes this a lot easier as it requires four bytes per pixel, and
+thus each memory access of a word, will correspond to exactly one pixel. In
+fact, RGB will only be used if you have a source that returns RGB or if you
+explicitly use (ConvertToRGB24). <a class="reference internal" href="../corefilters/convert.html"><span class="doc">ConvertToRGB</span></a> will by default create RGBA.
+This is the recommended format for RGB-data.</p>
+<p><strong>YUY2</strong>: In this colorspace each pair of pixels will share the color data,
+as well as the data being interleaved like this <code class="docutils literal notranslate"><span class="pre">YUYV|YUYV|YUYV|YUYV</span></code>. A
+memory access of one word will get all data for <strong>two</strong> pixels. A pair should
+never be split, as this can create strange artifacts when almost all
+functions in YUY2 assumes that they should read a full word and process that.
+Even if they return the right width when they are done, they will most likely
+have used invalid data when processing valid pixels.</p>
+</div>
+<div class="section" id="planar-formats">
+<h3>Planar formats<a class="headerlink" href="#planar-formats" title="Permalink to this headline">¶</a></h3>
+<p>Now the real fun begins as this is a <a class="reference internal" href="PlanarImageFormat.html"><span class="doc">PlanarImageFormat</span></a>. This means that
+data is not <a class="reference internal" href="InterleavedImageFormat.html"><span class="doc">interleaved</span></a>, but stored separately for each color channel
+(also called color plane). For filter writers this means that they can write
+one simple function that is called three times, one for each color channel,
+assuming that the operations are channel-independent (which is not always the
+case). Again, using <code class="docutils literal notranslate"><span class="pre">aligned</span></code> for both color and luma channels will allow
+easy memory access.</p>
+<p><strong>Y8</strong>: This colorformat is greyscale, i.e. contains no color. It is the only
+format which is both planar and interleaved.</p>
+<p><strong>YV12</strong>: Four pixels share the color data. These four pixels are a 2x2
+block, i.e. two pairs on adjacent lines in the same field. As fields
+themselves are interleaved, this means that for field-based video line 1&amp;3
+share color data, as well as line 2&amp;4. Frame-based video though has the more
+instinctive way of sharing color, line 1&amp;2 share just as line 3&amp;4 does. The
+2x2 block should never be split as this may create strange artifacts.</p>
+<p><strong>YV411</strong>: Four pixels share the color data. These four pixels are a 1x4
+block, i.e. a quadruple. The 1x4 block should never be split as this may
+create strange artifacts.</p>
+<p><strong>YV16</strong>: In this colorspace each pair of pixels will share the color data.
+The pair should never be split as this may create strange artifacts. It is a
+planar version of YUY2.</p>
+<p><strong>YV24</strong>: This color format has full color, i.e. each pixel has a unique
+color (just like RGB and RGBA).</p>
+</div>
+</div>
+<div class="section" id="part-2-how-does-this-affect-me-as-a-user">
+<h2>Part 2: How does this affect me as a user?<a class="headerlink" href="#part-2-how-does-this-affect-me-as-a-user" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>As long as you don’t split a colorsharing unit it’s up to the
+filterwriters to take care of problems with memory reading at end of
+lines.</li>
+<li>Interlaced (fieldbased) video requires double mod on height.</li>
+<li>Required modulos in different colorspaces.<ul>
+<li><strong>RGB(A)</strong><ul>
+<li>width mod-1 (no restriction)</li>
+<li>height mod-1 (no restriction) <em>if progressive</em></li>
+<li>height mod-2 (even values) <em>if interlaced</em></li>
+</ul>
+</li>
+<li><strong>YUY2</strong><ul>
+<li>width mod-2 (even values)</li>
+<li>height mod-1 (no restriction) <em>if progressive</em></li>
+<li>height mod-2 (even values) <em>if interlaced</em></li>
+</ul>
+</li>
+<li><strong>Y8</strong><ul>
+<li>width mod-1 (no restriction)</li>
+<li>height mod-1 (no restriction) <em>if progressive</em></li>
+<li>height mod-2 (even values) <em>if interlaced</em></li>
+</ul>
+</li>
+<li><strong>YV411</strong><ul>
+<li>width mod-4</li>
+<li>height mod-1 (no restriction) <em>if progressive</em></li>
+<li>height mod-2 (even values) <em>if interlaced</em></li>
+</ul>
+</li>
+<li><strong>YV12</strong><ul>
+<li>width mod-2 (even values)</li>
+<li>height mod-2 (even values) <em>if progressive</em></li>
+<li>height mod-4 <em>if interlaced</em></li>
+</ul>
+</li>
+<li><strong>YV16</strong><ul>
+<li>width mod-2 (even values)</li>
+<li>height mod-1 (no restriction) <em>if progressive</em></li>
+<li>height mod-2 (even values) <em>if interlaced</em></li>
+</ul>
+</li>
+<li><strong>YV24</strong><ul>
+<li>width mod-1 (no restriction)</li>
+<li>height mod-1 (no restriction) <em>if progressive</em></li>
+<li>height mod-2 (even values) <em>if interlaced</em></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Examples of valid <a class="reference internal" href="../corefilters/crop.html"><span class="doc">Crops</span></a> with input 320x240 progressive<ul>
+<li><strong>RGB(A)</strong><ul>
+<li>Crop(1,7,-32,-19)</li>
+<li>Crop(2,4,300,196)</li>
+</ul>
+</li>
+<li><strong>YUY2</strong><ul>
+<li>Crop(2,7,-32,-19)</li>
+<li>Crop(2,4,300,196)</li>
+</ul>
+</li>
+<li><strong>YV12</strong><ul>
+<li>Crop(2,8,-32,-18)</li>
+<li>Crop(2,4,300,196)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Note that final video may have other restrictions, most MPEG-n
+implementations want mod-16 on all resolutions etc.</li>
+</ol>
+</div>
+<div class="section" id="more-information">
+<h2>More information<a class="headerlink" href="#more-information" title="Permalink to this headline">¶</a></h2>
+<p>See more about <a class="reference internal" href="ColorSpaces.html"><span class="doc">ColorSpaces</span></a>.</p>
+<p>See a general introduction to <a class="reference internal" href="WorkingWithImages.html"><span class="doc">WorkingWithImages</span></a>.</p>
+<hr class="docutils" />
+<p>This page is a edited summary of <a class="reference external" href="http://forum.doom9.org/showthread.php?s=&amp;threadid=40413&amp;highlight=YV12">[this thread at Doom9’s forum]</a></p>
+<hr class="docutils" />
+<p>Back to <a class="reference internal" href="FilterSDK.html"><span class="doc">AviSynth FilterSDK</span></a></p>
+<p>$Date: 2014/10/27 22:04:54 $</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="DebuggingAvisynthPlugins.html" title="Debugging instructions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="DataAlignment.html" title="DataAlignment"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

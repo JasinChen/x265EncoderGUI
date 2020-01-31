@@ -1,0 +1,324 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Luminance levels &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Sampling" href="sampling.html" />
+    <link rel="prev" title="Interlaced and Field-based video" href="interlaced_fieldbased.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="sampling.html" title="Sampling"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="interlaced_fieldbased.html" title="Interlaced and Field-based video"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Luminance levels</a><ul>
+<li><a class="reference internal" href="#what-are-luminance-levels">What are luminance levels?</a></li>
+<li><a class="reference internal" href="#how-can-i-see-if-the-levels-are-wrong">How can I see if the levels are wrong?</a></li>
+<li><a class="reference internal" href="#which-combinations-give-wrong-levels">Which combinations give wrong levels?</a></li>
+<li><a class="reference internal" href="#how-can-i-correct-the-levels">How can I correct the levels?</a><ul>
+<li><a class="reference internal" href="#method-1-adjusting-graphics-driver-settings">Method #1: Adjusting graphics driver settings</a></li>
+<li><a class="reference internal" href="#method-2-convert-to-rgb32-with-ffdshow">Method #2: Convert to RGB32 with ffdshow</a></li>
+<li><a class="reference internal" href="#method-3-levels-filter-in-ffdshow-video-decoder">Method #3: Levels filter in ffdshow video decoder</a></li>
+<li><a class="reference internal" href="#method-4-pixelshader-in-media-player-classic">Method #4: Pixelshader in Media Player Classic</a></li>
+<li><a class="reference internal" href="#method-5-use-avisynth-script-in-ffdshow-video-decoder">Method #5: Use AviSynth script in ffdshow video decoder</a></li>
+<li><a class="reference internal" href="#method-6-monitor-settings">Method #6: Monitor settings</a></li>
+<li><a class="reference internal" href="#method-7-resize-in-software">Method #7: Resize in software</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#test-files">Test files</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="interlaced_fieldbased.html"
+                        title="previous chapter">Interlaced and Field-based video</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="sampling.html"
+                        title="next chapter">Sampling</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/advancedtopics/luminance_levels.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="luminance-levels">
+<h1><a class="toc-backref" href="#id2">Luminance levels</a><a class="headerlink" href="#luminance-levels" title="Permalink to this headline">¶</a></h1>
+<p>Wrong levels is a common playback problem. It is a subject that gets
+discussed over and over again. The purpose of this topic is to centralize the
+collective knowledge of the Doom9 community regarding this subject. Everyone
+please share your knowledge. I’ll update the information below to include
+your wisdom.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#luminance-levels" id="id2">Luminance levels</a><ul>
+<li><a class="reference internal" href="#what-are-luminance-levels" id="id3">What are luminance levels?</a></li>
+<li><a class="reference internal" href="#how-can-i-see-if-the-levels-are-wrong" id="id4">How can I see if the levels are wrong?</a></li>
+<li><a class="reference internal" href="#which-combinations-give-wrong-levels" id="id5">Which combinations give wrong levels?</a></li>
+<li><a class="reference internal" href="#how-can-i-correct-the-levels" id="id6">How can I correct the levels?</a><ul>
+<li><a class="reference internal" href="#method-1-adjusting-graphics-driver-settings" id="id7">Method #1: Adjusting graphics driver settings</a></li>
+<li><a class="reference internal" href="#method-2-convert-to-rgb32-with-ffdshow" id="id8">Method #2: Convert to RGB32 with ffdshow</a></li>
+<li><a class="reference internal" href="#method-3-levels-filter-in-ffdshow-video-decoder" id="id9">Method #3: Levels filter in ffdshow video decoder</a></li>
+<li><a class="reference internal" href="#method-4-pixelshader-in-media-player-classic" id="id10">Method #4: Pixelshader in Media Player Classic</a></li>
+<li><a class="reference internal" href="#method-5-use-avisynth-script-in-ffdshow-video-decoder" id="id11">Method #5: Use AviSynth script in ffdshow video decoder</a></li>
+<li><a class="reference internal" href="#method-6-monitor-settings" id="id12">Method #6: Monitor settings</a></li>
+<li><a class="reference internal" href="#method-7-resize-in-software" id="id13">Method #7: Resize in software</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#test-files" id="id14">Test files</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="what-are-luminance-levels">
+<h2><a class="toc-backref" href="#id3">What are luminance levels?</a><a class="headerlink" href="#what-are-luminance-levels" title="Permalink to this headline">¶</a></h2>
+<p>Digital video is typically encoded in a YCbCr format. YCbCr is a family of
+color spaces (YV12, YUY2, etc), that encode color information (chroma)
+separately from brightness information (luma).</p>
+<p>There are two standards for the encoding of luminance. For standard-
+definition TV (SDTV) the standard is BT.601, and for high-definition TV
+(HDTV) the standard is BT.709.</p>
+<p>Luma values fall in a range. Unfortunately this range is not always the same.
+There are two commonly used ranges: 0-255 (aka PC levels) and 16-235 (aka TV
+levels). ‘TV levels’ were originally created to allow for analog overshoot
+and undershoot <a class="reference external" href="http://en.wikipedia.org/wiki/Rec._601">[1]</a>. This holds for both the YCbCr and the RGB format.
+Usually, your video is stored in 16-235 YCbCr, but it is played back at 0-255
+RGB. This implies that the levels need to be expanded at some point. But in
+some cases your video will be stored as 0-255 YCbCr (DV is an example of
+this), and no expansion is needed.</p>
+<p>Thus when converting a YCbCr colorspace to RGB, the correct standard (BT.601
+or BT.709) must be used and the correct range (TV or PC levels) must be used.</p>
+<p>The above is not always done correctly. It can go wrong with certain
+combinations of video renderers, video resolutions and graphics driver
+settings.</p>
+</div>
+<div class="section" id="how-can-i-see-if-the-levels-are-wrong">
+<h2><a class="toc-backref" href="#id4">How can I see if the levels are wrong?</a><a class="headerlink" href="#how-can-i-see-if-the-levels-are-wrong" title="Permalink to this headline">¶</a></h2>
+<p>The video looks washed out and the colors are not vivid. Black is displayed
+as dark gray. White is displayed as light gray.</p>
+<p>The opposite is also possible, but more rare. In that case dark colors are
+displayed too dark, and light colors are displayed too bright.</p>
+</div>
+<div class="section" id="which-combinations-give-wrong-levels">
+<h2><a class="toc-backref" href="#id5">Which combinations give wrong levels?</a><a class="headerlink" href="#which-combinations-give-wrong-levels" title="Permalink to this headline">¶</a></h2>
+<p>Many factors play a role, so it is not possible to give a list of
+combinations that always gives wrong levels for everyone. Below is an
+(incomplete) list of situations in which wrong levels are likely to occur
+(when outputting to a PC monitor). This means they will convert YCbCr
+[16,235] to RGB [16,235] (so the levels are not expanded). But in general,
+just trust your eyes.</p>
+<ul class="simple">
+<li>Windows Vista + EVR CP + SD video + ATI</li>
+<li>Windows Vista + EVR CP + SD video + NVIDIA</li>
+<li>Windows XP + VMR-7 (renderless) + SD video + ATI</li>
+<li>Windows XP + VMR-9 (windowed) + SD video + ATI</li>
+<li>Windows XP + VMR-9 (renderless) + SD video + ATI</li>
+<li>Windows XP + EVR + SD video + ATI</li>
+<li>Windows XP + EVR CP + SD video + ATI</li>
+</ul>
+<p>(if you have additions to this list, then please post them)</p>
+</div>
+<div class="section" id="how-can-i-correct-the-levels">
+<h2><a class="toc-backref" href="#id6">How can I correct the levels?</a><a class="headerlink" href="#how-can-i-correct-the-levels" title="Permalink to this headline">¶</a></h2>
+<p>The methods below assume that you are outputting the video (stored as 16-235
+YCbCr) to a PC monitor or LCD TV, meaning a device that needs full range RGB
+(0-255). If you are using a CRT TV, then read the comments at methods 2 and
+3.</p>
+<div class="section" id="method-1-adjusting-graphics-driver-settings">
+<h3><a class="toc-backref" href="#id7">Method #1: Adjusting graphics driver settings</a><a class="headerlink" href="#method-1-adjusting-graphics-driver-settings" title="Permalink to this headline">¶</a></h3>
+<p><strong>NVIDIA</strong></p>
+<p>Since version 177.84, the NVIDIA drivers have an option for configuring the
+luma range.</p>
+<p>You can find the option here: NVIDIA Control Panel -&gt; Video &amp; Television -&gt;
+Adjust video color settings -&gt; Select “With the NVIDIA settings” -&gt; Advanced
+tab -&gt; Set Dynamic Range to “Full (0-255)”.</p>
+<img alt="../../_images/nvidia_control_panel.jpg" src="../../_images/nvidia_control_panel.jpg" />
+<p><strong>ATI</strong></p>
+<p>The ATI driver requires a Registry tweak. With the tweak applied, the driver
+will convert TV levels to PC levels for SD resolution video. It already does
+that by default for HD video.</p>
+<p>ToDo: include idiot proof solution for applying the tweak</p>
+<p>Several ATI driver tweaks can be found <a class="reference external" href="http://www.avsforum.com/avs-vb/showpost.php?p=11622510&amp;postcount=2011">in this thread</a>. The UseBT601CSC setting is
+the one related to luminance levels.</p>
+</div>
+<div class="section" id="method-2-convert-to-rgb32-with-ffdshow">
+<h3><a class="toc-backref" href="#id8">Method #2: Convert to RGB32 with ffdshow</a><a class="headerlink" href="#method-2-convert-to-rgb32-with-ffdshow" title="Permalink to this headline">¶</a></h3>
+<p>Forcing ffdshow to output RGB32 can help prevent luminance level issues.
+Downside of this method is that doing this conversion in software increases
+CPU usage.</p>
+<p>To force RGB32 output in ffdshow, you should uncheck all colorspaces except
+RGB32 on the Output page in ffdshow configuration. It is also recommended to
+enable “High quality YV12 to RGB conversion”. On the RGB conversion page, you
+can choose which standard should be assumed, BT.601 or BT709. Choose the
+first for low resolution material, and the latter for HD video.</p>
+<p>Note: an automatic selection option based on the video resolution will
+hopefully be added in the near future.</p>
+<p>Tip: the Profiles/Presets feature in ffdshow can be used to create different
+sets of settings. You can even auto-load profiles based on conditions like
+resolution of video format. You could for example create a profile
+specifically for HD resolution video, and use the ‘standard’ profile for low
+resolution videos.</p>
+<p>Note: When outputting to a CRT TV, you need to select “Full Range” contrast.
+For PC monitors and LCD TVs, the default “Standard” contrast setting is
+correct.</p>
+</div>
+<div class="section" id="method-3-levels-filter-in-ffdshow-video-decoder">
+<h3><a class="toc-backref" href="#id9">Method #3: Levels filter in ffdshow video decoder</a><a class="headerlink" href="#method-3-levels-filter-in-ffdshow-video-decoder" title="Permalink to this headline">¶</a></h3>
+<p>ffdshow has a special filter for adjusting (luminance) levels. To correct
+wrong luminance levels for a PC monitor or LCD TV you usually need to convert
+to PC levels. To correct wrong levels for a CRT TV, you usually need to
+convert to TV levels.</p>
+<p>To convert from TV levels to PC levels use 16-235 as input range and 0-255 as
+output range. To convert from PC levels to TV levels use 0-255 as input range
+and 16-235 as output range.</p>
+</div>
+<div class="section" id="method-4-pixelshader-in-media-player-classic">
+<h3><a class="toc-backref" href="#id10">Method #4: Pixelshader in Media Player Classic</a><a class="headerlink" href="#method-4-pixelshader-in-media-player-classic" title="Permalink to this headline">¶</a></h3>
+<p>A pixelshader is a small program that runs on your graphics card and
+processes some graphic data. In this case each frame of your video.</p>
+<p>Media Player Classic has a special pixelshader called “16-235 -&gt; 0-255” for
+converting TV levels to PC levels. This shader only adjusts luma values.
+There also is a shader called “BT.601 -&gt; BT.709”. That one is more advanced
+and also adjust chroma values.</p>
+<p>Note: the current shaders in MPC always behave the same, regardless of the
+video resolution. Since wrong levels may not occur at all resolutions, it is
+not recommended to have the shaders enabled all the time. Adjusting levels
+when no adjustment is needed will lead to suboptimal results.</p>
+<p>Some requirements for the pixelshaders in MPC:</p>
+<ul class="simple">
+<li>You need to use a compatible video renderer: VMR-7 (renderless),
+VMR-9 (renderless), or EVR Custom Presenter.</li>
+<li>Surface setting must be set to “3D surfaces”.</li>
+<li>It requires some DirectX components that are not included with a
+default Windows installation. Run the DirectX Web Installer to get the
+required DirectX updates.</li>
+</ul>
+</div>
+<div class="section" id="method-5-use-avisynth-script-in-ffdshow-video-decoder">
+<h3><a class="toc-backref" href="#id11">Method #5: Use AviSynth script in ffdshow video decoder</a><a class="headerlink" href="#method-5-use-avisynth-script-in-ffdshow-video-decoder" title="Permalink to this headline">¶</a></h3>
+<p>Adjusting levels or conversion to RGB32 can also be done through an AviSynth
+script in ffdshow. This is for advanced users.</p>
+<p>If your video is stored as 16-235 YCbCr, open the video decoder tab of
+ffdshow (here this is done for MPC):</p>
+<img alt="../../_images/ffdshow_avisynth.jpg" src="../../_images/ffdshow_avisynth.jpg" />
+<p>Check the AviSynth box, and create the following script</p>
+<img alt="../../_images/ffdshow_avisynth2.jpg" src="../../_images/ffdshow_avisynth2.jpg" />
+<p>ffdshow will add itself as source. More information can be found <a class="reference external" href="http://ffdshow-tryout.sourceforge.net/wiki/video:avisynth">here</a>.</p>
+<p>If your video is stored as 0-255 YCbCr, create the following script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ConvertToRGB</span><span class="p">(</span><span class="n">matrix</span><span class="o">=</span><span class="s2">&quot;PC.601&quot;</span><span class="p">)</span> <span class="c1"># keep full range video (use matrix=&quot;PC.709&quot; when appropriate)</span>
+</pre></div>
+</div>
+<p>If your video is stored as 0-255 YCbCr and you want to pass 16-235 YCbCr to
+your renderer, use</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ColorYUV</span><span class="p">(</span><span class="n">levels</span><span class="o">=</span><span class="s2">&quot;PC-&gt;TV&quot;</span><span class="p">)</span> <span class="c1"># convert to TV-levels</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="method-6-monitor-settings">
+<h3><a class="toc-backref" href="#id12">Method #6: Monitor settings</a><a class="headerlink" href="#method-6-monitor-settings" title="Permalink to this headline">¶</a></h3>
+<p>Some monitors can be calibrated to assume a certain luminance level as input.</p>
+</div>
+<div class="section" id="method-7-resize-in-software">
+<h3><a class="toc-backref" href="#id13">Method #7: Resize in software</a><a class="headerlink" href="#method-7-resize-in-software" title="Permalink to this headline">¶</a></h3>
+<p>If wrong levels occur only with SD video resolutions and not with high
+resolutions, then another solution would be to resize the video in software.
+For example ffdshow can be used for resizing the video.</p>
+</div>
+</div>
+<div class="section" id="test-files">
+<h2><a class="toc-backref" href="#id14">Test files</a><a class="headerlink" href="#test-files" title="Permalink to this headline">¶</a></h2>
+<p>Here are some nice test clips to test your setup: <a class="reference external" href="http://forum.doom9.org/showthread.php?p=1230259#post1230259">Test clips</a> (thanks to
+littleD for making them).</p>
+<p><em>Thanks `clsid`_ for writing this great article.</em></p>
+<p>$Date: 2013/03/19 18:10:47 $</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="sampling.html" title="Sampling"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="interlaced_fieldbased.html" title="Interlaced and Field-based video"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

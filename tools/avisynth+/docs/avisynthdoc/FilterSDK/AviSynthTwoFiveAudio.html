@@ -1,0 +1,156 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AviSynthTwoFiveAudio &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="AviSynthTwoFivePixelType" href="AviSynthTwoFivePixelType.html" />
+    <link rel="prev" title="AviSynth Interface Version" href="AviSynthInterfaceVersion.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="AviSynthTwoFivePixelType.html" title="AviSynthTwoFivePixelType"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="AviSynthInterfaceVersion.html" title="AviSynth Interface Version"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="AviSynthInterfaceVersion.html"
+                        title="previous chapter">AviSynth Interface Version</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="AviSynthTwoFivePixelType.html"
+                        title="next chapter">AviSynthTwoFivePixelType</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/FilterSDK/AviSynthTwoFiveAudio.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="avisynthtwofiveaudio">
+<h1><a class="reference external" href="http://www.avisynth.org/AviSynthTwoFiveAudio">AviSynthTwoFiveAudio</a><a class="headerlink" href="#avisynthtwofiveaudio" title="Permalink to this headline">¶</a></h1>
+<p>Most sample handling has been completely rewritten. And most notably, the way
+of fetching samples has changed slightly. The old way of fetching:</p>
+<p><code class="docutils literal notranslate"><span class="pre">virtual</span> <span class="pre">void</span> <span class="pre">__stdcall</span> <span class="pre">GetAudio(void*</span> <span class="pre">buf,</span> <span class="pre">int</span> <span class="pre">start,</span> <span class="pre">int</span> <span class="pre">count,</span>
+<span class="pre">IScriptEnvironment*</span> <span class="pre">env);</span></code></p>
+<p>has been replaced by:</p>
+<p><code class="docutils literal notranslate"><span class="pre">virtual</span> <span class="pre">void</span> <span class="pre">__stdcall</span> <span class="pre">GetAudio(void*</span> <span class="pre">buf,</span> <span class="pre">__int64</span> <span class="pre">start,</span> <span class="pre">__int64</span> <span class="pre">count,</span>
+<span class="pre">IScriptEnvironment*</span> <span class="pre">env);</span></code></p>
+<p>This has been done to support longer samples. If you extend PClip instead of
+GenericVideoFilter, you will have to change this. If you extend
+GenericVideoFilter, and don’t change it, samples will go through your filter
+untouched (as if it wasn’t there).</p>
+<p>An automatic audio type converter has been added, and is available to all
+filters. This enables you to recieve samples only in supported formats. Use
+like this:</p>
+<p><code class="docutils literal notranslate"><span class="pre">PClip</span> <span class="pre">ok_clip</span> <span class="pre">=</span> <span class="pre">ConvertAudio::Create(_clip,</span> <span class="pre">SAMPLE_INT16|SAMPLE_FLOAT,</span>
+<span class="pre">SAMPLE_FLOAT);</span></code></p>
+<p>It accepts two parameters besides the original clip - they are accepted
+formats and prefered format. If the samples are already in one of the
+accepted formats, they will be returned untouched. If they are not, all
+samples will be converted to the prefered format. This makes it possible for
+your filter to only support a subrange of sample-types without having to
+worry about conversion or error messages.</p>
+<p>The currently supported sampletypes are:</p>
+<ul class="simple">
+<li>SAMPLE_INT8</li>
+<li>SAMPLE_INT16</li>
+<li>SAMPLE_INT24</li>
+<li>SAMPLE_INT32</li>
+<li>SAMPLE_FLOAT</li>
+</ul>
+<p>vi.sample_type contains one of the types above. The sample type should be
+read by calling vi.SampleType(). You should only directly refer to
+sample_type, when writing to it (which should only be necessary on sources,
+since all convertion is can be done by AviSynth internally).</p>
+<p>You can no longer refer to vi.stereo or vi.sixteen_bit. The number of
+channels can be retrieved by using vi.AudioChannels(), and it can now contain
+any number. The channels are still interleaved, so if vi.AudioChannels()is 4
+the samples will be delivered like this:</p>
+<p><code class="docutils literal notranslate"><span class="pre">[ch1-s1][ch2-s1][ch3-s1][ch4-s1][ch1-s2][ch2-s2][ch3-s2][ch4-s2][ch1-s3][ch</span>
+<span class="pre">2-s3][ch3-s3][ch4-s3]</span></code></p>
+<p>ch is channel and s sample.</p>
+<p>For more info, refer to the new audio.cpp and avisynth.h</p>
+<p>Back to <a class="reference internal" href="AviSynthTwoFiveSDK.html"><span class="doc">AviSynthTwoFiveSDK</span></a></p>
+<p>$Date: 2006/11/24 18:21:25 $</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="AviSynthTwoFivePixelType.html" title="AviSynthTwoFivePixelType"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="AviSynthInterfaceVersion.html" title="AviSynth Interface Version"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

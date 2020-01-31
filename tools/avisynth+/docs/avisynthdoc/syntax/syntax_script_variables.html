@@ -1,0 +1,207 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AviSynth Syntax - Script variables &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="AviSynth Syntax" href="syntax_sections.html" />
+    <link rel="prev" title="AviSynth Runtime environment" href="syntax_runtime_environment.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="syntax_sections.html" title="AviSynth Syntax"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="syntax_runtime_environment.html" title="AviSynth Runtime environment"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="syntax_runtime_environment.html"
+                        title="previous chapter">AviSynth Runtime environment</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="syntax_sections.html"
+                        title="next chapter">AviSynth Syntax</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/syntax/syntax_script_variables.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="avisynth-syntax-script-variables">
+<h1>AviSynth Syntax - Script variables<a class="headerlink" href="#avisynth-syntax-script-variables" title="Permalink to this headline">¶</a></h1>
+<p>This page shows how to use <em>variables</em> to store intermediate values for
+further processing in a script. It also describes the types of data that
+scripts can manipulate, and how <em>literals</em> (constants) of those types are
+written.</p>
+<p>A <em>variable name</em> can be a character string of practically any length (more
+than 4000 characters in Avisynth 2.56 and later) that contains (English)
+letters, digits, and underscores (_), but no other characters. The name
+cannot start with a digit.</p>
+<p>You may use characters from your language system codepage (locale) in strings
+and file names (ANSI 8 bit only, not Unicode).</p>
+<p>A variable’s placement in an <em>expression</em> is determined by the
+<a class="reference internal" href="syntax_ref.html"><span class="doc">AviSynth Syntax</span></a>.</p>
+<p>Variables can have a value of one of the following <em>types</em>:</p>
+<ul class="simple">
+<li>clip</li>
+</ul>
+<p>A video clip containing video and / or audio. A script must return a value of
+this type.</p>
+<ul class="simple">
+<li>string</li>
+</ul>
+<p>A sequence of characters representing text. String literals are written as
+text surrounded either by “quotation marks” or by “”“three quotes”“”. The
+text can contain any characters except the terminating quotation mark or
+triple-quote sequence. The manual used to mention <em>TeX-style quotes</em>, but it
+has been confirmed that AviSynth doesn’t work this way since v1.03. If you
+need to put a quotation mark inside a string, you need to use <a class="reference external" href="http://forum.doom9.org/showthread.php?s=&amp;threadid=71597">Python-style</a>
+“”“three quotes”“”. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Subtitle</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;AVISynth is as they say &quot;l33t&quot;.&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Alternatively, you can use Windows extended-ASCII curly-quotes
+inside the string instead of straight quotes to get around this limitation.</p>
+<ul class="simple">
+<li>int</li>
+</ul>
+<p>An integer (32 bits, signed). An integer literal is entered as a sequence of
+digits, optionally with a + or - at the beginning. The value can be given in
+<em>hexadecimal</em> by preceding them with a “$” character. For example <code class="docutils literal notranslate"><span class="pre">$FF</span></code> as
+well as <code class="docutils literal notranslate"><span class="pre">$ff</span></code> (case does not matter) are equal to 255.</p>
+<ul class="simple">
+<li>float</li>
+</ul>
+<p>A single-precision, <a class="reference external" href="http://en.wikipedia.org/wiki/Floating_point">floating-point</a> number. Literals are entered as a
+sequence of digits with a decimal point (.) somewhere in it and an optional +
+or -. For example, +1. is treated as a floating-point number. Note that
+exponent-style notation is <strong>not</strong> supported.</p>
+<ul class="simple">
+<li>bool</li>
+</ul>
+<p>Boolean values must be either <em>true</em> or <em>false</em>. In addition they can be
+written as ‘’yes’’ or ‘’no’‘, but you should avoid using these in your
+scripts (they remain for compatibility purposes only).</p>
+<ul class="simple">
+<li>val</li>
+</ul>
+<p>A generic type name. It is applicable only inside a
+<a class="reference internal" href="syntax_userdefined_scriptfunctions.html"><span class="doc">user defined script functions</span></a> argument list,
+in order to be able to declare an argument variable to be of <em>any</em> type (int, float, bool, string, or clip). You must
+then explicitly test for its type (using the <a class="reference internal" href="syntax_internal_functions_boolean.html"><span class="doc">boolean functions</span></a>) and take
+appropriate actions.</p>
+<p>There is another type which is used internally by Avisynth - the void or
+‘undefined’ type. Its principal use is in conjunction with optional function
+arguments. See the <a class="reference internal" href="syntax_internal_functions_boolean.html"><span class="doc">Defined()</span></a> function.</p>
+<p>Variables can be either local (bound to the local scope of the executing
+script block) or global. Global variables are bound to the global script
+environment’s scope and can be accessed by all <a class="reference internal" href="syntax_internal_functions.html"><span class="doc">Internal functions</span></a>,
+<a class="reference internal" href="syntax_userdefined_scriptfunctions.html"><span class="doc">User defined script functions</span></a>, <a class="reference internal" href="syntax_runtime_environment.html"><span class="doc">runtime environment</span></a> scripts and the main
+script also.</p>
+<p>To define and / or assign a value to a global variable you must precede its
+name with the keyword <code class="docutils literal notranslate"><span class="pre">global</span></code> at the left side of the assignment. The
+keyword is not needed (actually it is not allowed) in order to read the value
+of a global variable. Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">global</span> <span class="n">canvas</span> <span class="o">=</span> <span class="n">BlankClip</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">pixel_type</span><span class="o">=</span><span class="s2">&quot;yv12&quot;</span><span class="p">)</span>
+<span class="k">global</span> <span class="n">stroke_intensity</span> <span class="o">=</span> <span class="mf">0.7</span>
+<span class="o">...</span>
+<span class="k">global</span> <span class="n">canvas</span> <span class="o">=</span> <span class="n">Overlay</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span> <span class="n">pen</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="n">stroke_intensity</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">brush</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To declare a variable, simply type the variable name, followed by ‘=’ (an
+equals sign), followed by its initial value. The type must not be declared;
+it is inferred by the value assigned to it (and can actually be changed by
+subsequent assignments). The only place where it is allowed (though not
+strictly required) to declare a variable’s type is in
+<a class="reference internal" href="syntax_userdefined_scriptfunctions.html"><span class="doc">user defined script functions</span></a> argument lists. Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>b = false      # this declares a variable named &#39;b&#39; of type &#39;bool&#39; and initializes it to &#39;false&#39;
+x = $100       # type int (initial value is in hexadecimal)
+y = 256        # type int (initial value is in decimal)
+global f = 0.0 # type float declared globally
+...
+function my_recolor_filter(clip c, int new_color, float amount, val
+&quot;userdata&quot;) { ... }
+</pre></div>
+</div>
+<p>$Date: 2011/12/04 15:27:59 $</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="syntax_sections.html" title="AviSynth Syntax"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="syntax_runtime_environment.html" title="AviSynth Runtime environment"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

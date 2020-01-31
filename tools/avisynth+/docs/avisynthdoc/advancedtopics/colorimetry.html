@@ -1,0 +1,431 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Colorimetry &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="AviSynth, variable framerate (vfr) video and hybrid video" href="hybrid_video.html" />
+    <link rel="prev" title="Color conversions" href="color_conversions.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="hybrid_video.html" title="AviSynth, variable framerate (vfr) video and hybrid video"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="color_conversions.html" title="Color conversions"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Colorimetry</a><ul>
+<li><a class="reference internal" href="#what-are-color-conversion-standards">What are color conversion standards?</a></li>
+<li><a class="reference internal" href="#how-can-i-see-if-the-correct-standard-is-used-upon-playback">How can I see if the correct standard is used upon playback?</a></li>
+<li><a class="reference internal" href="#should-i-correct-anything-when-processing-my-content">Should I correct anything when processing my content?</a></li>
+<li><a class="reference internal" href="#how-can-i-use-the-correct-standard-upon-playback">How can I use the correct standard upon playback?</a><ul>
+<li><a class="reference internal" href="#method-1-adjusting-graphics-driver-settings">Method #1: Adjusting graphics driver settings</a></li>
+<li><a class="reference internal" href="#method-2-convert-to-rgb32-with-ffdshow">Method #2: Convert to RGB32 with ffdshow</a></li>
+<li><a class="reference internal" href="#method-3-pixelshader-in-media-player-classic">Method #3: Pixelshader in Media Player Classic</a></li>
+<li><a class="reference internal" href="#method-4-use-avisynth-script-in-ffdshow-video-decoder">Method #4: Use AviSynth script in ffdshow video decoder</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#what-do-the-specifications-say-about-which-colorimetry-is-supported-in-a-particular-format">What do the specifications say about which colorimetry is supported in a particular format?</a><ul>
+<li><a class="reference internal" href="#vcd-mpeg-1">VCD/MPEG-1</a></li>
+<li><a class="reference internal" href="#dvd-mpeg-2">DVD/MPEG-2</a></li>
+<li><a class="reference internal" href="#the-atsc-standard">The ATSC standard</a></li>
+<li><a class="reference internal" href="#mpeg-4-asp">MPEG-4/ASP</a></li>
+<li><a class="reference internal" href="#mpeg-4-avc">MPEG-4/AVC</a></li>
+<li><a class="reference internal" href="#application-defaults">Application defaults</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="color_conversions.html"
+                        title="previous chapter">Color conversions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="hybrid_video.html"
+                        title="next chapter">AviSynth, variable framerate (vfr) video and hybrid video</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/advancedtopics/colorimetry.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="colorimetry">
+<h1><a class="toc-backref" href="#id1">Colorimetry</a><a class="headerlink" href="#colorimetry" title="Permalink to this headline">¶</a></h1>
+<p>When playing back video content, several issues might go wrong. The levels
+could be wrong, resulting in washed out colors (black is displayed as dark
+gray and white is displayed as light gray). This is described in more detail
+<a class="reference external" href="http://avisynth.org/mediawiki/Luminance_levels">here</a>. The other issue is
+a slight distortion in color (which often looks like a small change in
+brightness) and this will be described here.</p>
+<p>The problem could arise if your content is created in a different colorspace
+as it is stored later on. Usually it is created in RGB, but stored as YCbCr.
+Upon display it will be converted back again to RGB. This means that two
+color conversions will take place. The problem is that there are different
+ways of doing this conversion. If the two color conversions are not the same,
+the displayed content won’t be the same as the original content. There are
+many other colorspaces, but they won’t be discussed here. See for example
+<a class="reference external" href="http://www.poynton.com/notes/colour_and_gamma/ColorFAQ.html">this FAQ</a>.</p>
+<p>So when converting YCbCr to RGB upon display, the correct color conversion
+standard (Rec.601 or Rec.709) must be used, namely the one which was used
+when storing the content. (Rec.709 and Rec.601 are short for ITU-R BT.709 and
+ITU-R BT.601.)</p>
+<hr class="docutils" />
+<div class="toctree-wrapper compound">
+</div>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#colorimetry" id="id1">Colorimetry</a><ul>
+<li><a class="reference internal" href="#what-are-color-conversion-standards" id="id2">What are color conversion standards?</a></li>
+<li><a class="reference internal" href="#how-can-i-see-if-the-correct-standard-is-used-upon-playback" id="id3">How can I see if the correct standard is used upon playback?</a></li>
+<li><a class="reference internal" href="#should-i-correct-anything-when-processing-my-content" id="id4">Should I correct anything when processing my content?</a></li>
+<li><a class="reference internal" href="#how-can-i-use-the-correct-standard-upon-playback" id="id5">How can I use the correct standard upon playback?</a><ul>
+<li><a class="reference internal" href="#method-1-adjusting-graphics-driver-settings" id="id6">Method #1: Adjusting graphics driver settings</a></li>
+<li><a class="reference internal" href="#method-2-convert-to-rgb32-with-ffdshow" id="id7">Method #2: Convert to RGB32 with ffdshow</a></li>
+<li><a class="reference internal" href="#method-3-pixelshader-in-media-player-classic" id="id8">Method #3: Pixelshader in Media Player Classic</a></li>
+<li><a class="reference internal" href="#method-4-use-avisynth-script-in-ffdshow-video-decoder" id="id9">Method #4: Use AviSynth script in ffdshow video decoder</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#what-do-the-specifications-say-about-which-colorimetry-is-supported-in-a-particular-format" id="id10">What do the specifications say about which colorimetry is supported in a particular format?</a><ul>
+<li><a class="reference internal" href="#vcd-mpeg-1" id="id11">VCD/MPEG-1</a></li>
+<li><a class="reference internal" href="#dvd-mpeg-2" id="id12">DVD/MPEG-2</a></li>
+<li><a class="reference internal" href="#the-atsc-standard" id="id13">The ATSC standard</a></li>
+<li><a class="reference internal" href="#mpeg-4-asp" id="id14">MPEG-4/ASP</a></li>
+<li><a class="reference internal" href="#mpeg-4-avc" id="id15">MPEG-4/AVC</a></li>
+<li><a class="reference internal" href="#application-defaults" id="id16">Application defaults</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#references" id="id17">References</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="what-are-color-conversion-standards">
+<h2><a class="toc-backref" href="#id2">What are color conversion standards?</a><a class="headerlink" href="#what-are-color-conversion-standards" title="Permalink to this headline">¶</a></h2>
+<p>There are multiple ways of doing the YCbCr &lt;-&gt; RGB conversion. The general
+conversion is given by</p>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">Kr*R</span> <span class="pre">+</span> <span class="pre">Kg*G</span> <span class="pre">+</span> <span class="pre">Kb*B</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Cb</span> <span class="pre">=</span> <span class="pre">(B-Y)/(1-Kb)</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Cr</span> <span class="pre">=</span> <span class="pre">(R-Y)/(1-Kr)</span> <span class="pre">=</span> <span class="pre">R</span> <span class="pre">-</span> <span class="pre">G</span> <span class="pre">*</span> <span class="pre">Kg/(1-Kr)</span> <span class="pre">-</span> <span class="pre">B</span> <span class="pre">*</span> <span class="pre">Kb/(1-Kr)</span></code></div>
+</div>
+<p>and the other way around:</p>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">R</span> <span class="pre">=</span> <span class="pre">Y</span> <span class="pre">+</span> <span class="pre">Cr*(1-Kr)</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">G</span> <span class="pre">=</span> <span class="pre">Y</span> <span class="pre">-</span> <span class="pre">Cb*(1-Kb)*Kb/Kg</span> <span class="pre">-</span> <span class="pre">Cr*(1-Kr)*Kr/Kg</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">B</span> <span class="pre">=</span> <span class="pre">Y</span> <span class="pre">+</span> <span class="pre">Cb*(1-Kb)</span></code></div>
+</div>
+<p>with (0.0 &lt;= [Y,R,G,B] &lt;= 1.0) ; (-1.0 &lt;= [Cb,Cr] &lt;= 1.0) and Kr + Kg + Kb =
+1.</p>
+<p>The red, green and blue coefficients (Kr,Kg,Kb) are standardized in
+specifications and there are several of them. Have a look at
+<a class="reference internal" href="color_conversions.html"><span class="doc">Color_conversions</span></a> for examples.</p>
+</div>
+<div class="section" id="how-can-i-see-if-the-correct-standard-is-used-upon-playback">
+<h2><a class="toc-backref" href="#id3">How can I see if the correct standard is used upon playback?</a><a class="headerlink" href="#how-can-i-see-if-the-correct-standard-is-used-upon-playback" title="Permalink to this headline">¶</a></h2>
+<p>That’s a tough question, because it’s hardly possible to notice if the wrong
+standard is used upon playback. In fact, it’s hard to see any difference at
+all between them. Take a look at the following screenshot:</p>
+<img alt="../../_images/colorimetry.jpg" src="../../_images/colorimetry.jpg" />
+<p>The upper picture is shown correctly (using Rec.601), and for the lower one
+the incorrect standard (Rec.709) is used upon playback. What you notice is
+that the lower picture is more saturated (i.e. more colorful). But also that
+the red is shifted a bit to yellow. [The other way around results in a less
+saturated clip, red shifting towards magenta and blue shifting to cyan.]</p>
+<p>So, how do you know then, which standard to choose upon playback? Well that’s
+not always possible, but you have to know the origin of your file. Also, in
+some cases, that information can be stored in the header of the file. You
+should stick to the following guideline:</p>
+<p><strong>If your content is Standard Definition (SD) content use Rec.601 and if your
+content is High Definition (HD) content use Rec.709, unless the header of the
+content specifies otherwise.</strong> I will elaborate on this in the following
+sections.</p>
+</div>
+<div class="section" id="should-i-correct-anything-when-processing-my-content">
+<h2><a class="toc-backref" href="#id4">Should I correct anything when processing my content?</a><a class="headerlink" href="#should-i-correct-anything-when-processing-my-content" title="Permalink to this headline">¶</a></h2>
+<p>Yes, you should correct for it in some cases. It depends on your end format
+and how it is played back. In general, it is save to assume that Rec.601 is
+used for Standard Definition content and Rec.709 for High Definition content
+upon playback. That means that often any specific header information
+regarding colorimetry will be ignored. It will be assumed here that you are
+processing with AviSynth.</p>
+<p>Suppose you want to encode your content as Standard Definition content (that
+is, height of the encoded video &lt; 720p (720 vertical lines)). If you source
+is MPEG-2 (then the colorimetry information can be stored in its header), get
+the ColorMatrix plugin, and create the following script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ColorMatrix does a Rec.709 -&gt; Rec.601 conversion, if your source is Rec.709:</span>
+<span class="n">DGDecode_mpeg2source</span><span class="p">(</span><span class="s2">&quot;D:\source.d2v&quot;</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ColorMatrix</span><span class="p">(</span><span class="n">hints</span><span class="o">=</span><span class="n">true</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">interlace</span><span class="o">=</span><span class="n">false</span><span class="p">)</span> <span class="c1"># use interlace=true for interlaced content</span>
+</pre></div>
+</div>
+<p>Suppose you want to encode your content as High Definition content (that is,
+height of the encoded video &gt;= 720p). Create the following script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ColorMatrix does a Rec.601 -&gt; Rec.709 conversion, if your source is Rec.601:</span>
+<span class="n">DGDecode_mpeg2source</span><span class="p">(</span><span class="s2">&quot;D:\source.d2v&quot;</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ColorMatrix</span><span class="p">(</span><span class="n">hints</span><span class="o">=</span><span class="n">true</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">interlace</span><span class="o">=</span><span class="n">false</span><span class="p">)</span> <span class="c1"># use interlace=true for interlaced content</span>
+</pre></div>
+</div>
+<p>If the colorimetry information is not stored in the header (as with DivX/XviD
+for example), it is not really possible to tell which colorimetry is used to
+create it. All that you can do is assume Rec.601 is used for SD content and
+Rec.709 is used for HD content, and hope that the assumption is correct. In
+this case, you can’t use the <em>hints</em> parameter of ColorMatrix, but you need
+to give the conversion explicitly using the <em>mode</em> parameter.</p>
+</div>
+<div class="section" id="how-can-i-use-the-correct-standard-upon-playback">
+<h2><a class="toc-backref" href="#id5">How can I use the correct standard upon playback?</a><a class="headerlink" href="#how-can-i-use-the-correct-standard-upon-playback" title="Permalink to this headline">¶</a></h2>
+<p>Whether this is possible (provided that the wrong standard is used upon play
+back) depends on how your content is being played back. If you use a software
+player you need to check whether it has an option to correct it. If you use a
+directshow based player (such as WMP or MPC) there are different
+possibilities which are explained below. If the renderer does the YCbCr-&gt;RGB
+conversion, you should keep in mind that (as found are out in this
+<a class="reference external" href="http://forum.doom9.org/showthread.php?t=82217&amp;page=24">thread</a>):</p>
+<ul class="simple">
+<li>Windowed/renderless VMR7 and VMR9 use BT.601 for video &lt; 720p (720
+vertical lines)</li>
+<li>Windowed/renderless VMR7 and VMR9 use BT.709 for video &gt;= 720p (720
+vertical lines)</li>
+</ul>
+<p>If you are using Haali’s Video Renderer (get <a class="reference external" href="http://haali.cs.msu.ru/mkv/">Haali Media Splitter</a> in order
+to install it) you can choose the color standard.</p>
+<p>Have a look <a class="reference external" href="http://forum.doom9.org/showthread.php?t=134735">at this thread</a> for information about the different renderers.</p>
+<div class="section" id="method-1-adjusting-graphics-driver-settings">
+<h3><a class="toc-backref" href="#id6">Method #1: Adjusting graphics driver settings</a><a class="headerlink" href="#method-1-adjusting-graphics-driver-settings" title="Permalink to this headline">¶</a></h3>
+<p>I’m not sure whether this is possible. I need to ask someone …</p>
+</div>
+<div class="section" id="method-2-convert-to-rgb32-with-ffdshow">
+<h3><a class="toc-backref" href="#id7">Method #2: Convert to RGB32 with ffdshow</a><a class="headerlink" href="#method-2-convert-to-rgb32-with-ffdshow" title="Permalink to this headline">¶</a></h3>
+<p>Forcing ffdshow to output RGB32 can help prevent colorimetry issues. Downside
+of this method is that doing this conversion in software increases CPU usage.</p>
+<p>To force RGB32 output in ffdshow, you should uncheck all colorspaces except
+RGB32 on the Output page in ffdshow configuration. It is also recommended to
+enable “High quality YV12 to RGB conversion”. On the RGB conversion page, you
+can choose which standard should be assumed, BT.601 or BT709. Choose the
+first for SD material, and the latter for HD video.</p>
+</div>
+<div class="section" id="method-3-pixelshader-in-media-player-classic">
+<h3><a class="toc-backref" href="#id8">Method #3: Pixelshader in Media Player Classic</a><a class="headerlink" href="#method-3-pixelshader-in-media-player-classic" title="Permalink to this headline">¶</a></h3>
+<p>A pixelshader is a small program that runs on your graphics card and
+processes some graphic data. In this case each frame of your video.</p>
+<p>Media Player Classic has a shader called “BT.601 -&gt; BT.709”. A shader which
+does the conversion the other way around is still not available. Use this
+when needed.</p>
+<p>Some requirements for the pixelshaders in MPC:</p>
+<ul class="simple">
+<li>You need to use a compatible video renderer: VMR-7 (renderless),
+VMR-9 (renderless), or EVR Custom Presenter.</li>
+<li>Surface setting must be set to “3D surfaces”.</li>
+<li>It requires some DirectX components that are not included with a
+default Windows installation. Run the DirectX Web Installer to get the
+required DirectX updates.</li>
+</ul>
+</div>
+<div class="section" id="method-4-use-avisynth-script-in-ffdshow-video-decoder">
+<h3><a class="toc-backref" href="#id9">Method #4: Use AviSynth script in ffdshow video decoder</a><a class="headerlink" href="#method-4-use-avisynth-script-in-ffdshow-video-decoder" title="Permalink to this headline">¶</a></h3>
+<p>There are two ways to do this. The first one is to use the ColorMatrix
+plugin, as explained in one of the previous sections, and the other one is to
+convert to RGB using the appropriate matrix:</p>
+<img alt="../../_images/ffdshow_avisynth2.jpg" src="../../_images/ffdshow_avisynth2.jpg" />
+<p>Here ffdshow will convert your content to RGB using Rec.601.</p>
+</div>
+</div>
+<div class="section" id="what-do-the-specifications-say-about-which-colorimetry-is-supported-in-a-particular-format">
+<h2><a class="toc-backref" href="#id10">What do the specifications say about which colorimetry is supported in a particular format?</a><a class="headerlink" href="#what-do-the-specifications-say-about-which-colorimetry-is-supported-in-a-particular-format" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="vcd-mpeg-1">
+<h3><a class="toc-backref" href="#id11">VCD/MPEG-1</a><a class="headerlink" href="#vcd-mpeg-1" title="Permalink to this headline">¶</a></h3>
+<p>Part 2 of the MPEG-1 standard covers video and is defined in ISO/IEC-11172-2.
+It is heavily based on H.261. The colorimetry information is not written into
+the header.</p>
+</div>
+<div class="section" id="dvd-mpeg-2">
+<h3><a class="toc-backref" href="#id12">DVD/MPEG-2</a><a class="headerlink" href="#dvd-mpeg-2" title="Permalink to this headline">¶</a></h3>
+<p>The DVD specs are not publicly available for free, and I don’t know people
+who have read those specs. The DVD specs should be a subset of the MPEG-2
+specs (yes I know, that’s a big assumption), and the latter is available for
+free. It says the following:</p>
+<p><em>The older 1995 MPEG-2 spec (ISO/IEC 13818-2: 1995 (E)) says</em></p>
+<p>“In the case that sequence_display_extension() is not present in the
+bitstream or colour_description is zero the matrix coefficients are assumed
+to be those corresponding to matrix_coefficients having the value 1.” The
+value 1 stands for “1 Recommendation ITU-R BT.709”. Note that in 1995 the
+first DVD titles came out, so when making those specs, the DVD didn’t exist
+yet. In 2000, the MPEG-2 specs have changed with respect to this:</p>
+<p><em>The newer `2000 MPEG-2 spec (ITU-T Rec.H262 (2000 E))`_ says</em></p>
+<p>“In the case that sequence_display_extension() is not present in the
+bitstream or colour_description is zero the matrix coefficients are assumed
+to be implicitly defined by the application.” The matrix coefficients are
+described in “Table 6-9 - Matrix Coefficients”.</p>
+<p>In other words if sequence_display_extension is not present, the colorimetry
+can be anything.</p>
+</div>
+<div class="section" id="the-atsc-standard">
+<h3><a class="toc-backref" href="#id13">The ATSC standard</a><a class="headerlink" href="#the-atsc-standard" title="Permalink to this headline">¶</a></h3>
+<p><em>Just for kicks,</em> <a class="reference external" href="http://www.atsc.org/standards/a_81.pdf">ATSC standard on page 18</a> <em>talks about colorimetry and the
+assumptions to make when ‘sequence_display_extension’ does not tell you what
+to do</em>:</p>
+<blockquote>
+<div>“The values for color_primaries, transfer_characteristics, and
+matrix_coefficients shall be explicitly indicated in the
+sequence_display_extension. While all values for color_primaries,
+transfer_characteristics, and matrix_coefficients defined in Tables 6-7, 6-8,
+and 6-9 of ISO/IEC 13818-2 [16, 18] are allowed in the transmitted bit
+stream, it is noted that ITU-R BT.709 [27] and SMPTE 170M are the most likely
+to be in common use.</div></blockquote>
+<p>Note: Some previously-encoded legacy material may not have the colorimetry
+(i.e., color_primaries, transfer_characteristics, and matrix_coefficients)
+explicitly indicated in the sequence_display_extension, in which case the
+colorimetry is most likely ITU-R BT.709 for all formats except those formats
+with vertical_size_value = 480, which are most likely to have colorimetry
+according to SMPTE 170M.” <em>As noted by</em> <a class="reference external" href="http://forum.doom9.org/showthread.php?p=1089854#post1089854">hkazemi</a></p>
+</div>
+<div class="section" id="mpeg-4-asp">
+<h3><a class="toc-backref" href="#id14">MPEG-4/ASP</a><a class="headerlink" href="#mpeg-4-asp" title="Permalink to this headline">¶</a></h3>
+<p>The colorimetry information is not written into the header.</p>
+</div>
+<div class="section" id="mpeg-4-avc">
+<h3><a class="toc-backref" href="#id15">MPEG-4/AVC</a><a class="headerlink" href="#mpeg-4-avc" title="Permalink to this headline">¶</a></h3>
+<p><em>ITU-T Rec. H.264 (2005)/Amd.1 (06/2006) says</em></p>
+<p>“When the matrix_coefficients syntax element is not present, the value of
+matrix_coefficients shall be inferred to be equal to 2. That is: Image
+characteristics are unknown or are determined by the application.” The matrix
+coefficients are described in “Table E-5 - Matrix coefficients”.</p>
+</div>
+<div class="section" id="application-defaults">
+<h3><a class="toc-backref" href="#id16">Application defaults</a><a class="headerlink" href="#application-defaults" title="Permalink to this headline">¶</a></h3>
+<p>In <a class="reference external" href="http://www.amazon.com/Video-Demystified-Keith-Jack/dp/187870723X">Video Mystified</a>, the author Keith Jack gives the following table (as
+noted by <a class="reference external" href="http://forum.doom9.org/showthread.php?p=1075105#post1075105">ariga</a>; see: Table 13.16. MPEG-2 matrix_coefficients Codewords.)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sequence</span> <span class="n">Display</span> <span class="n">Extension</span><span class="p">:</span>
+
+<span class="n">Color_primaries</span>
+<span class="n">This</span> <span class="n">optional</span> <span class="mi">8</span><span class="o">-</span><span class="n">bit</span> <span class="n">codeword</span> <span class="n">describes</span> <span class="n">the</span> <span class="n">chromaticity</span> <span class="n">coordinates</span> <span class="n">of</span> <span class="n">the</span> <span class="n">source</span>
+<span class="n">primaries</span><span class="p">,</span> <span class="k">as</span> <span class="n">shown</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span> <span class="n">If</span> <span class="n">sequence_display_extension</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">present</span><span class="p">,</span> <span class="ow">or</span>
+<span class="n">color_description</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">the</span> <span class="n">indicated</span> <span class="n">default</span> <span class="n">value</span> <span class="n">must</span> <span class="n">be</span> <span class="n">used</span><span class="o">.</span> <span class="n">This</span> <span class="n">information</span>
+<span class="n">may</span> <span class="n">be</span> <span class="n">used</span> <span class="n">to</span> <span class="n">adjust</span> <span class="n">the</span> <span class="n">color</span> <span class="n">processing</span> <span class="n">after</span> <span class="n">MPEG</span><span class="o">-</span><span class="mi">2</span> <span class="n">decoding</span> <span class="n">to</span> <span class="n">compensate</span> <span class="k">for</span>
+<span class="n">the</span> <span class="n">color</span> <span class="n">primaries</span> <span class="n">of</span> <span class="n">the</span> <span class="n">display</span><span class="o">.</span>
+
+ <span class="o">-----------------------------------------------------------------------------------</span>
+<span class="o">|</span>    <span class="n">Color</span> <span class="n">Primaries</span>     <span class="o">|</span>    <span class="n">Code</span>     <span class="o">|</span>          <span class="n">Application</span> <span class="n">Default</span>               <span class="o">|</span>
+<span class="o">|------------------------|-------------|--------------------------------------------|</span>
+<span class="o">|</span> <span class="n">forbidden</span>              <span class="o">|</span>  <span class="mi">0000</span> <span class="mi">0000</span>  <span class="o">|</span>                                            <span class="o">|</span>
+<span class="o">|</span> <span class="n">BT</span><span class="o">.</span><span class="mi">709</span><span class="p">,</span> <span class="n">SMPTE</span> <span class="mi">274</span><span class="n">M</span>     <span class="o">|</span>  <span class="mi">0000</span> <span class="mi">0001</span>  <span class="o">|</span> <span class="n">MPEG</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">ATSC</span><span class="p">,</span> <span class="n">DVB</span> <span class="mi">25</span><span class="n">Hz</span> <span class="n">HDTV</span><span class="p">,</span> <span class="n">DVB</span> <span class="mi">30</span><span class="n">Hz</span> <span class="n">HDTV</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">unspecified</span>            <span class="o">|</span>  <span class="mi">0000</span> <span class="mi">0010</span>  <span class="o">|</span>                                            <span class="o">|</span>
+<span class="o">|</span> <span class="n">reserved</span>               <span class="o">|</span>  <span class="mi">0000</span> <span class="mi">0011</span>  <span class="o">|</span>                                            <span class="o">|</span>
+<span class="o">|</span> <span class="n">BT</span><span class="o">.</span><span class="mi">470</span> <span class="n">system</span> <span class="n">M</span>        <span class="o">|</span>  <span class="mi">0000</span> <span class="mi">0100</span>  <span class="o">|</span> <span class="n">DVD</span><span class="o">-</span><span class="n">Video</span> <span class="mi">30</span> <span class="n">Hz</span>                            <span class="o">|</span>
+<span class="o">|</span> <span class="n">BT</span><span class="o">.</span><span class="mi">470</span> <span class="n">system</span> <span class="n">B</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">I</span>  <span class="o">|</span>  <span class="mi">0000</span> <span class="mi">0101</span>  <span class="o">|</span> <span class="n">DVD</span><span class="o">-</span><span class="n">Video</span> <span class="mi">25</span> <span class="n">Hz</span><span class="p">,</span> <span class="n">DVB</span> <span class="mi">25</span><span class="n">Hz</span> <span class="n">SDTV</span>             <span class="o">|</span>
+<span class="o">|</span> <span class="n">SMPTE</span> <span class="mi">170</span><span class="n">M</span>             <span class="o">|</span>  <span class="mi">0000</span> <span class="mi">0110</span>  <span class="o">|</span> <span class="n">DVD</span><span class="o">-</span><span class="n">Video</span> <span class="mi">30</span> <span class="n">Hz</span><span class="p">,</span> <span class="n">DVB</span> <span class="mi">30</span><span class="n">Hz</span> <span class="n">SDTV</span>             <span class="o">|</span>
+<span class="o">|</span> <span class="n">SMPTE</span> <span class="mi">240</span><span class="n">M</span>             <span class="o">|</span>  <span class="mi">0000</span> <span class="mi">0111</span>  <span class="o">|</span>                                            <span class="o">|</span>
+<span class="o">|</span> <span class="n">reserved</span>               <span class="o">|</span>  <span class="mi">0000</span> <span class="mi">1000</span>  <span class="o">|</span>                                            <span class="o">|</span>
+<span class="o">|</span> <span class="p">:</span>                      <span class="o">|</span>      <span class="p">:</span>      <span class="o">|</span>                                            <span class="o">|</span>
+<span class="o">|</span> <span class="n">reserved</span>               <span class="o">|</span>  <span class="mi">1111</span> <span class="mi">1111</span>  <span class="o">|</span>                                            <span class="o">|</span>
+ <span class="o">-----------------------------------------------------------------------------------</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><a class="reference external" href="http://forum.doom9.org/showthread.php?p=1089979#post1089979">dragongodz</a> claims this table should be interpreted as follows:</div>
+<div class="line"><em>Having finally heard back from a person who is in the professional encoder
+industry (no I will not say who), I have more reliable information.: “The
+table is actually the limitation of what you can use. In other words if you
+set the sequence_display_extension to Rec.709 for dvd it is illegal. That
+doesn’t mean it will not play etc it just means that it is not supported and
+any player that strictly follows the specs is more likely just to ignore it
+as if no value was set at all.”</em></div>
+</div>
+</div>
+</div>
+<div class="section" id="references">
+<h2><a class="toc-backref" href="#id17">References</a><a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://forum.doom9.org/showthread.php?t=131169">http://forum.doom9.org/showthread.php?t=131169</a></li>
+<li><a class="reference external" href="http://forum.doom9.org/showthread.php?t=133982">http://forum.doom9.org/showthread.php?t=133982</a></li>
+<li><a class="reference external" href="http://forum.doom9.org/showthread.php?p=1089979">http://forum.doom9.org/showthread.php?p=1089979</a></li>
+<li><a class="reference external" href="http://forum.doom9.org/showthread.php?t=133982#post1090068">http://forum.doom9.org/showthread.php?t=133982#post1090068</a></li>
+</ul>
+<p>$Date: 2010/04/04 16:46:38 $</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="hybrid_video.html" title="AviSynth, variable framerate (vfr) video and hybrid video"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="color_conversions.html" title="Color conversions"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,242 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AVISource / OpenDMLSource / AVIFileSource / WAVSource &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="BlankClip / Blackness" href="blankclip.html" />
+    <link rel="prev" title="AudioDub / AudioDubEx" href="audiodub.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="blankclip.html" title="BlankClip / Blackness"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="audiodub.html" title="AudioDub / AudioDubEx"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="audiodub.html"
+                        title="previous chapter">AudioDub / AudioDubEx</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="blankclip.html"
+                        title="next chapter">BlankClip / Blackness</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/corefilters/avisource.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="avisource-opendmlsource-avifilesource-wavsource">
+<h1>AVISource / OpenDMLSource / AVIFileSource / WAVSource<a class="headerlink" href="#avisource-opendmlsource-avifilesource-wavsource" title="Permalink to this headline">¶</a></h1>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AVISource</span></code> (string filename [, …], bool “audio” = true, string
+“pixel_type” = “FULL”, [string fourCC])</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">OpenDMLSource</span></code> (string filename [, …], bool “audio” = true, string
+“pixel_type” = “FULL”, [string fourCC])</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AVIFileSource</span></code> (string filename [, …], bool “audio” = true, string
+“pixel_type” = “FULL”, [string fourCC])</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">WAVSource</span></code> (string filename [, …])</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">AVISource</span></code> takes as argument one or more file name in quotes, and reads in
+the file(s) using either the Video-for-Windows “AVIFile” interface, or
+AviSynth’s built-in OpenDML code (taken from VirtualDub). This filter can
+read any file for which there’s an AVIFile handler. This includes not only
+AVI files but also WAV files, AVS (AviSynth script) files, and VDR
+(VirtualDub frameserver) files. If you give multiples filenames as arguments,
+the clips will be spliced together with <a class="reference internal" href="splice.html"><span class="doc">UnalignedSplice</span></a>. The bool
+argument is optional and defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">AVISource</span></code> filter examines the file to determine its type and passes
+it to either the AVIFile handler or the OpenDML handler as appropriate. In
+case you have trouble with one or the other handler, you can also use the
+<code class="docutils literal notranslate"><span class="pre">OpenDMLSource</span></code> and <code class="docutils literal notranslate"><span class="pre">AVIFileSource</span></code> filters, which force the use of one
+or the other handler. Either handler can read ordinary (&lt; 2GB) AVI files, but
+only the OpenDML handler can read larger AVI files, and only the AVIFile
+handler can read other file types like WAV, VDR and AVS. There is built-in
+support for ACM (Audio Compression Manager) audio (e.g. mp3-AVIs).</p>
+<p><code class="docutils literal notranslate"><span class="pre">WAVSource</span></code> can be used to open a WAV file, or the audio stream from an AVI
+file. This can be used, for example, if your video stream is damaged or its
+compression method is not supported on your system.</p>
+<p>The pixel_type parameter (default “YV12” allows you to choose the output
+format of the decompressor. Valid values are “YV12”, “YV411”, “YV16”, “YV24”,
+“YUY2”, “Y8”, “RGB32” and “RGB24”. If omitted, AviSynth will use the first
+format supported by the decompressor (in the following order: YV12, YV411,
+YV16, YV24, YUY2, Y8, RGB32 and RGB24). This parameter has no effect if the
+video is in an uncompressed format, because no decompressor will be used in
+that case. To put it in different words: if you don’t specify something it
+will try to output the AVI as YV12, if that isn’t possible it tries YV411 and
+if that isn’t possible it tries YV16, etc …</p>
+<p>The pixel_type parameter allows you to choose the output format of the
+decompressor. Valid values are “YV24”, “YV16”, “YV12”, “YV411”, “YUY2”,
+“RGB32”, “RGB24”, “Y8”, “AUTO” and “FULL” (default value). If omitted or set
+to “FULL”, AviSynth will use the first format supported by the decompressor
+(in the following order: YV24, YV16, YV12, YV411, YUY2, RGB32, RGB24 and Y8).
+If set to “AUTO”, AviSynth will use the old ordering: YV12, YUY2, RGB32,
+RGB24 and Y8. This parameter has no effect if the video is in an uncompressed
+format, because no decompressor will be used in that case. To put it in
+different words: if you don’t specify something it will try to output the AVI
+as YV24, if that isn’t possible it tries YV16 and if that isn’t possible it
+tries YV12, etc …</p>
+<p>Sometimes the colors will be distorted when loading a DivX clip in AviSynth
+v2.5 (the chroma channels U and V are swapped), due to a bug in DivX (5.02
+and older). You can use <a class="reference internal" href="swap.html"><span class="doc">SwapUV</span></a> to correct it.</p>
+<p>From <em>v2.53</em> <code class="docutils literal notranslate"><span class="pre">AVISource</span></code> can also open DV type 1 video input (only video,
+not audio).</p>
+<p>From <em>v2.55</em>, an option  fourCC is added. FourCC, is a FOUR Character Code in
+the beginning of media file, mostly associated with avi, that tells what
+codec your system should use for decoding the file. You can use this to force
+AviSource to open the avi file using a different codec. A list of FOURCCs can
+be found <a class="reference external" href="http://www.fourcc.org/index.php?http%3A//www.fourcc.org/codecs.php">here</a>. By default, the fourCC of the avi is used.</p>
+<p>Some MJPEG/DV codecs do not give correct CCIR 601 compliant output when using
+<code class="docutils literal notranslate"><span class="pre">AVISource</span></code>. The problem could arise if the input and output colorformat of
+the codec are different. For example if the input colorformat is YUY2, while
+the output colorformat is RGB, or vice versa. There are two ways to resolve
+it:</p>
+<ol class="arabic simple">
+<li>Force the same output as the input colorformat. Thus for example (if
+the input is RGB):</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;file.avi&quot;</span><span class="p">,</span> <span class="n">pixel_type</span><span class="o">=</span><span class="s2">&quot;RGB32&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Correct it with the filter <a class="reference internal" href="coloryuv.html"><span class="doc">ColorYUV</span></a>:</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;file.avi&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">ColorYUV</span><span class="p">(</span><span class="n">levels</span><span class="o">=</span><span class="s2">&quot;PC-&gt;TV&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Some reference threads:
+<a class="reference external" href="http://forum.doom9.org/showthread.php?s=&amp;postid=330657">MJPEG codecs</a>
+<a class="reference external" href="http://forum.doom9.org/showthread.php?s=&amp;threadid=58110">DV codecs</a></p>
+<p><strong>Examples:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># C programmers note: backslashes are not doubled; forward slashes work too</span>
+<span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;d:\capture.avi&quot;</span><span class="p">)</span>
+<span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;c:/capture/00.avi&quot;</span><span class="p">)</span>
+<span class="n">WAVSource</span><span class="p">(</span><span class="s2">&quot;f:\soundtrack.wav&quot;</span><span class="p">)</span>
+<span class="n">WAVSource</span><span class="p">(</span><span class="s2">&quot;f:/soundtrack.wav&quot;</span><span class="p">)</span>
+
+<span class="c1"># the following is the same as AVISource(&quot;cap1.avi&quot;) +</span>
+<span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;cap2.avi&quot;</span><span class="p">):</span>
+<span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;cap1.avi&quot;</span><span class="p">,</span> <span class="s2">&quot;cap2.avi&quot;</span><span class="p">)</span>
+
+<span class="c1"># disables audio and request RGB32 decompression</span>
+<span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;cap.avi&quot;</span><span class="p">,</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;RGB32&quot;</span><span class="p">)</span>
+
+<span class="c1"># opens a DV using the Canopus DV Codec</span>
+<span class="n">AviSource</span><span class="p">(</span><span class="s2">&quot;cap.avi&quot;</span><span class="p">,</span> <span class="n">false</span><span class="p">,</span> <span class="n">fourCC</span><span class="o">=</span><span class="s2">&quot;CDVC&quot;</span><span class="p">)</span>
+
+<span class="c1"># opens an avi (for example DivX3) using the XviD Codec</span>
+<span class="n">AviSource</span><span class="p">(</span><span class="s2">&quot;cap.avi&quot;</span><span class="p">,</span> <span class="n">false</span><span class="p">,</span> <span class="n">fourCC</span><span class="o">=</span><span class="s2">&quot;XVID&quot;</span><span class="p">)</span>
+
+<span class="c1"># splicing two clips where one of them contains no audio.</span>
+<span class="c1"># when splicing the clips must be compatible (have the same video and</span>
+<span class="n">audio</span> <span class="n">properties</span><span class="p">):</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">AviSource</span><span class="p">(</span><span class="s2">&quot;FileA.avi&quot;</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">AviSource</span><span class="p">(</span><span class="s2">&quot;FileB.avi&quot;</span><span class="p">)</span> <span class="c1"># No audio stream</span>
+<span class="n">A</span> <span class="o">++</span> <span class="n">AudioDub</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">BlankClip</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Some compression formats impose a limit to the number of AviSource() calls
+that can be placed in a script. Some people have experienced this limit with
+fewer than 50 AviSource() statements. See <a class="reference external" href="http://forum.doom9.org/showthread.php?t=131687">discussion</a>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Changes:</th>
+<th class="head">&#160;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>v2.60</td>
+<td>Added new color formats, “AUTO” and “FULL”.</td>
+</tr>
+<tr class="row-odd"><td>v2.55</td>
+<td>Added fourCC option.</td>
+</tr>
+</tbody>
+</table>
+<p>$Date: 2012/05/03 07:32:20 $</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="blankclip.html" title="BlankClip / Blackness"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="audiodub.html" title="AudioDub / AudioDubEx"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

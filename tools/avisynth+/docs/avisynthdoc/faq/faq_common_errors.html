@@ -1,0 +1,272 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AviSynth FAQ - Some common error messages &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="AviSynth FAQ - Recognizing and processing different types of content" href="faq_different_types_content.html" />
+    <link rel="prev" title="Avisynth Frequently Asked Questions" href="faq.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="faq_different_types_content.html" title="AviSynth FAQ - Recognizing and processing different types of content"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="faq.html" title="Avisynth Frequently Asked Questions"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">AviSynth FAQ - Some common error messages</a><ul>
+<li><a class="reference internal" href="#i-got-the-message-loadplugin-unable-to-load-xxx-some-plugin-is-not-an-avisynth-1-0-avisynth-2-0-plugin">I got the message “LoadPlugin: unable to load “xxx (some plugin)” is not an AviSynth 1.0/AviSynth 2.0 plugin”?</a></li>
+<li><a class="reference internal" href="#when-frameserving-i-got-the-following-message-script-error-there-is-no-function-named-xxx-some-filter">When frameserving I got the following message: “Script error, there is no function named “xxx (some filter)”“?</a></li>
+<li><a class="reference internal" href="#i-installed-avisynth-and-got-the-following-error-message-couldn-t-locate-decompressor-for-format-yv12-unknown">I installed AviSynth and got the following error message: “Couldn’t locate decompressor for format ‘YV12’ (unknown).”?</a></li>
+<li><a class="reference internal" href="#when-encoding-i-got-the-following-error-acm-failed-to-suggest-a-compatible-pcm-format">When encoding I got the following error “ACM failed to suggest a compatible PCM format”?</a></li>
+<li><a class="reference internal" href="#when-encoding-i-got-the-following-error-framesize-xyz-x-56-not-supported">When encoding I got the following error: “framesize xyz x 56 not supported”?</a></li>
+<li><a class="reference internal" href="#when-frameserving-i-got-the-following-message-avisource-couldn-t-locate-a-decompressor-for-fourcc">When frameserving I got the following message: “AVISource: couldn’t locate a decompressor for fourcc (…)”?</a></li>
+<li><a class="reference internal" href="#when-frameserving-i-got-the-following-message-directshowsource-could-not-open-as-video-or-audio-video-returned-directshowsource-the-filter-graph-manager-won-t-talk-to-me">When frameserving I got the following message: “DirectShowSource: Could not open as video or audio / Video Returned: “DirectShowSource: the filter graph manager won’t talk to me”“?</a></li>
+<li><a class="reference internal" href="#i-am-trying-to-load-a-script-that-has-a-path-name-with-a-mix-of-japanese-characters-someone-s-name-and-ascii-test-i-got-an-import-error-and-the-path-that-is-displayed-has-some-strange-characters-not-the-japanese-characters">I am trying to load a script that has a path name with a mix of japanese characters (someone’s name) and Ascii test. I got an import error and the path that is displayed has some strange characters (not the japanese characters)?</a></li>
+<li><a class="reference internal" href="#when-frameserving-i-got-the-following-message-cavistreamsynth-system-exception-access-violation-at-0x0-reading-from-0x0">When frameserving I got the following message: “CAVIStreamSynth: System exception - Access Violation at 0x0, reading from 0x0”?</a></li>
+<li><a class="reference internal" href="#when-frameserving-i-got-a-message-similar-to-avisynth-open-failure-script-error-invalid-arguments-to-function-xxx-some-filter-i-video-avs-line-5">When frameserving I got a message similar to: “Avisynth open failure: Script error: Invalid arguments to function “xxx (some filter)” (I:Video.avs, line 5)”</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="faq.html"
+                        title="previous chapter">Avisynth Frequently Asked Questions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="faq_different_types_content.html"
+                        title="next chapter">AviSynth FAQ - Recognizing and processing different types of content</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/faq/faq_common_errors.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="avisynth-faq-some-common-error-messages">
+<h1><a class="toc-backref" href="#id8">AviSynth FAQ - Some common error messages</a><a class="headerlink" href="#avisynth-faq-some-common-error-messages" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#avisynth-faq-some-common-error-messages" id="id8">AviSynth FAQ - Some common error messages</a><ul>
+<li><a class="reference internal" href="#i-got-the-message-loadplugin-unable-to-load-xxx-some-plugin-is-not-an-avisynth-1-0-avisynth-2-0-plugin" id="id9">I got the message “LoadPlugin: unable to load “xxx (some plugin)” is not an AviSynth 1.0/AviSynth 2.0 plugin”?</a></li>
+<li><a class="reference internal" href="#when-frameserving-i-got-the-following-message-script-error-there-is-no-function-named-xxx-some-filter" id="id10">When frameserving I got the following message: “Script error, there is no function named “xxx (some filter)”“?</a></li>
+<li><a class="reference internal" href="#i-installed-avisynth-and-got-the-following-error-message-couldn-t-locate-decompressor-for-format-yv12-unknown" id="id11">I installed AviSynth and got the following error message: “Couldn’t locate decompressor for format ‘YV12’ (unknown).”?</a></li>
+<li><a class="reference internal" href="#when-encoding-i-got-the-following-error-acm-failed-to-suggest-a-compatible-pcm-format" id="id12">When encoding I got the following error “ACM failed to suggest a compatible PCM format”?</a></li>
+<li><a class="reference internal" href="#when-encoding-i-got-the-following-error-framesize-xyz-x-56-not-supported" id="id13">When encoding I got the following error: “framesize xyz x 56 not supported”?</a></li>
+<li><a class="reference internal" href="#when-frameserving-i-got-the-following-message-avisource-couldn-t-locate-a-decompressor-for-fourcc" id="id14">When frameserving I got the following message: “AVISource: couldn’t locate a decompressor for fourcc (…)”?</a></li>
+<li><a class="reference internal" href="#when-frameserving-i-got-the-following-message-directshowsource-could-not-open-as-video-or-audio-video-returned-directshowsource-the-filter-graph-manager-won-t-talk-to-me" id="id15">When frameserving I got the following message: “DirectShowSource: Could not open as video or audio / Video Returned: “DirectShowSource: the filter graph manager won’t talk to me”“?</a></li>
+<li><a class="reference internal" href="#i-am-trying-to-load-a-script-that-has-a-path-name-with-a-mix-of-japanese-characters-someone-s-name-and-ascii-test-i-got-an-import-error-and-the-path-that-is-displayed-has-some-strange-characters-not-the-japanese-characters" id="id16">I am trying to load a script that has a path name with a mix of japanese characters (someone’s name) and Ascii test. I got an import error and the path that is displayed has some strange characters (not the japanese characters)?</a></li>
+<li><a class="reference internal" href="#when-frameserving-i-got-the-following-message-cavistreamsynth-system-exception-access-violation-at-0x0-reading-from-0x0" id="id17">When frameserving I got the following message: “CAVIStreamSynth: System exception - Access Violation at 0x0, reading from 0x0”?</a></li>
+<li><a class="reference internal" href="#when-frameserving-i-got-a-message-similar-to-avisynth-open-failure-script-error-invalid-arguments-to-function-xxx-some-filter-i-video-avs-line-5" id="id18">When frameserving I got a message similar to: “Avisynth open failure: Script error: Invalid arguments to function “xxx (some filter)” (I:Video.avs, line 5)”</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="i-got-the-message-loadplugin-unable-to-load-xxx-some-plugin-is-not-an-avisynth-1-0-avisynth-2-0-plugin">
+<h2><a class="toc-backref" href="#id9">I got the message “LoadPlugin: unable to load “xxx (some plugin)” is not an AviSynth 1.0/AviSynth 2.0 plugin”?</a><a class="headerlink" href="#i-got-the-message-loadplugin-unable-to-load-xxx-some-plugin-is-not-an-avisynth-1-0-avisynth-2-0-plugin" title="Permalink to this headline">¶</a></h2>
+<p>You are using a plugin which is not compatiable with that version of AviSynth. As explained
+<a class="reference internal" href="faq_general_info.html#how-do-i-use-a-plugin-compiled-for-v2-0x-in-v2-5x"><span class="std std-ref">here</span></a>, plugins
+compiled for AviSynth v2.5 are not compatible with AviSynth v1.0x/v2.0x and vice versa.</p>
+</div>
+<div class="section" id="when-frameserving-i-got-the-following-message-script-error-there-is-no-function-named-xxx-some-filter">
+<h2><a class="toc-backref" href="#id10">When frameserving I got the following message: “Script error, there is no function named “xxx (some filter)”“?</a><a class="headerlink" href="#when-frameserving-i-got-the-following-message-script-error-there-is-no-function-named-xxx-some-filter" title="Permalink to this headline">¶</a></h2>
+<p>You probably installed/registered a version of AviSynth which doesn’t contain
+that specific filter. Make sure that there are no other versions floating
+around on your hard disk (there’s a possibility that a version will be
+registered while it is not in your system directory). Make sure that the
+latest stable version is registered, see also <a class="reference internal" href="faq_general_info.html#how-do-i-know-which-version-number-of-avisynth-i-have"><span class="std std-ref">this FAQ entry</span></a>.</p>
+</div>
+<div class="section" id="i-installed-avisynth-and-got-the-following-error-message-couldn-t-locate-decompressor-for-format-yv12-unknown">
+<h2><a class="toc-backref" href="#id11">I installed AviSynth and got the following error message: “Couldn’t locate decompressor for format ‘YV12’ (unknown).”?</a><a class="headerlink" href="#i-installed-avisynth-and-got-the-following-error-message-couldn-t-locate-decompressor-for-format-yv12-unknown" title="Permalink to this headline">¶</a></h2>
+<p>Install a codec which supports YV12. DivX5 or one of the recent <a class="reference external" href="http://www.xvid.org/">XviD builds
+of Koepi</a> or <a class="reference external" href="http://forum.doom9.org/showthread.php?s=&amp;threadid=56972">Helix YUV codec</a> or some other (ffvfw, ffdshow). If that
+still doesn’t work, modify your registry as explained in the next question.</p>
+</div>
+<div class="section" id="when-encoding-i-got-the-following-error-acm-failed-to-suggest-a-compatible-pcm-format">
+<h2><a class="toc-backref" href="#id12">When encoding I got the following error “ACM failed to suggest a compatible PCM format”?</a><a class="headerlink" href="#when-encoding-i-got-the-following-error-acm-failed-to-suggest-a-compatible-pcm-format" title="Permalink to this headline">¶</a></h2>
+<p>This error means that you are using AviSource to open your AVI file, but you
+don’t have an ACM codec to decode the audio stream. The most common problem
+is that your audio is an AC3 or a MP3 stream, but you don’t have the
+corresponding ACM codec installed. It can also happen that your audio is a
+“crippled” (that is, with an incorrect header) MP3 <a class="reference external" href="http://forums.virtualdub.org/index.php?act=ST&amp;f=4&amp;t=802&amp;hl=0055">[1]</a> <a class="reference external" href="http://forums.virtualdub.org/index.php?act=ST&amp;f=3&amp;t=10931&amp;hl=unknown%20tag%200055&amp;st=15">[2]</a> <a class="reference external" href="http://forum.doom9.org/showthread.php?t=94760">[3]</a>.</p>
+<p>There are several solutions for this problem:</p>
+<ul class="simple">
+<li>Get the proper ACM codec. You can use <a class="reference external" href="http://www.headbands.com/gspot/">GSpot</a> to find out which
+audio stream you are dealing with. The needed ACM codecs can be found
+<a class="reference internal" href="../advancedtopics/importing_media.html"><span class="doc">in the table here</span></a>.</li>
+<li>Demux your audio with an application like <a class="reference external" href="http://www.alexander-noe.com/video/amg/">AVI-Mux GUI</a> or
+<a class="reference external" href="http://www.virtualdub.org">VirtualDub</a>, and import your audio with a specific plugin. See also
+<a class="reference internal" href="faq_loading_clips.html"><span class="doc">the loading clips FAQ.</span></a></li>
+<li>Use <a class="reference internal" href="../corefilters/directshowsource.html"><span class="doc">DirectShowSource</span></a> to open the audio. Install <a class="reference external" href="http://ffdshow-tryout.sourceforge.net/">ffdshow</a> and
+enable the specific audio format in the “Audio Decoder Properties” tab.
+Create the following script:</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Vid</span> <span class="o">=</span> <span class="n">AviSource</span><span class="p">(</span><span class="s2">&quot;Blah.avi&quot;</span><span class="p">,</span> <span class="n">audio</span><span class="o">=</span><span class="n">false</span><span class="p">)</span>
+<span class="n">Aud</span> <span class="o">=</span> <span class="n">DirectShowSource</span><span class="p">(</span><span class="s2">&quot;Blah.avi&quot;</span><span class="p">,</span> <span class="n">video</span><span class="o">=</span><span class="n">false</span><span class="p">)</span>
+<span class="n">AudioDub</span><span class="p">(</span><span class="n">Vid</span><span class="p">,</span> <span class="n">Aud</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="when-encoding-i-got-the-following-error-framesize-xyz-x-56-not-supported">
+<h2><a class="toc-backref" href="#id13">When encoding I got the following error: “framesize xyz x 56 not supported”?</a><a class="headerlink" href="#when-encoding-i-got-the-following-error-framesize-xyz-x-56-not-supported" title="Permalink to this headline">¶</a></h2>
+<p>This usually is an indicator of a script error, where the input is actually
+the error message being displayed. Here, xyz is the length of the error
+message text and 56 is the height (xyz will vary depending on the error
+message whilst the height will always be 56 pixels). Your encoder is seeing
+the error message as an RGB32 input source and hence the error. Opening the
+script with WMP or VirtualDub should display the error message. Fix the error
+in the script and retry to encode.</p>
+</div>
+<div class="section" id="when-frameserving-i-got-the-following-message-avisource-couldn-t-locate-a-decompressor-for-fourcc">
+<h2><a class="toc-backref" href="#id14">When frameserving I got the following message: “AVISource: couldn’t locate a decompressor for fourcc (…)”?</a><a class="headerlink" href="#when-frameserving-i-got-the-following-message-avisource-couldn-t-locate-a-decompressor-for-fourcc" title="Permalink to this headline">¶</a></h2>
+<p>Usually, this error message shows up if you don’t have the right VfW codec
+installed for decoding your video. Get <a class="reference external" href="http://www.headbands.com/gspot/">Gspot</a> to find out which codec you
+need. Get, for example, <a class="reference external" href="http://www.xvid.org/">XviD</a> for your MPEG-4 ASP clips and <a class="reference external" href="http://forum.doom9.org/showthread.php?t=94458">Cedocida
+codec</a> for your DV clips. If you have problems finding the right one, ask
+around on the video forums.</p>
+<p>But it can also show up if you call <a class="reference internal" href="../corefilters/avisource.html"><span class="doc">AviSource</span></a> too many times. The dll for
+the decompression codec is loaded separately for every AviSource call.
+Eventually an OS-imposed limit is reached, the codec can’t be loaded and you
+get that error message. More discussion can be found <a class="reference external" href="http://forum.doom9.org/showthread.php?t=131687">in this thread</a>. A good solution
+is to use a number of scripts (keeping each below the problematic limit of
+avi calls) and encode them separately, and join them afterwards in some
+application.</p>
+</div>
+<div class="section" id="when-frameserving-i-got-the-following-message-directshowsource-could-not-open-as-video-or-audio-video-returned-directshowsource-the-filter-graph-manager-won-t-talk-to-me">
+<h2><a class="toc-backref" href="#id15">When frameserving I got the following message: “DirectShowSource: Could not open as video or audio / Video Returned: “DirectShowSource: the filter graph manager won’t talk to me”“?</a><a class="headerlink" href="#when-frameserving-i-got-the-following-message-directshowsource-could-not-open-as-video-or-audio-video-returned-directshowsource-the-filter-graph-manager-won-t-talk-to-me" title="Permalink to this headline">¶</a></h2>
+<p>This is a common error that occurs when DirectShow isn’t able to deliver any
+format that is readable to AviSynth. Try creating a filter graph manually.
+See if you are able to construct a filter graph that delivers any output that
+AviSynth can open. If not, you might need to download additional DirectShow
+filters that can deliver correct material. If you can play the graph in
+<a class="reference external" href="http://avisynth.org/mediawiki/GraphEdit">GraphEdit</a>, make sure to remove the video and audio renderers, before
+saving the graph and opening it in AviSynth. Some examples can be found
+<a class="reference internal" href="../advancedtopics/importing_media.html#graphs"><span class="std std-ref">in the importing media FAQ</span></a>.</p>
+</div>
+<div class="section" id="i-am-trying-to-load-a-script-that-has-a-path-name-with-a-mix-of-japanese-characters-someone-s-name-and-ascii-test-i-got-an-import-error-and-the-path-that-is-displayed-has-some-strange-characters-not-the-japanese-characters">
+<h2><a class="toc-backref" href="#id16">I am trying to load a script that has a path name with a mix of japanese characters (someone’s name) and Ascii test. I got an import error and the path that is displayed has some strange characters (not the japanese characters)?</a><a class="headerlink" href="#i-am-trying-to-load-a-script-that-has-a-path-name-with-a-mix-of-japanese-characters-someone-s-name-and-ascii-test-i-got-an-import-error-and-the-path-that-is-displayed-has-some-strange-characters-not-the-japanese-characters" title="Permalink to this headline">¶</a></h2>
+<p>AviSynth has problems with non-ANSI chars on filenames. It only supports <a class="reference external" href="http://en.wikipedia.org/wiki/ASCII">8
+bit character ANSI text</a>. Some discussion about this: <a class="reference external" href="http://forum.doom9.org/showthread.php?t=110467">[4]</a> and <a class="reference external" href="http://forum.doom9.org/showthread.php?t=131419">[5]</a>.</p>
+</div>
+<div class="section" id="when-frameserving-i-got-the-following-message-cavistreamsynth-system-exception-access-violation-at-0x0-reading-from-0x0">
+<h2><a class="toc-backref" href="#id17">When frameserving I got the following message: “CAVIStreamSynth: System exception - Access Violation at 0x0, reading from 0x0”?</a><a class="headerlink" href="#when-frameserving-i-got-the-following-message-cavistreamsynth-system-exception-access-violation-at-0x0-reading-from-0x0" title="Permalink to this headline">¶</a></h2>
+<p>Access Violation at 0x0, reading from 0x0 is usually caused by running out of
+memory (memory leak ???). It can be caused by a plugin which is leaking
+memory, but apparently it can also be caused by other things (codecs,
+applications ???) [<a class="reference external" href="http://forum.doom9.org/showthread.php?t=123195">1</a>] [<a class="reference external" href="http://forum.doom9.org/showthread.php?t=128403">2</a>]. Add SetMemoryMax(…) at the beginning of
+the script. If that doesn’t help, report the issue in the doom9 forums, and
+we will try to help finding the cause of it.</p>
+</div>
+<div class="section" id="when-frameserving-i-got-a-message-similar-to-avisynth-open-failure-script-error-invalid-arguments-to-function-xxx-some-filter-i-video-avs-line-5">
+<h2><a class="toc-backref" href="#id18">When frameserving I got a message similar to: “Avisynth open failure: Script error: Invalid arguments to function “xxx (some filter)” (I:Video.avs, line 5)”</a><a class="headerlink" href="#when-frameserving-i-got-a-message-similar-to-avisynth-open-failure-script-error-invalid-arguments-to-function-xxx-some-filter-i-video-avs-line-5" title="Permalink to this headline">¶</a></h2>
+<p>It means you are passing incorrect arguments (that is of the correct type) to
+your script, filter or plugin. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># passing a float (2.0), while Loop expects an int:</span>
+<span class="n">Loop</span><span class="p">(</span><span class="n">clip</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># passing three clips to Overlay instead of two:</span>
+<span class="n">AviSource</span><span class="p">(</span><span class="s2">&quot;anime_raw.avi&quot;</span><span class="p">)</span>
+<span class="n">karaoke</span> <span class="o">=</span> <span class="n">AviSource</span><span class="p">(</span><span class="s2">&quot;karaoke.avi&quot;</span><span class="p">)</span>
+<span class="n">Trim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">999</span><span class="p">)</span> <span class="o">+</span> <span class="n">Trim</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1030</span><span class="p">)</span><span class="o">.</span><span class="n">Overlay</span><span class="p">(</span><span class="n">last</span><span class="p">,</span> <span class="n">karaoke</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">sign</span><span class="o">.</span><span class="n">ShowAlpha</span><span class="p">())</span> <span class="o">+</span> <span class="n">Trim</span><span class="p">(</span><span class="mi">1031</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1"># last should be omitted as argument to Overlay</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># implicit &#39;last&#39; not defined</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">AviSource</span><span class="p">(</span><span class="s2">&quot;myvid.avi&quot;</span><span class="p">)</span>
+<span class="n">Trim</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">199</span><span class="p">)</span>
+<span class="c1"># need to use v.Trim(...) here</span>
+</pre></div>
+</div>
+<p>So make sure the passed arguments are of the correct type and read the
+corresponding documentation if necessary.</p>
+<div class="line-block">
+<div class="line"><a class="reference internal" href="faq_sections.html"><span class="doc">Main Page</span></a> | <a class="reference internal" href="faq_general_info.html"><span class="doc">General Info</span></a> | <a class="reference internal" href="faq_loading_clips.html"><span class="doc">Loading Clips</span></a> | <a class="reference internal" href="faq_frameserving.html"><span class="doc">Loading Scripts</span></a> | <strong>Common Error Messages</strong> | <a class="reference internal" href="faq_different_types_content.html"><span class="doc">Processing Different Content</span></a> | <a class="reference internal" href="faq_yv12.html"><span class="doc">Dealing with YV12</span></a> | <a class="reference internal" href="faq_using_virtualdub_plugins.html"><span class="doc">Processing with Virtualdub Plugins</span></a> |</div>
+</div>
+<p>$Date: 2010/11/28 18:47:26 $</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="faq_different_types_content.html" title="AviSynth FAQ - Recognizing and processing different types of content"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="faq.html" title="Avisynth Frequently Asked Questions"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,324 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>TimeStretch &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Tone" href="tone.html" />
+    <link rel="prev" title="TCPServer / TCPSource" href="tcpdeliver.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tone.html" title="Tone"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tcpdeliver.html" title="TCPServer / TCPSource"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tcpdeliver.html"
+                        title="previous chapter">TCPServer / TCPSource</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tone.html"
+                        title="next chapter">Tone</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/corefilters/timestretch.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="timestretch">
+<h1>TimeStretch<a class="headerlink" href="#timestretch" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">TimeStretch</span></code> (clip, float “tempo”, float “rate”, float “pitch”, int
+“sequence”, int “seekwindow”, int “overlap”, bool “quickseek”, int “aa”)</p>
+<p><code class="docutils literal notranslate"><span class="pre">TimeStretch</span></code> allows changing the sound tempo, pitch and playback rate
+parameters independently from each other, i.e.:</p>
+<ul class="simple">
+<li>Sound tempo can be increased or decreased while maintaining the
+original pitch.</li>
+<li>Sound pitch can be increased or decreased while maintaining the
+original tempo.</li>
+<li>Change playback rate that affects both tempo and pitch at the same
+time.</li>
+<li>Choose any combination of tempo/pitch/rate.</li>
+</ul>
+<p><strong>Parameters:</strong></p>
+<p>The speed parameters are percentages, and defaults to 100. If tempo is 200 it
+will play twice as fast, if it is 50, it will play at half the speed.
+Adjusting rate is equivalent to using <a class="reference internal" href="assumerate.html"><span class="doc">AssumeSampleRate</span></a> and
+<a class="reference internal" href="resampleaudio.html"><span class="doc">ResampleAudio</span></a>.</p>
+<p>The time-stretch algorithm has a few parameters that can be tuned to optimize
+sound quality for certain applications. The current default parameters have
+been chosen by iterative if-then analysis (read: “trial and error”) to obtain
+the best subjective sound quality in pop/rock music processing, but in
+applications processing different kind of sound the default parameter set may
+result in a sub-optimal result.</p>
+<p>The time-stretch algorithm default parameter values are</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sequence</span>     <span class="mi">82</span>
+<span class="n">SeekWindow</span>   <span class="mi">28</span>
+<span class="n">Overlap</span>      <span class="mi">12</span>
+</pre></div>
+</div>
+<p>These parameters affect the time-stretch algorithm as follows:</p>
+<ul class="simple">
+<li><em>Sequence</em>: This is the length of a single processing sequence in
+milliseconds which determines how the original sound is chopped in the
+time-stretch algorithm. Larger values mean fewer sequences are used in
+processing. In principle a larger value sounds better when slowing down
+the tempo, but worse when increasing the tempo and vice versa.</li>
+<li><em>SeekWindow</em>: The seeking window length in milliseconds is for the
+algorithm that searches for the best possible overlap location. This
+determines from how wide a sample “window” the algorithm can use to find
+an optimal mixing location when the sound sequences are to be linked back
+together.</li>
+</ul>
+<p>The bigger this window setting is, the higher the possibility of finding a
+better mixing position becomes, but at the same time large values may cause a
+“drifting” sound artifact because neighboring sequences may be chosen at more
+uneven intervals. If there’s a disturbing artifact that sounds as if a
+constant frequency was drifting around, try reducing this setting.</p>
+<ul class="simple">
+<li><em>Overlap</em>: The overlap length in milliseconds. When the sound sequences
+are mixed back together to form a continuous sound stream again, this
+parameter defines how much of the ends of the consecutive sequences will
+be overlapped.</li>
+</ul>
+<p>This shouldn’t be that critical parameter. If you reduce the Sequence setting
+by a large amount, you might wish to try a smaller value on this.</p>
+<ul class="simple">
+<li><em>QuickSeek</em>: The time-stretch routine has a ‘quick’ mode that
+substantially speeds up the algorithm but may degrade the sound quality.</li>
+<li><em>aa</em>: Controls the number of tap the Anti-alias filter uses for the
+rate changer. Set to 0 to disable the filter. The value must be a
+multiple of 4.</li>
+</ul>
+<p>The table below summarizes how the parameters can be adjusted for different
+applications:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="10%" />
+<col width="11%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter name</th>
+<th class="head">Default value magnitude</th>
+<th class="head">Larger value affects…</th>
+<th class="head">Smaller value affects…</th>
+<th class="head">Music</th>
+<th class="head">Speech</th>
+<th class="head">Effect in CPU burden</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Sequence</td>
+<td>Default value is
+relatively large, chosen
+for slowing down music
+tempo</td>
+<td>Larger value is usually
+better for slowing down
+tempo. Growing the value
+decelerates the “echoing”
+artifact when slowing
+down the tempo.</td>
+<td>Smaller value might be
+better for speeding up
+tempo. Reducing the value
+accelerates the “echoing”
+artifact when slowing
+down the tempo</td>
+<td>Default value
+usually good</td>
+<td>A smaller value
+than default
+might be better</td>
+<td>Increasing the parameter
+value reduces computation
+burden</td>
+</tr>
+<tr class="row-odd"><td>SeekWindow</td>
+<td>Default value is
+relatively large, chosen
+for slowing down music
+tempo</td>
+<td>Larger value eases
+finding a good mixing
+position, but may cause a
+“drifting” artifact</td>
+<td>Smaller reduce
+possibility to find a
+good mixing position, but
+reduce the “drifting”
+artifact.</td>
+<td>Default value
+usually good,
+unless a
+“drifting”
+artifact is
+disturbing.</td>
+<td>Default value
+usually good</td>
+<td>Increasing the parameter
+value increases computation
+burden</td>
+</tr>
+<tr class="row-even"><td>Overlap</td>
+<td>Default value is
+relatively large, chosen
+to suit with above
+parameters.</td>
+<td>&#160;</td>
+<td>If you reduce the
+“sequence ms” setting,
+you might wish to try a
+smaller value.</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Increasing the parameter
+value increases computation
+burden</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes:</strong></p>
+<ul class="simple">
+<li>This is NOT a sample exact plugin. If you use it, slight inaccuracies
+might occur. Since we are dealing with float values rounding errors might
+occur, especially on large samples. In general however inaccuracies
+should not exceed a few 10’s of milliseconds for movielength samples.</li>
+<li>Currently the SoundTouch library only supports 1 and 2 channels. When
+used with more than 2 channels, each channel is processed individually in
+1 channel mode. This will destroy the phase relationship between the
+channels. See this thread for details :- <a class="reference external" href="http://forum.doom9.org/showthread.php?t=71632">TimeStretch in AVISynth 2.5.5
+Alpha - Strange stereo effects ?</a></li>
+<li>SoundTouch is used in float sample mode.</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TimeStretch</span><span class="p">(</span><span class="n">pitch</span> <span class="o">=</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will raise the pitch one octave, while preserving the length of the
+original sample.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TimeStretch</span><span class="p">(</span><span class="n">pitch</span> <span class="o">=</span> <span class="mf">100.0</span><span class="o">*</span><span class="nb">pow</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="o">/</span><span class="mf">12.0</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>This will raise the pitch one semi-tone, while preserving the length of the
+original sample.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TimeStretch</span><span class="p">(</span><span class="n">tempo</span> <span class="o">=</span> <span class="mf">25.0</span><span class="o">/</span><span class="p">(</span><span class="mf">24000.0</span><span class="o">/</span><span class="mf">1001.0</span><span class="p">)</span><span class="o">*</span><span class="mf">100.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will change the tempo from Film speed to PAL speed without changing the
+pitch.</p>
+<p><strong>Credits:</strong></p>
+<p>This function uses:</p>
+<p>SoundTouch library Copyright (c) Olli Parviainen 2002-2006</p>
+<div class="line-block">
+<div class="line"><a class="reference external" href="http://www.iki.fi/oparviai/soundtouch">http://www.iki.fi/oparviai/soundtouch</a></div>
+<div class="line"><a class="reference external" href="http://www.surina.net/soundtouch">http://www.surina.net/soundtouch</a></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Changelog</th>
+<th class="head">&#160;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>v2.55</td>
+<td>Initial Release</td>
+</tr>
+<tr class="row-odd"><td>v2.57</td>
+<td>Expose soundtouch parameters</td>
+</tr>
+</tbody>
+</table>
+<p>$Date: 2010/04/04 16:46:19 $</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="tone.html" title="Tone"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tcpdeliver.html" title="TCPServer / TCPSource"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

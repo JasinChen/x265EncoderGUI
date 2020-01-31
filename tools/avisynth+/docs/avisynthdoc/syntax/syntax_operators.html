@@ -1,0 +1,344 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AviSynth Syntax - Operators &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="AviSynth Syntax - Plugins" href="syntax_plugins.html" />
+    <link rel="prev" title="AviSynth Syntax - Version functions" href="syntax_internal_functions_version.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="syntax_plugins.html" title="AviSynth Syntax - Plugins"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="syntax_internal_functions_version.html" title="AviSynth Syntax - Version functions"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">AviSynth Syntax - Operators</a><ul>
+<li><a class="reference internal" href="#available-operators-per-type">Available Operators per Type</a></li>
+<li><a class="reference internal" href="#operator-precedence">Operator Precedence</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="syntax_internal_functions_version.html"
+                        title="previous chapter">AviSynth Syntax - Version functions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="syntax_plugins.html"
+                        title="next chapter">AviSynth Syntax - Plugins</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/syntax/syntax_operators.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="avisynth-syntax-operators">
+<h1>AviSynth Syntax - Operators<a class="headerlink" href="#avisynth-syntax-operators" title="Permalink to this headline">¶</a></h1>
+<p>As in all programming and scripting languages, operators in AviSynth script
+language allow the performance of actions (operations) onto <a class="reference internal" href="syntax_script_variables.html"><span class="doc">variables</span></a>.
+Operators form the basis for building up expressions, the building blocks of
+AviSynth scripts.</p>
+<p>AviSynth operators follow loosely the same rules as C operators, regarding
+meaning, precedence and associativity. By loosely we mean that there are some
+exceptions, indicated in the text below.</p>
+<p>Note that when a binary operator is applied to an int and a float, the int is
+first converted to float, as in C.</p>
+<div class="section" id="available-operators-per-type">
+<h2>Available Operators per Type<a class="headerlink" href="#available-operators-per-type" title="Permalink to this headline">¶</a></h2>
+<p>For <strong>all types</strong> of operands (clip, int, float, string, bool) you can use
+the following operators:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">==</span></code></td>
+<td>is equal</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">!=</span></code></td>
+<td>not equal</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">&lt;&gt;</span></code></td>
+<td>not equal (alternative to !=, v2.07)</td>
+</tr>
+</tbody>
+</table>
+<p>String comparisons are not case-sensitive, so “abc” == “ABC” returns <em>true</em>.</p>
+<p>For <strong>numeric</strong> types (int, float) you can use the following int/float-
+specific operators:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="74%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">+</span></code></td>
+<td>add</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">-</span></code></td>
+<td>subtract</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">*</span></code></td>
+<td>multiply</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">/</span></code></td>
+<td>divide</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">%</span></code></td>
+<td>mod</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">&gt;=</span></code></td>
+<td>greater or equal than</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">&lt;=</span></code></td>
+<td>less or equal than</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">&lt;</span></code></td>
+<td>less than</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">&gt;</span></code></td>
+<td>greater than</td>
+</tr>
+</tbody>
+</table>
+<p><em>AviSynth in former versions parsed expressions from right to left, which
+gave unexpected results.</em> For example:</p>
+<ul class="simple">
+<li>a = 10 - 5 - 5 resulted in 10 - (5 - 5) = 10 instead of (10 - 5) - 5
+= 0 !</li>
+<li>b = 100. / 2. / 4. resulted in 100. / (2. / 4.) = 200 instead of
+(100. / 2.) / 4. = 12.5 !</li>
+</ul>
+<p>These “bugs” have been corrected in v2.53!</p>
+<p>For <strong>string</strong> type you can use the following string-specific operators:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="79%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">+</span></code></td>
+<td>concatenate</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">&gt;=</span></code></td>
+<td>greater or equal than (v2.07)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">&lt;=</span></code></td>
+<td>less or equal than (v2.07)</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">&lt;</span></code></td>
+<td>less than (v2.07)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">&gt;</span></code></td>
+<td>greater than (v2.07)</td>
+</tr>
+</tbody>
+</table>
+<p>Like the equality operator, these string comparisons are case-insensitive.</p>
+<p>For <strong>clip</strong> type you can use the following clip-specific operators:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">+</span></code></td>
+<td>the same as the function <a class="reference internal" href="../corefilters/splice.html"><span class="doc">UnalignedSplice</span></a></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">++</span></code></td>
+<td>the same as the function <a class="reference internal" href="../corefilters/splice.html"><span class="doc">AlignedSplice</span></a></td>
+</tr>
+</tbody>
+</table>
+<p>For <strong>bool</strong> type (true/false) you can use the following bool-specific
+operators:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">||</span></code></td>
+<td>or</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code></td>
+<td>and</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">?:</span></code></td>
+<td>execute code conditionally</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">!</span></code></td>
+<td>not</td>
+</tr>
+</tbody>
+</table>
+<p>The conditional execution operator is used as in the following example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>b = (a==true) ? 1 : 2
+</pre></div>
+</div>
+<p>This means in pseudo-basic:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">true</span><span class="p">)</span> <span class="n">then</span> <span class="n">b</span><span class="o">=</span><span class="mi">1</span> <span class="k">else</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>From version v2.07, AviSynth provides a NOP() function which can be used
+inside a conditional execution block in cases where “else” may not otherwise
+be desirable (such as a conditional <a class="reference internal" href="../corefilters/import.html"><span class="doc">Import</span></a> or <a class="reference internal" href="syntax_plugins.html"><span class="doc">LoadPlugin</span></a>).</p>
+</div>
+<div class="section" id="operator-precedence">
+<h2>Operator Precedence<a class="headerlink" href="#operator-precedence" title="Permalink to this headline">¶</a></h2>
+<p>The precedence of AviSynth operators is presented at the table below.
+Operators higher to the top of the table have higher precedence. Operators
+inside the same row have the same order of precedence.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="16%" />
+<col width="14%" />
+<col width="14%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">*</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">/</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">%</span></code></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">+</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">++</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">-</span></code></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">&lt;</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">&gt;</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">&lt;=</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">&gt;=</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">!=</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">&lt;&gt;</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">==</span></code></td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">||</span></code></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">?:</span></code></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>The dot symbol (<strong>.</strong>), used in the “OOP notation” for a function call, is
+not strictly an operator, but effectively has a higher precedence than any
+operator symbol. So for example, <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">+</span> <span class="pre">b.f(args)</span></code> means <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">+</span> <span class="pre">f(b,</span> <span class="pre">args)</span></code>
+and not <code class="docutils literal notranslate"><span class="pre">f(a+b,</span> <span class="pre">args)</span></code> (which could be written as <code class="docutils literal notranslate"><span class="pre">(a+b).f(args)</span></code>)</p>
+<p>$Date: 2012/03/11 16:05:32 $</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="syntax_plugins.html" title="AviSynth Syntax - Plugins"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="syntax_internal_functions_version.html" title="AviSynth Syntax - Version functions"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>
