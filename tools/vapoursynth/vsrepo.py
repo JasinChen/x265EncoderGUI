@@ -1,6 +1,6 @@
 ##    MIT License
 ##
-##    Copyright (c) 2018-2019 Fredrik Mellbin
+##    Copyright (c) 2018-2020 Fredrik Mellbin
 ##
 ##    Permission is hereby granted, free of charge, to any person obtaining a copy
 ##    of this software and associated documentation files (the "Software"), to deal
@@ -39,7 +39,7 @@ try:
     import winreg
 except ImportError:
     print('{} is only supported on Windows.'.format(__file__))
-    exit(1)
+    sys.exit(1)
 
 try:
     import tqdm
@@ -71,16 +71,16 @@ is_64bits = (args.target == 'win64')
 
 if (args.operation in ['install', 'upgrade', 'uninstall']) == ((args.package is None) or len(args.package) == 0):
     print('Package argument only required for install, upgrade and uninstall operations')
-    exit(1)
+    sys.exit(1)
 
-package_json_path = os.path.join(os.path.dirname(__file__), 'vspackages.json') if args.portable else os.path.join(os.getenv('APPDATA'), 'VapourSynth', 'vsrepo', 'vspackages.json')
-
-py_script_path = os.path.dirname(__file__) if args.portable else site.getusersitepackages()
+file_dirname = os.path.dirname(os.path.abspath(__file__))
+package_json_path = os.path.join(file_dirname, 'vspackages.json') if args.portable else os.path.join(os.getenv('APPDATA'), 'VapourSynth', 'vsrepo', 'vspackages.json')
+py_script_path = file_dirname if args.portable else site.getusersitepackages()
 if args.script_path is not None:
     py_script_path = args.script_path
 
 if args.portable:
-    base_path = os.path.dirname(__file__)
+    base_path = file_dirname
     plugin32_path = os.path.join(base_path, 'vapoursynth32', 'plugins')
     plugin64_path = os.path.join(base_path, 'vapoursynth64', 'plugins')
 elif is_sitepackage_install_portable():
@@ -103,7 +103,7 @@ os.makedirs(os.path.dirname(package_json_path), exist_ok=True)
 
 
 
-cmd7zip_path = os.path.join(os.path.dirname(__file__), '7z.exe')
+cmd7zip_path = os.path.join(file_dirname, '7z.exe')
 if not os.path.isfile(cmd7zip_path):
     try:
         with winreg.OpenKeyEx(winreg.HKEY_LOCAL_MACHINE, 'SOFTWARE\\7-Zip', reserved=0, access=winreg.KEY_READ) as regkey:
@@ -448,14 +448,14 @@ def print_paths():
 
 if args.operation != 'update' and package_list is None:
     print('Failed to open vspackages.json. Run update command.')
-    exit(1)
+    sys.exit(1)
 
 for name in args.package:
     try:
         get_package_from_name(name)
     except Exception as e:
         print(e)
-        exit(1)
+        sys.exit(1)
 
 if args.operation == 'install':
     detect_installed_packages()

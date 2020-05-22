@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Plugins and Scripts &#8212; VapourSynth R50 documentation</title>
+    <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Python Reference" href="pythonreference.html" />
+    <link rel="prev" title="Getting Started" href="gettingstarted.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="index.html">VapourSynth R50 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="gettingstarted.html" title="Getting Started"
+             accesskey="P">previous</a> |
+          <a href="pythonreference.html" title="Python Reference"
+             accesskey="N">next</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="plugins-and-scripts">
+<h1>Plugins and Scripts<a class="headerlink" href="#plugins-and-scripts" title="Permalink to this headline">¶</a></h1>
+<p>If you’re looking for plugins and scripts then one of the most complete lists
+available can be found at <a class="reference external" href="http://vsdb.top/">vsdb.top</a>.</p>
+<div class="section" id="installing-with-vsrepo">
+<h2>Installing with VSRepo<a class="headerlink" href="#installing-with-vsrepo" title="Permalink to this headline">¶</a></h2>
+<p>On windows you can use the included vsrepo.py to install and upgrade plugins.
+Simply run <code class="docutils literal notranslate"><span class="pre">vsrepo.py</span> <span class="pre">install</span> <span class="pre">&lt;namespace</span> <span class="pre">or</span> <span class="pre">identifier&gt;</span></code>. If you need a list
+of known scipts and plugins you can run <code class="docutils literal notranslate"><span class="pre">vsrepo.py</span> <span class="pre">available</span></code> or visit
+<a class="reference external" href="http://vsdb.top/">vsdb.top</a>.</p>
+</div>
+<div class="section" id="autoloading">
+<h2>Autoloading<a class="headerlink" href="#autoloading" title="Permalink to this headline">¶</a></h2>
+<p>VapourSynth automatically loads all the native plugins located in certain
+folders. Autoloading works just like manual loading, with the exception
+that any errors encountered while loading a plugin are silently ignored.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Avoid autoloading from folders that other applications might also
+use, such as /usr/lib or /usr/local/lib in a Linux system. Several
+users reported crashes when VapourSynth attempted to load some
+random libraries (*cough*wxgtk*cough*).</p>
+</div>
+<div class="section" id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<p>Windows has in total 3 different autoloading directories: user plugins, core plugins and global plugins. They are searched in that order.
+User plugins are always loaded first so that the current user can always decide which exact version of a plugin is used. Core plugins follow.
+Global plugins are placed last to prevent them from overriding any of the included plugins by accident.</p>
+<p>The searched paths are:</p>
+<ol class="arabic simple">
+<li><p><em>&lt;AppData&gt;</em>\VapourSynth\plugins32 or <em>&lt;AppData&gt;</em>\VapourSynth\plugins64</p></li>
+<li><p><em>&lt;VapourSynth path&gt;</em>\core32\plugins or <em>&lt;VapourSynth path&gt;</em>\core64\plugins</p></li>
+<li><p><em>&lt;VapourSynth path&gt;</em>\plugins32 or <em>&lt;VapourSynth path&gt;</em>\plugins64</p></li>
+</ol>
+<p>Note that the per user path is not created by default.
+On modern Windows versions the <em>AppData</em> directory is located in <em>&lt;user&gt;</em>\AppData\Roaming by default.</p>
+<p>Shortcuts to the global autoload directory are located in the start menu.</p>
+<p>Avisynth plugins are never autoloaded. Support for this may be added in the future.</p>
+<p>User plugins should never be put into the <em>core\plugins</em> directory.</p>
+</div>
+<div class="section" id="windows-portable">
+<h3>Windows Portable<a class="headerlink" href="#windows-portable" title="Permalink to this headline">¶</a></h3>
+<p>The searched paths are:</p>
+<ol class="arabic simple">
+<li><p><em>&lt;VapourSynth.dll path&gt;</em>\vapoursynth32\coreplugins or <em>&lt;VapourSynth.dll path&gt;</em>\vapoursynth64\coreplugins</p></li>
+<li><p><em>&lt;VapourSynth.dll path&gt;</em>\vapoursynth32\plugins or <em>&lt;VapourSynth.dll path&gt;</em>\vapoursynth64\plugins</p></li>
+</ol>
+<p>User plugins should never be put into the <em>coreplugins</em> directory.</p>
+</div>
+<div class="section" id="linux">
+<h3>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
+<p>Autoloading can be configured using the file
+$XDG_CONFIG_HOME/vapoursynth/vapoursynth.conf,
+or $HOME/.config/vapoursynth/vapoursynth.conf if XDG_CONFIG_HOME is not
+defined.</p>
+<p>Two configuration options may be used: <strong>UserPluginDir</strong>, empty by default,
+and <strong>SystemPluginDir</strong>, whose default value is set at compile time to
+<code class="docutils literal notranslate"><span class="pre">$libdir/vapoursynth</span></code>, or to the location passed to the <code class="docutils literal notranslate"><span class="pre">--with-plugindir</span></code>
+argument to <code class="docutils literal notranslate"><span class="pre">configure</span></code>.</p>
+<p>UserPluginDir is tried first, then SystemPluginDir.</p>
+<p>Example vapoursynth.conf:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">UserPluginDir</span><span class="o">=/</span><span class="n">home</span><span class="o">/</span><span class="n">asdf</span><span class="o">/</span><span class="n">vapoursynth</span><span class="o">/</span><span class="n">plugins</span>
+<span class="n">SystemPluginDir</span><span class="o">=/</span><span class="n">special</span><span class="o">/</span><span class="n">non</span><span class="o">/</span><span class="n">default</span><span class="o">/</span><span class="n">location</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="os-x">
+<h3>OS X<a class="headerlink" href="#os-x" title="Permalink to this headline">¶</a></h3>
+<p>Autoloading can be configured using the file
+$HOME/Library/Application Support/VapourSynth/vapoursynth.conf. Everything else is
+the same as in Linux.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Plugins and Scripts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installing-with-vsrepo">Installing with VSRepo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#autoloading">Autoloading</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#windows">Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows-portable">Windows Portable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linux">Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#os-x">OS X</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pythonreference.html">Python Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="avfs.html">AVFS (AV FileSystem)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="avisynthcomp.html">Avisynth functions and their VapourSynth equivalents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="includedplugins.html">Included Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Function Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vspipe.html">VSPipe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apireference.html">VapourSynth C API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="gettingstarted.html" title="Getting Started"
+              >previous</a> |
+            <a href="pythonreference.html" title="Python Reference"
+              >next</a> |
+            <a href="genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="_sources/plugins.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2020, Fredrik Mellbin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>OCR &#8212; VapourSynth R50 documentation</title>
+    <link rel="stylesheet" href="../_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="RGVS" href="rgvs.html" />
+    <link rel="prev" title="Morpho" href="morpho.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">VapourSynth R50 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="morpho.html" title="Morpho"
+             accesskey="P">previous</a> |
+          <a href="rgvs.html" title="RGVS"
+             accesskey="N">next</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ocr">
+<span id="id1"></span><h1>OCR<a class="headerlink" href="#ocr" title="Permalink to this headline">¶</a></h1>
+<p>A filter that performs optical character recognition on video frames.</p>
+<p><a class="reference external" href="https://github.com/tesseract-ocr/tessdata/tree/3.04.00">Tesseract 3.04.00 language data files</a>
+are required. See the <em>datapath</em> parameter.</p>
+<dl class="py function">
+<dt id="ocr.Recognize">
+<code class="sig-prename descclassname">ocr.</code><code class="sig-name descname">Recognize</code><span class="sig-paren">(</span><em class="sig-param">clip clip</em><span class="optional">[</span>, <em class="sig-param">string datapath</em>, <em class="sig-param">string language=&quot;&quot;</em>, <em class="sig-param">string[] options</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#ocr.Recognize" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function runs Tesseract on each video frame and adds the following
+properties:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>OCRString</dt><dd><p>The OCR result as UTF-8 string.</p>
+</dd>
+<dt>OCRConfidence</dt><dd><p>Confidence value for each recognized word as an array of integers in
+range 0-100. The number of confidence values should correspond to the
+number of space-delimited words in <code class="docutils literal notranslate"><span class="pre">OCRString</span></code>.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Parameters:</p>
+<blockquote>
+<div><blockquote>
+<div><dl>
+<dt>clip</dt><dd><p>Clip to be processed. Must be grayscale with 8 bits per sample.</p>
+</dd>
+<dt>datapath</dt><dd><p>Path to a folder containing a “tessdata” folder, in which Tesseract’s
+data files must be found. Must have a trailing slash.</p>
+<p>In Windows, this parameter’s default value is the folder where the
+Ocr plugin DLL resides. In other operating systems, this parameter’s
+default value is empty, and Tesseract’s default data path will be used.</p>
+</dd>
+<dt>language</dt><dd><p>An ISO 639-3 language string. Uses Tesseract’s default language
+if unset (usually <code class="docutils literal notranslate"><span class="pre">eng</span></code>). The language may be a string of the form
+<code class="docutils literal notranslate"><span class="pre">[~]&lt;lang&gt;[+[~]&lt;lang&gt;]*</span></code>, indicating that multiple languages are to
+be loaded. E.g. <code class="docutils literal notranslate"><span class="pre">hin+eng</span></code> will load Hindi and English. Languages
+may specify internally that they want to be loaded with one or more
+other languages, so the <code class="docutils literal notranslate"><span class="pre">~</span></code> sign is available to override that.
+E.g. if <code class="docutils literal notranslate"><span class="pre">hin</span></code> were set to load <code class="docutils literal notranslate"><span class="pre">eng</span></code> by default, then <code class="docutils literal notranslate"><span class="pre">hin+~eng</span></code>
+would force loading only <code class="docutils literal notranslate"><span class="pre">hin</span></code>. The number of loaded languages is
+limited only by memory, with the caveat that loading additional
+languages will impact both speed and accuracy, as there is more work
+to do to decide on the applicable language, and there is more chance
+of hallucinating incorrect words.</p>
+</dd>
+<dt>options</dt><dd><p>Options to be passed to Tesseract, as a list of (key, value) pairs.
+Available options are documented in <code class="docutils literal notranslate"><span class="pre">tesseractclass.h</span></code> of Tesseract’s
+source code.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Tesseract is not completely thread-safe. Changing any of the
+options starting with <code class="docutils literal notranslate"><span class="pre">classify</span></code> or <code class="docutils literal notranslate"><span class="pre">textord</span></code> will change them
+for all instances of this filter.</p>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ret</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">ocr</span><span class="o">.</span><span class="n">Recognize</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;eng&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;tessedit_char_whitelist&quot;</span><span class="p">,</span> <span class="s2">&quot;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.:;,-!?</span><span class="se">\&quot;</span><span class="s2">&#39;&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This only really works on frames that contain nothing but text, so make
+sure to filter the input appropriately if this is not the case.</p>
+</div>
+</div></blockquote>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugins and Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pythonreference.html">Python Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../avfs.html">AVFS (AV FileSystem)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications.html">Applications and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../avisynthcomp.html">Avisynth functions and their VapourSynth equivalents</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../includedplugins.html">Included Plugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="avisource.html">AVISource</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eedi3.html">EEDI3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imwri.html">ImageMagick Writer-Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html">Miscellaneous Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morpho.html">Morpho</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">OCR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rgvs.html">RGVS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subtext.html">Subtext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vinverse.html">Vinverse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vivtc.html">VIVTC</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Function Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vspipe.html">VSPipe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apireference.html">VapourSynth C API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="morpho.html" title="Morpho"
+              >previous</a> |
+            <a href="rgvs.html" title="RGVS"
+              >next</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="../_sources/plugins/ocr.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2020, Fredrik Mellbin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

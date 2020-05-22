@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>EEDI3 &#8212; VapourSynth R50 documentation</title>
+    <link rel="stylesheet" href="../_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ImageMagick Writer-Reader" href="imwri.html" />
+    <link rel="prev" title="AVISource" href="avisource.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">VapourSynth R50 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="avisource.html" title="AVISource"
+             accesskey="P">previous</a> |
+          <a href="imwri.html" title="ImageMagick Writer-Reader"
+             accesskey="N">next</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="eedi3">
+<span id="id1"></span><h1>EEDI3<a class="headerlink" href="#eedi3" title="Permalink to this headline">¶</a></h1>
+<p>eedi3 is a very slow edge directed interpolation filter.</p>
+<p>eedi3 works by finding the best non-decreasing (non-crossing) warping between
+two lines by minimizing a cost functional.
+The cost is based on neighborhood similarity (favor connecting regions that look
+similar), the vertical difference created by the interpolated values (favor
+small differences), the interpolation directions (favor short connections vs
+long), and the change in interpolation direction from pixel to pixel (favor
+small changes).</p>
+<dl class="py function">
+<dt id="eedi3.eedi3">
+<code class="sig-prename descclassname">eedi3.</code><code class="sig-name descname">eedi3</code><span class="sig-paren">(</span><em class="sig-param">clip clip, int field[, bint dh=0, int[] planes=[0, 1, 2], float alpha=0.2, float beta=0.25, float gamma=20, int nrad=2, int mdis=20, bint hp=0, bint ucubic=1, bint cost3=1, int vcheck=2, float vthresh0=32, float vthresh1=64, float vthresh2=4, clip sclip]</em><span class="sig-paren">)</span><a class="headerlink" href="#eedi3.eedi3" title="Permalink to this definition">¶</a></dt>
+<dd><dl>
+<dt>Parameters:</dt><dd><dl>
+<dt>clip</dt><dd><p>Clip to be processed. The bit depth must be 8 bits per sample.</p>
+</dd>
+<dt>field</dt><dd><p>Selects the mode of operation and which field will be kept.
+All modes will use the field order specified in the source
+frames and will only fall back to the specified order if not
+present.</p>
+<p>0 - same rate, keep bottom field</p>
+<p>1 - same rate, keep top field</p>
+<p>2 - double rate, start with bottom field</p>
+<p>3 - double rate, start with top field</p>
+<p>In case of double rate output, the frame rate is doubled and
+the frame durations are halved.</p>
+</dd>
+<dt>dh</dt><dd><p>Doubles the height of the input. If field=0, the input is copied to the
+odd lines of the output. If field=1, the input is copied to the even
+lines of the output. The missing lines are interpolated.</p>
+<p>Default: false.</p>
+</dd>
+<dt>planes</dt><dd><p>Controls which planes will be processed.</p>
+<p>Default: all.</p>
+</dd>
+</dl>
+<p>alpha</p>
+<p>beta</p>
+<dl>
+<dt>gamma</dt><dd><p>These trade off line/edge connection vs artifacts created.
+alpha and beta must be in the range [0,1], and the sum alpha+beta must
+be in the range [0,1]. alpha is the weight given to connecting similar
+neighborhoods. The larger it is the more lines/edges should be
+connected. beta is the weight given to vertical difference created by
+the interpolation. The larger beta is the less edges/lines will be
+connected (at 1.0 you get no edge directedness at all). The remaining
+weight (1.0-alpha-beta) is given to interpolation direction (large
+directions (away from vertical) cost more), so the more weight you have
+here the more shorter connections will be favored. Finally, gamma
+penalizes changes in interpolation direction: the larger gamma is the
+smoother the interpolation field between two lines. gamma’s range is
+[0,inf].</p>
+<p>If lines aren’t getting connected then increase alpha and maybe
+decrease beta/gamma. Go the other way if you are getting unwanted
+artifacts.</p>
+<p>Defaults: 0.2, 0.25, 20.</p>
+</dd>
+<dt>nrad</dt><dd><p>nrad sets the radius used for computing neighborhood similarity.
+Valid range is [0,3]. Larger nrad will be slower.</p>
+<p>Default: 2.</p>
+</dd>
+<dt>mdis</dt><dd><p>mdis sets the maximum connection radius. Valid range is [1,40].
+If mdis=20, then when interpolating pixel (50,10) (x,y), the farthest
+connections allowed would be between (30,9)/(70,11) and (70,9)/(30,11).
+Larger mdis will allow connecting lines of smaller slope, but also
+increases the chance of artifacts. Larger mdis will be slower.</p>
+<p>Default: 20.</p>
+</dd>
+<dt>hp</dt><dd><p>If true, half pel steps will be used (slower).
+Otherwise, full pel steps will be used.</p>
+<p>Default: false.</p>
+</dd>
+<dt>ucubic</dt><dd><p>If true, cubic 4 point interpolation will be used (slower).
+Otherwise, 2 point linear interpolation will be used.</p>
+<p>Default: true.</p>
+</dd>
+<dt>cost3</dt><dd><p>If true, 3 neighborhood cost function will be used to define similarity
+(slower). Otherwise, 1 neighborhood cost function will be used.</p>
+<p>Default: true.</p>
+</dd>
+</dl>
+<p>vcheck</p>
+<p>vthresh0</p>
+<p>vthresh1</p>
+<dl>
+<dt>vthresh2</dt><dd><p>If vcheck is greater than 0, then the resulting interpolation is
+checked for reliability/consistency.</p>
+<blockquote>
+<div><p>0 - no reliability check</p>
+<p>1 - weak reliability check</p>
+<p>2 - med reliability check</p>
+<p>3 - strong reliability check</p>
+</div></blockquote>
+<p>Assume we interpolated pixel ‘fh’ below using dir=4 (i.e. averaging
+pixels bl and cd):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aa</span> <span class="n">ab</span> <span class="n">ac</span> <span class="n">ad</span> <span class="n">ae</span> <span class="n">af</span> <span class="n">ag</span> <span class="n">ah</span> <span class="n">ai</span> <span class="n">aj</span> <span class="n">ak</span> <span class="n">al</span> <span class="n">am</span> <span class="n">an</span> <span class="n">ao</span> <span class="n">ap</span>
+                     <span class="n">eh</span>          <span class="n">el</span>
+<span class="n">ba</span> <span class="n">bb</span> <span class="n">bc</span> <span class="n">bd</span> <span class="n">be</span> <span class="n">bf</span> <span class="n">bg</span> <span class="n">bh</span> <span class="n">bi</span> <span class="n">bj</span> <span class="n">bk</span> <span class="n">bl</span> <span class="n">bm</span> <span class="n">bn</span> <span class="n">bo</span> <span class="n">bp</span>
+         <span class="n">fd</span>          <span class="n">fh</span>          <span class="n">fl</span>
+<span class="n">ca</span> <span class="n">cb</span> <span class="n">cc</span> <span class="n">cd</span> <span class="n">ce</span> <span class="n">cf</span> <span class="n">cg</span> <span class="n">ch</span> <span class="n">ci</span> <span class="n">cj</span> <span class="n">ck</span> <span class="n">cl</span> <span class="n">cm</span> <span class="n">cn</span> <span class="n">co</span> <span class="n">cp</span>
+         <span class="n">gd</span>          <span class="n">gh</span>
+<span class="n">da</span> <span class="n">db</span> <span class="n">dc</span> <span class="n">dd</span> <span class="n">de</span> <span class="n">df</span> <span class="n">dg</span> <span class="n">dh</span> <span class="n">di</span> <span class="n">dj</span> <span class="n">dk</span> <span class="n">dl</span> <span class="n">dm</span> <span class="n">dn</span> <span class="n">do</span> <span class="n">dp</span>
+</pre></div>
+</div>
+<p>When checking pixel ‘fh’ the following is computed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>d0 = abs((el+fd)/2 - bh)
+d1 = abs((fl+gd)/2 - ch)
+
+q2 = abs(bh-fh)+abs(ch-fh)
+q3 = abs(el-bl)+abs(fl-bl)
+q4 = abs(fd-cd)+abs(gd-cd)
+
+d2 = abs(q2-q3)
+d3 = abs(q2-q4)
+
+mdiff0 = vcheck == 1 ? min(d0,d1) : vcheck == 2 ? ((d0+d1+1)&gt;&gt;1) : max(d0,d1)
+mdiff1 = vcheck == 1 ? min(d2,d3) : vcheck == 2 ? ((d2+d3+1)&gt;&gt;1) : max(d2,d3)
+
+a0 = mdiff0/vthresh0;
+a1 = mdiff1/vthresh1;
+a2 = max((vthresh2-abs(dir))/vthresh2,0.0f)
+
+a = min(max(max(a0,a1),a2),1.0f)
+
+final_value = (1.0-a)*fh + a*cint
+</pre></div>
+</div>
+<p>If sclip is supplied, cint is the corresponding value from sclip. If sclip isn’t supplied,
+then vertical cubic interpolation is used to create it.</p>
+</dd>
+<dt>sclip</dt><dd><p>Another clip from which to take cint. (What does this actually do?)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Most of this document was copied from “EEDI3 - Readme.txt”, written by
+Kevin Stone (aka tritical).</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugins and Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pythonreference.html">Python Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../avfs.html">AVFS (AV FileSystem)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications.html">Applications and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../avisynthcomp.html">Avisynth functions and their VapourSynth equivalents</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../includedplugins.html">Included Plugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="avisource.html">AVISource</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">EEDI3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imwri.html">ImageMagick Writer-Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html">Miscellaneous Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morpho.html">Morpho</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ocr.html">OCR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rgvs.html">RGVS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subtext.html">Subtext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vinverse.html">Vinverse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vivtc.html">VIVTC</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Function Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vspipe.html">VSPipe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apireference.html">VapourSynth C API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="avisource.html" title="AVISource"
+              >previous</a> |
+            <a href="imwri.html" title="ImageMagick Writer-Reader"
+              >next</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="../_sources/plugins/eedi3.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2020, Fredrik Mellbin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

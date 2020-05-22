@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Subtext &#8212; VapourSynth R50 documentation</title>
+    <link rel="stylesheet" href="../_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Vinverse" href="vinverse.html" />
+    <link rel="prev" title="RGVS" href="rgvs.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">VapourSynth R50 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="rgvs.html" title="RGVS"
+             accesskey="P">previous</a> |
+          <a href="vinverse.html" title="Vinverse"
+             accesskey="N">next</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="subtext">
+<span id="id1"></span><h1>Subtext<a class="headerlink" href="#subtext" title="Permalink to this headline">¶</a></h1>
+<p>Subtext is a subtitle renderer that uses libass and ffmpeg.</p>
+<dl class="py function">
+<dt id="sub.TextFile">
+<code class="sig-prename descclassname">sub.</code><code class="sig-name descname">TextFile</code><span class="sig-paren">(</span><em class="sig-param">clip clip, string file[, string charset=&quot;UTF-8&quot;, float scale=1, int debuglevel=0, string fontdir=&quot;&quot;, float linespacing=0, int[] margins=[0, 0, 0, 0], float sar=0, string style=&quot;&quot;, bint blend=True, int matrix, string matrix_s, int transfer, string transfer_s, int primaries, string primaries_s]</em><span class="sig-paren">)</span><a class="headerlink" href="#sub.TextFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>TextFile renders text subtitles. Supported formats include ASS,
+JACOsub, MicroDVD, SAMI, SRT, WebVTT, and some other obscure ones.</p>
+<p>TextFile has two modes of operation. With blend=True (the default),
+it returns <em>clip</em> with the subtitles burned in. With blend=False, it
+returns a list of two clips. The first one is an RGB24 clip
+containing the rendered subtitles. The second one is a Gray8 clip
+containing a mask, to be used for blending the rendered subtitles
+into other clips.</p>
+<dl>
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>clip</dt><dd><p>Input clip.</p>
+</dd>
+<dt>file</dt><dd><p>Subtitle file to be rendered.</p>
+</dd>
+<dt>charset</dt><dd><p>Character set of the subtitle, in iconv format.</p>
+</dd>
+<dt>scale</dt><dd><p>Font scale.</p>
+</dd>
+<dt>debuglevel</dt><dd><p>Debug level. Increase to make libass more chatty.
+See <a class="reference external" href="https://github.com/libass/libass/blob/master/libass/ass_utils.h">ass_utils.h</a>
+in libass for the list of meaningful values.</p>
+</dd>
+<dt>fontdir</dt><dd><p>Directory with additional fonts.</p>
+</dd>
+<dt>linespacing</dt><dd><p>Space between lines, in pixels.</p>
+</dd>
+<dt>margins</dt><dd><p>Additional margins, in pixels. Negative values are not
+allowed. The order is top, bottom, left, right.</p>
+</dd>
+<dt>sar</dt><dd><p>Storage aspect ratio.</p>
+</dd>
+<dt>style</dt><dd><p>Custom ASS style for subtitle formats other than ASS. If empty
+(the default), libavcodec’s default style is used. This
+parameter has no effect on ASS subtitles.</p>
+</dd>
+<dt>blend</dt><dd><p>If True, the subtitles will be blended into <em>clip</em>. Otherwise,
+the bitmaps will be returned untouched.</p>
+</dd>
+</dl>
+<p>matrix</p>
+<p>matrix_s</p>
+<p>transfer</p>
+<p>transfer_s</p>
+<p>primaries</p>
+<dl class="simple">
+<dt>primaries_s</dt><dd><p>If blend=True, these will be passed to resize.Bicubic when
+converting the RGB24 subtitles to YUV. The default matrix is
+“709”.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="sub.Subtitle">
+<code class="sig-prename descclassname">sub.</code><code class="sig-name descname">Subtitle</code><span class="sig-paren">(</span><em class="sig-param">clip clip, string text[, int start=0, int end=clip.numFrames, int debuglevel=0, string fontdir=&quot;&quot;, float linespacing=0, int[] margins=[0, 0, 0, 0], float sar=0, string style=&quot;sans-serif,20,&amp;H00FFFFFF,&amp;H000000FF,&amp;H00000000,&amp;H00000000,0,0,0,0,100,100,0,0,1,2,0,7,10,10,10,1&quot;, bint blend=True, int matrix, string matrix_s, int transfer, string transfer_s, int primaries, string primaries_s]</em><span class="sig-paren">)</span><a class="headerlink" href="#sub.Subtitle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instead of rendering a subtitle file, Subtitle renders the string <em>text</em>.
+Otherwise it works the same as TextFile.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>text</dt><dd><p>String to be rendered. This can include ASS tags to enable rich text and animation.</p>
+</dd>
+<dt>style</dt><dd><p>Custom ASS style to be used.</p>
+</dd>
+<dt>start, end</dt><dd><p>Subtitle will be shown from <em>start</em> up until <em>end</em>. By default this will be for all frames in <em>clip</em>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>The other parameters have the same meanings as with TextFile.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="sub.ImageFile">
+<code class="sig-prename descclassname">sub.</code><code class="sig-name descname">ImageFile</code><span class="sig-paren">(</span><em class="sig-param">clip clip</em>, <em class="sig-param">string file</em><span class="optional">[</span>, <em class="sig-param">int id=-1</em>, <em class="sig-param">int[] palette</em>, <em class="sig-param">bint gray=False</em>, <em class="sig-param">bint info=False</em>, <em class="sig-param">bint flatten=False</em>, <em class="sig-param">bint blend=True</em>, <em class="sig-param">int matrix</em>, <em class="sig-param">string matrix_s</em>, <em class="sig-param">int transfer</em>, <em class="sig-param">string transfer_s</em>, <em class="sig-param">int primaries</em>, <em class="sig-param">string primaries_s</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#sub.ImageFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>ImageFile renders image-based subtitles such as VOBSUB and PGS.</p>
+<p>ImageFile has two modes of operation. With blend=True (the default),
+it returns <em>clip</em> with the subtitles burned in. With blend=False, it
+returns an RGB24 clip containing the rendered subtitles, with a Gray8
+frame attached to each frame in the <code class="docutils literal notranslate"><span class="pre">_Alpha</span></code> frame property. These
+Gray8 frames can be extracted using std.PropToClip.</p>
+<dl>
+<dt>Parameters:</dt><dd><dl>
+<dt><em>clip</em></dt><dd><p>If <em>blend</em> is True, the subtitles will be burned into this
+clip, Otherwise, only the frame rate and number of frames
+will be obtained from this clip.</p>
+</dd>
+<dt><em>file</em></dt><dd><p>Name of the subtitle file. For VOBSUB, it must the name of the
+idx file. The corresponding sub file must be in the same
+folder, and it must have the same name.</p>
+</dd>
+<dt><em>id</em></dt><dd><p>Id of the subtitle track to render. There may be several
+subtitle tracks in the same file. If this is -1, the first
+supported subtitle track will be rendered. Use info=True to
+see a list of all subtitle tracks, including their ids.</p>
+<p>Default: -1.</p>
+</dd>
+<dt><em>palette</em></dt><dd><p>Custom palette. This is an array of at most 256 integers. Each
+element’s least significant four bytes must contain the values
+for alpha, red, green, and blue, in that order, from most
+significant to least.</p>
+<p>Additionally, the special value 2**42 means that the
+corresponding element of the original palette is used. This
+way it is possible to override only the third element, without
+overriding the first and second ones, for example.</p>
+<p>An alpha value of 255 means the colour will be completely
+opaque, and a value of 0 means the colour will be completely
+transparent.</p>
+</dd>
+<dt><em>gray</em></dt><dd><p>If True, the subtitles will be turned gray.</p>
+<p>Default: False.</p>
+</dd>
+<dt><em>info</em></dt><dd><p>If this is True, a list of all supported subtitle tracks found
+in the file will be printed on each frame of the output. The
+information printed about each track includes the id, the
+language (if known), the resolution, and the format.</p>
+<p>Default: False.</p>
+</dd>
+<dt><em>flatten</em></dt><dd><p>If this is True, ImageFile will output a clip with exactly as
+many frames as there are pictures in the subtitle file.</p>
+<p>If this is True, <em>blend</em> has no effect (no automatic blending).</p>
+<p>Default: False.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>The other parameters have the same meanings as with TextFile.</p>
+</dd></dl>
+
+<p>Example with manual blending:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">subs</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">TextFile</span><span class="p">(</span><span class="n">clip</span><span class="o">=</span><span class="n">YUV420P10_video</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">&quot;asdf.ass&quot;</span><span class="p">,</span> <span class="n">blend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">gray10</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">register_format</span><span class="p">(</span><span class="n">subs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">color_family</span><span class="p">,</span>
+                              <span class="n">YUV420P10_video</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">sample_type</span><span class="p">,</span>
+                              <span class="n">YUV420P10_video</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">bits_per_sample</span><span class="p">,</span>
+                              <span class="n">subs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">subsampling_w</span><span class="p">,</span>
+                              <span class="n">subs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">subsampling_h</span><span class="p">)</span>
+
+<span class="n">subs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">resize</span><span class="o">.</span><span class="n">Bicubic</span><span class="p">(</span><span class="n">clip</span><span class="o">=</span><span class="n">subs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="n">YUV420P10_video</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">matrix_s</span><span class="o">=</span><span class="s2">&quot;470bg&quot;</span><span class="p">)</span>
+<span class="n">subs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">resize</span><span class="o">.</span><span class="n">Bicubic</span><span class="p">(</span><span class="n">clip</span><span class="o">=</span><span class="n">subs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="n">gray10</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+<span class="n">hardsubbed_video</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">std</span><span class="o">.</span><span class="n">MaskedMerge</span><span class="p">(</span><span class="n">clipa</span><span class="o">=</span><span class="n">YUV420P10_video</span><span class="p">,</span> <span class="n">clipb</span><span class="o">=</span><span class="n">subs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mask</span><span class="o">=</span><span class="n">subs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Example with automatic blending (will use BT709 matrix):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hardsubbed_video</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">TextFile</span><span class="p">(</span><span class="n">clip</span><span class="o">=</span><span class="n">YUV420P10_video</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">&quot;asdf.ass&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Example with a custom palette and automatic blending:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">rgba</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">255</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="mi">255</span> <span class="ow">or</span> <span class="n">g</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">g</span> <span class="o">&gt;</span> <span class="mi">255</span> <span class="ow">or</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="mi">255</span> <span class="ow">or</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">255</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">vs</span><span class="o">.</span><span class="n">Error</span><span class="p">(</span><span class="s2">&quot;Colours must be in the range [0, 255].&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="mi">24</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">g</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span>
+
+<span class="n">unused</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">42</span>
+
+<span class="n">src</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">ffms2</span><span class="o">.</span><span class="n">Source</span><span class="p">(</span><span class="s2">&quot;video.mp4&quot;</span><span class="p">)</span>
+
+<span class="c1"># Override only the third element of the palette. Set it to some kind of green.</span>
+<span class="n">ret</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">ImageFile</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="s2">&quot;subtitles.sup&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">[</span><span class="n">unused</span><span class="p">,</span> <span class="n">unused</span><span class="p">,</span> <span class="n">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">192</span><span class="p">,</span> <span class="mi">128</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugins and Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pythonreference.html">Python Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../avfs.html">AVFS (AV FileSystem)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications.html">Applications and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../avisynthcomp.html">Avisynth functions and their VapourSynth equivalents</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../includedplugins.html">Included Plugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="avisource.html">AVISource</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eedi3.html">EEDI3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imwri.html">ImageMagick Writer-Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html">Miscellaneous Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morpho.html">Morpho</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ocr.html">OCR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rgvs.html">RGVS</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Subtext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vinverse.html">Vinverse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vivtc.html">VIVTC</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Function Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vspipe.html">VSPipe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apireference.html">VapourSynth C API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="rgvs.html" title="RGVS"
+              >previous</a> |
+            <a href="vinverse.html" title="Vinverse"
+              >next</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="../_sources/plugins/subtext.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2020, Fredrik Mellbin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

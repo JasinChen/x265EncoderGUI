@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Avisynth functions and their VapourSynth equivalents &#8212; VapourSynth R50 documentation</title>
+    <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Included Plugins" href="includedplugins.html" />
+    <link rel="prev" title="Applications and Libraries" href="applications.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="index.html">VapourSynth R50 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="applications.html" title="Applications and Libraries"
+             accesskey="P">previous</a> |
+          <a href="includedplugins.html" title="Included Plugins"
+             accesskey="N">next</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="avisynth-functions-and-their-vapoursynth-equivalents">
+<h1>Avisynth functions and their VapourSynth equivalents<a class="headerlink" href="#avisynth-functions-and-their-vapoursynth-equivalents" title="Permalink to this headline">¶</a></h1>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 18%" />
+<col style="width: 61%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Avisynth</p></th>
+<th class="head"><p>VapourSynth</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AviSource</p></td>
+<td><p>avisource.AVISource</p></td>
+<td><p>Use FFMS2 instead when possible</p></td>
+</tr>
+<tr class="row-odd"><td><p>DirectShowSource</p></td>
+<td><p>none</p></td>
+<td><p>There will be no source filter using DirectShow because there’s no
+real need for it. Use FFMS2 instead.</p></td>
+</tr>
+<tr class="row-even"><td><p>ImageReader/ImageWriter</p></td>
+<td><p>imwri plugin</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Import</p></td>
+<td><p>none</p></td>
+<td><p>See the documentation for Python’s import for scripts.</p></td>
+</tr>
+<tr class="row-even"><td><p>ConvertTo*</p></td>
+<td><p>resize.Bicubic(
+format=vs.YUV444P8)</p></td>
+<td><p>This also determines the resizer used for chroma resampling,
+if needed</p></td>
+</tr>
+<tr class="row-odd"><td><p>ColorYUV</p></td>
+<td><p>std.Lut/std.Expr</p></td>
+<td><p>Do the adjustment yourself</p></td>
+</tr>
+<tr class="row-even"><td><p>GreyScale</p></td>
+<td><p>std.ShufflePlanes</p></td>
+<td><p>ShufflePlanes(clips=inclip, planes=0, colorfamily=vs.GRAY)
+Extracts the first plane. Y for YUV, R for RGB, planes=1/2 = U/V G/B</p></td>
+</tr>
+<tr class="row-odd"><td><p>Invert</p></td>
+<td><p>std.Invert</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Limiter</p></td>
+<td><p>std.Limiter</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>MergeRGB</p></td>
+<td><p>std.ShufflePlanes</p></td>
+<td><p>ShufflePlanes(clips=[R,G,B], planes=[0, 0, 0], colorfamily=vs.RGB)</p></td>
+</tr>
+<tr class="row-even"><td><p>MergeChroma/MergeLuma</p></td>
+<td><p>std.ShufflePlanes</p></td>
+<td><p>ShufflePlanes(clips=[Yclip,UVclip], planes=[0, 1, 2],
+colorfamily=vs.YUV)</p></td>
+</tr>
+<tr class="row-odd"><td><p>RGBAdjust</p></td>
+<td><p>std.Lut/std.Expr</p></td>
+<td><p>Do the adjustment yourself</p></td>
+</tr>
+<tr class="row-even"><td><p>ShowAlpha/ShowRed/
+ShowGreen/ShowBlue</p></td>
+<td><p>std.ShufflePlanes</p></td>
+<td><p>ShufflePlanes(clips=inclip, planes=0, colorfamily=vs.GRAY)
+Extracts the first plane. Y for YUV, R for RGB, planes=1/2 = U/V G/B</p></td>
+</tr>
+<tr class="row-odd"><td><p>SwapUV</p></td>
+<td><p>std.ShufflePlanes</p></td>
+<td><p>ShufflePlanes(clips=inclip, planes=[0, 2, 1], colorfamily=vs.YUV)</p></td>
+</tr>
+<tr class="row-even"><td><p>Tweak</p></td>
+<td><p>std.Lut/std.Expr</p></td>
+<td><p>Do the adjustment yourself</p></td>
+</tr>
+<tr class="row-odd"><td><p>UToY/VToY/*</p></td>
+<td><p>std.ShufflePlanes</p></td>
+<td><p>See GreyScale and the other examples</p></td>
+</tr>
+<tr class="row-even"><td><p>ColorKeyMask</p></td>
+<td><p>std.Lut/std.Expr</p></td>
+<td><p>Do the adjustment yourself</p></td>
+</tr>
+<tr class="row-odd"><td><p>Layer</p></td>
+<td><p>std.Lut2/std.Expr</p></td>
+<td><p>Do the adjustment yourself</p></td>
+</tr>
+<tr class="row-even"><td><p>Overlay</p></td>
+<td><p>std.Lut2/std.Expr</p></td>
+<td><p>Do the adjustment yourself</p></td>
+</tr>
+<tr class="row-odd"><td><p>Subtract</p></td>
+<td><p>std.Lut2/std.Expr</p></td>
+<td><p>Do the adjustment yourself</p></td>
+</tr>
+<tr class="row-even"><td><p>AddBorders</p></td>
+<td><p>std.AddBorders</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Crop</p></td>
+<td><p>std.CropAbs/Crop</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>FlipHorizontal/
+FlipVertical</p></td>
+<td><p>std.FlipHorizontal/
+std.FlipVertical</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Letterbox</p></td>
+<td><p>std.CropAbs+
+std.AddBorders</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>ReduceBy2</p></td>
+<td><p>resize.*</p></td>
+<td><p>Too specialized to ever be included in the core</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resize (all kinds)</p></td>
+<td><p>resize.*</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Turn180</p></td>
+<td><p>std.Turn180</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>TurnRight/TurnLeft</p></td>
+<td><p>std.Transpose</p></td>
+<td><p>Add std.FlipHorizontal/std.FlipVertical to create a true turn</p></td>
+</tr>
+<tr class="row-even"><td><p>ConditionalFilter</p></td>
+<td><p>std.FrameEval</p></td>
+<td><p>Can also substitute many of the other conditionals</p></td>
+</tr>
+<tr class="row-odd"><td><p>Animate</p></td>
+<td><p>std.FrameEval</p></td>
+<td><p>Combine with python scripting</p></td>
+</tr>
+<tr class="row-even"><td><p>ApplyRange</p></td>
+<td><p>none</p></td>
+<td><p>Use python scripting instead</p></td>
+</tr>
+<tr class="row-odd"><td><p>BlankClip</p></td>
+<td><p>std.BlankClip</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>StackHorizontal/
+StackVertical</p></td>
+<td><p>std.StackHorizontal/
+std.StackVertical</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins and Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pythonreference.html">Python Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="avfs.html">AVFS (AV FileSystem)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications and Libraries</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Avisynth functions and their VapourSynth equivalents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="includedplugins.html">Included Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Function Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vspipe.html">VSPipe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apireference.html">VapourSynth C API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="applications.html" title="Applications and Libraries"
+              >previous</a> |
+            <a href="includedplugins.html" title="Included Plugins"
+              >next</a> |
+            <a href="genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="_sources/avisynthcomp.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2020, Fredrik Mellbin.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
