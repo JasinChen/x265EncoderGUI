@@ -4,7 +4,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Python Reference &#8212; VapourSynth R50 documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Reference &#8212; VapourSynth R51 documentation</title>
     <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -21,7 +22,7 @@
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="index.html">VapourSynth R50 documentation</a></div>
+          href="index.html">VapourSynth R51 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="plugins.html" title="Plugins and Scripts"
              accesskey="P">previous</a> |
@@ -143,7 +144,7 @@ something special:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">core</span><span class="o">.</span><span class="n">avs</span><span class="o">.</span><span class="n">LoadPlugin</span><span class="p">(</span><span class="s2">&quot;B:\Avisynth plugins\GuavaComb.dll&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Correct; Python will think “\” means something special, namely a
+<p>Correct; Python will think “\\” means something special, namely a
 single backslash:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">core</span><span class="o">.</span><span class="n">avs</span><span class="o">.</span><span class="n">LoadPlugin</span><span class="p">(</span><span class="s2">&quot;B:</span><span class="se">\\</span><span class="s2">Avisynth plugins</span><span class="se">\\</span><span class="s2">GuavaComb.dll&quot;</span><span class="p">)</span>
 </pre></div>
@@ -457,6 +458,12 @@ The current progress can be reported by passing a callback function of the form 
 The <em>prefetch</em> argument is only for debugging purposes and should never need to be changed.</p>
 </dd></dl>
 
+<dl class="py method">
+<dt id="VideoNode.frames">
+<code class="sig-name descname">frames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#VideoNode.frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a generator iterator of all VideoFrames in the clip.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -682,14 +689,29 @@ Its main purpose is to be called and nothing else.</p>
 <dt id="Environment">
 <em class="property">class </em><code class="sig-name descname">Environment</code><a class="headerlink" href="#Environment" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class represents an environment.</p>
-<p>It is a context-manager allowing you to switch to this environment at will.
-But it is faster than using the equivalent evaluate_script-function as it does not
-impose additional exception handling.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span> <span class="o">=</span> <span class="n">vpy_current_environment</span><span class="p">()</span>
+<p>Some editors allow multiple vapoursynth-scripts to run in the same process, each of them comes with a different Core-instance and
+their own set of outputs. Each core-instance with their associated outputs represent their own environment.</p>
+<p>At any given time, only one environment can be active (in the same context). This class allows introspection about
+environments and allows to switch to them at will.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span> <span class="o">=</span> <span class="n">get_current_environment</span><span class="p">()</span>
 <span class="c1"># sometime later</span>
-<span class="k">with</span> <span class="n">env</span><span class="p">:</span>
+<span class="k">with</span> <span class="n">env</span><span class="o">.</span><span class="n">use</span><span class="p">():</span>
   <span class="c1"># Do stuff inside this env.</span>
 </pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Environment-objects obtained using the <a class="reference internal" href="#vpy_current_environment" title="vpy_current_environment"><code class="xref py py-func docutils literal notranslate"><span class="pre">vpy_current_environment()</span></code></a> can directly be used as
+as a context manager. This can cuase undefined behaviour when used in combination with generators and/or
+coroutines.</p>
+<p>This context-manager maintains a thread-local environment-stack that is used to restore the previous environment.
+This can cause issues if the frame is suspended inside the block.</p>
+<p>A similar problem also existed in previous VapourSynth versions!</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span> <span class="o">=</span> <span class="n">vpy_current_environment</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">env</span><span class="p">:</span>
+     <span class="k">yield</span>
+</pre></div>
+</div>
 </div>
 <dl class="py function">
 <dt id="Environment.is_single">
@@ -717,14 +739,192 @@ Otherwise, it will return the current environment-id.</p>
 <dd><p>Has the environment been destroyed by the underlying application?</p>
 </dd></dl>
 
+<dl class="py method">
+<dt id="Environment.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Environment.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a copy of the environment-object.</p>
+<p>Added: R50</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Environment.use">
+<code class="sig-name descname">use</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Environment.use" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a context-manager that enables the given environment in the block enclosed in the with-statement and restores the environment to the one
+defined before the with-block has been encountered.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span> <span class="o">=</span> <span class="n">vpy_current_environment</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">env</span><span class="o">.</span><span class="n">use</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">env</span><span class="o">.</span><span class="n">use</span><span class="p">():</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+<p>Added: R50</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py function">
 <dt id="vpy_current_environment">
 <code class="sig-name descname">vpy_current_environment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vpy_current_environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deprecated. Use <a class="reference internal" href="#get_current_environment" title="get_current_environment"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_current_environment()</span></code></a> instead.</p>
+<p>Returns an Environment-object representing the environment the script is currently running in. It will raise an error if we are currently not inside any
+script-environment while vsscript is being used.</p>
+<p>This function is intended for Python-based editors using vsscript.
+This function has been deprecated as this function has undefined behaviour when used together with generators or coroutines.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="get_current_environment">
+<code class="sig-name descname">get_current_environment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_current_environment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an Environment-object representing the environment the script is currently running in. It will raise an error if we are currently not inside any
 script-environment while vsscript is being used.</p>
 <p>This function is intended for Python-based editors using vsscript.</p>
+<p>Added: R50</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="EnvironmentPolicy">
+<em class="property">class </em><code class="sig-name descname">EnvironmentPolicy</code><a class="headerlink" href="#EnvironmentPolicy" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is intended for subclassing by custom Script-Runners and Editors.
+Normal users don’t need this class. Most methods implemented here have corresponding APIs in other parts of this module.</p>
+<p>An instance of this class controls which environment is activated in the current context.
+The exact meaning of “context” is defined by the concrete EnvironmentPolicy. A environment is represented by a <a class="reference internal" href="#EnvironmentData" title="EnvironmentData"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnvironmentData</span></code></a>-object.</p>
+<p>To use this class, first create a subclass and then use <a class="reference internal" href="#register_policy" title="register_policy"><code class="xref py py-func docutils literal notranslate"><span class="pre">register_policy()</span></code></a> to get VapourSynth to use your policy. This must happen before vapoursynth is first
+used. VapourSynth will automatically register an internal policy if it needs one. The subclass must be weak-referenciable!</p>
+<p>Once the method <a class="reference internal" href="#EnvironmentPolicy.on_policy_registered" title="EnvironmentPolicy.on_policy_registered"><code class="xref py py-meth docutils literal notranslate"><span class="pre">on_policy_registered()</span></code></a> has been called, the policy is responsible for creating and managing environments.</p>
+<p>Special considerations have been made to ensure the functions of class cannot be abused. You cannot retrieve the current running policy youself.
+The additional API exposed by “on_policy_registered” is only valid if the policy has been registered.
+Once the policy is unregistered, all calls to the additional API will fail with a RuntimeError.</p>
+<p>Added: R50</p>
+<dl class="py method">
+<dt id="EnvironmentPolicy.on_policy_registered">
+<code class="sig-name descname">on_policy_registered</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">special_api</span></em><span class="sig-paren">)</span><a class="headerlink" href="#EnvironmentPolicy.on_policy_registered" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called when the policy has successfully been registered. It proivdes additional internal methods that are hidden as they are useless and or harmful
+unless you implement your own policy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>special_api</strong> – This is a <a class="reference internal" href="#EnvironmentPolicyAPI" title="EnvironmentPolicyAPI"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnvironmentPolicyAPI</span></code></a>-object that exposes additional API</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="EnvironmentPolicy.on_policy_cleared">
+<code class="sig-name descname">on_policy_cleared</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EnvironmentPolicy.on_policy_cleared" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called once the python-process exits or when unregister_policy is called by the environment-policy. This allows the policy to free the resources
+used by the policy.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="EnvironmentPolicy.get_current_environment">
+<code class="sig-name descname">get_current_environment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EnvironmentPolicy.get_current_environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called by the module to detect which environment is currently running in the current context. If None is returned, it means that no environment is currently active.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An <a class="reference internal" href="#EnvironmentData" title="EnvironmentData"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnvironmentData</span></code></a>-object representing the currently active environment in the current context.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="EnvironmentPolicy.set_environment">
+<code class="sig-name descname">set_environment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">environment</span></em><span class="sig-paren">)</span><a class="headerlink" href="#EnvironmentPolicy.set_environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called by the module to change the currently active environment. If None is passed to this function the policy may switch to another environment of its choosing.</p>
+<p>Note: The function is responsible to check whether or not the environment is alive. If a dead environment is passed, it should act like None has been passed instead of the dead environment but must never error.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>environment</strong> – The <a class="reference internal" href="#EnvironmentData" title="EnvironmentData"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnvironmentData</span></code></a> to enable in the current context.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The environment that was enabled previously.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="EnvironmentPolicy.is_alive">
+<code class="sig-name descname">is_alive</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">environment</span></em><span class="sig-paren">)</span><a class="headerlink" href="#EnvironmentPolicy.is_alive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is the current environment still active and managed by the policy.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="EnvironmentPolicyAPI">
+<em class="property">class </em><code class="sig-name descname">EnvironmentPolicyAPI</code><a class="headerlink" href="#EnvironmentPolicyAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is intended to be used by custom Script-Runners and Editors. An instance of this class exposes an additional API.
+The methods are bound to a specific <a class="reference internal" href="#EnvironmentPolicy" title="EnvironmentPolicy"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnvironmentPolicy</span></code></a>-instance and will only work if the policy is currenty registered.</p>
+<p>Added: R50</p>
+<dl class="py method">
+<dt id="EnvironmentPolicyAPI.wrap_environment">
+<code class="sig-name descname">wrap_environment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">environment</span></em><span class="sig-paren">)</span><a class="headerlink" href="#EnvironmentPolicyAPI.wrap_environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new <a class="reference internal" href="#Environment" title="Environment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Environment</span></code></a>-object bound to the passed environment-id.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This function does not check if the id corresponds to a live environment as the caller is expected to know which environments are active.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="EnvironmentPolicyAPI.create_environment">
+<code class="sig-name descname">create_environment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EnvironmentPolicyAPI.create_environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <a class="reference internal" href="#Environment" title="Environment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Environment</span></code></a> that is used by the wrapper for context sensitive data used by VapourSynth.
+For example it holds the currently active core object as well as the currently registered outputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="EnvironmentPolicyAPI.unregister_policy">
+<code class="sig-name descname">unregister_policy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EnvironmentPolicyAPI.unregister_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unregisters the policy it is bound to and allows another policy to be registered.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="register_policy">
+<code class="sig-name descname">register_policy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">policy</span></em><span class="sig-paren">)</span><a class="headerlink" href="#register_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is intended for use by custom Script-Runners and Editors. It installs your custom <a class="reference internal" href="#EnvironmentPolicy" title="EnvironmentPolicy"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnvironmentPolicy</span></code></a>. This function only works if no other policy has been
+installed.</p>
+<p>If no policy is installed, the first environment-sensitive call will automatically register an internal policy.</p>
+<p>Added: R50</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This must be done before VapourSynth is used in any way. Here is a non-exhaustive list that automatically register a policy:</p>
+<ul class="simple">
+<li><p>Using “vsscript_init” in “VSScript.h”</p></li>
+<li><p>Using <a class="reference internal" href="#get_core" title="get_core"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_core()</span></code></a></p></li>
+<li><p>Using <a class="reference internal" href="#get_outputs" title="get_outputs"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_outputs()</span></code></a></p></li>
+<li><p>Using <a class="reference internal" href="#get_output" title="get_output"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_output()</span></code></a></p></li>
+<li><p>Using <a class="reference internal" href="#clear_output" title="clear_output"><code class="xref py py-func docutils literal notranslate"><span class="pre">clear_output()</span></code></a></p></li>
+<li><p>Using <a class="reference internal" href="#clear_outputs" title="clear_outputs"><code class="xref py py-func docutils literal notranslate"><span class="pre">clear_outputs()</span></code></a></p></li>
+<li><p>Using <a class="reference internal" href="#vpy_current_environment" title="vpy_current_environment"><code class="xref py py-func docutils literal notranslate"><span class="pre">vpy_current_environment()</span></code></a></p></li>
+<li><p>Using <a class="reference internal" href="#get_current_environment" title="get_current_environment"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_current_environment()</span></code></a></p></li>
+<li><p>Accessing any attribute of <a class="reference internal" href="#core" title="core"><code class="xref py py-attr docutils literal notranslate"><span class="pre">core</span></code></a></p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="has_policy">
+<code class="sig-name descname">has_policy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#has_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is intended for subclassing by custom Script-Runners and Editors. This function checks if a <a class="reference internal" href="#EnvironmentPolicy" title="EnvironmentPolicy"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnvironmentPolicy</span></code></a> has been installed.</p>
+<p>Added: R50</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="using_vsscript">
+<span id="_using_vsscript"></span><code class="sig-name descname">_using_vsscript</code><a class="headerlink" href="#using_vsscript" title="Permalink to this definition">¶</a></dt>
+<dd><p>INTERNAL ATTRIBUTE. Deprecated (will be removed soon). This was the only way to find out if VSScript.h was calling this script.
+It now stores true if a custom policy is installed or VSScript.h is used. Use <a class="reference internal" href="#has_policy" title="has_policy"><code class="xref py py-func docutils literal notranslate"><span class="pre">has_policy()</span></code></a> instead.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="EnvironmentData">
+<em class="property">class </em><code class="sig-name descname">EnvironmentData</code><a class="headerlink" href="#EnvironmentData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internal class that stores the context sensitive data that VapourSynth needs. It is an opaque object whose attributes you cannot access directly.</p>
+<p>A normal user has no way of getting an instance of this object. You can only encounter EnvironmentData-objects if you work with EnvironmentPolicies.</p>
+<p>This object is weak-referenciable meaning you can get a callback if the environment-data object is actually being freed (i.e. no other object holds an instance
+to the environment data.)</p>
+<p>Added: R50</p>
 </dd></dl>
 
 <dl class="py class">
@@ -823,6 +1023,7 @@ bits for all 3 planes added together. The long list of values:</p>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -892,7 +1093,7 @@ bits for all 3 planes added together. The long list of values:</p>
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2012-2020, Fredrik Mellbin.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
     </div>
         </div>
         <div class="clearer"></div>
