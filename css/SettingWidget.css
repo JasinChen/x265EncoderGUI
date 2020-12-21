@@ -1,0 +1,9 @@
+QPushButton{background:#3C91C7;color:white;height:20px;width:70px;padding:4px;border:none}
+QPushButton:hover{font:Bold}
+QPushButton:pressed{background-color:#95C5DE;color:black}
+QPushButton:disabled{background-color:lightgray;color:gray}
+QPlainTextEdit{border-radius:3px;border:1px solid #c1c1c1}
+QPlainTextEdit:hover{border-color:qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1, stop: 0 #66c8f6, stop: 1 #5bb3dc)}
+QLineEdit{border-radius:3px;border:1px solid #c1c1c1}
+QLineEdit:hover{border-color:qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1, stop: 0 #66c8f6, stop: 1 #5bb3dc)}
+QLineEdit:disabled{background-color:lightgray;border-color:lightgray}
