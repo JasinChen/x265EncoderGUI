@@ -1,0 +1,1 @@
+H:\ µ”√≥Ã–Ú\x265-tool\tools\vapoursynth\python.exe: can't open file 'vsgenstubs/__init__.py': [Errno 2] No such file or directory

@@ -1,0 +1,1104 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Reference &#8212; VapourSynth R51 documentation</title>
+    <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="AVFS (AV FileSystem)" href="avfs.html" />
+    <link rel="prev" title="Plugins and Scripts" href="plugins.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="index.html">VapourSynth R51 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="plugins.html" title="Plugins and Scripts"
+             accesskey="P">previous</a> |
+          <a href="avfs.html" title="AVFS (AV FileSystem)"
+             accesskey="N">next</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="python-reference">
+<span id="pythonreference"></span><h1>Python Reference<a class="headerlink" href="#python-reference" title="Permalink to this headline">¶</a></h1>
+<p>VapourSynth is separated into a core library and a Python module. This section
+explains how the core library is exposed through Python and some of the
+special things unique to Python scripting, such as slicing and output.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Any script executed through the vsscript api (that means vspipe, avfs, vsvfw or
+other API users) will have __name__ set to “__vapoursynth__” unlike normal Python
+scripts where it usually is “__main__”.</p>
+</div>
+<div class="section" id="vapoursynth-structure">
+<h2>VapourSynth Structure<a class="headerlink" href="#vapoursynth-structure" title="Permalink to this headline">¶</a></h2>
+<p>Most operations in the VapourSynth library are performed through the core object.
+This core may load plugins, which all end up in their own unit,
+or namespace, so to say, to avoid naming conflicts in the contained functions.
+For this reason you call a plugin function with <em>core.unit.Function()</em>.</p>
+<p>All arguments to functions have names that are lowercase and all function names
+are CamelCase. Unit names are also lowercase and usually short. This is good to
+remember.</p>
+</div>
+<div class="section" id="slicing-and-other-syntactic-sugar">
+<h2>Slicing and Other Syntactic Sugar<a class="headerlink" href="#slicing-and-other-syntactic-sugar" title="Permalink to this headline">¶</a></h2>
+<p>The VideoNode class (always called “clip” in practice) supports the full
+range of indexing and slicing operations in Python. If you do perform a slicing
+operation on a clip, you will get a new clip back with the desired frames.
+Note that frame numbers, like python arrays, start counting at 0.
+Here are a few examples.</p>
+<p>Make a single frame clip containing frame number 5:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">video</span> <span class="o">=</span> <span class="n">clip</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Make a clip containing frames 6 to 9 (unlike Trim, the end value of python slicing is not inclusive):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">video</span> <span class="o">=</span> <span class="n">clip</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Select even numbered frames:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">video</span> <span class="o">=</span> <span class="n">clip</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Select odd numbered frames:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">video</span> <span class="o">=</span> <span class="n">clip</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Negative step is also allowed, so this reverses a clip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">video</span> <span class="o">=</span> <span class="n">clip</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>It may all be combined at once to confuse people, just like normal Python slicing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">video</span> <span class="o">=</span> <span class="n">clip</span><span class="p">[</span><span class="o">-</span><span class="mi">400</span><span class="p">:</span><span class="o">-</span><span class="mi">800</span><span class="p">:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Filters can be chained with a dot, it mostly works like Avisynth:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clip</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">ffms2</span><span class="o">.</span><span class="n">Source</span><span class="p">(</span><span class="s2">&quot;asdf.mov&quot;</span><span class="p">)</span>
+<span class="n">clip</span> <span class="o">=</span> <span class="n">clip</span><span class="o">.</span><span class="n">std</span><span class="o">.</span><span class="n">Trim</span><span class="p">(</span><span class="n">first</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">last</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span><span class="o">.</span><span class="n">std</span><span class="o">.</span><span class="n">FlipVertical</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The addition operator can be used to splice clips together:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clip4</span> <span class="o">=</span> <span class="n">clip1</span> <span class="o">+</span> <span class="n">clip2</span> <span class="o">+</span> <span class="n">clip3</span>
+</pre></div>
+</div>
+<p>Which is equivalent to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clip4</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">std</span><span class="o">.</span><span class="n">Splice</span><span class="p">([</span><span class="n">core</span><span class="o">.</span><span class="n">std</span><span class="o">.</span><span class="n">Splice</span><span class="p">([</span><span class="n">clip1</span><span class="p">,</span> <span class="n">clip2</span><span class="p">],</span> <span class="n">mismatch</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">clip3</span><span class="p">],</span> <span class="n">mismatch</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The multiplication operator can be used to loop a clip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clip</span> <span class="o">=</span> <span class="n">clip</span> <span class="o">*</span> <span class="mi">42</span>
+</pre></div>
+</div>
+<p>Which is equivalent to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clip</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">std</span><span class="o">.</span><span class="n">Loop</span><span class="p">(</span><span class="n">clip</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that multiplication by 0 is a special case that will repeat the clip up to the maximum frame count.</p>
+</div>
+<div class="section" id="python-keywords-as-filter-arguments">
+<h2>Python Keywords as Filter Arguments<a class="headerlink" href="#python-keywords-as-filter-arguments" title="Permalink to this headline">¶</a></h2>
+<p>If a filter’s argument happens to be a Python keyword, you may prepend
+an underscore to the argument’s name when invoking the filter. The Python
+module will strip one leading underscore from all filter arguments before
+passing them to the filters.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clip</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">Filter</span><span class="p">(</span><span class="n">clip</span><span class="p">,</span> <span class="n">_lambda</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Another way to deal with such arguments is to place them in a dictionary:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">args</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;lambda&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}</span>
+<span class="n">clip</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">Filter</span><span class="p">(</span><span class="n">clip</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>VapourSynth will also support the PEP8 convention of using a single trailing
+underscore to prevent collisions with python keywords.</p>
+</div>
+<div class="section" id="windows-file-paths-strings-with-backslashes">
+<h2>Windows File Paths (Strings With Backslashes)<a class="headerlink" href="#windows-file-paths-strings-with-backslashes" title="Permalink to this headline">¶</a></h2>
+<p>If you have a string containing backslashes, you must either prefix the
+string with “r”, or duplicate every single backslash. The reason is
+that the backslash is an escape character in Python.</p>
+<p>Incorrect; Python will think “\A” and “\G” are supposed to mean
+something special:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">core</span><span class="o">.</span><span class="n">avs</span><span class="o">.</span><span class="n">LoadPlugin</span><span class="p">(</span><span class="s2">&quot;B:\Avisynth plugins\GuavaComb.dll&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Correct; Python will think “\\” means something special, namely a
+single backslash:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">core</span><span class="o">.</span><span class="n">avs</span><span class="o">.</span><span class="n">LoadPlugin</span><span class="p">(</span><span class="s2">&quot;B:</span><span class="se">\\</span><span class="s2">Avisynth plugins</span><span class="se">\\</span><span class="s2">GuavaComb.dll&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Correct; Python will not consider any combination of characters special:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">core</span><span class="o">.</span><span class="n">avs</span><span class="o">.</span><span class="n">LoadPlugin</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;B:\Avisynth plugins\GuavaComb.dll&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Additionally, if the string is a Windows file path, it can also be
+written with forward slashes instead of backslashes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">core</span><span class="o">.</span><span class="n">avs</span><span class="o">.</span><span class="n">LoadPlugin</span><span class="p">(</span><span class="s2">&quot;B:/Avisynth plugins/GuavaComb.dll&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>The normal way of specifying the clip(s) to output is to call
+<em>clip.set_output()</em>. All standard VapourSynth components only use output
+index 0, except for vspipe where it’s configurable but defaults to 0.
+There are also other variables that can be set to control how a format is
+output. For example, setting <em>enable_v210=True</em> changes the packing of the
+YUV422P10 format to one that is common in professional software (like Adobe
+products).
+An example on how to get v210 output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">some_clip</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">resize</span><span class="o">.</span><span class="n">Bicubic</span><span class="p">(</span><span class="n">clip</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">vs</span><span class="o">.</span><span class="n">YUV422P10</span><span class="p">)</span>
+<span class="n">some_clip</span><span class="o">.</span><span class="n">set_output</span><span class="p">()</span>
+<span class="n">enable_v210</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="raw-access-to-frame-data">
+<h2>Raw Access to Frame Data<a class="headerlink" href="#raw-access-to-frame-data" title="Permalink to this headline">¶</a></h2>
+<p>The VideoFrame class simply contains one picture and all the metadata
+associated with it. It is possible to access the raw data using ctypes and
+some persistence. The three relevant functions are <em>get_read_ptr(plane)</em>,
+<em>get_write_ptr(plane)</em>, and <em>get_stride(plane)</em>, all of which take the plane
+to access as an argument. Accessing the data is a bit trickier as
+<em>get_read_ptr()</em> and <em>get_write_ptr()</em> only return a pointer.</p>
+<p>To get a frame simply call <em>get_frame(n)</em> on a clip. Should you desire to get
+all frames in a clip, use this code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">clip</span><span class="o">.</span><span class="n">frames</span><span class="p">():</span>
+    <span class="c1"># Do stuff with your frame</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="classes-and-functions">
+<h2>Classes and Functions<a class="headerlink" href="#classes-and-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="py attribute">
+<dt id="core">
+<code class="sig-name descname">core</code><a class="headerlink" href="#core" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the singleton Core object. If it is the first time the function is called,
+the Core will be instantiated with the default options. This is the preferred
+way to reference the core.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="get_core">
+<code class="sig-name descname">get_core</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">threads = 0</em>, <em class="sig-param">add_cache = True</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#get_core" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deprecated, use the <em>core</em> attribute instead.</p>
+<p>Get the singleton Core object. If it is the first time the function is called,
+the Core will be instantiated with the given options. If the Core has already
+been instantiated, all options are ignored. Setting <em>threads</em> to a value
+greater than zero overrides the autodetection.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="set_message_handler">
+<code class="sig-name descname">set_message_handler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">handler_func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#set_message_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets a function to handle all debug output and fatal errors. The function should have the form <em>handler(level, message)</em>,
+where level corresponds to the vapoursynth.mt constants. Passing <em>None</em> restores the default handler, which prints to stderr.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="get_outputs">
+<code class="sig-name descname">get_outputs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_outputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a read-only mapping of all outputs registered on the current node.</p>
+<p>The mapping will automatically update when a new output is registered.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="get_output">
+<code class="sig-name descname">get_output</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index = 0</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#get_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a previously set output node. Throws an error if the index hasn’t been
+set. Will return an AlphaOutputTuple when <em>alpha</em> was passed to <em>VideoNode.set_output</em>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="clear_output">
+<code class="sig-name descname">clear_output</code><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param">index = 0</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#clear_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears a clip previously set for output.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="clear_outputs">
+<code class="sig-name descname">clear_outputs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#clear_outputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears all clips set for output in the current environment.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="construct_signature">
+<code class="sig-name descname">construct_signature</code><span class="sig-paren">(</span><em class="sig-param">signature</em><span class="optional">[</span>, <em class="sig-param">injected=None</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#construct_signature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a <em>inspect.Signature</em> object for the given registration signature.</p>
+<p>If <em>injected</em> is not None, the default of the first argument of the signature will be replaced with the value supplied with injected.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="Core">
+<em class="property">class </em><code class="sig-name descname">Core</code><a class="headerlink" href="#Core" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <em>Core</em> class uses a singleton pattern. Use the <em>core</em> attribute to obtain an
+instance. All loaded plugins are exposed as attributes of the core object.
+These attributes in turn hold the functions contained in the plugin.
+Use <em>get_plugins()</em> to obtain a full list of all currently loaded plugins
+you may call this way.</p>
+<dl class="py attribute">
+<dt id="Core.num_threads">
+<code class="sig-name descname">num_threads</code><a class="headerlink" href="#Core.num_threads" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of concurrent threads used by the core. Can be set to change the number. Setting to a value less than one makes it default to the number of hardware threads.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Core.add_cache">
+<code class="sig-name descname">add_cache</code><a class="headerlink" href="#Core.add_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>For debugging purposes only. When set to <em>False</em> no caches will be automatically inserted between filters.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Core.max_cache_size">
+<code class="sig-name descname">max_cache_size</code><a class="headerlink" href="#Core.max_cache_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the upper framebuffer cache size after which memory is aggressively
+freed. The value is in megabytes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Core.set_max_cache_size">
+<code class="sig-name descname">set_max_cache_size</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mb</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Core.set_max_cache_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deprecated, use <em>max_cache_size</em> instead.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Core.get_plugins">
+<code class="sig-name descname">get_plugins</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Core.get_plugins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dict containing all loaded plugins and their functions.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Core.list_functions">
+<code class="sig-name descname">list_functions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Core.list_functions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Works similar to <em>get_plugins()</em> but returns a human-readable string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Core.register_format">
+<code class="sig-name descname">register_format</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">color_family</span></em>, <em class="sig-param"><span class="n">sample_type</span></em>, <em class="sig-param"><span class="n">bits_per_sample</span></em>, <em class="sig-param"><span class="n">subsampling_w</span></em>, <em class="sig-param"><span class="n">subsampling_h</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Core.register_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a new Format object or obtain a reference to an existing one if
+it has already been registered. Invalid formats throw an exception.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Core.get_format">
+<code class="sig-name descname">get_format</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Core.get_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a Format object corresponding to the specified id. Returns None if there is no format with that <em>id</em>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Core.version">
+<code class="sig-name descname">version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Core.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns version information as a string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Core.version_number">
+<code class="sig-name descname">version_number</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Core.version_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the core version as a number.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="VideoNode">
+<em class="property">class </em><code class="sig-name descname">VideoNode</code><a class="headerlink" href="#VideoNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a video clip. The class itself supports indexing and slicing to
+perform trim, reverse and selectevery operations. Several operators are also
+defined for the VideoNode class: addition appends clips and multiplication
+repeats them. Note that slicing and indexing always return a new VideoNode
+object and not a VideoFrame.</p>
+<dl class="py attribute">
+<dt id="VideoNode.format">
+<code class="sig-name descname">format</code><a class="headerlink" href="#VideoNode.format" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Format object describing the frame data. If the format can change
+between frames, this value is None.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="VideoNode.width">
+<code class="sig-name descname">width</code><a class="headerlink" href="#VideoNode.width" title="Permalink to this definition">¶</a></dt>
+<dd><p>The width of the video. This value will be 0 if the width and height can
+change between frames.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="VideoNode.height">
+<code class="sig-name descname">height</code><a class="headerlink" href="#VideoNode.height" title="Permalink to this definition">¶</a></dt>
+<dd><p>The height of the video. This value will be 0 if the width and height can
+change between frames.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="VideoNode.num_frames">
+<code class="sig-name descname">num_frames</code><a class="headerlink" href="#VideoNode.num_frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of frames in the clip.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="VideoNode.fps">
+<code class="sig-name descname">fps</code><a class="headerlink" href="#VideoNode.fps" title="Permalink to this definition">¶</a></dt>
+<dd><p>The framerate represented as a <em>Fraction</em>. It is 0/1 when the clip has a variable
+framerate.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="VideoNode.fps_num">
+<code class="sig-name descname">fps_num</code><a class="headerlink" href="#VideoNode.fps_num" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deprecated, use <em>fps.numerator</em> instead</p>
+<p>The numerator of the framerate. If the clip has variable framerate, the
+value will be 0.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="VideoNode.fps_den">
+<code class="sig-name descname">fps_den</code><a class="headerlink" href="#VideoNode.fps_den" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deprecated, use <em>fps.denominator</em> instead</p>
+<p>The denominator of the framerate. If the clip has variable framerate, the
+value will be 0.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="VideoNode.flags">
+<code class="sig-name descname">flags</code><a class="headerlink" href="#VideoNode.flags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Special flags set for this clip. This attribute should normally be
+ignored.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="VideoNode.get_frame">
+<code class="sig-name descname">get_frame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#VideoNode.get_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a VideoFrame from position <em>n</em>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="VideoNode.get_frame_async">
+<code class="sig-name descname">get_frame_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#VideoNode.get_frame_async" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a concurrent.futures.Future-object which result will be a VideoFrame instance or sets the
+exception thrown when rendering the frame.</p>
+<p><em>The future will always be in the running or completed state</em></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="VideoNode.get_frame_async_raw">
+<code class="sig-name descname">get_frame_async_raw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em>, <em class="sig-param"><span class="n">cb</span><span class="p">:</span> <span class="n">callable</span></em><span class="sig-paren">)</span><a class="headerlink" href="#VideoNode.get_frame_async_raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>First form of this method. It will call the callback from another thread as soon as the frame is rendered.</p>
+<p>The <cite>result</cite>-value passed to the callback will either be a VideoFrame-instance on success or a Error-instance
+on failure.</p>
+<p><em>This method is intended for glue code. For normal use, use get_frame_async instead.</em></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> – The frame number</p></li>
+<li><p><strong>cb</strong> – A callback in the form <cite>cb(node, n, result)</cite></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">get_frame_async_raw</code><span class="sig-paren">(</span><em class="sig-param">n</em>, <em class="sig-param">cb: Future</em><span class="optional">[</span>, <em class="sig-param">wrapper: callable = None</em><span class="optional">]</span><span class="sig-paren">)</span></dt>
+<dd><p>Second form of this method. It will take a Future-like object (including asyncio.Future or similar)
+and set its result or exception according to the result of the function.</p>
+<p>The optional <cite>wrapper</cite>-parameter is intended for calls like asyncio.EventLoop.call_soon_threadsafe in which
+all calls to its future-object must be wrapped.</p>
+<p><em>This method is intended for glue code. For normal use, use get_frame_async instead.</em></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> – The frame number</p></li>
+<li><p><strong>cb</strong> – The future-object whose result will be set.</p></li>
+<li><p><strong>wrapper</strong> – A wrapper-callback which is responsible for moving the result across thread boundaries. If not
+given, the result of the future will be set in a random thread.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="VideoNode.set_output">
+<code class="sig-name descname">set_output</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#VideoNode.set_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the clip to be accessible for output. This is the standard way to
+specify which clip(s) to output. All VapourSynth tools (vsvfw, vsfs,
+vspipe) use the clip in <em>index</em> 0. It’s possible to specify an additional
+containing the <em>alpha</em> to output at the same time. Currently only vspipe
+takes <em>alpha</em> into consideration when outputting.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="VideoNode.output">
+<code class="sig-name descname">output</code><span class="sig-paren">(</span><em class="sig-param">fileobj</em><span class="optional">[</span>, <em class="sig-param">y4m = False</em>, <em class="sig-param">prefetch = 0</em>, <em class="sig-param">progress_update = None</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#VideoNode.output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the whole clip to the specified file handle. It is possible to pipe to stdout by specifying <em>sys.stdout</em> as the file.
+YUV4MPEG2 headers will be added when <em>y4m</em> is true.
+The current progress can be reported by passing a callback function of the form <em>func(current_frame, total_frames)</em> to <em>progress_update</em>.
+The <em>prefetch</em> argument is only for debugging purposes and should never need to be changed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="VideoNode.frames">
+<code class="sig-name descname">frames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#VideoNode.frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a generator iterator of all VideoFrames in the clip.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="AlphaOutputTuple">
+<em class="property">class </em><code class="sig-name descname">AlphaOutputTuple</code><a class="headerlink" href="#AlphaOutputTuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is returned by get_output. If a <em>alpha</em> was passed to set_output, <em>get_output</em> will return an object of this type.</p>
+<dl class="py attribute">
+<dt id="AlphaOutputTuple.clip">
+<code class="sig-name descname">clip</code><a class="headerlink" href="#AlphaOutputTuple.clip" title="Permalink to this definition">¶</a></dt>
+<dd><p>A VideoNode-instance containing the color planes.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="AlphaOutputTuple.alpha">
+<code class="sig-name descname">alpha</code><a class="headerlink" href="#AlphaOutputTuple.alpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>A VideoNode-instance containing the alpha planes.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="VideoFrame">
+<em class="property">class </em><code class="sig-name descname">VideoFrame</code><a class="headerlink" href="#VideoFrame" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>This class represents a video frame and all metadata attached to it.</p>
+</div></blockquote>
+<dl class="py attribute">
+<dt id="VideoFrame.format">
+<code class="sig-name descname">format</code><a class="headerlink" href="#VideoFrame.format" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Format object describing the frame data.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="VideoFrame.width">
+<code class="sig-name descname">width</code><a class="headerlink" href="#VideoFrame.width" title="Permalink to this definition">¶</a></dt>
+<dd><p>The width of the frame.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="VideoFrame.height">
+<code class="sig-name descname">height</code><a class="headerlink" href="#VideoFrame.height" title="Permalink to this definition">¶</a></dt>
+<dd><p>The height of the frame.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="VideoFrame.readonly">
+<code class="sig-name descname">readonly</code><a class="headerlink" href="#VideoFrame.readonly" title="Permalink to this definition">¶</a></dt>
+<dd><p>If <em>readonly</em> is True, the frame data and properties cannot be modified.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="VideoFrame.props">
+<code class="sig-name descname">props</code><a class="headerlink" href="#VideoFrame.props" title="Permalink to this definition">¶</a></dt>
+<dd><p>This attribute holds all the frame’s properties as a dict. They are also mapped as sub-attributes for compatibility with older scripts.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="VideoFrame.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#VideoFrame.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a writable copy of the frame.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="VideoFrame.get_read_ptr">
+<code class="sig-name descname">get_read_ptr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plane</span></em><span class="sig-paren">)</span><a class="headerlink" href="#VideoFrame.get_read_ptr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a pointer to the raw frame data. The data may not be modified.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="VideoFrame.get_read_array">
+<code class="sig-name descname">get_read_array</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plane</span></em><span class="sig-paren">)</span><a class="headerlink" href="#VideoFrame.get_read_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a memoryview of the frame data that’s only valid as long as the VideoFrame object exists. The data may not be modified.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="VideoFrame.get_write_ptr">
+<code class="sig-name descname">get_write_ptr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plane</span></em><span class="sig-paren">)</span><a class="headerlink" href="#VideoFrame.get_write_ptr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a pointer to the raw frame data. It may be modified using ctypes
+or some other similar python package.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="VideoFrame.get_write_array">
+<code class="sig-name descname">get_write_array</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plane</span></em><span class="sig-paren">)</span><a class="headerlink" href="#VideoFrame.get_write_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a memoryview of the frame data that’s only valid as long as the VideoFrame object exists.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="VideoFrame.get_stride">
+<code class="sig-name descname">get_stride</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">plane</span></em><span class="sig-paren">)</span><a class="headerlink" href="#VideoFrame.get_stride" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the stride between lines in a <em>plane</em>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="Format">
+<em class="property">class </em><code class="sig-name descname">Format</code><a class="headerlink" href="#Format" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class represents all information needed to describe a frame format. It
+holds the general color type, subsampling, number of planes and so on.
+The names map directly to the C API so consult it for more detailed
+information.</p>
+<dl class="py attribute">
+<dt id="Format.id">
+<code class="sig-name descname">id</code><a class="headerlink" href="#Format.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A unique <em>id</em> identifying the format.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Format.name">
+<code class="sig-name descname">name</code><a class="headerlink" href="#Format.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A human readable name of the format.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Format.color_family">
+<code class="sig-name descname">color_family</code><a class="headerlink" href="#Format.color_family" title="Permalink to this definition">¶</a></dt>
+<dd><p>Which group of colorspaces the format describes.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Format.sample_type">
+<code class="sig-name descname">sample_type</code><a class="headerlink" href="#Format.sample_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the format is integer or floating point based.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Format.bits_per_sample">
+<code class="sig-name descname">bits_per_sample</code><a class="headerlink" href="#Format.bits_per_sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>How many bits are used to store one sample in one plane.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Format.bytes_per_sample">
+<code class="sig-name descname">bytes_per_sample</code><a class="headerlink" href="#Format.bytes_per_sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>The actual storage is padded up to 2^n bytes for efficiency.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Format.subsampling_w">
+<code class="sig-name descname">subsampling_w</code><a class="headerlink" href="#Format.subsampling_w" title="Permalink to this definition">¶</a></dt>
+<dd><p>The subsampling for the second and third plane in the horizontal
+direction.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Format.subsampling_h">
+<code class="sig-name descname">subsampling_h</code><a class="headerlink" href="#Format.subsampling_h" title="Permalink to this definition">¶</a></dt>
+<dd><p>The subsampling for the second and third plane in the vertical direction.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Format.num_planes">
+<code class="sig-name descname">num_planes</code><a class="headerlink" href="#Format.num_planes" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of planes the format has.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Format.replace">
+<code class="sig-name descname">replace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">core</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Format.replace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a new format with the given modifications.</p>
+<p>The only supported attributes that can be replaced are <cite>color_family</cite>,
+<cite>sample_type</cite>, <cite>bits_per_sample</cite>, <cite>subsampling_w</cite>, <cite>subsampling_h</cite>.</p>
+<p>The optional <cite>core</cite>-parameter defines on which core the new format
+should be registered. This is usually not needed and defaults
+to the core of the current environment.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="Plugin">
+<em class="property">class </em><code class="sig-name descname">Plugin</code><a class="headerlink" href="#Plugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plugin is a class that represents a loaded plugin and its namespace.</p>
+<dl class="py attribute">
+<dt id="Plugin.name">
+<code class="sig-name descname">name</code><a class="headerlink" href="#Plugin.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The namespace of the plugin.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Plugin.get_functions">
+<code class="sig-name descname">get_functions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Plugin.get_functions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dict containing all the functions in the plugin. You can access
+it by calling <em>core.std.get_functions()</em>. Replace <em>std</em> with the namespace
+of the plugin you want to query.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Plugin.list_functions">
+<code class="sig-name descname">list_functions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Plugin.list_functions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Works similar to <em>get_functions()</em> but returns a human-readable string.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="Function">
+<em class="property">class </em><code class="sig-name descname">Function</code><a class="headerlink" href="#Function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function is a simple wrapper class for a function provided by a VapourSynth plugin.
+Its main purpose is to be called and nothing else.</p>
+<dl class="py attribute">
+<dt id="Function.name">
+<code class="sig-name descname">name</code><a class="headerlink" href="#Function.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function name. Identical to the string used to register the function.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Function.plugin">
+<code class="sig-name descname">plugin</code><a class="headerlink" href="#Function.plugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <em>Plugin</em> object the function belongs to.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Function.signature">
+<code class="sig-name descname">signature</code><a class="headerlink" href="#Function.signature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raw function signature string. Identical to the string used to register the function.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="Environment">
+<em class="property">class </em><code class="sig-name descname">Environment</code><a class="headerlink" href="#Environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class represents an environment.</p>
+<p>Some editors allow multiple vapoursynth-scripts to run in the same process, each of them comes with a different Core-instance and
+their own set of outputs. Each core-instance with their associated outputs represent their own environment.</p>
+<p>At any given time, only one environment can be active (in the same context). This class allows introspection about
+environments and allows to switch to them at will.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span> <span class="o">=</span> <span class="n">get_current_environment</span><span class="p">()</span>
+<span class="c1"># sometime later</span>
+<span class="k">with</span> <span class="n">env</span><span class="o">.</span><span class="n">use</span><span class="p">():</span>
+  <span class="c1"># Do stuff inside this env.</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Environment-objects obtained using the <a class="reference internal" href="#vpy_current_environment" title="vpy_current_environment"><code class="xref py py-func docutils literal notranslate"><span class="pre">vpy_current_environment()</span></code></a> can directly be used as
+as a context manager. This can cuase undefined behaviour when used in combination with generators and/or
+coroutines.</p>
+<p>This context-manager maintains a thread-local environment-stack that is used to restore the previous environment.
+This can cause issues if the frame is suspended inside the block.</p>
+<p>A similar problem also existed in previous VapourSynth versions!</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span> <span class="o">=</span> <span class="n">vpy_current_environment</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">env</span><span class="p">:</span>
+     <span class="k">yield</span>
+</pre></div>
+</div>
+</div>
+<dl class="py function">
+<dt id="Environment.is_single">
+<code class="sig-name descname">is_single</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Environment.is_single" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the script is _not_ running inside a vsscript-Environment.
+If it is running inside a vsscript-Environment, it returns False.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Environment.env_id">
+<code class="sig-name descname">env_id</code><a class="headerlink" href="#Environment.env_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return -1 if the script is not running inside a vsscript-Environment.
+Otherwise, it will return the current environment-id.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Environment.single">
+<code class="sig-name descname">single</code><a class="headerlink" href="#Environment.single" title="Permalink to this definition">¶</a></dt>
+<dd><p>See is_single()</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Environment.alive">
+<code class="sig-name descname">alive</code><a class="headerlink" href="#Environment.alive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Has the environment been destroyed by the underlying application?</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Environment.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Environment.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a copy of the environment-object.</p>
+<p>Added: R50</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="Environment.use">
+<code class="sig-name descname">use</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Environment.use" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a context-manager that enables the given environment in the block enclosed in the with-statement and restores the environment to the one
+defined before the with-block has been encountered.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span> <span class="o">=</span> <span class="n">vpy_current_environment</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">env</span><span class="o">.</span><span class="n">use</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">env</span><span class="o">.</span><span class="n">use</span><span class="p">():</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+<p>Added: R50</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="vpy_current_environment">
+<code class="sig-name descname">vpy_current_environment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vpy_current_environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deprecated. Use <a class="reference internal" href="#get_current_environment" title="get_current_environment"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_current_environment()</span></code></a> instead.</p>
+<p>Returns an Environment-object representing the environment the script is currently running in. It will raise an error if we are currently not inside any
+script-environment while vsscript is being used.</p>
+<p>This function is intended for Python-based editors using vsscript.
+This function has been deprecated as this function has undefined behaviour when used together with generators or coroutines.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="get_current_environment">
+<code class="sig-name descname">get_current_environment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_current_environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an Environment-object representing the environment the script is currently running in. It will raise an error if we are currently not inside any
+script-environment while vsscript is being used.</p>
+<p>This function is intended for Python-based editors using vsscript.</p>
+<p>Added: R50</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="EnvironmentPolicy">
+<em class="property">class </em><code class="sig-name descname">EnvironmentPolicy</code><a class="headerlink" href="#EnvironmentPolicy" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is intended for subclassing by custom Script-Runners and Editors.
+Normal users don’t need this class. Most methods implemented here have corresponding APIs in other parts of this module.</p>
+<p>An instance of this class controls which environment is activated in the current context.
+The exact meaning of “context” is defined by the concrete EnvironmentPolicy. A environment is represented by a <a class="reference internal" href="#EnvironmentData" title="EnvironmentData"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnvironmentData</span></code></a>-object.</p>
+<p>To use this class, first create a subclass and then use <a class="reference internal" href="#register_policy" title="register_policy"><code class="xref py py-func docutils literal notranslate"><span class="pre">register_policy()</span></code></a> to get VapourSynth to use your policy. This must happen before vapoursynth is first
+used. VapourSynth will automatically register an internal policy if it needs one. The subclass must be weak-referenciable!</p>
+<p>Once the method <a class="reference internal" href="#EnvironmentPolicy.on_policy_registered" title="EnvironmentPolicy.on_policy_registered"><code class="xref py py-meth docutils literal notranslate"><span class="pre">on_policy_registered()</span></code></a> has been called, the policy is responsible for creating and managing environments.</p>
+<p>Special considerations have been made to ensure the functions of class cannot be abused. You cannot retrieve the current running policy youself.
+The additional API exposed by “on_policy_registered” is only valid if the policy has been registered.
+Once the policy is unregistered, all calls to the additional API will fail with a RuntimeError.</p>
+<p>Added: R50</p>
+<dl class="py method">
+<dt id="EnvironmentPolicy.on_policy_registered">
+<code class="sig-name descname">on_policy_registered</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">special_api</span></em><span class="sig-paren">)</span><a class="headerlink" href="#EnvironmentPolicy.on_policy_registered" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called when the policy has successfully been registered. It proivdes additional internal methods that are hidden as they are useless and or harmful
+unless you implement your own policy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>special_api</strong> – This is a <a class="reference internal" href="#EnvironmentPolicyAPI" title="EnvironmentPolicyAPI"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnvironmentPolicyAPI</span></code></a>-object that exposes additional API</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="EnvironmentPolicy.on_policy_cleared">
+<code class="sig-name descname">on_policy_cleared</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EnvironmentPolicy.on_policy_cleared" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called once the python-process exits or when unregister_policy is called by the environment-policy. This allows the policy to free the resources
+used by the policy.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="EnvironmentPolicy.get_current_environment">
+<code class="sig-name descname">get_current_environment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EnvironmentPolicy.get_current_environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called by the module to detect which environment is currently running in the current context. If None is returned, it means that no environment is currently active.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An <a class="reference internal" href="#EnvironmentData" title="EnvironmentData"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnvironmentData</span></code></a>-object representing the currently active environment in the current context.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="EnvironmentPolicy.set_environment">
+<code class="sig-name descname">set_environment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">environment</span></em><span class="sig-paren">)</span><a class="headerlink" href="#EnvironmentPolicy.set_environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called by the module to change the currently active environment. If None is passed to this function the policy may switch to another environment of its choosing.</p>
+<p>Note: The function is responsible to check whether or not the environment is alive. If a dead environment is passed, it should act like None has been passed instead of the dead environment but must never error.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>environment</strong> – The <a class="reference internal" href="#EnvironmentData" title="EnvironmentData"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnvironmentData</span></code></a> to enable in the current context.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The environment that was enabled previously.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="EnvironmentPolicy.is_alive">
+<code class="sig-name descname">is_alive</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">environment</span></em><span class="sig-paren">)</span><a class="headerlink" href="#EnvironmentPolicy.is_alive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is the current environment still active and managed by the policy.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="EnvironmentPolicyAPI">
+<em class="property">class </em><code class="sig-name descname">EnvironmentPolicyAPI</code><a class="headerlink" href="#EnvironmentPolicyAPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is intended to be used by custom Script-Runners and Editors. An instance of this class exposes an additional API.
+The methods are bound to a specific <a class="reference internal" href="#EnvironmentPolicy" title="EnvironmentPolicy"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnvironmentPolicy</span></code></a>-instance and will only work if the policy is currenty registered.</p>
+<p>Added: R50</p>
+<dl class="py method">
+<dt id="EnvironmentPolicyAPI.wrap_environment">
+<code class="sig-name descname">wrap_environment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">environment</span></em><span class="sig-paren">)</span><a class="headerlink" href="#EnvironmentPolicyAPI.wrap_environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new <a class="reference internal" href="#Environment" title="Environment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Environment</span></code></a>-object bound to the passed environment-id.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This function does not check if the id corresponds to a live environment as the caller is expected to know which environments are active.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="EnvironmentPolicyAPI.create_environment">
+<code class="sig-name descname">create_environment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EnvironmentPolicyAPI.create_environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <a class="reference internal" href="#Environment" title="Environment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Environment</span></code></a> that is used by the wrapper for context sensitive data used by VapourSynth.
+For example it holds the currently active core object as well as the currently registered outputs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="EnvironmentPolicyAPI.unregister_policy">
+<code class="sig-name descname">unregister_policy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#EnvironmentPolicyAPI.unregister_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unregisters the policy it is bound to and allows another policy to be registered.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="register_policy">
+<code class="sig-name descname">register_policy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">policy</span></em><span class="sig-paren">)</span><a class="headerlink" href="#register_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is intended for use by custom Script-Runners and Editors. It installs your custom <a class="reference internal" href="#EnvironmentPolicy" title="EnvironmentPolicy"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnvironmentPolicy</span></code></a>. This function only works if no other policy has been
+installed.</p>
+<p>If no policy is installed, the first environment-sensitive call will automatically register an internal policy.</p>
+<p>Added: R50</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This must be done before VapourSynth is used in any way. Here is a non-exhaustive list that automatically register a policy:</p>
+<ul class="simple">
+<li><p>Using “vsscript_init” in “VSScript.h”</p></li>
+<li><p>Using <a class="reference internal" href="#get_core" title="get_core"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_core()</span></code></a></p></li>
+<li><p>Using <a class="reference internal" href="#get_outputs" title="get_outputs"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_outputs()</span></code></a></p></li>
+<li><p>Using <a class="reference internal" href="#get_output" title="get_output"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_output()</span></code></a></p></li>
+<li><p>Using <a class="reference internal" href="#clear_output" title="clear_output"><code class="xref py py-func docutils literal notranslate"><span class="pre">clear_output()</span></code></a></p></li>
+<li><p>Using <a class="reference internal" href="#clear_outputs" title="clear_outputs"><code class="xref py py-func docutils literal notranslate"><span class="pre">clear_outputs()</span></code></a></p></li>
+<li><p>Using <a class="reference internal" href="#vpy_current_environment" title="vpy_current_environment"><code class="xref py py-func docutils literal notranslate"><span class="pre">vpy_current_environment()</span></code></a></p></li>
+<li><p>Using <a class="reference internal" href="#get_current_environment" title="get_current_environment"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_current_environment()</span></code></a></p></li>
+<li><p>Accessing any attribute of <a class="reference internal" href="#core" title="core"><code class="xref py py-attr docutils literal notranslate"><span class="pre">core</span></code></a></p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="has_policy">
+<code class="sig-name descname">has_policy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#has_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is intended for subclassing by custom Script-Runners and Editors. This function checks if a <a class="reference internal" href="#EnvironmentPolicy" title="EnvironmentPolicy"><code class="xref py py-class docutils literal notranslate"><span class="pre">EnvironmentPolicy</span></code></a> has been installed.</p>
+<p>Added: R50</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="using_vsscript">
+<span id="_using_vsscript"></span><code class="sig-name descname">_using_vsscript</code><a class="headerlink" href="#using_vsscript" title="Permalink to this definition">¶</a></dt>
+<dd><p>INTERNAL ATTRIBUTE. Deprecated (will be removed soon). This was the only way to find out if VSScript.h was calling this script.
+It now stores true if a custom policy is installed or VSScript.h is used. Use <a class="reference internal" href="#has_policy" title="has_policy"><code class="xref py py-func docutils literal notranslate"><span class="pre">has_policy()</span></code></a> instead.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="EnvironmentData">
+<em class="property">class </em><code class="sig-name descname">EnvironmentData</code><a class="headerlink" href="#EnvironmentData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internal class that stores the context sensitive data that VapourSynth needs. It is an opaque object whose attributes you cannot access directly.</p>
+<p>A normal user has no way of getting an instance of this object. You can only encounter EnvironmentData-objects if you work with EnvironmentPolicies.</p>
+<p>This object is weak-referenciable meaning you can get a callback if the environment-data object is actually being freed (i.e. no other object holds an instance
+to the environment data.)</p>
+<p>Added: R50</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="Func">
+<em class="property">class </em><code class="sig-name descname">Func</code><a class="headerlink" href="#Func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Func is a simple wrapper class for VapourSynth VSFunc objects.
+Its main purpose is to be called and manage reference counting.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="Error">
+<em class="property">exception </em><code class="sig-name descname">Error</code><a class="headerlink" href="#Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>The standard exception class. This exception is thrown on most errors
+encountered in VapourSynth.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="color-family-constants">
+<h2>Color Family Constants<a class="headerlink" href="#color-family-constants" title="Permalink to this headline">¶</a></h2>
+<p>The color family constants describe groups of formats and the basic way their
+color information is stored. You should be familiar with all of them apart from
+maybe <em>YCOCG</em> and <em>COMPAT</em>. The latter is a special junk category for non-planar
+formats. These are the declared constants in the module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RGB</span>
+<span class="n">YUV</span>
+<span class="n">GRAY</span>
+<span class="n">YCOCG</span>
+<span class="n">COMPAT</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="format-constants">
+<h2>Format Constants<a class="headerlink" href="#format-constants" title="Permalink to this headline">¶</a></h2>
+<p>Format constants exactly describe a format. All common and even more uncommon
+formats have handy constants predefined so in practice no one should really
+need to register one of their own. These values are mostly used by the resizers
+to specify which format to convert to. The naming system is quite simple. First
+the color family, then the subsampling (only YUV has it) and after that how many
+bits per sample in one plane. The exception to this rule is RGB, which has the
+bits for all 3 planes added together. The long list of values:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GRAY8</span>
+<span class="n">GRAY16</span>
+<span class="n">GRAYH</span>
+<span class="n">GRAYS</span>
+
+<span class="n">YUV420P8</span>
+<span class="n">YUV422P8</span>
+<span class="n">YUV444P8</span>
+<span class="n">YUV410P8</span>
+<span class="n">YUV411P8</span>
+<span class="n">YUV440P8</span>
+
+<span class="n">YUV420P9</span>
+<span class="n">YUV422P9</span>
+<span class="n">YUV444P9</span>
+
+<span class="n">YUV420P10</span>
+<span class="n">YUV422P10</span>
+<span class="n">YUV444P10</span>
+
+<span class="n">YUV420P12</span>
+<span class="n">YUV422P12</span>
+<span class="n">YUV444P12</span>
+
+<span class="n">YUV420P14</span>
+<span class="n">YUV422P14</span>
+<span class="n">YUV444P14</span>
+
+<span class="n">YUV420P16</span>
+<span class="n">YUV422P16</span>
+<span class="n">YUV444P16</span>
+
+<span class="n">YUV444PH</span>
+<span class="n">YUV444PS</span>
+
+<span class="n">RGB24</span>
+<span class="n">RGB27</span>
+<span class="n">RGB30</span>
+<span class="n">RGB48</span>
+
+<span class="n">RGBH</span>
+<span class="n">RGBS</span>
+
+<span class="n">COMPATBGR32</span>
+<span class="n">COMPATYUY2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sample-type-constants">
+<h2>Sample Type Constants<a class="headerlink" href="#sample-type-constants" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">INTEGER</span>
+<span class="n">FLOAT</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins and Scripts</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Python Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#vapoursynth-structure">VapourSynth Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#slicing-and-other-syntactic-sugar">Slicing and Other Syntactic Sugar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python-keywords-as-filter-arguments">Python Keywords as Filter Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#windows-file-paths-strings-with-backslashes">Windows File Paths (Strings With Backslashes)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#raw-access-to-frame-data">Raw Access to Frame Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#classes-and-functions">Classes and Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#color-family-constants">Color Family Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#format-constants">Format Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sample-type-constants">Sample Type Constants</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="avfs.html">AVFS (AV FileSystem)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="avisynthcomp.html">Avisynth functions and their VapourSynth equivalents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="includedplugins.html">Included Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Function Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vspipe.html">VSPipe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apireference.html">VapourSynth C API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="plugins.html" title="Plugins and Scripts"
+              >previous</a> |
+            <a href="avfs.html" title="AVFS (AV FileSystem)"
+              >next</a> |
+            <a href="genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="_sources/pythonreference.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2020, Fredrik Mellbin.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

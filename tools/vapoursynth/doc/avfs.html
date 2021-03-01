@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVFS (AV FileSystem) &#8212; VapourSynth R51 documentation</title>
+    <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Applications and Libraries" href="applications.html" />
+    <link rel="prev" title="Python Reference" href="pythonreference.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="index.html">VapourSynth R51 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="pythonreference.html" title="Python Reference"
+             accesskey="P">previous</a> |
+          <a href="applications.html" title="Applications and Libraries"
+             accesskey="N">next</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="avfs-av-filesystem">
+<h1>AVFS (AV FileSystem)<a class="headerlink" href="#avfs-av-filesystem" title="Permalink to this headline">¶</a></h1>
+<p>AV FileSystem is based on <a class="reference external" href="http://www.turtlewar.org/avfs/">AVFS</a> and shares most of its
+source code and functionality. This package has several uses. It can easily make
+a script file openable by any application, as it appears like a real,
+uncompressed avi file. It can also be used to bridge the 32/64 bit gap, since a
+plain file can always be read.</p>
+<p>To use it simply run <code class="docutils literal notranslate"><span class="pre">avfs</span></code> in the <code class="docutils literal notranslate"><span class="pre">core32</span></code> or <code class="docutils literal notranslate"><span class="pre">core64</span></code> directories with the script name as argument.
+This will create a virtual file in <code class="docutils literal notranslate"><span class="pre">C:\\Volumes</span></code>.</p>
+<div class="section" id="avisynth-support">
+<h2>Avisynth Support<a class="headerlink" href="#avisynth-support" title="Permalink to this headline">¶</a></h2>
+<p>Note that this AVFS version is also compatible with Avisynth 2.6 and Avisynth+. When using Avisynth+
+higher bitdepth output is also supported. The easiest way to obtain a recent version is to extract
+<code class="docutils literal notranslate"><span class="pre">avfs.exe</span></code> from the portable VapourSynth archives.</p>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins and Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pythonreference.html">Python Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AVFS (AV FileSystem)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#avisynth-support">Avisynth Support</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="avisynthcomp.html">Avisynth functions and their VapourSynth equivalents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="includedplugins.html">Included Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Function Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vspipe.html">VSPipe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apireference.html">VapourSynth C API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="pythonreference.html" title="Python Reference"
+              >previous</a> |
+            <a href="applications.html" title="Applications and Libraries"
+              >next</a> |
+            <a href="genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="_sources/avfs.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2020, Fredrik Mellbin.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

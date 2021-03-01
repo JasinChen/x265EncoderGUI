@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation Instructions &#8212; VapourSynth R51 documentation</title>
+    <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting Started" href="gettingstarted.html" />
+    <link rel="prev" title="Welcome to VapourSynth’s documentation!" href="index.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="index.html">VapourSynth R51 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="index.html" title="Welcome to VapourSynth’s documentation!"
+             accesskey="P">previous</a> |
+          <a href="gettingstarted.html" title="Getting Started"
+             accesskey="N">next</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="installation-instructions">
+<h1>Installation Instructions<a class="headerlink" href="#installation-instructions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="windows-installation-instructions">
+<h2>Windows Installation Instructions<a class="headerlink" href="#windows-installation-instructions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>First download and install the prerequisites:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="http://www.python.org/">Python 3.8.x</a>  – 32 or 64 bit version depending on which version of VapourSynth you want to install</p></li>
+</ul>
+</dd>
+</dl>
+<p>Note that VapourSynth and Python have to be matched so both are either installed
+for all users or for only for the current user.</p>
+<p>Also note that per user installs will not install the required visual studio
+2019 runtimes.</p>
+</div>
+<div class="section" id="installation">
+<h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
+<p>Simply run the <a class="reference external" href="https://github.com/vapoursynth/vapoursynth/releases">VapourSynth installer</a>.
+It should automatically detect everything.</p>
+<p>Test it by opening a Python command line (should be added to your start menu)
+and type this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vapoursynth</span> <span class="kn">import</span> <span class="n">core</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">core</span><span class="o">.</span><span class="n">version</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>After typing the final line you should see the version printed along with a
+few other lines describing the options used when instantiating the Core object.
+If this for some reason fails, there may be a bug in the installer or there are
+old copies of vapoursynth.pyd and vapoursynth.dll lying around.</p>
+</div>
+</div>
+<div class="section" id="windows-portable-instructions">
+<h2>Windows Portable Instructions<a class="headerlink" href="#windows-portable-instructions" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt>First download and decompress the prerequisites:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="http://www.python.org/">Python 3.8.x</a>  – 32 or 64 bit embeddable version</p></li>
+</ul>
+</dd>
+</dl>
+<p>Simply decompress the <a class="reference external" href="https://github.com/vapoursynth/vapoursynth/releases">portable VapourSynth archive</a>
+into the Python dir and overwrite all existing files. Done.</p>
+<p>You can also use the VapourSynth Editor by decompressing it into the same directory.</p>
+</div>
+<div class="section" id="os-x-installation-from-packages">
+<h2>OS X Installation from Packages<a class="headerlink" href="#os-x-installation-from-packages" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt>First download and install the prerequisites:</dt><dd><ul class="simple">
+<li><p>Xcode – Available from the AppStore</p></li>
+<li><p><a class="reference external" href="http://brew.sh/">Homebrew</a> – A package manager</p></li>
+</ul>
+</dd>
+</dl>
+<p>Simply run these commands in a terminal and wait for them to complete:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">vapoursynth</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="linux-installation-from-packages">
+<h2>Linux Installation from Packages<a class="headerlink" href="#linux-installation-from-packages" title="Permalink to this headline">¶</a></h2>
+<p>Several distributions have packages:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://www.deb-multimedia.org/">Debian</a>  – deb-multimedia</p></li>
+<li><p><a class="reference external" href="https://github.com/4re/vapoursynth-portage">Gentoo</a>  – Portage overlay and instructions</p></li>
+<li><p><a class="reference external" href="https://www.archlinux.org/packages/?q=vapoursynth">Arch Linux</a>  – Official packages</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="installation-via-pip-pypi">
+<h2>Installation via PIP (PyPI)<a class="headerlink" href="#installation-via-pip-pypi" title="Permalink to this headline">¶</a></h2>
+<p>You can install the Python wrapper using pip.</p>
+<p>Install <a class="reference external" href="https://pypi.org/project/VapourSynth/">vapoursynth</a> using Pip by using this command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">VapourSynth</span>
+</pre></div>
+</div>
+<p>Please note that you always need to have a working installation of VapourSynth beforehand. Note that on non-Windows systems, the installer will compile the module before installing.</p>
+</div>
+<div class="section" id="linux-and-os-x-compilation-instructions">
+<h2>Linux and OS X Compilation Instructions<a class="headerlink" href="#linux-and-os-x-compilation-instructions" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt>These are the requirements:</dt><dd><ul class="simple">
+<li><p>Autoconf, Automake, and Libtool, probably recent versions</p></li>
+<li><p>pkg-config</p></li>
+<li><p>GCC 4.8 or newer, or Clang</p></li>
+<li><p><a class="reference external" href="https://github.com/sekrit-twc/zimg/releases">zimg v2.9 branch</a></p></li>
+<li><p>Python 3</p></li>
+<li><p>Cython 0.28 or later installed in your Python 3 environment</p></li>
+<li><p>Sphinx for the documentation (optional)</p></li>
+<li><p>iconv, libass, and ffmpeg for the Subtext plugin (optional)</p></li>
+<li><p>ImageMagick 7 for the Imwri plugin (optional)</p></li>
+<li><p>Tesseract 3 for the OCR plugin (optional)</p></li>
+</ul>
+</dd>
+</dl>
+<p>Note: <strong>any version of Python 3 will do.</strong> A specific version is only
+required when using the official Windows binaries.</p>
+<div class="section" id="required-packages-os-x">
+<h3>Required packages (OS X)<a class="headerlink" href="#required-packages-os-x" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>First download and install the prerequisites:</dt><dd><ul class="simple">
+<li><p>Xcode – Available from the AppStore</p></li>
+<li><p><a class="reference external" href="http://brew.sh/">Homebrew</a> – A package manager</p></li>
+</ul>
+</dd>
+</dl>
+<p>Installation of the required packages is very easy. Simply run these
+commands in a terminal and wait for them to complete:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">python3</span> <span class="n">ffmpeg</span> <span class="n">libass</span> <span class="n">zimg</span> <span class="n">imagemagick</span>
+<span class="n">pip3</span> <span class="n">install</span> <span class="n">cython</span>
+</pre></div>
+</div>
+<p>If you’ve already installed all the required packages and instead want
+to update them, simply run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">update</span> <span class="o">&amp;&amp;</span> <span class="n">brew</span> <span class="n">upgrade</span>
+<span class="n">pip3</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">cython</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="compilation">
+<h3>Compilation<a class="headerlink" href="#compilation" title="Permalink to this headline">¶</a></h3>
+<p>If you haven’t checked out the source code before, use git to do so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">vapoursynth</span><span class="o">/</span><span class="n">vapoursynth</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>Or if you already have a copy of the source, update it with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">pull</span>
+</pre></div>
+</div>
+<p>Enter the VapourSynth directory and run these commands to compile and install:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">autogen</span><span class="o">.</span><span class="n">sh</span>
+<span class="o">./</span><span class="n">configure</span>
+<span class="n">make</span>
+<span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+<p>Depending on your operating system’s configuration, VapourSynth may not
+work out of the box with the default prefix of /usr/local. Two errors
+may pop up when running <code class="docutils literal notranslate"><span class="pre">vspipe</span> <span class="pre">--version</span></code>:</p>
+<ul>
+<li><p>“vspipe: error while loading shared libraries: libvapoursynth-script.so.0:
+cannot open shared object file: No such file or directory”</p>
+<p>This is caused by the non-standard location of libvapoursynth-script.so.0.
+Your dynamic loader is not configured to look in /usr/local/lib. One
+way to work around this error is to use the LD_LIBRARY_PATH environment
+variable:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ LD_LIBRARY_PATH=/usr/local/lib vspipe --version
+</pre></div>
+</div>
+</li>
+<li><p>“Failed to initialize VapourSynth environment”</p>
+<p>This is caused by the non-standard location of the Python module,
+vapoursynth.so. Your Python is not configured to look in
+/usr/local/lib/python3.x/site-packages. One way to work around this
+error is to use the PYTHONPATH environment variable:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ PYTHONPATH=/usr/local/lib/python3.x/site-packages vspipe --version
+</pre></div>
+</div>
+<p>Replace “x” with the correct number.</p>
+</li>
+</ul>
+<p>The documentation can be built using its own Makefile:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make -C doc/ html
+</pre></div>
+</div>
+<p>The documentation can be installed using the standard program <code class="docutils literal notranslate"><span class="pre">cp</span></code>.</p>
+</div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#windows-installation-instructions">Windows Installation Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#windows-portable-instructions">Windows Portable Instructions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#os-x-installation-from-packages">OS X Installation from Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#linux-installation-from-packages">Linux Installation from Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-via-pip-pypi">Installation via PIP (PyPI)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#linux-and-os-x-compilation-instructions">Linux and OS X Compilation Instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#required-packages-os-x">Required packages (OS X)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compilation">Compilation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins and Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pythonreference.html">Python Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="avfs.html">AVFS (AV FileSystem)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="avisynthcomp.html">Avisynth functions and their VapourSynth equivalents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="includedplugins.html">Included Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Function Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vspipe.html">VSPipe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apireference.html">VapourSynth C API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="index.html" title="Welcome to VapourSynth’s documentation!"
+              >previous</a> |
+            <a href="gettingstarted.html" title="Getting Started"
+              >next</a> |
+            <a href="genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="_sources/installation.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2020, Fredrik Mellbin.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

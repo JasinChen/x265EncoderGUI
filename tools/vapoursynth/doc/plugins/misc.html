@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miscellaneous Filters &#8212; VapourSynth R51 documentation</title>
+    <link rel="stylesheet" href="../_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Morpho" href="morpho.html" />
+    <link rel="prev" title="ImageMagick Writer-Reader" href="imwri.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">VapourSynth R51 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="imwri.html" title="ImageMagick Writer-Reader"
+             accesskey="P">previous</a> |
+          <a href="morpho.html" title="Morpho"
+             accesskey="N">next</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="miscellaneous-filters">
+<span id="misc"></span><h1>Miscellaneous Filters<a class="headerlink" href="#miscellaneous-filters" title="Permalink to this headline">¶</a></h1>
+<p>Miscellaneous Filters is a random collection of filters that mostly are useful for Avisynth compatibility.</p>
+<dl class="py function">
+<dt id="misc.AverageFrames">
+<code class="sig-prename descclassname">misc.</code><code class="sig-name descname">AverageFrames</code><span class="sig-paren">(</span><em class="sig-param">clip[] clips</em>, <em class="sig-param">float[] weights</em><span class="optional">[</span>, <em class="sig-param">float scale</em>, <em class="sig-param">bint scenechange</em>, <em class="sig-param">int[] planes</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#misc.AverageFrames" title="Permalink to this definition">¶</a></dt>
+<dd><p>AverageFrames has two main modes depending on whether one or multiple <em>clips</em> are supplied.
+The filter is named AverageFrames since using ones for weights is an easy way to average
+many frames together but it can also be seen as a temporal or multiple frame convolution.</p>
+<p>If multiple <em>clips</em> are supplied then the frames from each of the <em>clips</em> are multiplied by
+the respective <em>weights</em>, summed together and divided by <em>scale</em> before being output. Note
+that only integer <em>weights</em> and <em>scale</em> are allowed for integer input formats.</p>
+<p>If a single <em>clip</em> is supplied then an odd number of <em>weights</em> are needed and they will instead
+be temporally centered on the current frame of the <em>clip</em>. The rest works as multiple <em>clip</em> mode
+with the only difference being that <em>scenechange</em> can be set to avoid averaging frames over scene
+changes. If this happens then all the weights beyond a scene change are instead applied to the frame
+right before it.</p>
+<p>At most 31 <em>weights</em> can be supplied.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="misc.Hysteresis">
+<code class="sig-prename descclassname">misc.</code><code class="sig-name descname">Hysteresis</code><span class="sig-paren">(</span><em class="sig-param">clip clipa</em>, <em class="sig-param">clip clipb</em><span class="optional">[</span>, <em class="sig-param">int[] planes</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#misc.Hysteresis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Grows the mask in <em>clipa</em> into the mask in <em>clipb</em>. This is an equivalent of the Avisynth function <em>mt_hysteresis</em>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="misc.SCDetect">
+<code class="sig-prename descclassname">misc.</code><code class="sig-name descname">SCDetect</code><span class="sig-paren">(</span><em class="sig-param">clip clip</em><span class="optional">[</span>, <em class="sig-param">float threshold=0.1</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#misc.SCDetect" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple filter to mark scene changes. It works by calculating the absolute difference between the next and previous
+frames and scaling it to a 0-1 range and then comparing it to <em>threshold</em>. It’s basically just a wrapper for
+<em>PlaneStats</em>.</p>
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugins and Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pythonreference.html">Python Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../avfs.html">AVFS (AV FileSystem)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications.html">Applications and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../avisynthcomp.html">Avisynth functions and their VapourSynth equivalents</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../includedplugins.html">Included Plugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="avisource.html">AVISource</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eedi3.html">EEDI3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imwri.html">ImageMagick Writer-Reader</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Miscellaneous Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morpho.html">Morpho</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ocr.html">OCR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rgvs.html">RGVS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subtext.html">Subtext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vinverse.html">Vinverse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vivtc.html">VIVTC</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Function Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vspipe.html">VSPipe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apireference.html">VapourSynth C API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="imwri.html" title="ImageMagick Writer-Reader"
+              >previous</a> |
+            <a href="morpho.html" title="Morpho"
+              >next</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="../_sources/plugins/misc.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2020, Fredrik Mellbin.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

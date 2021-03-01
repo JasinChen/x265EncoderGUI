@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSPipe &#8212; VapourSynth R51 documentation</title>
+    <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="VapourSynth C API Reference" href="apireference.html" />
+    <link rel="prev" title="Turn180" href="functions/turn180.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="index.html">VapourSynth R51 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="functions/turn180.html" title="Turn180"
+             accesskey="P">previous</a> |
+          <a href="apireference.html" title="VapourSynth C API Reference"
+             accesskey="N">next</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="vspipe">
+<h1>VSPipe<a class="headerlink" href="#vspipe" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<p><strong>vspipe</strong> &lt;script&gt; &lt;outfile&gt; [options]</p>
+<p>vspipe’s main purpose is to evaluate VapourSynth scripts and output the
+frames to a file.</p>
+<p>If <em>outfile</em> is a hyphen (<code class="docutils literal notranslate"><span class="pre">-</span></code>), vspipe will write to the standard output.</p>
+<p>If <em>outfile</em> is a dot (<code class="docutils literal notranslate"><span class="pre">.</span></code>), vspipe will do everything as usual, except it
+will not write the video frames anywhere.</p>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">-a,</span> <span class="pre">--arg</span> <span class="pre">key=value</span></code></dt><dd><p>Argument to pass to the script environment, it a key with this name and value (bytes typed) will be set in the globals dict</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-s,</span> <span class="pre">--start</span> <span class="pre">N</span></code></dt><dd><p>Set output frame range (first frame)</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-e,</span> <span class="pre">--end</span> <span class="pre">N</span></code></dt><dd><p>Set output frame range (last frame)</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-o,</span> <span class="pre">--outputindex</span> <span class="pre">N</span></code></dt><dd><p>Select output index</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-r,</span> <span class="pre">--requests</span> <span class="pre">N</span></code></dt><dd><p>Set number of concurrent frame requests</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-y,</span> <span class="pre">--y4m</span></code></dt><dd><p>Add YUV4MPEG headers to output</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-t,</span> <span class="pre">--timecodes</span> <span class="pre">FILE</span></code></dt><dd><p>Write timecodes v2 file</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-p,</span> <span class="pre">--progress</span></code></dt><dd><p>Print progress to stderr</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-i,</span> <span class="pre">--info</span></code></dt><dd><p>Show video info and exit</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-v,</span> <span class="pre">--version</span></code></dt><dd><p>Show version info and exit</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt>Show script info:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">vspipe</span> <span class="pre">--info</span> <span class="pre">script.vpy</span> <span class="pre">-</span></code></p>
+</dd>
+<dt>Write to stdout:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">vspipe</span> <span class="pre">[options]</span> <span class="pre">script.vpy</span> <span class="pre">-</span></code></p>
+</dd>
+<dt>Request all frames but don’t output them:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">vspipe</span> <span class="pre">[options]</span> <span class="pre">script.vpy</span> <span class="pre">.</span></code></p>
+</dd>
+<dt>Write frames 5-100 to file:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">vspipe</span> <span class="pre">--start</span> <span class="pre">5</span> <span class="pre">--end</span> <span class="pre">100</span> <span class="pre">script.vpy</span> <span class="pre">output.raw</span></code></p>
+</dd>
+<dt>Pipe to x264 and write timecodes file:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">vspipe</span> <span class="pre">script.vpy</span> <span class="pre">-</span> <span class="pre">--y4m</span> <span class="pre">--timecodes</span> <span class="pre">timecodes.txt</span> <span class="pre">|</span> <span class="pre">x264</span> <span class="pre">--demuxer</span> <span class="pre">y4m</span> <span class="pre">-o</span> <span class="pre">script.mkv</span> <span class="pre">-</span></code></p>
+</dd>
+<dt>Pass values to a script:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">vspipe</span> <span class="pre">--arg</span> <span class="pre">deinterlace=yes</span> <span class="pre">--arg</span> <span class="pre">&quot;message=fluffy</span> <span class="pre">kittens&quot;</span> <span class="pre">script.vpy</span> <span class="pre">output.raw</span></code></p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins and Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pythonreference.html">Python Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="avfs.html">AVFS (AV FileSystem)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="avisynthcomp.html">Avisynth functions and their VapourSynth equivalents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="includedplugins.html">Included Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Function Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">VSPipe</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#options">Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="apireference.html">VapourSynth C API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="functions/turn180.html" title="Turn180"
+              >previous</a> |
+            <a href="apireference.html" title="VapourSynth C API Reference"
+              >next</a> |
+            <a href="genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="_sources/vspipe.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2020, Fredrik Mellbin.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImageMagick Writer-Reader &#8212; VapourSynth R51 documentation</title>
+    <link rel="stylesheet" href="../_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Miscellaneous Filters" href="misc.html" />
+    <link rel="prev" title="EEDI3" href="eedi3.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">VapourSynth R51 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="eedi3.html" title="EEDI3"
+             accesskey="P">previous</a> |
+          <a href="misc.html" title="Miscellaneous Filters"
+             accesskey="N">next</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="imagemagick-writer-reader">
+<span id="imwri"></span><h1>ImageMagick Writer-Reader<a class="headerlink" href="#imagemagick-writer-reader" title="Permalink to this headline">¶</a></h1>
+<p>ImageMagick Writer-Reader (IMWRI) is a plugin that can read and write many image formats.</p>
+<dl class="py function">
+<dt id="imwri.Write">
+<code class="sig-prename descclassname">imwri.</code><code class="sig-name descname">Write</code><span class="sig-paren">(</span><em class="sig-param">clip clip</em>, <em class="sig-param">string imgformat</em>, <em class="sig-param">string filename</em><span class="optional">[</span>, <em class="sig-param">int firstnum=0</em>, <em class="sig-param">int quality=75</em>, <em class="sig-param">bint dither=True</em>, <em class="sig-param">string compression_type</em>, <em class="sig-param">bint overwrite=False</em>, <em class="sig-param">clip alpha</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#imwri.Write" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Supported input formats for writing:</dt><dd><p>ImageMagick with Quantum Depth 16 and HDRI: 8-16 bit integer, 32 bit float</p>
+</dd>
+</dl>
+<p>Write will write each frame to disk as it’s requested. If a frame is never requested it’s also never written to disk.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>clip</dt><dd><p>Input clip. RGB and Gray supported. See list for accepted inputs.</p>
+</dd>
+<dt>imgformat</dt><dd><p>The name of the output format. Examples of supported format strings are “JPEG”, “PNG”, and “DPX”. Visit the ImageMagick website for a full list.</p>
+</dd>
+<dt>filename</dt><dd><p>The filename string must have one or more frame number substitutions. The syntax is printf style. For example “image%06d.png” or “/images/%d.jpg” is common usage.</p>
+</dd>
+<dt>firstnum</dt><dd><p>The first image number in the sequence to write.</p>
+</dd>
+<dt>quality</dt><dd><p>Quality adjustment for formats where it’s applicable. Range is 0 to 100.</p>
+</dd>
+<dt>dither</dt><dd><p>Use Floyd–Steinberg dithering if the input needs to be reduced in depth.</p>
+</dd>
+<dt>compression_type</dt><dd><p>Select the specific compression type for <em>imgformats</em> that have more than one possible compression method. Recognized constants are:
+Undefined, None, BZip, DXT1, DXT3, DXT5, Fax, Group4, JPEG, JPEG2000, LosslessJPEG, LZW, RLE, Zip, ZipS, Piz, Pxr24, B44, B44A, LZMA, JBIG1, JBIG2</p>
+</dd>
+<dt>overwrite</dt><dd><p>Overwrite already existing files. This option also disables the requirement that output filenames contain a number.</p>
+</dd>
+<dt>alpha</dt><dd><p>A grayscale clip containing the alpha channel for the image to write. Apart from being grayscale, its properties must be identical to the main <em>clip</em>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="imwri.Read">
+<code class="sig-prename descclassname">imwri.</code><code class="sig-name descname">Read</code><span class="sig-paren">(</span><em class="sig-param">string[] filename</em><span class="optional">[</span>, <em class="sig-param">int firstnum=0</em>, <em class="sig-param">bint mismatch=False</em>, <em class="sig-param">bint alpha=False</em>, <em class="sig-param">bint float_output = False</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#imwri.Read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Possible output formats when reading: 8-16 bit integer and 32 bit float</p>
+<p>Note that by default 8-16 bit images are returned as integer and 32 bit images as float. When reading half precision float images you have to manually set <em>float_output</em> to have the unmodified floating point range returned.</p>
+<p>Read is a simple function for reading single or series of images and returning them as a clip.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>filename</dt><dd><p>The filename argument has two main modes. Either it takes a list of 1 or more files to open in the given order, or it takes a single filename string with one or more frame number substitutions. The syntax is printf style. For example “image%06d.png” or “/images/%d.jpg” is common usage.</p>
+</dd>
+<dt>firstnum</dt><dd><p>The first image number to start reading from when reading a sequence.</p>
+</dd>
+<dt>mismatch</dt><dd><p>Allow reading of multiple images with different resolutions. If required and not set, an error will be generated.</p>
+</dd>
+<dt>alpha</dt><dd><p>Return the alpha channel from the read images as a separate grayscale clip. Note that an alpha channel clip is always returned when this parameter is set, even for image formats without support for it.</p>
+</dd>
+<dt>float_output</dt><dd><p>Always return the read image in a float format. Due to the output format guessing this option can be useful when reading half precision float images.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugins and Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pythonreference.html">Python Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../avfs.html">AVFS (AV FileSystem)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications.html">Applications and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../avisynthcomp.html">Avisynth functions and their VapourSynth equivalents</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../includedplugins.html">Included Plugins</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="avisource.html">AVISource</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eedi3.html">EEDI3</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ImageMagick Writer-Reader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html">Miscellaneous Filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="morpho.html">Morpho</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ocr.html">OCR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rgvs.html">RGVS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subtext.html">Subtext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vinverse.html">Vinverse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vivtc.html">VIVTC</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Function Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vspipe.html">VSPipe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../apireference.html">VapourSynth C API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="eedi3.html" title="EEDI3"
+              >previous</a> |
+            <a href="misc.html" title="Miscellaneous Filters"
+              >next</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="../_sources/plugins/imwri.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2012-2020, Fredrik Mellbin.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
