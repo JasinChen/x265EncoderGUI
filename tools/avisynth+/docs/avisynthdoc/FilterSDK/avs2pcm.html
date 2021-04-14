@@ -1,0 +1,583 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>avs2pcm &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="avs2yuv" href="avs2yuv.html" />
+    <link rel="prev" title="WorkingWithPlanarImages" href="WorkingWithPlanarImages.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="avs2yuv.html" title="avs2yuv"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="WorkingWithPlanarImages.html" title="WorkingWithPlanarImages"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">avs2pcm</a><ul>
+<li><a class="reference internal" href="#line-by-line-breakdown">Line by line breakdown</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="WorkingWithPlanarImages.html"
+                        title="previous chapter">WorkingWithPlanarImages</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="avs2yuv.html"
+                        title="next chapter">avs2yuv</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/FilterSDK/avs2pcm.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="avs2pcm">
+<h1>avs2pcm<a class="headerlink" href="#avs2pcm" title="Permalink to this headline">¶</a></h1>
+<p>avs2pcm reads a script and outputs raw audio (<a class="reference external" href="http://wiki.multimedia.cx/index.php?title=PCM">lpcm</a>, that is lineair
+pcm). The byte order will be little endian, the sign (signed or
+unsiged) will depend on the bith depth and the channels will be
+interleaved.</p>
+<p>Here’s avs2pcm.cpp:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#include &lt;stdio.h&gt;
+#include &lt;Windows.h&gt;
+#include &quot;avisynth.h&quot;
+
+#define MY_VERSION &quot;Avs2PCM 0.01&quot;
+
+const AVS_Linkage *AVS_linkage = 0;
+
+int __cdecl main(int argc, const char* argv[])
+{
+    const char* infile = NULL;
+    const char* outfile = NULL;
+    FILE* out_fh;
+
+    if (!strcmp(argv[1], &quot;-h&quot;)) {
+        fprintf(stderr, MY_VERSION &quot;\n&quot;
+        &quot;Usage: avs2pcm in.avs out.pcm\n&quot;);
+        return 2;
+    } else {
+        infile = argv[1];
+        outfile = argv[2];
+    }
+
+    try {
+        char* sample_type;
+        typedef IScriptEnvironment* (__stdcall *DLLFUNC)(int);
+        IScriptEnvironment* env;
+        HMODULE avsdll = LoadLibrary(&quot;avisynth.dll&quot;);
+        if (!avsdll) {
+            fprintf(stderr, &quot;failed to load avisynth.dll\n&quot;);
+            return 2;
+        }
+
+        DLLFUNC CreateEnv = (DLLFUNC)GetProcAddress(avsdll, &quot;CreateScriptEnvironment&quot;);
+        if (!CreateEnv) {
+            fprintf(stderr, &quot;failed to load CreateScriptEnvironment()\n&quot;);
+            FreeLibrary(avsdll);
+            return 1;
+        }
+
+        env = CreateEnv(AVISYNTH_INTERFACE_VERSION);
+        AVS_linkage = env-&gt;GetAVSLinkage();
+        AVSValue arg(infile);
+        AVSValue res = env-&gt;Invoke(&quot;Import&quot;, AVSValue(&amp;arg, 1));
+        if (!res.IsClip()) {
+            fprintf(stderr, &quot;Error: &#39;%s&#39; didn&#39;t return a video clip.\n&quot;, infile);
+            FreeLibrary(avsdll);
+            return 1;
+        }
+
+        PClip clip = res.AsClip();
+
+        if (clip-&gt;GetVersion() &lt; 5) {
+            fprintf(stderr, &quot;Error: too old version (&#39;%d&#39;) of avisynth.dll loaded.\nplease install v2.60 or later.\n&quot;,
+                clip-&gt;GetVersion());
+            return 1;
+        }
+
+        VideoInfo vi = clip-&gt;GetVideoInfo();
+
+        if (!vi.HasAudio()) {
+            fprintf(stderr, &quot;Error: &#39;%s&#39; video only clip.\n&quot;, infile);
+            FreeLibrary(avsdll);
+            return 1;
+        }
+
+        fprintf(stderr, &quot; %s:\n&quot;, infile);
+        fprintf(stderr, &quot; %d Herz,\n&quot;, vi.audio_samples_per_second);
+        fprintf(stderr, &quot; %d channels,\n&quot;, vi.nchannels);
+        fprintf(stderr, &quot; %I64d audio samples,\n&quot;, vi.num_audio_samples);
+
+        switch(vi.SampleType()) {
+        case SAMPLE_INT8 : sample_type = &quot;8 bit&quot;;
+            break;
+        case SAMPLE_INT16 : sample_type = &quot;16 bit&quot;;
+            break;
+        case SAMPLE_INT24 : sample_type = &quot;24 bit&quot;;
+            break;
+        case SAMPLE_INT32 :
+        case SAMPLE_FLOAT : sample_type = &quot;32 bit&quot;;
+            break;
+        default: sample_type = &quot;unknown sample type&quot;;
+            break;
+        }
+
+        fprintf(stderr, &quot; %s&quot;, sample_type);
+
+        out_fh = fopen(outfile, &quot;wb&quot;);
+        if (!out_fh) {
+            fprintf(stderr, &quot;fopen(\&quot;%s\&quot;) failed&quot;, outfile);
+            FreeLibrary(avsdll);
+            return 1;
+        }
+
+        const __int64 start = 0;
+        const __int64 count = vi.num_audio_samples;
+        const int channels = vi.AudioChannels();
+        __int64 bytes = vi.BytesFromAudioSamples(count);
+        int BlockAlign = vi.AudioChannels() * vi.BytesPerAudioSample();
+
+        unsigned char* samples = new unsigned char[BlockAlign*count];
+        clip-&gt;GetAudio(samples, start, count, env);
+        fwrite(samples, bytes, 1, out_fh);
+
+        delete[] samples;
+        env-&gt;DeleteScriptEnvironment();
+        FreeLibrary(avsdll);
+        AVS_linkage = 0;
+
+    } catch(AvisynthError err) {
+        fprintf(stderr, &quot;\nAvisynth error:\n%s\n&quot;, err.msg);
+        return 1;
+    }
+
+    fclose(out_fh);
+    return 0;
+}
+</pre></div>
+</div>
+<p>Compile this file into an EXE named avs2pcm.exe. See
+<a class="reference internal" href="CompilingAvisynthPlugins.html"><span class="doc">compiling instructions</span></a>. Now open the
+command line and go to the folder where avs2pcm.exe and your script
+(called example.avs here) are located. Our script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Tone</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">samplerate</span><span class="o">=</span><span class="mi">48000</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;square&quot;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span> <span class="c1"># float</span>
+<span class="n">ConvertAudioTo16Bit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Type the following on the command line (the name of the output clip can
+be arbitrary in our application):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">avs2pcm</span><span class="o">.</span><span class="n">exe</span> <span class="n">example</span><span class="o">.</span><span class="n">avs</span> <span class="n">output</span><span class="o">.</span><span class="n">pcm</span>
+</pre></div>
+</div>
+<p>So the output file will contain 48000 samples of 16-bit data (at 48
+kHz, one channel). You can import it in AviSynth using the plugin
+NicAudio:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">Blankclip</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">RaWavSource</span><span class="p">(</span><span class="s2">&quot;D:\AviSynth\Plugins</span><span class="se">\a</span><span class="s2">vs2pcm\output.pcm&quot;</span><span class="p">,</span> <span class="mi">48000</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># little-endian</span>
+<span class="n">Audiodub</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">ConvertAudioTo16Bit</span><span class="p">()</span><span class="o">.</span><span class="n">GetChannels</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Audiograph doesn&#39;t support 24/32bit nor multichannel</span>
+<span class="n">Audiograph</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="line-by-line-breakdown">
+<h2>Line by line breakdown<a class="headerlink" href="#line-by-line-breakdown" title="Permalink to this headline">¶</a></h2>
+<p>Here’s a line-by-line breakdown of avs2pcm.cpp:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#include &lt;stdio.h&gt;
+#include &lt;Windows.h&gt;
+#include &quot;avisynth.h&quot;
+
+#define MY_VERSION &quot;Avs2PCM 0.01&quot;
+
+const AVS_Linkage *AVS_linkage = 0;
+
+int __cdecl main(int argc, const char* argv[])
+{
+    const char* infile = NULL;
+    const char* outfile = NULL;
+    FILE* out_fh;
+
+    if (!strcmp(argv[1], &quot;-h&quot;)) {
+        fprintf(stderr, MY_VERSION &quot;\n&quot;
+        &quot;Usage: avs2pcm in.avs out.pcm\n&quot;);
+        return 2;
+    } else {
+        infile = argv[1];
+        outfile = argv[2];
+    }
+
+    try {
+        char* sample_type;
+        typedef IScriptEnvironment* (__stdcall *DLLFUNC)(int);
+        IScriptEnvironment* env;
+        HMODULE avsdll = LoadLibrary(&quot;avisynth.dll&quot;);
+        if (!avsdll) {
+            fprintf(stderr, &quot;failed to load avisynth.dll\n&quot;);
+            return 2;
+        }
+
+        DLLFUNC CreateEnv = (DLLFUNC)GetProcAddress(avsdll, &quot;CreateScriptEnvironment&quot;);
+        if (!CreateEnv) {
+            fprintf(stderr, &quot;failed to load CreateScriptEnvironment()\n&quot;);
+            FreeLibrary(avsdll);
+            return 1;
+        }
+
+        env = CreateEnv(AVISYNTH_INTERFACE_VERSION);
+        AVS_linkage = env-&gt;GetAVSLinkage();
+        AVSValue arg(infile);
+        AVSValue res = env-&gt;Invoke(&quot;Import&quot;, AVSValue(&amp;arg, 1));
+        if (!res.IsClip()) {
+            fprintf(stderr, &quot;Error: &#39;%s&#39; didn&#39;t return a clip.\n&quot;, infile);
+            FreeLibrary(avsdll);
+            return 1;
+        }
+
+        PClip clip = res.AsClip();
+
+        if (clip-&gt;GetVersion() &lt; 5) {
+            fprintf(stderr, &quot;Error: too old version (&#39;%d&#39;) of avisynth.dll loaded.\nplease install v2.60 or later.\n&quot;,
+                clip-&gt;GetVersion());
+            return 1;
+        }
+
+        VideoInfo vi = clip-&gt;GetVideoInfo();
+</pre></div>
+</div>
+<p>The lines above are explained in <a class="reference internal" href="avs2yuv.html"><span class="doc">avs2yuv</span></a>, so they won’t be repeated
+here.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>if (!vi.HasAudio()) {
+    fprintf(stderr, &quot;Error: &#39;%s&#39; video only clip.\n&quot;, infile);
+    FreeLibrary(avsdll);
+    return 1;
+}
+</pre></div>
+</div>
+<p>Returns an error if the clip doesn’t contain audio.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s2">&quot; </span><span class="si">%s</span><span class="s2">:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">infile</span><span class="p">);</span>
+<span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s2">&quot; </span><span class="si">%d</span><span class="s2"> Herz,</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">vi</span><span class="o">.</span><span class="n">audio_samples_per_second</span><span class="p">);</span>
+<span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s2">&quot; </span><span class="si">%d</span><span class="s2"> channels,</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">vi</span><span class="o">.</span><span class="n">nchannels</span><span class="p">);</span>
+<span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s2">&quot; %I64d audio samples,</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">vi</span><span class="o">.</span><span class="n">num_audio_samples</span><span class="p">);</span>
+
+<span class="n">switch</span><span class="p">(</span><span class="n">vi</span><span class="o">.</span><span class="n">SampleType</span><span class="p">())</span> <span class="p">{</span>
+<span class="n">case</span> <span class="n">SAMPLE_INT8</span> <span class="p">:</span> <span class="n">sample_type</span> <span class="o">=</span> <span class="s2">&quot;8 bit&quot;</span><span class="p">;</span>
+    <span class="k">break</span><span class="p">;</span>
+<span class="n">case</span> <span class="n">SAMPLE_INT16</span> <span class="p">:</span> <span class="n">sample_type</span> <span class="o">=</span> <span class="s2">&quot;16 bit&quot;</span><span class="p">;</span>
+    <span class="k">break</span><span class="p">;</span>
+<span class="n">case</span> <span class="n">SAMPLE_INT24</span> <span class="p">:</span> <span class="n">sample_type</span> <span class="o">=</span> <span class="s2">&quot;24 bit&quot;</span><span class="p">;</span>
+    <span class="k">break</span><span class="p">;</span>
+<span class="n">case</span> <span class="n">SAMPLE_INT32</span> <span class="p">:</span>
+<span class="n">case</span> <span class="n">SAMPLE_FLOAT</span> <span class="p">:</span> <span class="n">sample_type</span> <span class="o">=</span> <span class="s2">&quot;32 bit&quot;</span><span class="p">;</span>
+    <span class="k">break</span><span class="p">;</span>
+<span class="n">default</span><span class="p">:</span> <span class="n">sample_type</span> <span class="o">=</span> <span class="s2">&quot;unknown sample type&quot;</span><span class="p">;</span>
+    <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s2">&quot; </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">sample_type</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Some information about the clip is written to the console.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">out_fh</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Creates an empty binary file and opens it for writing. It returns a
+file pointer called ‘out_fh’ here. Nb, ‘wb’ means write mode and
+binary.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>if (!out_fh) {
+    fprintf(stderr, &quot;fopen(\&quot;%s\&quot;) failed&quot;, outfile);
+    FreeLibrary(avsdll);
+    return 1;
+}
+</pre></div>
+</div>
+<p>When failing (thus when out_fh is NULL) an error is written to the
+console.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="n">__int64</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">const</span> <span class="n">__int64</span> <span class="n">count</span> <span class="o">=</span> <span class="n">vi</span><span class="o">.</span><span class="n">num_audio_samples</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This gives the number of audio samples in our stream.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="nb">int</span> <span class="n">channels</span> <span class="o">=</span> <span class="n">vi</span><span class="o">.</span><span class="n">AudioChannels</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>This gives the number of audio channels of our stream.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">__int64</span> <span class="nb">bytes</span> <span class="o">=</span> <span class="n">vi</span><span class="o">.</span><span class="n">BytesFromAudioSamples</span><span class="p">(</span><span class="n">count</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>We will use <a class="reference external" href="http://www.cplusplus.com/reference/cstdio/fwrite/">fwrite</a> to write ‘count’ audio samples to a file. So we
+will need to know the corresponding number of bytes which needs to be
+written. <a class="reference internal" href="VideoInfo.html"><span class="doc">BytesFromAudioSamples</span></a> gives the number of bytes and it is
+calculated internally as follows:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="41%" />
+<col width="36%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">function</th>
+<th class="head">value</th>
+<th class="head">size</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>BytesPerChannelSample()</td>
+<td><div class="first line-block">
+<div class="line">= sizeof(unsigned char)</div>
+<div class="line">= sizeof(signed short)</div>
+</div>
+<div class="last line-block">
+<div class="line">= sizeof(signed int)</div>
+<div class="line">= sizeof(SFLOAT)</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">= 1 byte [for 8 bitaudio],</div>
+<div class="line">= 2 bytes [for 16 bit audio],</div>
+<div class="line">= 3 bytes [for 24 bit audio],</div>
+<div class="line">= 4 bytes [for 32 bit audio],</div>
+<div class="line">= 4 bytes [for float audio;
+this is also 32 bit audio]</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>BytesPerAudioSample()</td>
+<td>AudioChannels() * BytesPerChannelSample()</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>BytesFromAudioSamples()</td>
+<td>num_audio_samples * BytesPerAudioSample()</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">BlockAlign</span> <span class="o">=</span> <span class="n">vi</span><span class="o">.</span><span class="n">BytesPerAudioSample</span><span class="p">();</span>
+<span class="n">unsigned</span> <span class="n">char</span><span class="o">*</span> <span class="n">samples</span> <span class="o">=</span> <span class="n">new</span> <span class="n">unsigned</span> <span class="n">char</span><span class="p">[</span><span class="n">BlockAlign</span><span class="o">*</span><span class="n">count</span><span class="p">];</span>
+<span class="n">clip</span><span class="o">-&gt;</span><span class="n">GetAudio</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+<span class="n">fwrite</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">out_fh</span><span class="p">);</span>
+<span class="n">delete</span><span class="p">[]</span> <span class="n">samples</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>There are a few ways to write audio to a file. The simpliest one is the
+one above. Let’s look at what happens with our data with an example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Tone</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">samplerate</span><span class="o">=</span><span class="mi">48000</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;square&quot;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span> <span class="c1"># float</span>
+<span class="n">ConvertAudioTox</span><span class="p">()</span> <span class="o">//</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">8</span><span class="n">Bit</span><span class="p">,</span> <span class="mi">16</span><span class="n">Bit</span><span class="p">,</span> <span class="mi">24</span><span class="n">Bit</span><span class="p">,</span> <span class="mi">32</span><span class="n">Bit</span> <span class="ow">and</span> <span class="n">Float</span>
+</pre></div>
+</div>
+<p>The samples are always written to the pcm file as <a class="reference external" href="http://en.wikipedia.org/wiki/Endianness">little endian</a>. So
+this means the bytes are written in reversed order (thus the least
+significant byte first and the most significant byte last).</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="56%" />
+<col width="17%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">type (x)</th>
+<th class="head">value of samples</th>
+<th class="head">bytes written in file</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>8Bit (samples between 0 and 2^8-1)</td>
+<td><div class="first last line-block">
+<div class="line">s[0] = 255;</div>
+<div class="line">s[count-1] = 0</div>
+</div>
+</td>
+<td>FF .. 00 ..</td>
+</tr>
+<tr class="row-odd"><td>16Bit (samples between -2^15 and 2^15-1)</td>
+<td><div class="first last line-block">
+<div class="line">s[1]*256+s[0] = 127*256+255 = 32767;</div>
+<div class="line">s[count-1]*256+s[count-2] = 128*256+0 = 32768 (= -32768)</div>
+</div>
+</td>
+<td>FF 7F .. 00 80 ..</td>
+</tr>
+<tr class="row-even"><td>24Bit (samples between -2^23 and 2^23-1)</td>
+<td><div class="first last line-block">
+<div class="line">s[2]*16^4+s[1]*16^2+s[0] = 8388607;</div>
+<div class="line">s[count-1]*16^4+s[count-2]*16^2+s[count-3] = 8388608 (= -8388608)</div>
+</div>
+</td>
+<td>FF FF 7F .. 00 00 80 ..</td>
+</tr>
+<tr class="row-odd"><td>32Bit (samples between -2^31 and 2^31-1)</td>
+<td><div class="first last line-block">
+<div class="line">s[3]*16^6+s[2]*16^4+s[1]*16^2+s[0] = 2147483647;</div>
+<div class="line">s[count-1]*16^6+s[count-2]*16^4+s[count-3]*16^2+s[count-4] = 2147483648 (= -2147483648)</div>
+</div>
+</td>
+<td>FF FF FF 7F .. 00 00 00 80 ..</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="http://avisynth.nl/index.php/Float">Float</a> (samples between -1.00000 and 1.000000)</td>
+<td><div class="first last line-block">
+<div class="line">s[3]*16^6+s[2]*16^4+s[1]*16^2+s[0] = 63*16^6+128*16^4+0*16^2+0 = 106535321;</div>
+<div class="line">s[count-1]*16^6+s[count-2]*16^4+s[count-3]*16^2+s[count-4] = 191*16^6+128*16^4+0*16^2+0 = 3212836864</div>
+</div>
+</td>
+<td>00 00 80 3F .. 00 00 80 BF ..</td>
+</tr>
+</tbody>
+</table>
+<p>Above the samples are declared as unsigned char (regardless of the
+number of bits in a sample), but they are filled by GetAudio as
+explained above. Thus an audio sample is stored in multiple samples
+(each sample having the size of a byte). This is the simpliest and
+cleanest way to do, but you could also have done the following instead:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">int</span> <span class="n">BlockAlign</span> <span class="o">=</span> <span class="n">vi</span><span class="o">.</span><span class="n">BytesPerAudioSample</span><span class="p">();</span>
+
+<span class="n">switch</span> <span class="p">(</span><span class="n">vi</span><span class="o">.</span><span class="n">SampleType</span><span class="p">())</span> <span class="p">{</span>
+<span class="n">case</span> <span class="n">SAMPLE_INT8</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="n">unsigned</span> <span class="n">char</span><span class="o">*</span> <span class="n">samples</span> <span class="o">=</span> <span class="n">new</span> <span class="n">unsigned</span> <span class="n">char</span><span class="p">[</span><span class="n">BlockAlign</span><span class="o">*</span><span class="n">count</span><span class="p">];</span>
+    <span class="n">clip</span><span class="o">-&gt;</span><span class="n">GetAudio</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+    <span class="n">fwrite</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">out_fh</span><span class="p">);</span>
+    <span class="n">delete</span><span class="p">[]</span> <span class="n">samples</span><span class="p">;</span>
+    <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="n">case</span> <span class="n">SAMPLE_INT16</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="n">signed</span> <span class="n">short</span><span class="o">*</span> <span class="n">samples</span> <span class="o">=</span> <span class="n">new</span> <span class="n">signed</span> <span class="n">short</span><span class="p">[</span><span class="n">channels</span><span class="o">*</span><span class="n">count</span><span class="p">];</span>
+    <span class="n">clip</span><span class="o">-&gt;</span><span class="n">GetAudio</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+    <span class="n">fwrite</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">out_fh</span><span class="p">);</span>
+    <span class="n">delete</span><span class="p">[]</span> <span class="n">samples</span><span class="p">;</span>
+    <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="n">case</span> <span class="n">SAMPLE_INT24</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="n">unsigned</span> <span class="n">char</span><span class="o">*</span> <span class="n">samples</span> <span class="o">=</span> <span class="n">new</span> <span class="n">unsigned</span> <span class="n">char</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="n">channels</span><span class="o">*</span><span class="n">count</span><span class="p">];</span>
+    <span class="n">clip</span><span class="o">-&gt;</span><span class="n">GetAudio</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+    <span class="n">fwrite</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">out_fh</span><span class="p">);</span>
+    <span class="n">delete</span><span class="p">[]</span> <span class="n">samples</span><span class="p">;</span>
+    <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="n">case</span> <span class="n">SAMPLE_INT32</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="n">signed</span> <span class="nb">int</span><span class="o">*</span> <span class="n">samples</span> <span class="o">=</span> <span class="n">new</span> <span class="n">signed</span> <span class="nb">int</span><span class="p">[</span><span class="n">channels</span><span class="o">*</span><span class="n">count</span><span class="p">];</span>
+    <span class="n">clip</span><span class="o">-&gt;</span><span class="n">GetAudio</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+    <span class="n">fwrite</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">out_fh</span><span class="p">);</span>
+    <span class="n">delete</span><span class="p">[]</span> <span class="n">samples</span><span class="p">;</span>
+    <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="n">case</span> <span class="n">SAMPLE_FLOAT</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="n">SFLOAT</span><span class="o">*</span> <span class="n">samples</span> <span class="o">=</span> <span class="n">new</span> <span class="n">SFLOAT</span><span class="p">[</span><span class="n">channels</span><span class="o">*</span><span class="n">count</span><span class="p">];</span>
+    <span class="n">clip</span><span class="o">-&gt;</span><span class="n">GetAudio</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">env</span><span class="p">);</span>
+    <span class="n">fwrite</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">out_fh</span><span class="p">);</span>
+    <span class="n">delete</span><span class="p">[]</span> <span class="n">samples</span><span class="p">;</span>
+    <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Here an audio sample is stored in one sample (having the size of a
+multiple bytes), but fwrite will write the same bytes to the file as
+earlier.</p>
+<p>At first glance it seems possible to simplify the code above by moving
+the lines “clip .. delete[] samples” outside the switch statement, but
+that’s not possible. The reason is that each code-block corresponding
+to a label has its own scope. So the variable samples doesn’t exist
+outside the switch statement and can’t be used there for further
+processing. See <a class="reference external" href="http://stackoverflow.com/questions/92396/why-cant-variables-be-declared-in-a-switch-statement">here</a> for more information.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">env</span><span class="o">-&gt;</span><span class="n">DeleteScriptEnvironment</span><span class="p">();</span>
+    <span class="n">FreeLibrary</span><span class="p">(</span><span class="n">avsdll</span><span class="p">);</span>
+    <span class="n">AVS_linkage</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="p">}</span> <span class="n">catch</span><span class="p">(</span><span class="n">AvisynthError</span> <span class="n">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Avisynth error:</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">err</span><span class="o">.</span><span class="n">msg</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">fclose</span><span class="p">(</span><span class="n">out_fh</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The remaining lines above are explained in <a class="reference internal" href="avs2yuv.html"><span class="doc">avs2yuv</span></a>, so they won’t be
+repeated here.</p>
+<hr class="docutils" />
+<p>Back to <a class="reference internal" href="FilterSDK.html"><span class="doc">AviSynth FilterSDK</span></a></p>
+<p>$Date: 2014/10/27 22:04:54 $</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="avs2yuv.html" title="avs2yuv"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="WorkingWithPlanarImages.html" title="WorkingWithPlanarImages"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

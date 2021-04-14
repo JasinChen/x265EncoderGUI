@@ -1,0 +1,133 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>EnvSaveString &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="General Purpose To MMX Registers" href="GeneralPurposeToMMXRegisters.html" />
+    <link rel="prev" title="EnvInvoke" href="EnvInvoke.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="GeneralPurposeToMMXRegisters.html" title="General Purpose To MMX Registers"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="EnvInvoke.html" title="EnvInvoke"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="EnvInvoke.html"
+                        title="previous chapter">EnvInvoke</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="GeneralPurposeToMMXRegisters.html"
+                        title="next chapter">General Purpose To MMX Registers</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/FilterSDK/EnvSaveString.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="envsavestring">
+<h1>EnvSaveString<a class="headerlink" href="#envsavestring" title="Permalink to this headline">¶</a></h1>
+<p><strong>env-&gt;SaveString</strong> is given to allow users to pass strings to AVSValue, and
+ensure that they are being deallocated on unload.</p>
+<p>An Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fnpluginnew</span> <span class="o">=</span> <span class="n">new</span> <span class="n">char</span><span class="p">[</span><span class="n">string_len</span><span class="p">];</span>
+<span class="n">strcpy</span><span class="p">(</span><span class="n">fnpluginnew</span><span class="p">,</span> <span class="n">fnplugin</span><span class="o">.</span><span class="n">AsString</span><span class="p">());</span>
+<span class="n">strcat</span><span class="p">(</span><span class="n">fnpluginnew</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">);</span>
+<span class="n">strcat</span><span class="p">(</span><span class="n">fnpluginnew</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
+
+<span class="n">env</span><span class="o">-&gt;</span><span class="n">SetGlobalVar</span><span class="p">(</span><span class="s2">&quot;$PluginFunctions$&quot;</span><span class="p">,</span> <span class="n">AVSValue</span><span class="p">(</span><span class="n">env</span><span class="o">-&gt;</span><span class="n">SaveString</span><span class="p">(</span><span class="n">fnpluginnew</span><span class="p">,</span> <span class="n">string_len</span><span class="p">)));</span>
+
+<span class="o">//</span> <span class="n">Since</span> <span class="n">fnpluginnew</span> <span class="n">has</span> <span class="n">now</span> <span class="n">been</span> <span class="n">saved</span> <span class="n">it</span> <span class="n">can</span> <span class="n">safely</span> <span class="n">be</span> <span class="n">deleted</span><span class="o">.</span>
+<span class="n">delete</span><span class="p">[]</span> <span class="n">fnpluginnew</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>But you must still remember that these strings are not deallocated until the
+filter is unloaded.</p>
+<p>So in general if you don’t want your filter to be allocating more memory on
+each load, try avoiding using non-const strings.</p>
+<hr class="docutils" />
+<p>Back to <a class="reference internal" href="FilterSDK.html"><span class="doc">AviSynth FilterSDK</span></a></p>
+<p>$Date: 2006/11/24 18:21:26 $</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="GeneralPurposeToMMXRegisters.html" title="General Purpose To MMX Registers"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="EnvInvoke.html" title="EnvInvoke"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

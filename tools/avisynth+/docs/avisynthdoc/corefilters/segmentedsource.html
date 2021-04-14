@@ -1,0 +1,151 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>SegmentedAVISource / SegmentedDirectShowSource &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="SelectEven / SelectOdd" href="select.html" />
+    <link rel="prev" title="Reverse" href="reverse.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="select.html" title="SelectEven / SelectOdd"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="reverse.html" title="Reverse"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="reverse.html"
+                        title="previous chapter">Reverse</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="select.html"
+                        title="next chapter">SelectEven / SelectOdd</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/corefilters/segmentedsource.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="segmentedavisource-segmenteddirectshowsource">
+<h1>SegmentedAVISource / SegmentedDirectShowSource<a class="headerlink" href="#segmentedavisource-segmenteddirectshowsource" title="Permalink to this headline">¶</a></h1>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">SegmentedAVISource</span></code> (string base_filename [, …], bool “audio”, string
+“pixel_type”)</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">SegmentedDirectShowSource</span></code> (string base_filename [, …], float “fps”,
+bool “seek”, bool “audio”, bool “video”, bool “convertfps”, bool “seekzero”,
+int “timeout”, string “pixel_type”)</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">SegmentedAVISource</span></code> filter automatically loads up to 100 avi files per
+argument (using <a class="reference internal" href="avisource.html"><span class="doc">AVISource</span></a>) and splices them together (using
+<a class="reference internal" href="splice.html"><span class="doc">UnalignedSplice</span></a>). If <code class="docutils literal notranslate"><span class="pre">&quot;d:\filename.ext&quot;</span></code> is passed as an argument, the
+files <code class="docutils literal notranslate"><span class="pre">d:\filename.00.ext</span></code>, <code class="docutils literal notranslate"><span class="pre">d:\filename.01.ext</span></code> and so on through
+<code class="docutils literal notranslate"><span class="pre">d:\filename.99.ext</span></code> will be loaded. Any files in this sequence that don’t
+exist will be skipped.</p>
+<p>If segments are spanned across multiple drives/folders, they can be loaded
+provided the folders are sorted in the correct order. For example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># D:\t1 contains cap.01.avi</span>
+<span class="n">D</span><span class="p">:</span>\<span class="n">t1</span>\<span class="n">cap</span><span class="o">.</span><span class="mf">01.</span><span class="n">avi</span>
+
+<span class="c1"># D:\t2 contains cap.02.avi - cap.03.avi</span>
+<span class="n">D</span><span class="p">:</span>\<span class="n">t2</span>\<span class="n">cap</span><span class="o">.</span><span class="mf">02.</span><span class="n">avi</span>
+<span class="n">D</span><span class="p">:</span>\<span class="n">t2</span>\<span class="n">cap</span><span class="o">.</span><span class="mf">03.</span><span class="n">avi</span>
+
+<span class="c1"># F:\t3 contains cap.04.avi - cap.05.avi</span>
+<span class="n">F</span><span class="p">:</span>\<span class="n">t3</span>\<span class="n">cap</span><span class="o">.</span><span class="mf">04.</span><span class="n">avi</span>
+<span class="n">F</span><span class="p">:</span>\<span class="n">t3</span>\<span class="n">cap</span><span class="o">.</span><span class="mf">05.</span><span class="n">avi</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># load all segments</span>
+<span class="n">SegmentedAVISource</span><span class="p">(</span><span class="s2">&quot;D:</span><span class="se">\t</span><span class="s2">1\cap.avi&quot;</span><span class="p">,</span> <span class="s2">&quot;D:</span><span class="se">\t</span><span class="s2">2\cap.avi&quot;</span><span class="p">,</span> <span class="s2">&quot;F:</span><span class="se">\t</span><span class="s2">3\cap.avi&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">SegmentedDirectShowSource</span></code> works the same way. Its arguments are described
+in <a class="reference internal" href="directshowsource.html"><span class="doc">DirectShowSource</span></a>.</p>
+<p>From <em>v2.04</em> up there is built-in support for ACM (Audio Compression Manager)
+audio (e.g. mp3-AVIs).</p>
+<p>If you get an Unrecognized Exception in AviSynth 2.5 while reading a
+segmented avi generated by a VirtualDub capture, delete the small final .avi
+file.</p>
+<p>$Date: 2008/02/10 13:57:17 $</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="select.html" title="SelectEven / SelectOdd"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="reverse.html" title="Reverse"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

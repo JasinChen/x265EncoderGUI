@@ -1,0 +1,255 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AviSynth Syntax &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="AviSynth Runtime environment" href="syntax_runtime_environment.html" />
+    <link rel="prev" title="AviSynth Syntax - Plugins" href="syntax_plugins.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="syntax_runtime_environment.html" title="AviSynth Runtime environment"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="syntax_plugins.html" title="AviSynth Syntax - Plugins"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="syntax_plugins.html"
+                        title="previous chapter">AviSynth Syntax - Plugins</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="syntax_runtime_environment.html"
+                        title="next chapter">AviSynth Runtime environment</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/syntax/syntax_ref.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="avisynth-syntax">
+<h1>AviSynth Syntax<a class="headerlink" href="#avisynth-syntax" title="Permalink to this headline">¶</a></h1>
+<p>All basic AviSynth scripting statements have one of these forms:</p>
+<ol class="arabic simple">
+<li><em>variable_name</em> = <em>expression</em></li>
+<li><em>expression</em></li>
+<li><strong>return</strong> <em>expression</em></li>
+</ol>
+<p>(Two higher-level constructs also exist - the <a class="reference internal" href="syntax_userdefined_scriptfunctions.html"><span class="doc">function declaration</span></a> and the
+<a class="reference internal" href="syntax_control_structures.html"><span class="doc">try..catch statement</span></a>.)</p>
+<p>In the first case, <em>expression</em> is evaluated and the result is assigned to
+<em>variable_name</em>. In the second case, <em>expression</em> is evaluated and the
+result, if a clip, is assigned to the special variable <strong>last</strong>. In the third
+case, <em>expression</em> is evaluated and is used as the “return value” of the
+active script block–that is either a function or the entire script. In the
+latter case, the return value is typically the video clip that will be seen
+by the application which opens the AVS file. As a shorthand, a bare
+expression as the final statement in a script (or script block) is treated as
+if the keyword <strong>return</strong> was present.</p>
+<p>Most of the time the result of an expression will be a video clip; however an
+expression’s result can be of any type supported by the scripting language
+(clip, int, float, bool, string) and this is how utility functions such as
+<a class="reference internal" href="syntax_internal_functions.html"><span class="doc">internal script functions</span></a> operate.</p>
+<p>An <em>expression</em> can have one of these forms:</p>
+<ol class="arabic simple">
+<li><em>numeric_constant</em>, <em>string_constant</em> or <em>boolean_constant</em></li>
+<li><em>variable_name</em> or <em>clip_property</em></li>
+<li><em>Function*(*args</em>)</li>
+<li><em>expression</em>.*Function*(<em>args</em>)</li>
+<li><em>expression1</em> <strong>operator</strong> <em>expression2</em></li>
+<li><em>bool_expression</em> ? <em>expression1</em> : <em>expression2</em></li>
+</ol>
+<p>In the first case, the value of the <em>expression</em> is the value of the
+constant. In the second case, the values correspond to <a class="reference internal" href="syntax_clip_properties.html"><span class="doc">clip properties</span></a> or
+<a class="reference internal" href="syntax_script_variables.html"><span class="doc">script variables</span></a> (which must have been previously initialized). In the
+third case, the value is the return value of an AVS function (see below). The
+fourth case is an alternate syntax (called “OOP notation”) which is
+equivalent to <em>Function*(*expression</em>, <em>args</em>).</p>
+<p>The final two cases show that one can manipulate expressions using all of the
+usual arithmetic and logical <a class="reference internal" href="syntax_operators.html"><span class="doc">operators</span></a> (from C) as you’d expect on ints,
+floats and bools, as well as execute code conditionally with the ternary
+operator. Strings can be compared with relational operators and concatenated
+with ‘+’. The following operators are also defined on video clips: <strong>a + b</strong>
+is equivalent to <a class="reference internal" href="../corefilters/splice.html"><span class="doc">UnalignedSplice</span></a> (<em>a</em>, <em>b</em>), and <strong>a ++ b</strong> is equivalent
+to <a class="reference internal" href="../corefilters/splice.html"><span class="doc">AlignedSplice</span></a> (<em>a</em>, <em>b</em>).</p>
+<p>The functions in AviSynth’s scripting language are, by and large, video
+filters. Although a function can return any type it chooses (this is a useful
+feature for creating utility code to reuse in scripts; you can define your
+own <a class="reference internal" href="syntax_userdefined_scriptfunctions.html"><span class="doc">script functions</span></a>) functions which do <strong>not</strong> return a <strong>clip</strong> are
+always limited to intermediate processing of variables to pass as arguments
+to filters (functions that <em>do</em> return a clip). The script should always
+return a clip as its final value. After all, AviSynth is a video processing
+application.</p>
+<p>Functions can take up to sixty arguments (hope that’s enough), and the return
+value can be of any type supported by the scripting language (clip, int,
+float, bool, string). Functions always produce a new value and never modify
+an existing one. What that means is that all arguments to a function are
+passed “by value” and not “by reference”; in order to alter a variable’s
+value in AviSynth script language you must assign to it a new value.</p>
+<p>To see the syntax of the function call for each built-in filter, view the
+<a class="reference internal" href="../corefilters.html"><span class="doc">internal filters:</span></a>. There are also built-in <a class="reference internal" href="syntax_internal_functions.html"><span class="doc">internal functions</span></a> that
+perform common operations on non-clip variables.</p>
+<p><em>Args</em> is a list of function arguments separated by commas. The list can be
+empty. Each argument must be an expression whose type (eg text string,
+integer, floating-point number, boolean value or video clip) matches the one
+expected by the function. If the function expects a video clip as its first
+argument, and that argument is not supplied, then the clip in the special
+variable <em>last</em> will be used.</p>
+<p>AviSynth functions can take named arguments. The named arguments can be
+specified in any order, and the filter will choose default values for any
+that you leave off. This makes certain filters much easier to use. For
+example, you can now write</p>
+<p><strong>Subtitle(“Hello, World!”, text_color=$00FF00, x=100, y=200)</strong></p>
+<p>instead of</p>
+<p><strong>Subtitle(“Hello, World!”, 100, 200, 0, 999999, “Arial”, 24, $00FF00)</strong></p>
+<p><a class="reference internal" href="syntax_colors.html"><span class="doc">Colors</span></a> can be specified in hexadecimal as
+in the example above or in decimal. In both cases it should be specified as
+RGB value, even if the clip itself is YUV.</p>
+<p>If no arguments are being passed to the function, you can also make the
+function call without parentheses, e.g. <strong>FilterName</strong>. The primary reason
+for this is to retain compatibility with old scripts. However, it’s sometimes
+convenient to leave off the parentheses when there’s no possibility of
+confusion.</p>
+<p>Avisynth ignores anything from a # character to the end of that line. This
+can be used to add <strong>comments</strong> to a script.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># comment</span>
+</pre></div>
+</div>
+<p>In v2.58 it is possible to add <strong>block</strong> and <strong>nested block</strong> comments in the
+following way:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># block comment:</span>
+<span class="o">/*</span>
+<span class="n">comment</span> <span class="mi">1</span>
+<span class="n">comment</span> <span class="mi">2</span>
+<span class="o">*/</span> <span class="p">::</span><span class="c1"># nested block comments:</span>
+<span class="p">[</span><span class="o">*</span> <span class="p">[</span><span class="o">*</span> <span class="n">a</span> <span class="n">meaningful</span> <span class="n">example</span> <span class="n">will</span> <span class="n">follow</span> <span class="n">later</span> <span class="p">:)</span> <span class="o">*</span><span class="p">]</span> <span class="o">*</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Avisynth ignores anything from an __END__ keyword (with double underscores)
+to the end of the script file. This can be used to disable some last commands
+of script.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Version</span><span class="p">()</span>
+<span class="n">__END__</span>
+<span class="n">ReduceBy2</span><span class="p">()</span>
+<span class="n">Result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">reduced</span> <span class="ow">and</span> <span class="n">we</span> <span class="n">can</span> <span class="n">write</span> <span class="nb">any</span> <span class="n">text</span> <span class="n">here</span>
+</pre></div>
+</div>
+<p>Avisynth <strong>ignores case</strong>: aViSouRCe is just as good as AVISource.</p>
+<p>Multiple Avisynth statements on a single line can only be achieved in the
+context of OOP notation or embedding filters as parameters of another
+function such as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AviSource</span><span class="p">(</span><span class="s2">&quot;c:</span><span class="se">\v</span><span class="s2">ideo.avi&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">Trim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">499</span><span class="p">)</span>
+<span class="o">-</span><span class="ow">or</span><span class="o">-</span>
+<span class="n">AudioDub</span><span class="p">(</span><span class="n">AviSource</span><span class="p">(</span><span class="s2">&quot;c:</span><span class="se">\v</span><span class="s2">ideo.avi&quot;</span><span class="p">),</span> <span class="n">WavSource</span><span class="p">(</span><span class="s2">&quot;c:</span><span class="se">\a</span><span class="s2">udio.wav&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Avisynth statements can be split across multiple lines by placing a backslash
+(“”) either as the last non-space character of the line being extended, or
+as the first non-space character on the next line.</p>
+<p>Line splitting examples (both valid and equal):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Subtitle(&quot;Hello, World!&quot;, 100, 200, 0, \
+  999999, &quot;Arial&quot;, 24, $00FF00)
+</pre></div>
+</div>
+<p>-or-</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Subtitle(&quot;Hello, World!&quot;, 100, 200, 0,
+  \ 999999, &quot;Arial&quot;, 24, $00FF00)
+</pre></div>
+</div>
+<p>When splitting across multiple lines you may <em>place comments only at the end
+of the last line</em>. Mixing comments with backslashes at an intermediate line
+of the line-split will either produce an error message or result at hard to
+trace bugs.</p>
+<p>Example of a not-signaled bug by improper mixing of comments and line
+separation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ColorBars</span>
+<span class="n">ShowFrameNumber</span>
+<span class="n">Trim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span> <span class="c1"># select some frames  \</span>
+  <span class="o">+</span> <span class="n">Trim</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">29</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above example does not return frames [0..9,20..29] as intended because
+the “” is masked by the “#” character before it; thus the line continuation
+never happens.</p>
+<p>$Date: 2008/12/21 09:23:02 $</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="syntax_runtime_environment.html" title="AviSynth Runtime environment"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="syntax_plugins.html" title="AviSynth Syntax - Plugins"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

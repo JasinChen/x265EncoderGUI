@@ -1,0 +1,326 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Non-clip Sample &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="PlanarImageFormat" href="PlanarImageFormat.html" />
+    <link rel="prev" title="MMX" href="MMX.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="PlanarImageFormat.html" title="PlanarImageFormat"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="MMX.html" title="MMX"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Non-clip Sample</a><ul>
+<li><a class="reference internal" href="#non-clip-functions-in-plugins">Non-clip functions in plugins</a></li>
+<li><a class="reference internal" href="#numeric-function-example">Numeric function example</a></li>
+<li><a class="reference internal" href="#clip-to-float-function-example">Clip to float function example</a></li>
+<li><a class="reference internal" href="#not-processing-frames-plugin-with-avisynth-atexit-function">Not processing frames plugin with Avisynth AtExit function</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="MMX.html"
+                        title="previous chapter">MMX</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="PlanarImageFormat.html"
+                        title="next chapter">PlanarImageFormat</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/FilterSDK/Non-ClipSample.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="non-clip-sample">
+<h1>Non-clip Sample<a class="headerlink" href="#non-clip-sample" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="non-clip-functions-in-plugins">
+<h2>Non-clip functions in plugins<a class="headerlink" href="#non-clip-functions-in-plugins" title="Permalink to this headline">¶</a></h2>
+<p>Unlike usual clip functions, non-clip functions return not frames of clip but
+single (scalar) value as AVSValue (variant of float, integer, boolean,
+string).</p>
+</div>
+<div class="section" id="numeric-function-example">
+<h2>Numeric function example<a class="headerlink" href="#numeric-function-example" title="Permalink to this headline">¶</a></h2>
+<p>Here’s a sample from script.cpp, edited for external use (by foxyshadis, see <a class="reference external" href="http://forum.doom9.org/showthread.php?t=132026">discussion</a>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AVSValue</span> <span class="n">Sin</span><span class="p">(</span><span class="n">AVSValue</span> <span class="n">args</span><span class="p">,</span> <span class="n">void</span><span class="o">*</span> <span class="n">user_data</span><span class="p">,</span> <span class="n">IScriptEnvironment</span><span class="o">*</span>
+<span class="n">env</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">sin</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">AsFloat</span><span class="p">());</span> <span class="p">}</span>
+
+<span class="n">extern</span> <span class="s2">&quot;C&quot;</span> <span class="n">__declspec</span><span class="p">(</span><span class="n">dllexport</span><span class="p">)</span> <span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">__stdcall</span>
+<span class="n">AvisynthPluginInit2</span><span class="p">(</span><span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="n">env</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">env</span><span class="o">-&gt;</span><span class="n">AddFunction</span><span class="p">(</span><span class="s2">&quot;sin&quot;</span><span class="p">,</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="n">Sin</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+   <span class="k">return</span> <span class="s2">&quot;sin&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You don’t even need a class/constructor, come to think of it.
+Include avisynth.h and that could be a whole plugin right there. (If not
+a terribly useful one.)</p>
+</div>
+<div class="section" id="clip-to-float-function-example">
+<h2>Clip to float function example<a class="headerlink" href="#clip-to-float-function-example" title="Permalink to this headline">¶</a></h2>
+<p>There are Avisynth <a class="reference internal" href="../corefilters/conditionalfilter.html#conditional-runtime-functions"><span class="std std-ref">Runtime functions</span></a> that evaluated at every frame. They
+can be used inside the scripts passed to runtime filters (<a class="reference internal" href="../corefilters/conditionalfilter.html"><span class="doc">ConditionalFilter, ScriptClip, FrameEvaluate</span></a>) to return information for a
+frame. Here is sample code of plugin with non-clip function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>/*
+   NonClipSample plugin for Avisynth -- a non-clip sample function for Conditional Filter
+
+   Copyright (C) 2007 Alexander Balakhnin &#39;Fizick&#39; http://avisynth.org.ru
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+   V1.0. Based on AverageLuma internal filter and SimpleSample
+
+   Usage:
+   ScriptClip(&quot; Subtitle(String(NonClipSample())) &quot;)
+*/
+
+//following 2 includes needed
+#include &quot;windows.h&quot;
+#include &quot;avisynth.h&quot;
+
+// The function is called for every frame in conditional environment.
+// Unlike usual clip functions, it returns not frames of clip but single (scalar) value
+// as AVSValue (variant of float, integer, boolean, string)
+
+AVSValue __cdecl NonClipSample(AVSValue args, void* user_data, IScriptEnvironment* env)
+{
+   // This sample function calculate mean luma value for currect frame plane
+
+   // Get function paramenters from input args array
+
+           if (!args[0].IsClip()) // check validity
+                   env-&gt;ThrowError(&quot;NonClipSample: No clip supplied!&quot;);
+
+           PClip child = args[0].AsClip(); // very first parameter is source clip
+
+   // Get clip video information
+           VideoInfo vi = child-&gt;GetVideoInfo();
+
+           if (!vi.IsPlanar())
+                   env-&gt;ThrowError(&quot;NonClipSample: Only planar images (as YV12) supported!&quot;);
+
+   // get current frame number
+
+           AVSValue cn = env-&gt;GetVar(&quot;current_frame&quot;);
+           if (!cn.IsInt())
+                   env-&gt;ThrowError(&quot;NonClipSample: This filter can only be used within Conditional Filter&quot;);
+
+           int n = cn.AsInt(); // frame number
+
+   // Get source frame and its properties
+
+           PVideoFrame src = child-&gt;GetFrame(n,env); // source frame (smart pointer)
+           int plane = PLANAR_Y; // set plane to PLANAR_Y
+           const BYTE* srcp = src-&gt;GetReadPtr(plane); // pointer to plane data (framebuffer)
+           int height = src-&gt;GetHeight(plane);
+           int width = src-&gt;GetRowSize(plane);
+           int pitch = src-&gt;GetPitch(plane);
+
+   // calculate result of our function
+           unsigned int sum = 0; // init sum
+
+           for (int h=0; h &lt; height; h++) {
+                   for (int w = 0; w &lt; width; w++) {
+                           sum += srcp[w];          // sum each byte from source
+                   }
+                   srcp = srcp + pitch; // to next line
+           }
+           float average = (float)sum / (float)(height * width); // normalize sum to get average
+   // return float result as AVSValue
+           return (AVSValue)average;
+}
+
+
+// The following function is the function that actually registers the filter in AviSynth
+// It is called automatically, when the plugin is loaded to see which functions this filter contains.
+
+extern &quot;C&quot; __declspec(dllexport) const char* __stdcall AvisynthPluginInit2(IScriptEnvironment* env) {
+    env-&gt;AddFunction(&quot;NonClipSample&quot;, &quot;c&quot;, NonClipSample, 0);
+   // The AddFunction has the following paramters:
+   // AddFunction(Filtername , Arguments, Function to call,0);
+
+   // Arguments is a string that defines the types and optional names of the arguments for you filter.
+   // c - Video Clip
+   // i - Integer number
+   // f - Float number
+   // s - String
+   // b - boolean
+
+    // The word inside the [ ] lets you used named parameters in your script
+
+   return &quot;NonClipSample plugin&quot;;
+   // A freeform name of the plugin.
+}
+</pre></div>
+</div>
+<p>Compile it as DLL like other AviSynth plugins</p>
+</div>
+<div class="section" id="not-processing-frames-plugin-with-avisynth-atexit-function">
+<h2>Not processing frames plugin with Avisynth AtExit function<a class="headerlink" href="#not-processing-frames-plugin-with-avisynth-atexit-function" title="Permalink to this headline">¶</a></h2>
+<p>This plugin does not process frames. It loads a font into Windows and
+automatically unloads it after avisynth is done running. To run code at the
+end of the script, it registers an <code class="docutils literal notranslate"><span class="pre">env-&gt;AtExit</span></code> procedure. See
+<a class="reference external" href="http://forum.doom9.org/showthread.php?t=130383">this discussion</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/*</span> <span class="n">LoadFont</span> <span class="k">for</span> <span class="n">avisynth</span>
+
+  <span class="n">Created</span> <span class="n">by</span> <span class="n">Shin</span><span class="o">-</span><span class="n">san</span> <span class="n">of</span> <span class="n">Ishin</span> <span class="n">Digital</span> <span class="n">Anime</span> <span class="n">Fansubbing</span>
+  <span class="n">Special</span> <span class="n">thanks</span> <span class="n">to</span> <span class="n">stickboy</span><span class="p">,</span> <span class="n">Leak</span><span class="p">,</span> <span class="ow">and</span> <span class="n">IanB</span> <span class="n">of</span> <span class="n">the</span> <span class="n">doom9</span><span class="o">.</span><span class="n">org</span> <span class="n">forums</span> <span class="k">for</span> <span class="n">the</span> <span class="n">help</span>
+  <span class="n">Special</span> <span class="n">thanks</span> <span class="n">to</span> <span class="n">sh0dan</span> <span class="k">for</span> <span class="n">his</span> <span class="n">simple</span> <span class="n">sample</span> <span class="n">script</span><span class="p">,</span> <span class="n">which</span> <span class="n">this</span> <span class="n">file</span> <span class="ow">is</span> <span class="n">based</span> <span class="n">on</span>
+
+  <span class="n">This</span> <span class="n">code</span><span class="p">,</span> <span class="k">if</span> <span class="n">made</span> <span class="n">public</span><span class="p">,</span> <span class="ow">is</span> <span class="n">protected</span> <span class="n">by</span> <span class="n">the</span> <span class="n">GPLv3</span><span class="p">,</span> <span class="n">which</span> <span class="n">can</span> <span class="n">be</span> <span class="n">found</span> <span class="n">at</span>
+  <span class="n">www</span><span class="o">.</span><span class="n">gnu</span><span class="o">.</span><span class="n">org</span><span class="o">.</span> <span class="n">I</span><span class="s1">&#39;m too lazy to copy/paste it in here</span>
+
+  <span class="n">Purpose</span><span class="p">:</span> <span class="n">to</span> <span class="n">make</span> <span class="n">it</span> <span class="n">so</span> <span class="n">I</span> <span class="n">can</span> <span class="n">load</span> <span class="n">a</span> <span class="n">font</span> <span class="n">into</span> <span class="n">Windows</span> <span class="ow">and</span> <span class="n">automatically</span> <span class="n">unload</span> <span class="n">it</span>
+  <span class="n">after</span> <span class="n">avisynth</span> <span class="ow">is</span> <span class="n">done</span> <span class="n">running</span>
+<span class="o">*/</span>
+
+<span class="c1">#include</span>
+<span class="c1">#include &quot;avisynth.h&quot;</span>
+
+<span class="n">void</span> <span class="n">__cdecl</span> <span class="n">UnLoadFont</span><span class="p">(</span><span class="n">void</span><span class="o">*</span> <span class="n">user_data</span><span class="p">,</span> <span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="n">env</span><span class="p">);</span>
+
+<span class="n">AVSValue</span> <span class="n">__cdecl</span> <span class="n">Create_LoadFont</span><span class="p">(</span><span class="n">AVSValue</span> <span class="n">args</span><span class="p">,</span> <span class="n">void</span><span class="o">*</span> <span class="n">user_data</span><span class="p">,</span> <span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="n">env</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="n">char</span> <span class="o">*</span><span class="n">file</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">AsString</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+
+  <span class="o">//</span> <span class="ow">and</span> <span class="n">now</span> <span class="n">load</span> <span class="n">the</span> <span class="n">font</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="p">(</span><span class="n">AddFontResource</span><span class="p">(</span> <span class="n">file</span> <span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
+  <span class="p">{</span>
+     <span class="n">SendMessage</span><span class="p">(</span><span class="n">HWND_BROADCAST</span><span class="p">,</span> <span class="n">WM_FONTCHANGE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+     <span class="n">env</span><span class="o">-&gt;</span><span class="n">AtExit</span><span class="p">(</span><span class="n">UnLoadFont</span><span class="p">,</span> <span class="n">strdup</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="p">);</span> <span class="o">//</span> <span class="n">register</span> <span class="n">the</span> <span class="n">procedure</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+     <span class="n">env</span><span class="o">-&gt;</span><span class="n">ThrowError</span><span class="p">(</span><span class="s2">&quot;LoadFont: Font load &#39;</span><span class="si">%s</span><span class="s2">&#39; failed.&quot;</span><span class="p">,</span> <span class="n">file</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="n">extern</span> <span class="s2">&quot;C&quot;</span> <span class="n">__declspec</span><span class="p">(</span><span class="n">dllexport</span><span class="p">)</span> <span class="n">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">__stdcall</span> <span class="n">AvisynthPluginInit2</span><span class="p">(</span><span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="n">env</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="n">env</span><span class="o">-&gt;</span><span class="n">AddFunction</span><span class="p">(</span><span class="s2">&quot;LoadFont&quot;</span><span class="p">,</span> <span class="s2">&quot;c[FONT]s&quot;</span><span class="p">,</span> <span class="n">Create_LoadFont</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+   <span class="k">return</span> <span class="s2">&quot;&#39;LoadFont&#39; LoadFont plugin&quot;</span><span class="p">;</span>
+   <span class="o">//</span> <span class="n">A</span> <span class="n">freeform</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">plugin</span><span class="o">.</span>
+<span class="p">}</span>
+
+<span class="n">void</span> <span class="n">__cdecl</span> <span class="n">UnLoadFont</span><span class="p">(</span><span class="n">void</span><span class="o">*</span> <span class="n">user_data</span><span class="p">,</span> <span class="n">IScriptEnvironment</span><span class="o">*</span> <span class="n">env</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">char</span> <span class="o">*</span><span class="n">loadedFont</span> <span class="o">=</span> <span class="p">(</span><span class="n">char</span><span class="o">*</span><span class="p">)</span><span class="n">user_data</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">loadedFont</span> <span class="o">&amp;&amp;</span> <span class="o">*</span><span class="n">loadedFont</span><span class="p">)</span>
+  <span class="p">{</span>
+     <span class="k">if</span> <span class="p">(</span> <span class="n">RemoveFontResource</span><span class="p">(</span><span class="n">loadedFont</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
+     <span class="p">{</span>
+        <span class="n">SendMessage</span><span class="p">(</span><span class="n">HWND_BROADCAST</span><span class="p">,</span> <span class="n">WM_FONTCHANGE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+     <span class="p">}</span>
+     <span class="n">free</span><span class="p">(</span><span class="n">loadedFont</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>Back to <a class="reference internal" href="FilterSDK.html"><span class="doc">FilterSDK</span></a></p>
+<p>$Date: 2014/11/12 06:57:07 $</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="PlanarImageFormat.html" title="PlanarImageFormat"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="MMX.html" title="MMX"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,261 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>The script execution model - Performance considerations &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="The script execution model - Sequence of events" href="script_ref_execution_model_sequence_events.html" />
+    <link rel="prev" title="The script execution model - Scope and lifetime of variables" href="script_ref_execution_model_lifetime_variables.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="script_ref_execution_model_sequence_events.html" title="The script execution model - Sequence of events"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="script_ref_execution_model_lifetime_variables.html" title="The script execution model - Scope and lifetime of variables"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The script execution model - Performance considerations</a><ul>
+<li><a class="reference internal" href="#plugin-auto-loading">Plugin auto-loading</a></li>
+<li><a class="reference internal" href="#frame-caching-and-the-effect-on-spliting-filter-graph-s-paths">Frame caching and the effect on spliting filter graph’s paths</a></li>
+<li><a class="reference internal" href="#what-not-to-include-in-runtime-scripts">What <em>not</em> to include in runtime scripts</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="script_ref_execution_model_lifetime_variables.html"
+                        title="previous chapter">The script execution model - Scope and lifetime of variables</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="script_ref_execution_model_sequence_events.html"
+                        title="next chapter">The script execution model - Sequence of events</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/script_ref/script_ref_execution_model_perf_cons.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="the-script-execution-model-performance-considerations">
+<h1>The script execution model - Performance considerations<a class="headerlink" href="#the-script-execution-model-performance-considerations" title="Permalink to this headline">¶</a></h1>
+<p>This section presents some performance-related issues that originate from the
+way AviSynth scripts are executed; it also provides advice on how to optimise
+your scripts and AviSynth configuration so that your scripts are parsed
+and/or encoded faster.</p>
+<div class="section" id="plugin-auto-loading">
+<h2>Plugin auto-loading<a class="headerlink" href="#plugin-auto-loading" title="Permalink to this headline">¶</a></h2>
+<p>An important thing to note is that auto-loading although is a convenient
+method to have all your favorite filters on hands, it <em>does</em> incur a speed
+penalty. The penalty is twofold:</p>
+<ol class="arabic simple">
+<li>The loading, registering and unloading of plugins takes some time.
+The parsing of .avsi scripts also takes some time. This time, although
+small, is payed <em>in every</em> AviSynth script invocation.</li>
+<li>The registering of many functions and globals increases the size of
+internal AviSynth data structures, which on turn increases the seek time
+to locate a filter / variable during the parsing phase as well as during
+runtime script parsing.</li>
+</ol>
+<p>For small scripts and / or small number of auto-loading plugins the ease of
+use outweights the above speed penalty (since there is also a speed penalty
+in writing a lot of <a class="reference internal" href="../syntax/syntax_plugins.html"><span class="doc">LoadPlugin</span></a> calls in every script that needs them).
+However if you regularly write large and complex scripts and have a large
+number of plugins / include scripts in your AviSynth plugin folder, you
+should consider a more granular approach to increase overall script parsing /
+encoding performance.</p>
+<p>For example, you could group <a class="reference internal" href="../syntax/syntax_plugins.html"><span class="doc">LoadPlugin</span></a> calls for related plugins in
+separate .avsi scripts and have a central .avsi script with a config function
+that loads different .avsi scripts depending on its arguments. Then place in
+the plugin folder only the central .avsi script and the bare-essential
+plugins that you use almost every time.</p>
+</div>
+<div class="section" id="frame-caching-and-the-effect-on-spliting-filter-graph-s-paths">
+<h2>Frame caching and the effect on spliting filter graph’s paths<a class="headerlink" href="#frame-caching-and-the-effect-on-spliting-filter-graph-s-paths" title="Permalink to this headline">¶</a></h2>
+<p>In order to improve performance AviSynth places, transparently to script
+writers, a specialised Cache filter just after each filter. The purpose of
+the cache is to avoid the computationally expensive generation of a video
+frame that has recently been created; if the frame is in the cache then it is
+returned immediately, avoiding a possibly long chain of filter calls.</p>
+<p>The presence of the cache gives a speed and memory advantage to filter graphs
+that split processing paths <em>as late as possible</em>. In our filter graph
+example above, if instead of:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ov</span> <span class="o">=</span> <span class="n">AviSource</span><span class="p">(</span><span class="s2">&quot;clip2.avi&quot;</span><span class="p">)</span>
+<span class="n">ov1</span> <span class="o">=</span> <span class="n">Lanczos4Resize</span><span class="p">(</span><span class="n">ov</span><span class="p">,</span> <span class="mi">280</span><span class="p">,</span> <span class="mi">210</span><span class="p">)</span>
+<span class="n">ov2</span> <span class="o">=</span> <span class="n">ov1</span><span class="o">.</span><span class="n">Invert</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>we have used the following code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ov</span> <span class="o">=</span> <span class="n">AviSource</span><span class="p">(</span><span class="s2">&quot;clip2.avi&quot;</span><span class="p">)</span>
+<span class="n">ov2</span> <span class="o">=</span> <span class="n">ov</span>
+<span class="n">ov1</span> <span class="o">=</span> <span class="n">Lanczos4Resize</span><span class="p">(</span><span class="n">ov</span><span class="p">,</span> <span class="mi">280</span><span class="p">,</span> <span class="mi">210</span><span class="p">)</span>
+<span class="n">ov2</span> <span class="o">=</span> <span class="n">ov2</span><span class="o">.</span><span class="n">Lanczos4Resize</span><span class="p">(</span><span class="mi">280</span><span class="p">,</span> <span class="mi">210</span><span class="p">)</span><span class="o">.</span><span class="n">Invert</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>then the respective part of the filter graph would have been:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+           <span class="o">|</span>
+<span class="n">AviSource</span><span class="p">(</span><span class="n">clip2</span><span class="p">)</span> <span class="o">&lt;--+--</span> <span class="n">Lanczos4Resize</span> <span class="o">&lt;--+--</span> <span class="n">Overlay</span> <span class="o">&lt;--+</span>
+                    <span class="o">|</span>
+                    <span class="o">|</span>
+                    <span class="o">+--</span> <span class="n">Lanczos4Resize</span> <span class="o">&lt;--</span> <span class="n">Invert</span>
+                    <span class="o">&lt;------+--</span> <span class="n">Overlay</span> <span class="p">(</span><span class="nb">filter</span> <span class="n">graph</span><span class="s1">&#39;s root)</span>
+</pre></div>
+</div>
+<p>In the later case we would have one more filter (and cache) in the filter
+chain and -more importantly- we would have to generate two resized frames for
+each call by the host application to get a frame instead of one.</p>
+<p>Therefore, always try to split processing paths as late as possible; it will
+make your scripts faster.</p>
+</div>
+<div class="section" id="what-not-to-include-in-runtime-scripts">
+<h2>What <em>not</em> to include in runtime scripts<a class="headerlink" href="#what-not-to-include-in-runtime-scripts" title="Permalink to this headline">¶</a></h2>
+<p>Although as said above, runtime scripts are parsed as regular scripts do and
+thus every statement allowed to a regular script is allowed in a runtime
+script, some statements are not advisable from a performance point of view.</p>
+<p>The principal reason is that runtime script parsing occurs in <em>every</em> frame
+requested. Therefore, as a rule of thumb, computationally expensive actions
+should in general be placed outside the runtime environment (at the main
+script) in order to be executed only once. This practice trades some start-up
+overhead with savings during frame serving, which in general dominates the
+overall clip rendering / encoding time; thus it is justified as an
+optimisation. This is of course to be taken with a grain of salt because
+there are circmustances where the application needs force the (balanced) use
+of such statements.</p>
+<p>Having said all that, let’s see our not-to-do-in-runtime-scripts list (and
+some interesting counter-examples):</p>
+<ul class="simple">
+<li>The following actions should most of the time be avoided:<ul>
+<li>Importing a script.</li>
+<li>Loading a plugin.</li>
+<li>Defining a user function.</li>
+</ul>
+</li>
+</ul>
+<p>Issuing them on every frame will slow down (maybe significantly) encoding
+speed and (subject to implementation details) eat valuable memory. Moreover,
+this overhead will be beared without returning significant gains. It is in
+general much better to place them at the main script. See however an example
+of acceptable use: <a class="reference external" href="http://forum.doom9.org/showthread.php?t=129191">Subtitles from a changing text-file</a>.</p>
+<ul class="simple">
+<li>Calling a lot of filters / functions inside the runtime script will
+slow down your encoding speed. Those filters will be created and
+destroyed on every frame; thus you pay initialisation/cleanup costs at
+every frame.</li>
+</ul>
+<p>If you can, put not-essential for the runtime processing filter calls outside
+the runtime environment; break the runtime script in more scripts if you have
+to. For example, instead of doing this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AviSource</span><span class="p">(</span><span class="s2">&quot;myclip.avi&quot;</span><span class="p">)</span>
+<span class="n">total_frames</span> <span class="o">=</span> <span class="n">Framecount</span><span class="p">()</span>
+<span class="n">ScriptClip</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    Levels(0, 0.9, 255, 5, 250)</span>
+<span class="s2">    total_frames </span><span class="si">% c</span><span class="s2">urrent_frame &lt; 2 ? FlipHorizontal : last</span>
+<span class="s2">    Tweak(hue=18)</span>
+<span class="s2">    Subtitle(&quot;frame: &quot; + String(current_frame), y=320)</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>do this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AviSource</span><span class="p">(</span><span class="s2">&quot;myclip.avi&quot;</span><span class="p">)</span>
+<span class="n">total_frames</span> <span class="o">=</span> <span class="n">Framecount</span><span class="p">()</span>
+<span class="n">Levels</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>
+<span class="n">ScriptClip</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;total_frames </span><span class="si">% c</span><span class="s2">urrent_frame &lt; 2 ? FlipHorizontal : last&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="n">Tweak</span><span class="p">(</span><span class="n">hue</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">ScriptClip</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;Subtitle(&quot;frame: &quot; + String(current_frame), y=320)&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><a class="reference internal" href="script_ref_arrays.html"><span class="doc">Arrays</span></a>, due to their recursive, script-based implementation can be
+expensive to parse, especially if they host a large number of elements.
+Using them without paying attention to minimize operations will slow down
+your encoding speed.</li>
+</ul>
+<p>See however an example of acceptable use: <a class="reference external" href="http://avslib.sourceforge.net/examples/example-016.html">Per frame filtering, exporting
+specific frame(s)</a> (note that FrameFilter is a wrapper around
+<a class="reference internal" href="../corefilters/conditionalfilter.html"><span class="doc">ScriptClip</span></a>).</p>
+<hr class="docutils" />
+<p>Back to the <a class="reference internal" href="script_ref_execution_model.html"><span class="doc">script execution model</span></a>.</p>
+<p>$Date: 2011/04/29 20:11:14 $</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="script_ref_execution_model_sequence_events.html" title="The script execution model - Sequence of events"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="script_ref_execution_model_lifetime_variables.html" title="The script execution model - Scope and lifetime of variables"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,191 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>SSRC &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="StackHorizontal / StackVertical" href="stack.html" />
+    <link rel="prev" title="AlignedSplice / UnalignedSplice" href="splice.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="stack.html" title="StackHorizontal / StackVertical"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="splice.html" title="AlignedSplice / UnalignedSplice"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="splice.html"
+                        title="previous chapter">AlignedSplice / UnalignedSplice</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="stack.html"
+                        title="next chapter">StackHorizontal / StackVertical</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/corefilters/ssrc.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ssrc">
+<h1>SSRC<a class="headerlink" href="#ssrc" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">SSRC</span></code> (int samplerate, bool “fast”)</p>
+<p><code class="docutils literal notranslate"><span class="pre">SSRC</span></code> Shibata Sample Rate Converter is a resampler. Audio is always
+converted to float. This filter will result in better audio quality than
+<a class="reference internal" href="resampleaudio.html"><span class="doc">ResampleAudio</span></a>.
+It uses SSRC by <a class="reference external" href="http://shibatch.sourceforge.net/">Naoki Shibata</a>, which offers the best resample quality
+available.</p>
+<p>Sampling rates of 44.1kHz and 48kHz are populary used, but the ratio of these
+two frequencies is 147:160, and they are not small numbers. Therefore,
+sampling rate conversion without degradation of sound quality requires
+filters with very large order. It is difficult to achieve both quality and
+speed. This program achieved relatively fast and high quality with two
+different kinds of filters combined skillfully.</p>
+<p><strong>Parameters:</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="87%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>samplerate</td>
+<td>Samplerate must be an integer.</td>
+</tr>
+<tr class="row-even"><td>fast</td>
+<td><div class="first last line-block">
+<div class="line">This will enable faster processing at slightly lower quality. Set this
+to false when you are doing large samplerate conversions (more than a factor 2).</div>
+<div class="line">Default: True.</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>SSRC doesn’t work for arbitrary ratios of the samplerate of the source and
+target clip. The following ratios are allowed (see SSRC.cpp):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sfrq = samplerate of source clip
+  dfrq = samplerate of destination clip
+  frqgcd = gcd(sfrq,dfrq) # Greatest Common Divisor
+  fs1 = (dfrq &gt; sfrq) ? sfrq / frqgcd : dfrq / frggcd
+Resampling is possible if: (fs1 == 1) or (fs1 % 2 == 0) or (fs1 % 3 == 0)
+
+example for which resampling is possible:
+  sfrq = 44.1 kHz
+  dfrq = 48 kHz
+  frqgcd = gcd(44100,48000) = 300
+dfrq &gt; sfrq, hence
+  fs1 = sfrq / frqgcd = sfrq / gcd(sfrq,dfrq) = 44100/300 = 147
+and 147 % 3 = 0 since 147 = 3 * 49
+</pre></div>
+</div>
+<p>The samplerate of your source clip can be found as follows</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AviSource</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">Subtitle</span><span class="p">(</span><span class="n">string</span><span class="p">(</span><span class="n">AssumeFPS</span><span class="p">(</span><span class="mf">23.976</span><span class="p">,</span><span class="n">sync_audio</span><span class="o">=</span><span class="n">true</span><span class="p">)</span><span class="o">.</span><span class="n">AudioRate</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Example:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Downsampling to 44,1 kHz:</span>
+<span class="n">AviSource</span><span class="p">(</span><span class="s2">&quot;c:</span><span class="se">\f</span><span class="s2">ile.avi&quot;</span><span class="p">)</span> <span class="c1"># Has 48000 audio</span>
+<span class="n">SSRC</span><span class="p">(</span><span class="mi">44100</span><span class="p">)</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="39%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Changelog</th>
+<th class="head">&#160;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>v2.54</td>
+<td>Initial Release</td>
+</tr>
+</tbody>
+</table>
+<p>Some parts of SSRC is: Copyright © 2001-2003, Peter Pawlowski. All rights
+reserved.</p>
+<p>$Date: 2012/04/15 14:59:42 $</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="stack.html" title="StackHorizontal / StackVertical"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="splice.html" title="AlignedSplice / UnalignedSplice"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

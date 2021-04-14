@@ -1,0 +1,1461 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Getting started &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="AviSynth Clip properties" href="syntax_clip_properties.html" />
+    <link rel="prev" title="User functions" href="../script_ref/script_ref_user_functions.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="syntax_clip_properties.html" title="AviSynth Clip properties"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../script_ref/script_ref_user_functions.html" title="User functions"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Getting started</a><ul>
+<li><a class="reference internal" href="#linear-editing">Linear Editing</a></li>
+<li><a class="reference internal" href="#non-linear-editing">Non-Linear Editing</a></li>
+<li><a class="reference internal" href="#syntax">Syntax</a><ul>
+<li><a class="reference internal" href="#expressions">Expressions</a></li>
+<li><a class="reference internal" href="#variables">Variables</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#colors">Colors</a></li>
+<li><a class="reference internal" href="#operators">Operators</a></li>
+<li><a class="reference internal" href="#script-functions">Script Functions</a><ul>
+<li><a class="reference internal" href="#numerical-functions">Numerical functions</a></li>
+<li><a class="reference internal" href="#string-functions">String functions</a></li>
+<li><a class="reference internal" href="#conversions">Conversions</a></li>
+<li><a class="reference internal" href="#version-checking-functions">Version checking functions</a></li>
+<li><a class="reference internal" href="#test-functions">Test functions</a></li>
+<li><a class="reference internal" href="#other-functions">Other functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#runtime-functions">Runtime Functions</a></li>
+<li><a class="reference internal" href="#control-functions">Control Functions</a></li>
+<li><a class="reference internal" href="#clip-properties">Clip Properties</a></li>
+<li><a class="reference internal" href="#user-defined-functions">User-Defined Functions</a></li>
+<li><a class="reference internal" href="#functions-with-more-than-one-input-clip">Functions with more than one input clip</a></li>
+<li><a class="reference internal" href="#plugins">Plugins</a></li>
+<li><a class="reference internal" href="#plugin-autoload-and-name-precedence-v2">Plugin autoload and name precedence <strong>v2</strong></a></li>
+<li><a class="reference internal" href="#plugin-autoload-and-conflicting-function-names-v2-55">Plugin autoload and conflicting function names <strong>v2.55</strong></a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../script_ref/script_ref_user_functions.html"
+                        title="previous chapter">User functions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="syntax_clip_properties.html"
+                        title="next chapter">AviSynth Clip properties</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/syntax/syntax.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="getting-started">
+<h1><a class="toc-backref" href="#id2">Getting started</a><a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#getting-started" id="id2">Getting started</a><ul>
+<li><a class="reference internal" href="#linear-editing" id="id3">Linear Editing</a></li>
+<li><a class="reference internal" href="#non-linear-editing" id="id4">Non-Linear Editing</a></li>
+<li><a class="reference internal" href="#syntax" id="id5">Syntax</a><ul>
+<li><a class="reference internal" href="#expressions" id="id6">Expressions</a></li>
+<li><a class="reference internal" href="#variables" id="id7">Variables</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#colors" id="id8">Colors</a></li>
+<li><a class="reference internal" href="#operators" id="id9">Operators</a></li>
+<li><a class="reference internal" href="#script-functions" id="id10">Script Functions</a><ul>
+<li><a class="reference internal" href="#numerical-functions" id="id11">Numerical functions</a></li>
+<li><a class="reference internal" href="#string-functions" id="id12">String functions</a></li>
+<li><a class="reference internal" href="#conversions" id="id13">Conversions</a></li>
+<li><a class="reference internal" href="#version-checking-functions" id="id14">Version checking functions</a></li>
+<li><a class="reference internal" href="#test-functions" id="id15">Test functions</a></li>
+<li><a class="reference internal" href="#other-functions" id="id16">Other functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#runtime-functions" id="id17">Runtime Functions</a></li>
+<li><a class="reference internal" href="#control-functions" id="id18">Control Functions</a></li>
+<li><a class="reference internal" href="#clip-properties" id="id19">Clip Properties</a></li>
+<li><a class="reference internal" href="#user-defined-functions" id="id20">User-Defined Functions</a></li>
+<li><a class="reference internal" href="#functions-with-more-than-one-input-clip" id="id21">Functions with more than one input clip</a></li>
+<li><a class="reference internal" href="#plugins" id="id22">Plugins</a></li>
+<li><a class="reference internal" href="#plugin-autoload-and-name-precedence-v2" id="id23">Plugin autoload and name precedence <strong>v2</strong></a></li>
+<li><a class="reference internal" href="#plugin-autoload-and-conflicting-function-names-v2-55" id="id24">Plugin autoload and conflicting function names <strong>v2.55</strong></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Basically, AviSynth works like this: First, you create a simple text document
+with special commands, called a script. These commands make references to one
+or more videos and the filters you wish to run on them. Then, you run a video
+application, such as VirtualDub, and open the script file. This is when
+AviSynth takes action. It opens the videos you referenced in the script, runs
+the specified filters, and feeds the output to video application. The
+application, however, is not aware that AviSynth is working in the
+background. Instead, the application thinks that it is directly opening a
+filtered AVI file that resides on your hard drive.</p>
+<p>There is much new and re-discovered functionality in AviSynth2. To make those
+items clearly visible (especially when the feature was not well documented in
+the past) they are marked with <strong>v2</strong></p>
+<p>The version 2.5 is a major internal upgrade. Read <a class="reference internal" href="../twopointfive.html"><span class="doc">AviSynth 2.5</span></a> carefully
+before you use it. Relevant changes are marked with <strong>v2.5</strong></p>
+<div class="section" id="linear-editing">
+<h2><a class="toc-backref" href="#id3">Linear Editing</a><a class="headerlink" href="#linear-editing" title="Permalink to this headline">¶</a></h2>
+<p>The simplest thing you can do with AviSynth is the sort of editing you can do
+in VirtualDub. The scripts for this are easy to write because you don’t have
+to worry about variables and complicated expressions if you don’t want.</p>
+<p>For testing create a file called test.avs and put the following single line
+of text in it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Version</span>
+</pre></div>
+</div>
+<p>Now open this file with e.g. Windows Media Player and you should see a ten-
+second video clip showing AviSynth’s version number and a copyright notice.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Version</span></code> is what’s called a “source filter”, meaning that it generates a
+clip instead of modifying one. The first command in an AviSynth script will
+always be a source filter.</p>
+<p>Now add a second line to the script file, so that it reads like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Version</span>
+<span class="n">ReduceBy2</span>
+</pre></div>
+</div>
+<p>Reopen the file in Media Player. You should see the copyright notice again,
+but now half as large as before.
+<a class="reference internal" href="../corefilters/reduceby2.html"><span class="doc">ReduceBy2</span></a> is a “transformation filter,” meaning that it takes the
+previous clip and modifies it in some way. You can chain together lots of
+transformation filters, just as in VirtualDub.
+Let’s add another one to make the video fade to black at the end. Add another
+line to the script file so that it reads:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Version</span>
+<span class="n">ReduceBy2</span>
+<span class="n">FadeOut</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now reopen the file. The clip should be the same for the first 9 seconds, and
+then in the last second it should fade smoothly to black.
+The <a class="reference internal" href="../corefilters/fade.html"><span class="doc">FadeOut</span></a> filter takes a numerical argument, which indicates the number
+of frames to fade.</p>
+<p>It takes a long time before the fade starts, so let’s trim the beginning of
+the clip to reduce the wait, and fade out after that.
+Let’s discard the first 120 of them, and keep the frames 120-150:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Version</span>
+<span class="n">ReduceBy2</span>
+<span class="c1"># Chop off the first 119 frames, and keep the frames 120-150</span>
+<span class="c1"># (AviSynth starts numbering frames from 0)</span>
+<span class="n">Trim</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">FadeOut</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this example we used a comment for the first time.
+Comments start with the # character and continue to the end of the line, and
+are ignored completely by AviSynth.
+The <a class="reference internal" href="../corefilters/trim.html"><span class="doc">Trim</span></a> filter takes two arguments, separated by a comma: the first and
+the last frame to keep from the clip. If you put 0 for the last frame, it’s
+the same as “end of clip,” so if you only want to remove the first 119 frames
+you should use Trim(120,0).</p>
+<p>Keeping track of frame numbers this way is a chore. It’s much easier to open
+a partially-completed script in an application like VirtualDub which will
+display the frame numbers for you. You can also use the <a class="reference internal" href="../corefilters/showframes.html"><span class="doc">ShowFrameNumber</span></a>
+filter, which prints each frame’s number onto the frame itself.</p>
+<p>In practice a much more useful source filter than <a class="reference internal" href="../corefilters/version.html"><span class="doc">Version</span></a> is <a class="reference internal" href="../corefilters/avisource.html"><span class="doc">AVISource</span></a>,
+which reads in an AVI file (or one of several other types of files) from
+disk. If you have an AVI file handy, you can try applying these same filters
+to your file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;d:\capture.avi&quot;</span><span class="p">)</span>  <span class="c1"># or whatever the actual pathname is</span>
+<span class="n">ReduceBy2</span>
+<span class="n">FadeOut</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">Trim</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Even a single-line script containing only the AVISource command can be useful
+for adding support for &gt;2GB AVI files to applications which only support &lt;2GB
+ones.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="non-linear-editing">
+<h2><a class="toc-backref" href="#id4">Non-Linear Editing</a><a class="headerlink" href="#non-linear-editing" title="Permalink to this headline">¶</a></h2>
+<p>Now we’re getting to the fun part. Make an AVS file with the following script
+in it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">StackVertical</span><span class="p">(</span><span class="n">Version</span><span class="p">,</span> <span class="n">Version</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now open it. Result: An output video with two identical lines of version
+information, one on top of the other.
+Instead of taking numbers or strings as arguments, <a class="reference internal" href="../corefilters/stack.html"><span class="doc">StackVertical</span></a> takes
+video clips as arguments. In this script, the Version filter is being called
+twice. Each time, it returns a copy of the version clip. These two clips are
+then given to <a class="reference internal" href="../corefilters/stack.html"><span class="doc">StackVertical</span></a>, which joins them together (without knowing
+where they came from).</p>
+<p>One of the most useful filters of this type is <a class="reference internal" href="../corefilters/splice.html"><span class="doc">UnalignedSplice</span></a>, which
+joins video clips end-to-end. Here’s a script which loads three AVI files
+(such as might be produced by AVI_IO) and concatenates them together.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">UnalignedSplice</span><span class="p">(</span><span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;d:\capture.00.avi&quot;</span><span class="p">),</span> \
+<span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;d:\capture.01.avi&quot;</span><span class="p">),</span> \
+<span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;d:\capture.02.avi&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Both <a class="reference internal" href="../corefilters/stack.html"><span class="doc">StackVertical</span></a> and <a class="reference internal" href="../corefilters/splice.html"><span class="doc">UnalignedSplice</span></a> can take as few as two arguments
+or as many as sixty.
+You can use the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator as a shorthand for <a class="reference internal" href="../corefilters/splice.html"><span class="doc">UnalignedSplice</span></a>.</p>
+<p>For example, this script does the same thing as the previous example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;d:\capture.00.avi&quot;</span><span class="p">)</span> <span class="o">+</span> \
+<span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;d:\capture.01.avi&quot;</span><span class="p">)</span> <span class="o">+</span> \
+<span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;d:\capture.02.avi&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now let’s suppose you’re capturing with an application that also saves the
+video in multiple AVI segments, but puts the audio in a separate WAV file.
+Can we recombine everything? You bet:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AudioDub</span><span class="p">(</span><span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;d:\capture.00.avi&quot;</span><span class="p">)</span> <span class="o">+</span> \
+<span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;d:\capture.01.avi&quot;</span><span class="p">)</span> <span class="o">+</span> \
+<span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;d:\capture.02.avi&quot;</span><span class="p">),</span> \
+<span class="n">WAVSource</span><span class="p">(</span><span class="s2">&quot;d:</span><span class="se">\a</span><span class="s2">udio.wav&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="syntax">
+<h2><a class="toc-backref" href="#id5">Syntax</a><a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="expressions">
+<h3><a class="toc-backref" href="#id6">Expressions</a><a class="headerlink" href="#expressions" title="Permalink to this headline">¶</a></h3>
+<p>An AviSynth script consists of multiple lines of statements looking like
+this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">variable_name</span> <span class="o">=</span> <span class="n">expression</span>
+</pre></div>
+</div>
+<p>In this example expression is evaluated and the result is assigned to
+variable_name.</p>
+<p>Very important is the common shortcut form:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">expression</span>
+</pre></div>
+</div>
+<p>In this case, expression is evaluated and the result is assigned to the
+special clip variable last.
+This is the same as</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">last</span> <span class="o">=</span> <span class="n">expression</span>
+</pre></div>
+</div>
+<p>The end of the script often looks like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">return</span> <span class="n">expression</span>
+</pre></div>
+</div>
+<p>Here expression is evaluated and is used as the “return value” of the script
+–that is, the video clip that will be seen by the application which opens
+the AVS file.</p>
+<p>If “return” is not specified explicitly, the clip last is used as a “return
+value”.</p>
+<p>The basic form of an expression which invokes a function is</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Function</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Clip functions always produce a new video clip and never modify an existing
+one,
+Args is a list of function arguments separated by commas. The list can be
+empty (which means all or some arguments can be optional)</p>
+<p>If the filter function expects a video clip as its first argument, and that
+argument is not supplied, then the clip in the special variable last will be
+used.</p>
+<p>AviSynth filters can take named arguments. The named arguments can be
+specified in any order,
+and the filter will choose default values for any that you leave off (named
+arguments are always optional).
+This makes certain filters much easier to use. You can write</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Subtitle(&quot;Hello, World!&quot;, text_color=$00FF00, x=100, y=200)
+</pre></div>
+</div>
+<p>instead of</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Subtitle(&quot;Hello, World!&quot;, 100, 200, 0, 999999, &quot;Arial&quot;, 24, $00FF00)
+</pre></div>
+</div>
+<p>An alternate syntax (called “OOP notation”) for clip functions is</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">expression</span><span class="o">.</span><span class="n">Function</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+<span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">:</span>
+<span class="n">Version</span><span class="o">.</span><span class="n">ReduceBy2</span><span class="o">.</span><span class="n">FadeOut</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is equivalent to</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Function</span><span class="p">(</span><span class="n">expression</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+
+<span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">:</span>
+<span class="n">FadeOut</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="n">ReduceBy2</span><span class="p">(</span><span class="n">Version</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>and can be thought of <code class="docutils literal notranslate"><span class="pre">Function</span></code> applied to <code class="docutils literal notranslate"><span class="pre">expression</span></code>.
+One disadvantage of OOP notation is that it can only be used with filters
+which take a single video-clip argument, not with filters which take several.</p>
+<p>All AviSynth functions produce defined number of output frames and framerate,
+even if the statement seems very complex.
+AviSynth knows after having read the script how long the output will be,
+which framerate it has and the “cutting sequence” of all used inputs
+This is all calculated on opening the script. Only the actual filtering is
+done runtime on request.</p>
+<hr class="docutils" />
+<p><strong>Comments</strong>: AviSynth ignores anything from a # character to the end of that
+line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># comment</span>
+</pre></div>
+</div>
+<p>In <em>v2.58</em> it is possible to add block and nested block comments in the
+following way:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># block comment:</span>
+<span class="o">/*</span>
+<span class="n">comment</span> <span class="mi">1</span>
+<span class="n">comment</span> <span class="mi">2</span>
+<span class="o">*/</span> <span class="p">::</span><span class="c1"># nested block comments:</span>
+<span class="p">[</span><span class="o">*</span> <span class="p">[</span><span class="o">*</span> <span class="n">a</span> <span class="n">meaningful</span> <span class="n">example</span> <span class="k">with</span> <span class="n">follow</span> <span class="n">later</span> <span class="p">:)</span> <span class="o">*</span><span class="p">]</span> <span class="o">*</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>AviSynth ignores anything from an <code class="docutils literal notranslate"><span class="pre">__END__</span></code> keyword (with double
+underscores) to the end of the script file. This can be used to disable some
+last commands of script.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Version</span><span class="p">()</span>
+<span class="n">__END__</span>
+<span class="n">ReduceBy2</span><span class="p">()</span>
+<span class="n">Result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">reduced</span> <span class="ow">and</span> <span class="n">we</span> <span class="n">can</span> <span class="n">write</span> <span class="nb">any</span> <span class="n">text</span> <span class="n">here</span>
+</pre></div>
+</div>
+<p><strong>Ignore Case</strong>: aViSouRCe is just as good as AVISource.</p>
+<p><strong>Continue</strong> on next or from previous line: </p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Subtitle</span> <span class="p">(</span><span class="s2">&quot;Test-Text&quot;</span><span class="p">)</span>
+
+<span class="n">Subtitle</span> <span class="p">(</span> \
+          <span class="s2">&quot;Test-Text&quot;</span><span class="p">)</span>
+
+<span class="n">Subtitle</span> <span class="p">(</span>
+       \ <span class="s2">&quot;Test-Text&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="variables">
+<h3><a class="toc-backref" href="#id7">Variables</a><a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h3>
+<p>A variable name can be up to 50 characters long (actually more than 4000
+characters in Avisynth <em>v2.56</em>) and can contain (English) letters, digits,
+and underscores (_), but no other characters. The name cannot start with a
+digit.</p>
+<p>You may use characters from your language system codepage (locale) in strings
+and file names (ANSI 8 bit only, not Unicode).</p>
+<p>The following types of variables can be used:</p>
+<ul class="simple">
+<li><em>clip</em>: a video clip containing video and / or audio. At least one variable for
+a clip must be used and returned by the script.
+string: surrounded either by “quotation marks” or by 3 quotation marks like
+<code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;this</span> <span class="pre">example&quot;&quot;&quot;</span></code>. A text string can contain any character except the
+terminating quotation mark or double-apostrophe. If you need to put a
+quotation mark inside a string, use the triple quote-notation:</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Subtitle</span>
+<span class="p">(</span><span class="s2">&quot;&quot;&quot;This displays &quot;hello world&quot; with quotes&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><em>int</em>: entered as a string of digits, optionally with a + or - at the
+beginning.</li>
+<li><em>float</em>: entered as a string of digits with a period (.) somewhere in it and an
+optional + or -. For example, +1. is treated as a floating-point number.</li>
+<li><em>val</em>: as type of a function argument where it does not matter if it is int or
+float</li>
+<li><em>bool</em>: can be TRUE or FALSE</li>
+<li><em>hexadecimal numbers</em>: entered by preceding it with a $. This variable is
+treated as an integer. Several filters use this notation for specifying
+colors. For example, $FF8800 is a shade of orange.</li>
+<li><em>global</em>: defines a global variable, which can be used by all user-defined
+functions and the main script in common.</li>
+</ul>
+<p>Here’s another version of the example from above that’s more manageable and
+easier to understand:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;d:\capture.00.avi&quot;</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;d:\capture.01.avi&quot;</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">AVISource</span><span class="p">(</span><span class="s2">&quot;d:\capture.02.avi&quot;</span><span class="p">)</span>
+<span class="n">sound_track</span> <span class="o">=</span> <span class="n">WAVSource</span><span class="p">(</span><span class="s2">&quot;d:</span><span class="se">\a</span><span class="s2">udio.wav&quot;</span><span class="p">)</span>
+
+<span class="n">AudioDub</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">+</span><span class="n">c</span><span class="p">,</span> <span class="n">sound_track</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="colors">
+<h2><a class="toc-backref" href="#id8">Colors</a><a class="headerlink" href="#colors" title="Permalink to this headline">¶</a></h2>
+<p>In some filters (BlankClip, Letterbox, AddBorders and FadeXXX) a color
+argument can be specified. In all cases the color should be specified in RGB
+format even if the color format of the input clip is YUV. This can be done in
+hexadecimal or decimal notation. In hexadecimal notation the number is
+composed as follows: the first two digits denote the red channel, the next
+two the green channel and the last two the blue channel. The hexadecimal
+number must be preceded with a $. In decimal notation the number is as
+follows: the red channel value is multiplied by 65536, the green channel
+value is multiplied by 256 and the two resulting products are both added to
+the blue channel value.</p>
+<p>Let’s consider an example. Brown is given by R=$A5 (165), G=$2A (42), B=$2A
+(42). Thus <code class="docutils literal notranslate"><span class="pre">BlankClip(color=$A52A2A)</span></code> gives a brown frame. Converting each
+channel to decimal (remember that A=10, B=11, C=12, D=14, E=14, F=15) gives</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>R = $A5 = 10*16^1 +  5*16^0 = 165
+G = $2A =  2*16^1 + 10*16^0 =  42
+B = $2A =  2*16^1 + 10*16^0 =  42
+
+165*65536 + 42*256 + 42 = 10824234
+</pre></div>
+</div>
+<p>Thus creating a brown frame specifying the color in decimal notation gives
+<code class="docutils literal notranslate"><span class="pre">BlankClip(color=10824234)</span></code>.</p>
+<p>Common color presets can be found in the file colors_rgb.avsi, which should
+be present in your plugin autoload folder (look into the file for list of
+presets). Thus <code class="docutils literal notranslate"><span class="pre">BlankClip(color=color_brown)</span></code> gives the same brown frames.</p>
+<p>Note that black RGB=$000000 will be converted to Y=16, U=V=128 if the
+colorformat of the input clip is YUV, since the default color conversion RGB
+[0,255] -&gt; YUV [16,235] is used.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="operators">
+<h2><a class="toc-backref" href="#id9">Operators</a><a class="headerlink" href="#operators" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">For all types of operands (clip, int, float, string, bool) you can use:</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">==</span></code> is equal to</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">!=</span></code> is not equal to</div>
+</div>
+<div class="line-block">
+<div class="line">For numeric types (int, float):</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">+</span></code> add</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">-</span></code> subtract</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">*</span></code> multiply</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">/</span></code> divide</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">%</span></code> mod</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> greater than or equal to</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">&lt;=</span></code> less than or equal to</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">&lt;</span></code> less than</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">&gt;</span></code> greater than</div>
+</div>
+<p>AviSynth in former versions parsed expressions from right to left, which gave
+unexpected results:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>a = 10 - 5 - 5
+resulted in 10 - (5 - 5) = 10
+instead of (10 - 5) - 5 = 0 ! This bug has been corrected! Starting
+from v2.53 also multiplication and division are parsed from left to right
+(instead of right to left).
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">For string type:</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">+</span></code> add</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> greater or equal than (case-insensitive)</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">&lt;=</span></code> less or equal than (case-insensitive)</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">&lt;</span></code> less than (case-insensitive)</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">&gt;</span></code> greater than (case-insensitive)</div>
+</div>
+<div class="line-block">
+<div class="line">For clip type:</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">+</span></code> the same as the function <code class="docutils literal notranslate"><span class="pre">UnalignedSplice</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">++</span></code> the same as the function <code class="docutils literal notranslate"><span class="pre">AlignedSplice</span></code></div>
+</div>
+<div class="line-block">
+<div class="line">For bool type (true/false):</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">||</span></code> or</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code> and</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">?:</span></code> execute code conditionally ::b = (a==true) ? 1 : 2</div>
+</div>
+<blockquote>
+<div><p>This means in pseudo-basic:</p>
+<p>if (a=true) then b=1 else b=2</p>
+</div></blockquote>
+</div>
+<hr class="docutils" />
+<div class="section" id="script-functions">
+<h2><a class="toc-backref" href="#id10">Script Functions</a><a class="headerlink" href="#script-functions" title="Permalink to this headline">¶</a></h2>
+<p>The input and output of these functions are not clips, but some other
+variables used in the script.</p>
+<div class="section" id="numerical-functions">
+<h3><a class="toc-backref" href="#id11">Numerical functions</a><a class="headerlink" href="#numerical-functions" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="56%" />
+<col width="44%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Max(int,</span> <span class="pre">int[,</span> <span class="pre">...])</span></code> / <code class="docutils literal notranslate"><span class="pre">Max(float,</span> <span class="pre">float[,</span> <span class="pre">...])</span></code>:</dt>
+<dd>Maximum value of a set of numbers.</dd>
+</dl>
+</td>
+<td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Max</span></code> (1, 2) = 2</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Max</span></code> (5, 3.0, 2) = 5.0</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Min(int,</span> <span class="pre">int[,</span> <span class="pre">...])</span></code> / <code class="docutils literal notranslate"><span class="pre">Min(float,</span> <span class="pre">float[,</span> <span class="pre">...])</span></code>:</dt>
+<dd>Minimum value of a set of numbers.</dd>
+</dl>
+</td>
+<td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Min</span></code> (1, 2) = 1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Min</span></code> (5, 3.0, 2) = 2.0</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">MulDiv(int,</span> <span class="pre">int,</span> <span class="pre">int)</span></code>:</dt>
+<dd>(m*n+d/2)/d using 64 bit intermediate result</dd>
+</dl>
+</td>
+<td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">MulDiv</span></code> (1, 1, 2) = 1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">MulDiv</span></code> (2, 3, 2) = 3</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Floor(float)</span></code>:</dt>
+<dd>converts from float to int <code class="docutils literal notranslate"><span class="pre">Floor</span></code> (1.2) = 1</dd>
+</dl>
+</td>
+<td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Floor</span></code> (1.6) = 1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Floor</span></code> (-1.2) = -2</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Floor</span></code> (-1.6) = -2</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Ceil(float)</span></code>:</dt>
+<dd>converts from float to int <code class="docutils literal notranslate"><span class="pre">Ceil</span></code> (1.2) = 2.0</dd>
+</dl>
+</td>
+<td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Ceil</span></code> (1.6) = 2.0</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Ceil</span></code> (-1.2) = -1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Ceil</span></code> (-1.6) = -1</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Round(float)</span></code>:</dt>
+<dd>converts from float to int <code class="docutils literal notranslate"><span class="pre">Round</span></code> (1.2) = 1</dd>
+</dl>
+</td>
+<td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Round</span></code> (1.6) = 2</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Round</span></code> (-1.2) = -1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Round</span></code> (-1.6) = -2</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Int(float)</span></code>:</dt>
+<dd>Converts from float to int (round towards zero).</dd>
+</dl>
+</td>
+<td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Int</span></code> (1.2) = 1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Int</span></code> (1.6) = 1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Int</span></code> (-1.2) = -1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Int</span></code> (-1.6) = -1</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Float(int)</span></code>:</dt>
+<dd>Converts int to float</dd>
+</dl>
+</td>
+<td><code class="docutils literal notranslate"><span class="pre">Float</span></code> (1) = 1.0</td>
+</tr>
+<tr class="row-odd"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Frac(float)</span></code>:</dt>
+<dd>Returns the fractional portion of the value provided.</dd>
+</dl>
+</td>
+<td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Frac</span></code> (3.7) = 0.7</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Frac</span></code> (-1.8) = -0.8</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Abs(integer)</span></code> / <code class="docutils literal notranslate"><span class="pre">Abs(float)</span></code>:</dt>
+<dd>Returns the absolute value (returns float for float,
+integer for integer).</dd>
+</dl>
+</td>
+<td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Abs</span></code> (-6) = 6</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Abs</span></code> (-1.8) = 1.8</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Sign(int)</span></code> / <code class="docutils literal notranslate"><span class="pre">Sign(float)</span></code>:</dt>
+<dd>Returns sign of value (1, 0 or -1).</dd>
+</dl>
+</td>
+<td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Sign</span></code> (-3.5) = -1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Sign</span></code> (3.5) = 1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Sign</span></code> (0) = 0</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">HexValue(string)</span></code>:</dt>
+<dd>Evaluates string as hexadecimal value.</dd>
+</dl>
+</td>
+<td><code class="docutils literal notranslate"><span class="pre">HexValue</span></code> (“FF00”) = 65280</td>
+</tr>
+<tr class="row-odd"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Sin(float)</span></code>:</dt>
+<dd>Returns the sine of the argument (assumes it is
+radians).</dd>
+</dl>
+</td>
+<td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Sin</span></code> (Pi()/4) = 0.707</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Sin</span></code> (Pi()/2) = 1.0</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Cos(float)</span></code>:</dt>
+<dd>Returns the cosine of the argument (assumes it is
+radians).</dd>
+</dl>
+</td>
+<td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Cos</span></code> (Pi()/4) = 0.707</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Cos</span></code> (Pi()/2) = 0.0</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Pi()</span></code>:</dt>
+<dd>Returns the value of the “pi” constant (the ratio of
+a circle’s perimeter to its diameter).</dd>
+</dl>
+</td>
+<td>d = Pi() # d == 3.141593</td>
+</tr>
+<tr class="row-even"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Log(float)</span></code>:</dt>
+<dd>Returns the natural (base-e) logarithm of the argument.</dd>
+</dl>
+</td>
+<td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Log</span></code> (1) = 0.0</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Log</span></code> (10) = 2.30259</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Exp(float)</span></code>:</dt>
+<dd>Returns the natural (base-e) exponent of the argument.</dd>
+</dl>
+</td>
+<td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Exp</span></code> (1) = 2.718282</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Exp</span></code> (0) = 1.0</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Pow(float</span> <span class="pre">base,</span> <span class="pre">float</span> <span class="pre">power)</span></code>:</dt>
+<dd>Returns “base” raised to the power indicated by the
+second argument.</dd>
+</dl>
+</td>
+<td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Pow</span></code> (2, 3) = 8</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Pow</span></code> (3, 2) = 9</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Pow</span></code> (3.45, 1.75) = 8.7334</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Sqrt(float)</span></code>:</dt>
+<dd>Returns the square root of the argument.</dd>
+</dl>
+</td>
+<td><div class="first last line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Sqrt</span></code> (1) = 1.0</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Sqrt</span></code> (2) = 1.4142</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Rand([int</span> <span class="pre">max]</span> <span class="pre">[,</span> <span class="pre">bool</span> <span class="pre">scale]</span> <span class="pre">[,</span> <span class="pre">bool</span> <span class="pre">seed])</span></code>:</dt>
+<dd><blockquote class="first">
+<div>returns random integer between 0 and max.</div></blockquote>
+<p>defaults:</p>
+<p><code class="docutils literal notranslate"><span class="pre">max</span></code> = 32768,  scale = TRUE,  seed = FALSE</p>
+<p><code class="docutils literal notranslate"><span class="pre">Scale</span></code> = FALSE, modulus mode, (Rand(32768)%limit)</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">Seed</span></code> = TRUE, use time as seed</p>
+</dd>
+</dl>
+</td>
+<td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Rand</span></code> (100) =</dt>
+<dd>integer number between 0 and 99,
+all number equally probable.</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Rand</span></code> (32767, False) =</dt>
+<dd>integer number between 0 and 32766,
+with 0 two times more probable
+than the other numbers.</dd>
+</dl>
+</td>
+</tr>
+<tr class="row-odd"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Spline(float</span> <span class="pre">X,</span>&#160; <span class="pre">x1,</span> <span class="pre">y1,</span> <span class="pre">x2,</span> <span class="pre">y2,</span> <span class="pre">....,</span> <span class="pre">bool</span> <span class="pre">&quot;cubic&quot;)</span></code></dt>
+<dd><p class="first"><strong>v2.5</strong>:</p>
+<p>Interpolates the Y value at point X using the control
+points x1/y1, …</p>
+<p class="last">There have to be at least 2 x/y-pairs.
+The interpolation can be cubic (the result is a
+spline) or linear (the result is a polygon)</p>
+</dd>
+</dl>
+</td>
+<td><p class="first"><code class="docutils literal notranslate"><span class="pre">Spline</span></code> (5, 0,0, 10,10, 20,0, false) = 5</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">Spline</span></code> (5, 0,0, 10,10, 20,0, true) = 7</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="string-functions">
+<h3><a class="toc-backref" href="#id12">String functions</a><a class="headerlink" href="#string-functions" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="40%" />
+<col width="60%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">UCase(string)</span></code>: returns the string in uppercase</td>
+<td><code class="docutils literal notranslate"><span class="pre">UCase</span></code> (“AviSynth”) = “AVISYNTH”</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">LCase(string)</span></code>: returns the string in lowercase</td>
+<td><code class="docutils literal notranslate"><span class="pre">LCase</span></code> (“AviSynth”) = “avisynth”</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">RevStr(string)</span></code>: returns the string in reverse</td>
+<td><code class="docutils literal notranslate"><span class="pre">RevStr</span></code> (“AviSynth”) = “htnySivA”</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">StrLen(string)</span></code>: returns the length of string</td>
+<td><code class="docutils literal notranslate"><span class="pre">StrLen</span></code> (“AviSynth”) = 8</td>
+</tr>
+<tr class="row-odd"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Findstr(string1,</span> <span class="pre">string2)</span></code>:</dt>
+<dd>returns the offset of string2 inside string1. The search is
+case-sensitive.</dd>
+</dl>
+</td>
+<td><code class="docutils literal notranslate"><span class="pre">Findstr</span></code> (“AviSynth”,”syn”) = 4</td>
+</tr>
+<tr class="row-even"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">LeftStr(string,</span> <span class="pre">length)</span></code> / <code class="docutils literal notranslate"><span class="pre">RightStr(string,</span> <span class="pre">length)</span></code>:</dt>
+<dd>returns left or right portion of string specified by length</dd>
+</dl>
+</td>
+<td><code class="docutils literal notranslate"><span class="pre">LeftStr</span></code> (“AviSynth”,3) = “Avi”</td>
+</tr>
+<tr class="row-odd"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">MidStr(string,</span> <span class="pre">start</span> <span class="pre">[,</span> <span class="pre">length])</span></code>:</dt>
+<dd>returns portion of string starting at start (for the first
+character start=1) for the number of characters specified
+by length or to the end.</dd>
+</dl>
+</td>
+<td><code class="docutils literal notranslate"><span class="pre">MidStr</span></code> (“AviSynth”,3,2) = “iS”</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">Chr(int)</span></code>: returns the ASCII character <strong>v2.5</strong></td>
+<td><code class="docutils literal notranslate"><span class="pre">Chr</span></code> (34) returns the quote character</td>
+</tr>
+<tr class="row-odd"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">Time(string)</span></code>:</dt>
+<dd>returns a string with the current system time formatted as
+defined by the string <strong>v2.5</strong></dd>
+</dl>
+</td>
+<td><div class="first line-block">
+<div class="line">Codes for output formatting:</div>
+<div class="line-block">
+<div class="line">%a Abbreviated weekday name</div>
+<div class="line">%A Full weekday name</div>
+<div class="line">%b Abbreviated month name</div>
+<div class="line">%B Full month name</div>
+<div class="line">%c Date and time representation appropriate for locale</div>
+<div class="line">%d Day of month as decimal number (01 - 31)</div>
+<div class="line">%H Hour in 24-hour format (00 - 23)</div>
+<div class="line">%I Hour in 12-hour format (01 - 12)</div>
+<div class="line">%j Day of year as decimal number (001 - 366)</div>
+<div class="line">%m Month as decimal number (01 - 12)</div>
+<div class="line">%M Minute as decimal number (00 - 59)</div>
+<div class="line">%p Current locale’s A.M./P.M. indicator for 12-hour clock</div>
+<div class="line">%S Second as decimal number (00 - 59)</div>
+<div class="line">%U Week of year as decimal number,</div>
+<div class="line-block">
+<div class="line">with Sunday as first day of week (00 - 53)</div>
+</div>
+<div class="line">%w Weekday as decimal number (0 - 6; Sunday is 0)</div>
+<div class="line">%W Week of year as decimal number,</div>
+<div class="line-block">
+<div class="line">with Monday as first day of week (00 - 53)</div>
+</div>
+<div class="line">%x Date representation for current locale</div>
+<div class="line">%X Time representation for current locale</div>
+<div class="line">%y Year without century, as decimal number (00 - 99)</div>
+<div class="line">%Y Year with century, as decimal number</div>
+<div class="line">%z, %Z Time-zone name or abbreviation; no characters if</div>
+<div class="line-block">
+<div class="line">time zone is unknown</div>
+</div>
+<div class="line">%% Percent sign</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">The # flag may prefix any formatting code. In that case,</div>
+<div class="line">the meaning of the format code is changed as follows.</div>
+</div>
+<div class="last line-block">
+<div class="line">%#a, %#A, %#b, %#B, %#p, %#X, %#z, %#Z, %#% # flag is ignored.</div>
+<div class="line">%#c Long date and time representation, appropriate for current locale.</div>
+<div class="line-block">
+<div class="line">For example: “Tuesday, March 14, 1995, 12:41:29”.</div>
+</div>
+<div class="line">%#x Long date representation, appropriate to current locale.</div>
+<div class="line-block">
+<div class="line">For example: “Tuesday, March 14, 1995”.</div>
+</div>
+<div class="line">%#d, %#H, %#I, %#j, %#m, %#M, %#S, %#U, %#w, %#W, %#y, %#Y Remove leading zeros (if any).</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="conversions">
+<h3><a class="toc-backref" href="#id13">Conversions</a><a class="headerlink" href="#conversions" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="52%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">Value(string)</span></code>: Returns the value of an string.</td>
+<td><code class="docutils literal notranslate"><span class="pre">Value</span></code> ( “-2.7” ) = -2.7</td>
+</tr>
+<tr class="row-even"><td><blockquote class="first">
+<div><dl class="docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">String(float</span> <span class="pre">/</span> <span class="pre">int</span> <span class="pre">/</span> <span class="pre">string,</span> <span class="pre">format_string)</span></code>:</dt>
+<dd><p class="first">converts a number to a string. If the variable is
+float or integer, it converts it to a float and
+uses the format_string to convert it to a string.</p>
+<p>The syntax of the format_string is as follows:</p>
+<p class="last">%[flags][width][.precision]f</p>
+</dd>
+</dl>
+</div></blockquote>
+<div class="last line-block">
+<div class="line">width: the minimum width (the string is never truncated)</div>
+<div class="line">precision: the number of digits printed</div>
+<div class="line">flags:</div>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">-</span></code> left align (instead right align)</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">+</span></code> always print the +/- sign</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">0</span></code> padding with leading zeros</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">'</span> <span class="pre">'</span></code> print a blank instead of a “+”</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">#</span></code> always print the decimal point</div>
+</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">e.g. <code class="docutils literal notranslate"><span class="pre">Subtitle</span></code> (“Clip height is ” + <code class="docutils literal notranslate"><span class="pre">String</span></code> (last.height) )</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">String</span></code> (1.23, “%f”) = ‘1.23’</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">String</span></code> (1.23, “%5.1f”) = ‘ 1.2’</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">String</span></code> (1.23, “%1.3f”) = ‘1.230’</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="version-checking-functions">
+<h3><a class="toc-backref" href="#id14">Version checking functions</a><a class="headerlink" href="#version-checking-functions" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="39%" />
+<col width="61%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">VersionNumber()</span></code>:</dt>
+<dd>Returns AviSynth version number as float</dd>
+</dl>
+</td>
+<td><code class="docutils literal notranslate"><span class="pre">VersionNumber()</span></code> = 2.56</td>
+</tr>
+<tr class="row-even"><td><dl class="first last docutils">
+<dt><code class="docutils literal notranslate"><span class="pre">VersionString()</span></code>:</dt>
+<dd>Returns AviSynth version info as string
+(first line used in <code class="docutils literal notranslate"><span class="pre">Version</span></code> command).</dd>
+</dl>
+</td>
+<td><code class="docutils literal notranslate"><span class="pre">VersionString()</span></code> = “AviSynth 2.56, build:Oct 28 2005 [18:43:54]”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="test-functions">
+<h3><a class="toc-backref" href="#id15">Test functions</a><a class="headerlink" href="#test-functions" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">IsBool(var)</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">IsInt(var)</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">IsFloat(var)</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">IsString(var)</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">IsClip(var)</span></code></div>
+</div>
+</div>
+<div class="section" id="other-functions">
+<h3><a class="toc-backref" href="#id16">Other functions</a><a class="headerlink" href="#other-functions" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Select</span></code> (index, item0 [, item1…]): Returns item selected by the index (0=item0). Items can be any variable or clip and can even be mixed.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Defined</span></code> (var): for defining optional parameters in user-defined functions.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Default</span></code> (x, d): returns x if Defined(x), d otherwise.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Exist</span></code> (filename): returns TRUE or FALSE after checking if the file exists.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">NOP</span></code> (): returns NULL, provided mainly for conditional execution with non-return value items such as import and no “else” condition desired.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Eval</span></code> (string), <code class="docutils literal notranslate"><span class="pre">Apply</span></code> (func-string, arg,…): <code class="docutils literal notranslate"><span class="pre">Eval</span></code> (“f(x)”) is equivalent to <code class="docutils literal notranslate"><span class="pre">f(x)</span></code> is equivalent to <code class="docutils literal notranslate"><span class="pre">Apply</span></code> (“f”, x)</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">You</span> <span class="n">can</span> <span class="n">use</span> <span class="n">Eval</span> <span class="k">for</span> <span class="n">something</span> <span class="n">like</span><span class="p">:</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;352, 288&quot;</span>
+<span class="n">Eval</span><span class="p">(</span> <span class="s2">&quot;BicubicResize(&quot;</span> <span class="o">+</span> <span class="n">settings</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Import</span></code> (filename): evals contents of another AviSynth script (imports the text of another script)</p>
+<div class="line-block">
+<div class="line">For error reporting and catching bad input to user-defined function you can use:</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Assert</span></code> (bool, string error-message)</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Try</span> <span class="pre">...</span> <span class="pre">Catch</span></code>: this is a function for checking if an error WILL arise:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Try</span> <span class="p">{</span>
+  <span class="n">AviSource</span><span class="p">(</span><span class="s2">&quot;file.avi&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="n">Catch</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">Blackness</span><span class="o">.</span><span class="n">Subtitle</span><span class="p">(</span><span class="n">err_msg</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+</div>
+</div>
+<div class="section" id="runtime-functions">
+<span id="id1"></span><h2><a class="toc-backref" href="#id17">Runtime Functions</a><a class="headerlink" href="#runtime-functions" title="Permalink to this headline">¶</a></h2>
+<p>There are now <a class="reference internal" href="../corefilters/conditionalfilter.html"><span class="doc">Conditional Filters</span></a> which evaluate scripts when a frame is
+processed, so you can change variables on a per-frame basis.
+To have more applications there have to be <a class="reference internal" href="../corefilters/conditionalfilter.html#conditional-runtime-functions"><span class="std std-ref">Runtime Functions</span></a> which
+evaluate the content of the clip and return a value. <strong>v2.5</strong></p>
+<p>A simple example is to calculate the average luma for each frame and display
+it.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Version</span><span class="p">()</span>      <span class="c1"># Generate a test clip</span>
+<span class="n">ConvertToYV12</span><span class="p">()</span><span class="c1"># We need YV12</span>
+<span class="n">FadeIn</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>     <span class="c1"># Make the luma variable so</span>
+               <span class="c1"># we can see something happen</span>
+
+               <span class="c1"># Evaluate Subtitle(...) for each frame</span>
+               <span class="c1"># the output of AverageLuma is converted to</span>
+               <span class="c1"># a string and Subtitled on the input clip</span>
+<span class="n">ScriptClip</span><span class="p">(</span><span class="s2">&quot; Subtitle(String(AverageLuma())) &quot;</span><span class="p">)</span>
+<span class="n">ConvertToRgb</span>   <span class="c1"># View it in RGB</span>
+</pre></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="control-functions">
+<h2><a class="toc-backref" href="#id18">Control Functions</a><a class="headerlink" href="#control-functions" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">SetMemoryMax</span></code> (int): Sets the maximum memory that AviSynth uses (in MB).
+Setting to zero just returns the current Memory Max value. <strong>v2, (=0)
+v2.5.8</strong></p>
+<p>In the 2.5 series the default Memory Max value is 25% the free physical
+memory, with a minimum of 16MB. From rev 2.5.8 RC4, the default Memory Max is
+also limited to 512MB.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="45%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Free memory:</th>
+<th class="head">&lt;64</th>
+<th class="head">128</th>
+<th class="head">256</th>
+<th class="head">512</th>
+<th class="head">1024</th>
+<th class="head">2048</th>
+<th class="head">3072</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Default Max v2.5.7 and older:</td>
+<td>16</td>
+<td>32</td>
+<td>64</td>
+<td>128</td>
+<td>256</td>
+<td>512</td>
+<td>768</td>
+</tr>
+<tr class="row-odd"><td>Default Max since v2.5.8 RC4:</td>
+<td>16</td>
+<td>32</td>
+<td>64</td>
+<td>128</td>
+<td>256</td>
+<td>512</td>
+<td>512</td>
+</tr>
+</tbody>
+</table>
+<p>In some older versions there is a default setting of 5MB, which is quite low.
+If you encounter problems (e.g. low speed) try to set this values to at least
+32MB. Too high values can result in crashes because of 2GB address space
+limit. Return value: Actual MemoryMax value set.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SetPlanarLegacyAlignment</span></code> (clip, bool): Set alignment mode for planar
+frames. <strong>v2.5.6</strong></p>
+<p>Some older plugins illegally assume the layout of video frames in memory.
+This special filter forces the memory layout of planar frames to be
+compatible with prior version of AviSynth. The filter works on the GetFrame()
+call stack, so it effects filters <strong>before</strong> it in the script.</p>
+<p><em>Example : Using an older version of Mpeg2Source()</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LoadPlugin</span><span class="p">(</span><span class="s2">&quot;...\Mpeg2Decode.dll&quot;</span><span class="p">)</span>
+<span class="n">Mpeg2Source</span><span class="p">(</span><span class="s2">&quot;test.d2v&quot;</span><span class="p">)</span>         <span class="c1"># A plugin that illegally</span>
+                                <span class="c1"># assumes the layout of memory</span>
+<span class="n">SetPlanarLegacyAlignment</span><span class="p">(</span><span class="n">true</span><span class="p">)</span>  <span class="c1"># Set legacy memory alignment</span>
+                                <span class="c1"># for prior statements</span>
+<span class="n">ConvertToYUY2</span><span class="p">()</span>                 <span class="c1"># Statements thru to the end</span>
+                                <span class="c1"># of the script have advanced</span>
+<span class="o">...</span>                             <span class="c1"># memory alignment.</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">SetWorkingDir</span></code> (string): Sets the default directory for Avisynth. <strong>v2</strong></p>
+<p>This is primarily for easy loading of source clips, etc. Does not affect
+plugin autoloading.</p>
+<blockquote>
+<div><code class="docutils literal notranslate"><span class="pre">Return</span> <span class="pre">value:</span> <span class="pre">0</span> <span class="pre">if</span> <span class="pre">successful,</span> <span class="pre">-1</span> <span class="pre">otherwise.</span></code></div></blockquote>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">global</span> <span class="pre">OPT_AllowFloatAudio=True</span></code>: <strong>v2.57</strong></div>
+<div class="line">This option enables WAVE_FORMAT_IEEE_FLOAT audio output. The default is to autoconvert Float audio to 16 bit.</div>
+</div>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">global</span> <span class="pre">OPT_UseWaveExtensible=True</span></code>: <strong>v2.58</strong></div>
+<div class="line">This option enables WAVE_FORMAT_EXTENSIBLE audio output. The default is WAVE_FORMAT_EX.</div>
+</div>
+<p>Note: The default DirectShow component for .AVS files, “AVI/WAV File Source”,
+does not correctly implement WAVE_FORMAT_EXTENSIBLE processing, so many
+application may not be able to detect the audio track. There are third party
+DirectShow readers that do work correctly. Intermediate work files written
+using the AVIFile interface for later DirectShow processing will work
+correctly if they use the DirectShow “File Source (async)” component or
+equivalent.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="clip-properties">
+<h2><a class="toc-backref" href="#id19">Clip Properties</a><a class="headerlink" href="#clip-properties" title="Permalink to this headline">¶</a></h2>
+<p>These functions take a clip as input and you get back a property of the clip.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">Width(clip)</span></code></td>
+<td>Returns the width of the clip in pixels (type: int).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">Height(clip)</span></code></td>
+<td>Returns the height of the clip in pixels (type: int).</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">Framecount(clip)</span></code></td>
+<td>Returns the number of frames of the clip (type: int).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">Framerate(clip)</span></code></td>
+<td>Returns the number of frames per seconds of the clip.
+(type: float)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">FramerateNumerator(clip)</span></code> <strong>v2.55</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">FramerateDenominator(clip)</span></code> <strong>v2.55</strong></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">Audiorate(clip)</span></code></td>
+<td>Returns the sample rate of the audio of the clip.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">Audiolength(clip)</span></code></td>
+<td>Returns the number of samples of the audio of the clip
+(type: int). Be aware of possible overflow on very
+long clips ( 2^31 samples limit).</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">AudiolengthF(clip)</span></code> <strong>v2.55</strong></td>
+<td>Returns the number of samples of the audio of the clip
+(type: float).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">Audiochannels(clip)</span></code></td>
+<td>Returns the number of audio channels of the clip.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">Audiobits(clip)</span></code></td>
+<td>Returns the audio bit depth of the clip.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">IsAudioFloat(clip)</span></code> <strong>v2.55</strong></td>
+<td>Returns true if the bit depth of the audio of the clip
+is float.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">IsAudioInt(clip)</span></code> <strong>v2.55</strong></td>
+<td>Returns true if the bit depth of the audio of the clip
+an integer.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">IsRGB(clip)</span></code></td>
+<td>Returns true if the clip is RGB, false otherwise
+(type: bool).</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">IsRGB24(clip)</span></code></td>
+<td>Returns true if the clip is RGB24, false otherwise
+(type: bool).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">IsRGB32(clip)</span></code></td>
+<td>Returns true if the clip is RGB32, false otherwise
+(type: bool).</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">IsYUY2(clip)</span></code></td>
+<td>Returns true if the clip is YUY2, false otherwise
+(type: bool).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">IsYV12(clip)</span></code> <strong>v2.51</strong></td>
+<td>Returns true if the clip is YV12, false otherwise
+(type: bool).</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">IsYUV(clip)</span></code> <strong>v2.54</strong></td>
+<td>Returns true if the clip is YUV, false otherwise
+(type: bool).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">IsPlanar(clip)</span></code> <strong>v2.51</strong></td>
+<td>Returns true if the clip color format is planar,
+false otherwise (type: bool).</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">IsInterleaved(clip)</span></code> <strong>v2.51</strong></td>
+<td>Returns true if the clip color format is interleaved,
+false otherwise (type: bool).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">IsFieldBased(clip)</span></code></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">IsFrameBased(clip)</span></code></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">GetParity(clip,</span> <span class="pre">int</span> <span class="pre">&quot;n&quot;)</span></code></td>
+<td>Returns true if frame n (default 0) is top field of
+fieldbased clip, or it is full frame with top field
+first of framebased clip (type: bool).</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">HasAudio(clip)</span></code> <strong>v2.56</strong></td>
+<td>Returns true if the clip has audio, false otherwise
+(type: bool).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">HasVideo(clip)</span></code> <strong>v2.56</strong></td>
+<td>Returns true if the clip has video, false otherwise
+(type: bool).</td>
+</tr>
+</tbody>
+</table>
+<p>Don’t forget: you can use the Properties with the implicit variable LAST or in OOP-notation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BilinearResize</span><span class="p">(</span><span class="n">Width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">Height</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+   <span class="ow">is</span> <span class="n">the</span> <span class="n">same</span> <span class="k">as</span>
+<span class="n">BilinearResize</span><span class="p">(</span><span class="n">Width</span><span class="p">(</span><span class="n">Last</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">Height</span><span class="p">(</span><span class="n">Last</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+   <span class="ow">is</span> <span class="n">the</span> <span class="n">same</span> <span class="k">as</span>
+<span class="n">BilinearResize</span><span class="p">(</span><span class="n">Last</span><span class="o">.</span><span class="n">Width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Last</span><span class="o">.</span><span class="n">Height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="user-defined-functions">
+<h2><a class="toc-backref" href="#id20">User-Defined Functions</a><a class="headerlink" href="#user-defined-functions" title="Permalink to this headline">¶</a></h2>
+<p>You can define your own functions. This is best explained by an example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Function</span> <span class="n">NTSC2PAL</span><span class="p">(</span> <span class="n">clip</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Assert</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">height</span> <span class="o">==</span> <span class="mi">480</span><span class="p">,</span> \
+           <span class="s2">&quot;NTSC2PAL: input clip must have 480 scan</span>
+           <span class="n">lines</span><span class="s2">&quot;)</span>
+    <span class="n">Bob</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">576</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Weave</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Even recursive functions can be defined.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>function TRANSITION(clip clip, int start, int expo, int overlap)
+{
+   return ( start &gt;= clip.framecount-expo ?
+\      Trim(clip,start,0) :
+\      Dissolve(Trim(clip,start,start+expo-1),
+\         TRANSITION(clip,start+expo,expo,overlap),
+\         overlap
+\              )
+\         )
+}
+</pre></div>
+</div>
+<hr class="docutils" />
+</div>
+<div class="section" id="functions-with-more-than-one-input-clip">
+<span id="multiclip"></span><h2><a class="toc-backref" href="#id21">Functions with more than one input clip</a><a class="headerlink" href="#functions-with-more-than-one-input-clip" title="Permalink to this headline">¶</a></h2>
+<p>There are some functions which combine two or more clips in different ways.
+How the video content is calculated is described for each function, but here
+is a summary which properties the result clip will have.</p>
+<p>The input clips must always have the same color format and - with the
+exception of <em>Layer</em> - the same dimensions.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="14%" />
+<col width="21%" />
+<col width="14%" />
+<col width="15%" />
+<col width="14%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&#160;</th>
+<th class="head">frame-rate</th>
+<th class="head">frame-count</th>
+<th class="head">&#160;</th>
+<th class="head">audio content</th>
+<th class="head">audio sampling rate</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>AlignedSplice, UnalignedSplice</strong></td>
+<td rowspan="6">first clip</td>
+<td>sum of all clips</td>
+<td>&#160;</td>
+<td>see filter description</td>
+<td rowspan="7">first clip</td>
+</tr>
+<tr class="row-odd"><td><strong>Dissolve</strong></td>
+<td>sum of all clips minus the
+overlap</td>
+<td>&#160;</td>
+<td>see filter description</td>
+</tr>
+<tr class="row-even"><td><strong>Merge, MergeLuma, MergeChroma,</strong>
+<strong>Merge(A)RGB</strong></td>
+<td rowspan="2">first clip</td>
+<td rowspan="5">the last frame of
+the shorter clip
+is repeated until
+the end of the clip</td>
+<td rowspan="5">first clip</td>
+</tr>
+<tr class="row-odd"><td><strong>Layer</strong></td>
+</tr>
+<tr class="row-even"><td><strong>Subtract</strong></td>
+<td rowspan="2">longer clip</td>
+</tr>
+<tr class="row-odd"><td><strong>StackHorizontal, StackVertical</strong></td>
+</tr>
+<tr class="row-even"><td><strong>Interleave</strong></td>
+<td>(fps of first clip)
+x
+(number of clips)</td>
+<td>N x frame-count of longer clip</td>
+</tr>
+</tbody>
+</table>
+<p>As you can see the functions are not completely symmetric but take some
+attributes from the FIRST clip.</p>
+<hr class="docutils" />
+</div>
+<div class="section" id="plugins">
+<span id="syntax-rst-plugins"></span><h2><a class="toc-backref" href="#id22">Plugins</a><a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h2>
+<p>With these functions you can add external functions to AviSynth.</p>
+<p><code class="docutils literal notranslate"><span class="pre">LoadPlugin(&quot;filename&quot;</span> <span class="pre">[,</span> <span class="pre">...])</span></code></p>
+<p>Loads one or more external avisynth plugins (DLLs).</p>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">LoadVirtualDubPlugin(&quot;filename&quot;,</span> <span class="pre">&quot;filtername&quot;,</span> <span class="pre">preroll)</span></code></p>
+<p>This loads a plugin written for VirtualDub. “filename” is the name of the
+.vdf file. After calling this function, the filter will be known as
+“filtername” in avisynth. VirtualDub filters only supports RGB32. If the
+video happens to be in RGB24-format, then you must use <code class="docutils literal notranslate"><span class="pre">ConvertToRGB32</span></code>
+(<code class="docutils literal notranslate"><span class="pre">ConvertToRGB</span></code> won’t suffice).</p>
+<p>Some filters output depends on previous frames; for those preroll should be
+set to at least the number of frames the filter needs to pre-process to fill
+its buffers and/or updates its internal variables.</p>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">LoadVFAPIPlugin(&quot;filename&quot;,</span> <span class="pre">&quot;filtername&quot;)</span></code></p>
+<p>This allows you to use VFAPI plugins (TMPGEnc import plugins).</p>
+<hr class="docutils" />
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">LoadCPlugin(&quot;filename&quot;</span> <span class="pre">[,</span> <span class="pre">...])</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Load_Stdcall_Plugin(&quot;filename&quot;</span> <span class="pre">[,</span> <span class="pre">...])</span></code></div>
+</div>
+<p>Loads so called Avisynth C-plugins (DLLs).
+Load_Stdcall_Plugin() is an alias for LoadCPlugin().
+C-plugins are created on pure C language and use special “AviSynth C API”
+(unlike ordinary Avisynt plugins which are created with MS C++). C-plugins
+must be loaded with LoadCPlugin() or Load_Stdcall_Plugin().</p>
+<p>Kevin provides a LoadCPlugin.dll that overloads the LoadCPlugin() verb to
+support plugins compiled using the C subroutine calling sequence, use
+Load_Stdcall_Plugin() to load stdcall calling sequence plugins when using
+Kevins version. Advice: keep these plugins outside your auto plugin loading
+directory to prevent crashes. [<a class="reference external" href="http://forum.doom9.org/showthread.php?s=&amp;threadid=58840">discussion</a>] [<a class="reference external" href="http://kevin.atkinson.dhs.org/avisynth_c/">AVISynth C API (by
+kevina20723)</a>]</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="plugin-autoload-and-name-precedence-v2">
+<h2><a class="toc-backref" href="#id23">Plugin autoload and name precedence <strong>v2</strong></a><a class="headerlink" href="#plugin-autoload-and-name-precedence-v2" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to put all plugins and script files with user-defined
+functions or (global) variables in a directory from where all files with the
+extension .AVSI (<strong>v2.08, v2.5</strong>, the type was .AVS in <strong>v2.05-2.07</strong>) and
+.DLL are loaded at startup, unloaded and then loaded dynamically as the
+script needs them.</p>
+<p>.AVSI scripts in this directory should only contain function definitions and
+global variables, no main processing section (else strange errors may occur),
+it also is not recommended to put other files in that directory.</p>
+<p>The directory is stored in the registry (the registry key has changed for
+<strong>v2.5</strong>). You can use double-clicking a .REG-file with the following lines
+to set the path (of course inserting your actual path):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">REGEDIT4</span>
+
+<span class="p">[</span><span class="n">HKEY_LOCAL_MACHINE</span>\<span class="n">SOFTWARE</span>\<span class="n">Avisynth</span><span class="p">]</span>
+<span class="s2">&quot;plugindir2_5&quot;</span><span class="o">=</span><span class="s2">&quot;c:</span><span class="se">\\</span><span class="s2">program files</span><span class="se">\\</span><span class="s2">avisynth 2.5</span><span class="se">\\</span><span class="s2">plugins&quot;</span>
+</pre></div>
+</div>
+<p>The order in which function names take precedence is as follows: ::user-
+defined function (always have the highest priority)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plugin</span><span class="o">-</span><span class="n">function</span> <span class="p">(</span><span class="n">have</span> <span class="n">higher</span> <span class="n">priority</span> <span class="n">than</span> <span class="n">built</span><span class="o">-</span><span class="ow">in</span>
+<span class="n">functions</span><span class="p">,</span> <span class="n">they</span> <span class="n">will</span> <span class="n">override</span> <span class="n">a</span> <span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">function</span><span class="p">)</span>
+   <span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">function</span>
+</pre></div>
+</div>
+<p>Inside those groups the function loaded at last takes precedence, there is no
+error in a namespace conflict.</p>
+</div>
+<div class="section" id="plugin-autoload-and-conflicting-function-names-v2-55">
+<h2><a class="toc-backref" href="#id24">Plugin autoload and conflicting function names <strong>v2.55</strong></a><a class="headerlink" href="#plugin-autoload-and-conflicting-function-names-v2-55" title="Permalink to this headline">¶</a></h2>
+<p>Starting from v2.55 there is DLLName_function() support. The problem is that
+two plugins can have different functions which are named the same. To call
+the needed one, DLLName_function() support is added. It auto-generates the
+additional names both for auto-loaded plugins and for plugins loaded with
+LoadPlugin.</p>
+<p><strong>Some examples:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># using fielddeinterlace from decomb510.dll</span>
+<span class="n">AviSource</span><span class="p">(</span><span class="s2">&quot;D:\captures\jewel.avi&quot;</span><span class="p">)</span>
+<span class="n">decomb510_fielddeinterlace</span><span class="p">(</span><span class="n">blend</span><span class="o">=</span><span class="n">false</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Suppose you have  the plugins mpeg2dec.dll and mpeg2dec3.dll in your auto
+plugin dir, and you want to load a d2v file with mpeg2dec.dll (which outputs
+YUY2):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># using mpeg2source from mpeg2dec.dll</span>
+<span class="n">mpeg2dec_mpeg2source</span><span class="p">(</span><span class="s2">&quot;F:\From_hell</span><span class="se">\f</span><span class="s2">rom_hell.d2v&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>or with mpeg2dec3.dll (which outputs YV12):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># using mpeg2source from mpeg2dec3.dll</span>
+<span class="n">mpeg2dec3_mpeg2source</span><span class="p">(</span><span class="s2">&quot;F:\From_hell</span><span class="se">\f</span><span class="s2">rom_hell.d2v&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>$Date: 2008/12/06 16:37:26 $</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="syntax_clip_properties.html" title="AviSynth Clip properties"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../script_ref/script_ref_user_functions.html" title="User functions"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

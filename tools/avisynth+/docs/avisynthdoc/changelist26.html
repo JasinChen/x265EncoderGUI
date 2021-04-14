@@ -1,0 +1,429 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Changes. &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Core Filters" href="corefilters.html" />
+    <link rel="prev" title="2.58 Changes" href="changelist.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="corefilters.html" title="Core Filters"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="changelist.html" title="2.58 Changes"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Changes.</a><ul>
+<li><a class="reference internal" href="#changes-from-2-5">Changes from 2.5</a><ul>
+<li><a class="reference internal" href="#additions">Additions</a></li>
+<li><a class="reference internal" href="#bugfixes">Bugfixes</a></li>
+<li><a class="reference internal" href="#optimizations">Optimizations</a></li>
+<li><a class="reference internal" href="#id1">Changes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="changelist.html"
+                        title="previous chapter">2.58 Changes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="corefilters.html"
+                        title="next chapter">Core Filters</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/avisynthdoc/changelist26.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="changes">
+<h1>Changes.<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="changes-from-2-5">
+<h2>Changes from 2.5<a class="headerlink" href="#changes-from-2-5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="additions">
+<h3>Additions<a class="headerlink" href="#additions" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>DirectShowSource support non-standard pixel types “YV24” and “YV16”.</li>
+<li>Info: Audio only clip now creates its own canvas video.</li>
+<li>AviSource: Include packed/padded processing and -ve biHeight logic
+for compressed input.</li>
+<li>Add Script Functions :- BitLRotate, BitRRotate, BitChange, BitClear,
+BitSet, BitTest and their asm aliases.</li>
+<li>Add WeaveRows (blit cost) and WeaveColumns (slow) frame combining
+filters.</li>
+<li>Add AudioDuration() [as float seconds], IsY8(), IsYV411() &amp;
+PixelType() [as a string] script functions.</li>
+<li>Add Echo and Preroll filters.</li>
+<li>Add IScriptEnvironment::GetAVSLinkage() and DLLExport AVS_linkage for
+host usage of avisynth.dll.</li>
+<li>DirectShowSource, 2.6 plugin, support pixel types “AYUV” as YV24,
+“Y41P” and “Y411” as YV411.</li>
+<li>AviSource: Add Full and Auto pseudo pixel_types. Full is all
+supported. Auto is YV12, YUY2, RGB32, RGB24 &amp; Y8.</li>
+<li>Add “AudioLengthS” [as a string], “Ord” &amp; “FillStr” script functions.</li>
+<li>Add AudioTrim(clip, float, float) audio priority trimming, args in
+fractional seconds.</li>
+<li>Add Trim(M, Length=N[, Pad=False]) and Trim(M, End=N[, Pad=False])
+function overloads for explicit Trimming. Length=0 means zero frame clip.
+End=0 means end at frame 0.</li>
+<li>Add SeparateRows (zero cost) and SeparateColumns (slow) frame
+slashing filters.</li>
+<li>Add Script Functions :- Acos, Asin, Atan, Atan2, Cosh, Sinh, Tanh,
+Fmod, Log10, BitLShift, BitRShiftS, BitRShiftU and Hex.</li>
+<li>Add “ConditionalSelect”,”csc+[show]b” runtime filter.</li>
+<li>Add dither option to Levels, RGBAdjust &amp; Tweak.</li>
+<li>Add BitAnd(), BitNot(), BitOr() &amp; BitXor() script functions.</li>
+<li>Add StrCmp() &amp; StrCmpI() script functions.</li>
+<li>Add YV24 support for Limiter show option.</li>
+<li>Add “Global OPT_dwChannelMask={int}”</li>
+<li>Add 0x0063F speaker mask for 7.1 WAVE_FORMAT_EXTENSIBLE.</li>
+<li>Add .dll DelayLoad exception texts to crash message formatter.</li>
+<li>ImageWriter, add support for printf formating of filename string,
+default is (“%06d.%s”, n, ext);</li>
+<li>Add avs_get_error(AVS_ScriptEnvironment*); to avisynth_c interface.</li>
+<li>Catch and save AvisynthError text in more avisynth_c entry points,
+for kemuri-_9.</li>
+<li>Add ScriptName(), ScriptFile(), ScriptDir() functions
+(WarpEnterprises).</li>
+<li>Add SkewRows filter.</li>
+<li>Histogram, Levels mode, Improve colour of chroma legends.</li>
+<li>ConditionalFilter, teach about string results.</li>
+<li>Add some more “Add/Remove Software” registry keys to the Installer
+(XhmikosR).</li>
+<li>AviSource: Support both packed and DWORD padded raw planar input like
+with DSS.</li>
+<li>Add IScriptEnvironment::ApplyMessage()</li>
+<li>Add ImageSourceAnim (Wilbert)</li>
+<li>Support user upgrade to 178 DevIL.dll (They need to manage CRT
+dependancies).</li>
+<li>ImageSource: palette and compressed bmp images load correctly now
+(issue 894702) [need 178 DevIL.dll]</li>
+<li>ImageSource: support for other formats like: gif, exr, jp2, psd, hdr
+[need 178 DevIL.dll]</li>
+<li>Add YV24 mode to ColorBars.</li>
+<li>Add ColorBarsHD based on arib_std_b28.</li>
+<li>C-api usability enhancements from kemuri9 [Work in progress!]</li>
+<li>Add Undefined(), AudioLengthLo(), AudioLengthHi(), IsYV16() &amp;
+IsYV24() script functions</li>
+<li>Allow newlines (and hence comments) before ‘{‘ – Gavino</li>
+<li>Added IScriptEnvironment::DeleteScriptEnvironment()</li>
+<li>Added Histogram, population clamp % factor for “Levels” mode,</li>
+<li>Histogram, revert “Stereo” mode to YV12, Add “StereoY8” mode,</li>
+<li>AviSource: Support fourcc “GREY” as Y8</li>
+<li>Added support for argument passing and EAX return value to
+SoftwireHelper.</li>
+<li>Added “Global OPT_VDubPlanarHack=True” to flip YV24 and YV16 chroma
+planes for old VDub’s.</li>
+<li>Added “Global OPT_AVIPadScanlines=True” option for DWORD aligned
+planar padding</li>
+<li>Added Matrix=”AVERAGE” mode.</li>
+<li>Added ContinuedDenominator/ContinuedNumerator(f[]i[limit]i) script
+functions.</li>
+<li>Tweak: fix MaskPointResizing + put back Dividee ISSE code (use
+sse=true).</li>
+<li>Added ChromaInPlacement, ChromaOutPlacement and ChromaResample
+options to planar colour conversions.</li>
+<li>Added MaskHS.</li>
+<li>Source tweaks to get ready for VC8.</li>
+<li>Add Y8 for DevIL, planarize EBMP.</li>
+<li>Planar support for many filters.</li>
+<li>Added Info() time indicator on audio length and video (current frame
+&amp; total). (2.5.8)</li>
+<li>Added UtoY8 and VtoY8.</li>
+<li>Added more info to Info(). (2.5.8)</li>
+<li>ColorYUV: Added all adjustment parameters as conditional variables
+“coloryuv_SETTING”. Enable by setting conditional=true.</li>
+<li>ConditionalReader: Added support for type String.</li>
+<li>ConditionalReader: Added offset keyword to offset all frame numbers
+after the keyword.</li>
+<li>Added SincResize() with optional taps parameter (default is 4).</li>
+<li>Added Custom band setting to SuperEQ to allow all 16 bands to be set
+from script. Usage: SuperEQ(clip,band1, band2, band3….) values are dB
+in float.</li>
+<li>Added fast 0-1-0 kernel for YV24 to ConvertBacktoYUY2().</li>
+<li>Added core formats: YV24, YV16, Y8, YV411.</li>
+</ul>
+</div>
+<div class="section" id="bugfixes">
+<h3>Bugfixes<a class="headerlink" href="#bugfixes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Fixed DirectShowSource incorrect byte order for unpacking of pixel
+type “AYUV”.</li>
+<li>Fixed HexValue parsing values greater than 7FFFFFFF, now as unsigned
+hex.</li>
+<li>Fixed ConditionalReader memory overrun parsing bools.</li>
+<li>Fixed ResampleAudio NOP test to compare vi.num_audio_samples, not
+sample rate.</li>
+<li>Fixed YV24 -&gt; RGB24 overrun cleanup for widths%16 == 5.</li>
+<li>Fixed RGB24 AddBorders with right=0.</li>
+<li>Fixed conditional_functions error message names (Wilbert).</li>
+<li>Fixed Audio cache ac_expected_next regression.</li>
+<li>Fixed ImageSource deal with add 1 to IL_NUM_IMAGES bug (Wilbert)</li>
+<li>Fixed Overlay YV24 V plane conversion.</li>
+<li>Fixed Overlay YV24 mode with shared input clip, needed a
+MakeWritable.</li>
+<li>Fixed ImageReader upside down TIFF in 178 DevIL. (Wilbert)</li>
+<li>Fixed string+string bug when total length is 4096*K-1.</li>
+<li>Fixed SincResize misuse of “int abs(int)” (Gavino). Fix Lanczos and
+Blackman sinc use of float == 0.0, use small limit “&gt; 0.000001”.</li>
+<li>Fixed Classic mode legend drawing for planar right limit and yuy2
+centre line.</li>
+<li>Fixed possible MT race. Use “env-&gt;ManageCache(MC_IncVFBRefcount,
+…)” in ProtectVFB.</li>
+<li>Fixed SwapYToUV output image size bug for 3 clip case.</li>
+<li>Fixed Crop limit tests for RGB.</li>
+<li>Fixed Overlay yellow tint on rec601 RGB import conversion.</li>
+<li>Fixed YtoUV() output image size bug for 3 clip case.</li>
+<li>Fixed ConvertToPlanar chroma alignment.</li>
+<li>Fixed Levels (RGB) change use of PixelClip(x) to min(max(x, 0), 255).</li>
+<li>Fixed SwapYtoUV yuy2 crash (StainlessS).</li>
+<li>Fixed Overlay saturate UV in add and subtract mode.</li>
+<li>Fixed Info.h range protect display characters (StainlessS).</li>
+<li>Fixed AviSource packed planar import chroma offsets.</li>
+<li>Fixed AviSource NULL GetWritePtr() failure due to premature setting
+of last_frame.</li>
+<li>Fixed Mask rounding in greyscale calcs (Wilbert), minor refactor.</li>
+<li>Fixed SelectRangeEvery audio snafu (Gavino).</li>
+<li>Fixed LoadPlugin, SaveString of result string.</li>
+<li>Fixed LoadPlugin, use _vsnprintf.</li>
+<li>Fixed LoadVirtualdubPlugin, don’t add vdub filter to chain on load
+failure.</li>
+<li>Fixed rounding in RGB HResize (JoshyD) (affects all resizers)</li>
+<li>Fixed error message name in the filter VerticalReduceBy2</li>
+<li>Fixed SeparateFields() with variable parity input clip (Wilbert)</li>
+<li>Fixed AviSource, cannot cast__int64* to long*, it does not work!</li>
+<li>Fixed ConditionalReader: Don’t allow out of range “Range” to
+overwrite edge values</li>
+<li>Fixed MonoToStereo with stereo sources.</li>
+<li>Fixed MergeChannels with only 1 input clip.</li>
+<li>Fixed AviSource support for negative height DIB format AVI’s.</li>
+<li>Fixed Audio cache crashes.</li>
+<li>Fixed resize with YV411, missing code.</li>
+<li>Fixed ConditionalReader rounding with integer interpolation.</li>
+<li>Fixed Softwire SSE2 bugs.</li>
+<li>Fixed SSSE3 CPU detection.</li>
+<li>Fixed SSSE3, SSE4.1 &amp; SSE4.2 detection.</li>
+<li>Fixed Fastwire encoding of instructions that are &gt;2 opcodes
+(SSSE3+4).</li>
+<li>Fixed _RPT5() macro for debug builds</li>
+</ul>
+</div>
+<div class="section" id="optimizations">
+<h3>Optimizations<a class="headerlink" href="#optimizations" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>ConvertToPlanarGeneric explicit add Cache before chroma rescaler.</li>
+<li>Overlay minor refactor YV12 -&gt; 444 chroma</li>
+<li>Speedup ConvertToMono(), minor refactor MixAudio().</li>
+<li>Change StackVertical/Horizontal to interative instead of recursive,
+2^N performace increase for 3 and more clips, i.e. 1 blit total instead
+of blit(blit(blit(…</li>
+<li>RGBtoY8 Dynamic ASM code, support for RGB24.</li>
+<li>YV24backtoYUY2 Dynamic ASM code.</li>
+<li>UtoY8, VtoY8 abuse subframe, zero cost.</li>
+<li>YV24&lt;-&gt;RGB Add SSE2 and SSSE3 code paths, get rid of wide_enough.</li>
+<li>ConvertToYUY2 Add SSE2, MMX restore full speed on platforms with poor
+ooox.</li>
+<li>ConvertAudio, manage tempbuffer and floatbuffer independantly.</li>
+<li>ConvertAudio, prefer SSE2 over 3DNow for super AMD cores.</li>
+<li>Info.h, full refactor, a good example of “Never look down”, thx
+StainlessS</li>
+<li>DoubleWeaveFrames, If A not writable, try to write to B, else make
+new frame</li>
+<li>Histogram, fix GetFrame/NewVideoFrame call order</li>
+<li>HResizer, interleave code +4% faster</li>
+<li>YtoUV() Abuse Subframe to snatch the Y plane / UV planes, Derestrict
+destination colorformat autogeneration.</li>
+<li>ImageSource: Improve thread interlock code</li>
+<li>ConditionalReader/WriteFile: Full refactor.</li>
+<li>Replace _strdup with SaveString in AddFunction (Thanks Gavino)</li>
+<li>SuperEQ: Improve channel unpacking/packing code.</li>
+<li>H-Resize: Use SSE4.1 (movntdqa) loads for use once memory access.</li>
+<li>H-Resize: Added SSE2 horizontal unpacker.</li>
+<li>Resize: Use SSE3 (lddqu) loads for unaligned memory access.</li>
+<li>Added ultra fast vertical PointResizer (64 pixel/cycle).</li>
+<li>Added dynamic SSSE3 vertical resizer (16 pixel/cycle) ~ twice as fast
+as old MMX.</li>
+<li>Added dynamic SSE2 vertical resizer (16 pixel/cycle).</li>
+<li>Added dynamic MMX vertical resizer (8 pixel/cycle).</li>
+<li>Added SSSE3 version for RGB&lt;-&gt;YV24 conversions.</li>
+<li>Added dynamic compiled MMX/iSSE for RGB&lt;-&gt;YV24 conversions. Speed is
+approx 200% of C-code.</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h3>Changes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>BlankClip: Supply useful defaults for new Audio/Video when using a
+Video/Audio only template clip.</li>
+<li>BlankClip: Use duration from Audio only template as default length
+for new clip.</li>
+<li>Define new IClip::SetCacheHints cachehint constants.</li>
+<li>Force int call arguments to user script function float params to be
+explicit floats.</li>
+<li>Splice pass CacheHints through to both children in + and ++ mode.</li>
+<li>WriteFileStart/End save current_frame and set Last.</li>
+<li>ConditionalReader do not ignore syntax errors in input file.</li>
+<li>ImageSourceAnim Pad/Crop images to match first frame (Wilbert)</li>
+<li>ImageSource Add version to messages (Wilbert)</li>
+<li>Initial 2.6 API entry point linkage.</li>
+<li>Use Invoke for graph tail, enhance non-clip output error reporting.</li>
+<li>PopContext when inner block Asserts/throws (maxxon).</li>
+<li>Remove duplicate definitions (Wilbert).</li>
+<li>Enhance non-clip output error reporting.</li>
+<li>Explicitly specify calling sequence as __cdecl for Avisynth softwire
+routines, (was the compiler default)</li>
+<li>Use env-&gt;Invoke(“Cache”, …) everywhere instead of
+Cache::Create_Cache(), allows for Cache to be overloaded by a plugin.</li>
+<li>ConvertToYUY2 Change from 0-1-1 kernel to 1-2-1 kernel.</li>
+<li>Tweak make Interp same units as minSat and maxSat.</li>
+<li>Check HKEY_CURRENT_USER for PluginDir first. (henktiggelaar)</li>
+<li>Make forced, -ve, planar alignment of chroma planes match
+subsampling.</li>
+<li>Enforce planar alignment restrictions.</li>
+<li>C-api: Remove func sub-struct from AVS_Library struct</li>
+<li>Add error code to plugin load failure message</li>
+<li>Make default planar AVI output packed. Control with
+OPT_AVIPadScanlines=True.</li>
+<li>WriteFile() now supports unlimited number of unlimited strings. (was
+16 by 254 byte strings).</li>
+<li>ConvertToRGB*, make C++ code sample chroma the same as the MMX code
+i.e. use both pixels.</li>
+<li>ConvertToRGB*, use YV24 path for planar, complain when options are
+present for YUY2.</li>
+<li>ConvertToYUY2, use YV16 path for planar, complain when options are
+present for RGB
+-   see: <a class="reference external" href="http://forum.doom9.org/showthread.php?p=1378381#post1378381">http://forum.doom9.org/showthread.php?p=1378381#post1378381</a></li>
+<li>Thread safe code, part 2.</li>
+<li>Correct IClip baked documentation</li>
+<li>Passify compilation error/warnings (XhmikosR)</li>
+<li>for, const, extern and ansi patches for VC2008 (SEt)</li>
+<li>Disable OPT_RELS_LOGGING option</li>
+<li>Change implicit Last parsing for argless, bracketless calls to match
+bracketed cases. (Gavino)</li>
+<li>DirectShowSource: Support last minute format renegotiation thru
+IPin::QueryAccept() &amp; Validate the size of the provided directshow
+buffer.</li>
+<li>Remove non ascii chars from comments.</li>
+<li>Add core stubs for DirectShowSource, TCPServer &amp; TCPSource, report
+when plugins are missing.</li>
+<li>Add note for original source downloads - SoundTouch</li>
+<li>Add more lineage history to Info()</li>
+<li>Move convertaudio, alignplanar, fillborder &amp; MIN/MAX_INT definitions.</li>
+<li>Run AtExit before dismantling world.</li>
+<li>Change setcachehints definition from void to int. Test IClip version
+&gt;= 5.</li>
+<li>Move PixelClip definition to avisynth.cpp</li>
+<li>SubTitle, etc, make X &amp; Y options float (0.125 pixel granularity).</li>
+<li>ShowSMPTE() supports all integer FPS and multiplies of drop frame
+FPS.</li>
+<li>SubTitle, stop overwriting string constants (Gavino).</li>
+<li>SubTitle, improve pixel registration (Gavino).</li>
+<li>Make Info() CPU display hierarchical.</li>
+<li>Thread safe code, part 1.</li>
+<li>SoftwireHelper: explicit hardware exception handling.</li>
+<li>Resize: Moved GetResampleFunction into Resamplefuntion, to allow
+overrides.</li>
+<li>Resampler: Removed dead stlf code.</li>
+<li>Updated Soundtouch to 1.31 (2.5.8)</li>
+<li>Put dynamic matrix conversion into separate file.</li>
+<li>Moved chroma subsampling to image_type section.</li>
+<li>Added specific error reporting when requesting chromasubsampling with
+Y8.</li>
+<li>Split up merge and plane Swappers.</li>
+<li>Split up Plane transfers into separate classes.</li>
+<li>Added automatic destination colorspace detection on planar YtoUV.</li>
+<li>Took out greyscale and RGB32&lt;-&gt;RGB24 from convert.cpp and placed them
+in separate files.</li>
+<li>All code assuming UVwidth = Ywidth/2 and similar should be gone.</li>
+</ul>
+<p>Please report bugs at <a class="reference external" href="http://sourceforge.net/projects/avisynth2">Sourceforge Avisynth 2 page</a> - or - <a class="reference external" href="http://forum.doom9.org/forumdisplay.php?s=&amp;forumid=33">Doom9’s Avisynth
+forum</a></p>
+<p>$Date: 2013/05/01 00:21:32 $</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="corefilters.html" title="Core Filters"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="changelist.html" title="2.58 Changes"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

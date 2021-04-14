@@ -1,0 +1,220 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Crop / CropBottom &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="DelayAudio" href="delayaudio.html" />
+    <link rel="prev" title="GeneralConvolution" href="convolution.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="delayaudio.html" title="DelayAudio"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="convolution.html" title="GeneralConvolution"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Crop / CropBottom</a><ul>
+<li><a class="reference internal" href="#memory-alignment">Memory alignment</a></li>
+<li><a class="reference internal" href="#crop-restrictions">Crop restrictions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="convolution.html"
+                        title="previous chapter">GeneralConvolution</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="delayaudio.html"
+                        title="next chapter">DelayAudio</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/corefilters/crop.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="crop-cropbottom">
+<h1>Crop / CropBottom<a class="headerlink" href="#crop-cropbottom" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">Crop</span></code> (clip, int left, int top, int width, int height, bool “align”)
+<code class="docutils literal notranslate"><span class="pre">Crop</span></code> (clip, int left, int top, int -right, int -bottom, bool “align”)
+<code class="docutils literal notranslate"><span class="pre">CropBottom</span></code> (clip, int count, bool align)</p>
+<p><code class="docutils literal notranslate"><span class="pre">Crop</span></code> crops excess pixels off of each frame.</p>
+<p>If your source video has 720x480 resolution, and you want to reduce it to
+352x240 for VideoCD, here’s the correct way to do it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert CCIR601 to VCD, preserving the correct aspect ratio</span>
+<span class="n">ReduceBy2</span>
+<span class="n">Crop</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">352</span><span class="p">,</span><span class="mi">240</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="convert.html"><span class="doc">colorspace conversion filters</span></a> for limitations when using different color formats.</p>
+<p>If a negative value is entered in the width and height these are also treated
+as offsets. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crop 16 pixels all the way around the picture, regardless of image size:</span>
+<span class="n">Crop</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="o">-</span><span class="mi">16</span><span class="p">,</span><span class="o">-</span><span class="mi">16</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In <em>v2.53</em> an option <em>align</em> (false by default) is added:</p>
+<p>Cropping an YUY2/RGB32 image is always mod4 (four bytes). However, when
+reading x bytes (an int), it is faster when the read is aligned to a modx
+placement in memory. MMX/SSE likes 8-byte alignment and SSE2 likes 16-byte
+alignment. If the data is NOT aligned, each read/write operation will be
+delayed at least 4 cycles. So images are always aligned to mod16 when they
+are created by AviSynth.</p>
+<p>If an image has been cropped, they will sometimes be placed unaligned in
+memory - “align = true” will copy the entire frame from the unaligned memory
+placement to an aligned one. So if the penalty of the following filter is
+larger than the penalty of a complete image copy, using “align = true” will
+be faster. Especially when it is followed by smoothers.</p>
+<p>The alternative <code class="docutils literal notranslate"><span class="pre">CropBottom</span></code> syntax is useful for cropping garbage off the
+bottom of a clip captured from VHS tape. It removes count lines from the
+bottom of each frame.</p>
+<div class="section" id="memory-alignment">
+<h2>Memory alignment<a class="headerlink" href="#memory-alignment" title="Permalink to this headline">¶</a></h2>
+<p>In v2.53 an option <em>align</em> (false by default) is added:</p>
+<p>Cropping an YUY2/RGB32 image is always mod4 (four bytes). However, when
+reading x bytes (an int), it is faster when the read is aligned to a modx
+placement in memory. MMX/SSE likes 8-byte alignment and SSE2 likes 16-byte
+alignment. If the data is NOT aligned, each read/write operation will be
+delayed at least 4 cycles. So images are always aligned to mod16 when they
+are created by AviSynth.</p>
+<p>If an image has been cropped, they will sometimes be placed unaligned in
+memory - “align = true” will copy the entire frame from the unaligned memory
+placement to an aligned one. So if the penalty of the following filter is
+larger than the penalty of a complete image copy, using “align=true” will be
+faster. Especially when it is followed by smoothers.</p>
+</div>
+<div class="section" id="crop-restrictions">
+<h2>Crop restrictions<a class="headerlink" href="#crop-restrictions" title="Permalink to this headline">¶</a></h2>
+<p>In order to preserve the data structure of the different colorspaces, the
+following mods should be used. You will not get an error message if they are
+not obeyed, but it may create strange artifacts. For a complete discussion on
+this, see DataStorageInAviSynth …</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="25%" />
+<col width="27%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>Colorspace</strong></th>
+<th class="head"><strong>Width</strong></th>
+<th class="head" colspan="2"><strong>Height</strong></th>
+</tr>
+<tr class="row-even"><th class="head">&#160;</th>
+<th class="head">&#160;</th>
+<th class="head">progressive video</th>
+<th class="head">interlaced video</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td>RGB</td>
+<td><em>no restriction</em></td>
+<td><em>no restriction</em></td>
+<td>mod-2</td>
+</tr>
+<tr class="row-even"><td>YUY2</td>
+<td>mod-2</td>
+<td><em>no restriction</em></td>
+<td>mod-2</td>
+</tr>
+<tr class="row-odd"><td>YV12</td>
+<td>mod-2</td>
+<td>mod-2</td>
+<td>mod-4</td>
+</tr>
+</tbody>
+</table>
+<p>NOTE: The <a class="reference internal" href="resize.html"><span class="doc">resize functions</span></a> optionally allow fractional pixel cropping of
+the input frame, this results in a weighting being applied to the edge pixels
+being resized.  These options may be used if the mod-n format dimension
+restriction of crop are inconvienient. In sum – “For cropping off hard
+artifacts like VHS head noise or leterbox borders always use Crop. For
+extracting a portion of an image and to maintain accurate edge resampling use
+the resize cropping parameters.” (<a class="reference external" href="http://forum.doom9.org/showthread.php?s=&amp;threadid=91630">Doom9 thread</a>)</p>
+<p>$Date: 2009/09/12 15:10:22 $</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="delayaudio.html" title="DelayAudio"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="convolution.html" title="GeneralConvolution"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

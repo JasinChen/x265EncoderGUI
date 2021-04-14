@@ -1,0 +1,365 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ConditionalReader &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ConvertBackToYUY2 / ConvertToRGB / ConvertToRGB24 / ConvertToRGB32 / ConvertToY8 / ConvertToYUY2 / ConvertToYV12 / ConvertToYV16 / ConvertToYV24 / ConvertToYV411" href="convert.html" />
+    <link rel="prev" title="ConditionalFilter" href="conditionalfilter.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="convert.html" title="ConvertBackToYUY2 / ConvertToRGB / ConvertToRGB24 / ConvertToRGB32 / ConvertToY8 / ConvertToYUY2 / ConvertToYV12 / ConvertToYV16 / ConvertToYV24 / ConvertToYV411"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="conditionalfilter.html" title="ConditionalFilter"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ConditionalReader</a><ul>
+<li><a class="reference internal" href="#parameters">Parameters</a></li>
+<li><a class="reference internal" href="#file-format">File format</a></li>
+<li><a class="reference internal" href="#types">Types</a></li>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#basic-usage">Basic usage</a></li>
+<li><a class="reference internal" href="#adjusting-overlay">Adjusting Overlay</a></li>
+<li><a class="reference internal" href="#complicated-applyrange">Complicated ApplyRange</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#returning-strings">Returning Strings</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="conditionalfilter.html"
+                        title="previous chapter">ConditionalFilter</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="convert.html"
+                        title="next chapter">ConvertBackToYUY2 / ConvertToRGB / ConvertToRGB24 / ConvertToRGB32 / ConvertToY8 / ConvertToYUY2 / ConvertToYV12 / ConvertToYV16 / ConvertToYV24 / ConvertToYV411</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/corefilters/conditionalreader.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="conditionalreader">
+<h1>ConditionalReader<a class="headerlink" href="#conditionalreader" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">ConditionalReader</span></code> (clip, string filename, string variablename, bool
+“show”)</p>
+<p><code class="docutils literal notranslate"><span class="pre">ConditionalReader</span></code> allows you to import information from a text file, with
+different values for each frame - or a range of frames.</p>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="62%" />
+<col width="19%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>clip</td>
+<td>The control clip. It is not touched, unless
+you specify show=true.</td>
+<td>Not optional</td>
+</tr>
+<tr class="row-odd"><td>filename</td>
+<td>The file with the variables you want to set.</td>
+<td>Not optional</td>
+</tr>
+<tr class="row-even"><td>variablename</td>
+<td>The name of the variable you want the
+information inserted into.</td>
+<td>Not optional</td>
+</tr>
+<tr class="row-odd"><td>show</td>
+<td>When set to true, the value given at this
+frame will be overlayed on the image.</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="file-format">
+<h2>File format<a class="headerlink" href="#file-format" title="Permalink to this headline">¶</a></h2>
+<p>The file is plain text. All separation is done by spaces, and newline
+indicates a new data set. It is not case sensitive!</p>
+<p><strong>TYPE (int|float|bool|string)</strong></p>
+<p>You can only have one type of data in each file. Currently it is possible to
+have <em>float</em>, <em>int</em>, <em>bool</em> or (from v2.60) <em>string</em> values. You specify this
+by using the <strong>TYPE</strong> keyword. You should always start out by specifying the
+type of data, as nothing is saved until this keyword has been found. It is
+not possible to change type once it has been set!</p>
+<p><strong>DEFAULT &lt;value&gt;</strong></p>
+<p>This specifies the default value of all frames. You should do this right
+after specifying the type, as it overwrites all defined frames. You can omit
+this setting, you must be sure to specify a setting for all frames, as it
+will lead to unexpected results otherwise.</p>
+<p><strong>OFFSET &lt;value&gt; (from v2.60)</strong></p>
+<p>When specified, this will offset all framenumbers by a constant offset. This
+is done for all framenumbers which are set after this keyword.</p>
+<p><strong>&lt;framenumber&gt; &lt;value&gt;</strong></p>
+<p>This will set the value only for frame &lt;framenumber&gt;.</p>
+<p><strong>R &lt;startframe&gt; &lt;endframe&gt; &lt;value&gt;</strong></p>
+<p>This will apply a value to a range of frames. You should note that both
+start-frame AND end-frame are included.</p>
+<p><strong>I &lt;startframe&gt; &lt;endframe&gt; &lt;startvalue&gt; &lt;stopvalue&gt;</strong></p>
+<p>This will interpolate between two values over a range of frames. This only
+works on int and float values. You should note that both start-frame AND end-
+frame are included.</p>
+</div>
+<div class="section" id="types">
+<h2>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<p>As mentioned, the types can be either <em>float</em>, <em>int</em>, <em>bool</em> or (from v2.60)
+<em>string</em>.</p>
+<p><em>Int</em> numbers is a number optionally preceeded with a sign.</p>
+<p><em>Float</em> is a decimal number containing a decimal point, optionally preceded
+by a sign and optionally followed by the e or E character and a decimal
+number. Valid entries are -732.103 or 7.12e4.</p>
+<p><em>Bool</em> can either be <em>true</em>, <em>T</em>, <em>yes</em>, <em>false</em>, <em>F</em> or <em>no</em>.</p>
+<p><em>String</em> is a sequence of characters representing text.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="basic-usage">
+<h3>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h3>
+<p>File.txt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Type</span> <span class="nb">float</span>
+<span class="n">Default</span> <span class="mf">3.45567</span>
+
+<span class="n">R</span> <span class="mi">45</span> <span class="mi">300</span> <span class="mf">76.5654</span>
+<span class="mi">2</span> <span class="o">-</span><span class="mf">671.454</span>
+<span class="mi">72</span> <span class="o">-</span><span class="mf">671.454</span>
+</pre></div>
+</div>
+<p>The file above will return float values. It will by default return 3.45567.
+However frames 45 to 300 it will return 76.5654. And frame 2 and 72 will
+return -671.454.</p>
+<p>As you might notice - later changes overrule settings done earlier in the
+file. This is illustrated by frame ‘72’ - even though it is inside the range
+of 45-300, the later value will be returned. On the other hand - if the range
+was specified AFTER ‘72 -671.454’ - it would return 76.5654.</p>
+<p>A script to invoke this file could be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">colorbars</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span><span class="mi">512</span><span class="p">)</span>
+<span class="n">trim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">ScriptClip</span><span class="p">(</span><span class="s2">&quot;subtitle(string(myvar))&quot;</span><span class="p">)</span>
+<span class="n">ConditionalReader</span><span class="p">(</span><span class="s2">&quot;file.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;myvar&quot;</span><span class="p">,</span> <span class="n">false</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will put the values into the variable called “myvar”, which is used by
+<a class="reference internal" href="subtitle.html"><span class="doc">Subtitle</span></a>, invoked by <a class="reference internal" href="conditionalfilter.html#scriptclip"><span class="std std-ref">ScriptClip</span></a> to display the conditional value.</p>
+<p><strong>Note!</strong> The ConditionalReader() line comes <strong>after</strong> any use of “myvar” in
+your script.</p>
+</div>
+<div class="section" id="adjusting-overlay">
+<h3>Adjusting Overlay<a class="headerlink" href="#adjusting-overlay" title="Permalink to this headline">¶</a></h3>
+<p><strong>AviSynth script:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">colorbars</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span><span class="mi">256</span><span class="p">)</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="n">trim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">MessageClip</span><span class="p">(</span><span class="s2">&quot;Text clip&quot;</span><span class="p">)</span>
+<span class="n">overlay</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span><span class="n">a2</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">110</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;subtract&quot;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pc_range</span><span class="o">=</span><span class="n">true</span><span class="p">)</span>
+<span class="n">ConditionalReader</span><span class="p">(</span><span class="s2">&quot;opacity.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;ol_opacity_offset&quot;</span><span class="p">,</span> <span class="n">false</span><span class="p">)</span>
+<span class="n">ConditionalReader</span><span class="p">(</span><span class="s2">&quot;xoffset.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;ol_x_offset&quot;</span><span class="p">,</span> <span class="n">false</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>xoffset.txt:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Type</span> <span class="nb">int</span>
+<span class="n">Default</span> <span class="o">-</span><span class="mi">50</span>
+
+<span class="n">I</span> <span class="mi">25</span> <span class="mi">50</span> <span class="o">-</span><span class="mi">50</span> <span class="mi">100</span>
+<span class="n">R</span> <span class="mi">50</span> <span class="mi">250</span> <span class="mi">100</span>
+<span class="n">I</span> <span class="mi">250</span> <span class="mi">275</span> <span class="mi">100</span> <span class="mi">250</span>
+</pre></div>
+</div>
+<p><strong>opacity.txt:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Type</span> <span class="nb">float</span>
+<span class="n">Default</span> <span class="mf">0.0</span>
+
+<span class="n">I</span> <span class="mi">25</span> <span class="mi">50</span> <span class="mf">0.0</span> <span class="mf">1.0</span>
+<span class="n">R</span> <span class="mi">50</span> <span class="mi">250</span> <span class="mf">1.0</span>
+<span class="n">I</span> <span class="mi">250</span> <span class="mi">275</span> <span class="mf">1.0</span> <span class="mf">0.0</span>
+</pre></div>
+</div>
+<p>Basically it defines keyframes for an x-offset and the opacity. Frame 25-&gt;50
+the opacity is scaled from 0.0 to 1.0, while the text is moving from left to
+right. The text is then kept steady from frame 50 to 250, whereafter it moves
+further to the right, while fading out.</p>
+<p>It is easier to watch the clip above than completely describe what it does.</p>
+</div>
+<div class="section" id="complicated-applyrange">
+<span id="id1"></span><h3>Complicated ApplyRange<a class="headerlink" href="#complicated-applyrange" title="Permalink to this headline">¶</a></h3>
+<p>As you may have noticed using a large number of <a class="reference internal" href="animate.html"><span class="doc">ApplyRange()</span></a> calls in a
+script can lead to resource issue. Using <code class="docutils literal notranslate"><span class="pre">ConditionalReader</span></code> together with
+<a class="reference internal" href="conditionalfilter.html"><span class="doc">ConditionalFilter</span></a> can lead to an efficient solution:</p>
+<p>File.txt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Type</span> <span class="n">Bool</span>
+<span class="n">Default</span> <span class="kc">False</span>
+
+<span class="mi">2</span> <span class="kc">True</span>
+<span class="n">R</span> <span class="mi">45</span> <span class="mi">60</span> <span class="kc">True</span>
+<span class="mi">72</span> <span class="kc">True</span>
+<span class="n">R</span> <span class="mi">200</span> <span class="mi">220</span> <span class="kc">True</span>
+<span class="mi">210</span> <span class="kc">False</span>
+<span class="mi">315</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>The file above will return boolean values. It will by default return False.
+However frames 2, 45 to 60, 72, 200 to 220 and 315 except for 210 it will
+return True. As you might notice, later changes overrule settings done
+earlier in the file. This is illustrated by frame ‘210’ - even though it is
+inside the range of 200-220, the later value, False, will be returned.</p>
+<p>A script to make use of this file could be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">colorbars</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span><span class="mi">512</span><span class="p">)</span>
+<span class="n">trim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">A</span><span class="o">=</span><span class="n">Last</span>
+<span class="n">FlipHorizontal</span><span class="p">()</span> <span class="c1"># Add a complex filter chain</span>
+<span class="n">B</span><span class="o">=</span><span class="n">Last</span>
+<span class="n">ConditionalFilter</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="s2">&quot;MyVar&quot;</span><span class="p">,</span> <span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="s2">&quot;False&quot;</span><span class="p">,</span> <span class="n">false</span><span class="p">)</span>
+<span class="n">ConditionalReader</span><span class="p">(</span><span class="s2">&quot;File.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;MyVar&quot;</span><span class="p">,</span> <span class="n">false</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will put the values into the variable called “MyVar”, which is used by
+<a class="reference internal" href="conditionalfilter.html"><span class="doc">ConditionalFilter</span></a> to select between the unprocessed and flipped version of
+the source.</p>
+<p><strong>Note!</strong> The <code class="docutils literal notranslate"><span class="pre">ConditionalReader()</span></code> line comes <strong>after</strong> any use of “MyVar”
+in your script.</p>
+</div>
+</div>
+<div class="section" id="returning-strings">
+<h2>Returning Strings<a class="headerlink" href="#returning-strings" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ConditionalReader</span></code> cannot return strings prior to v2.60, but one solution
+is to create a list of variables with corresponding string assignments, and
+eval the indexed solution. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">import</span><span class="p">(</span><span class="s2">&quot;strings.txt&quot;</span><span class="p">)</span>
+<span class="n">ScriptClip</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;subtitle(Eval(&quot;n&quot;+string(mystringindex)))&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="n">ConditionalReader</span><span class="p">(</span><span class="s2">&quot;range_string.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;mystringindex&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>range_string.txt</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Type</span> <span class="nb">int</span>
+<span class="n">Default</span> <span class="mi">0</span>
+
+<span class="n">R</span> <span class="mi">10</span> <span class="mi">1000</span> <span class="mi">1</span>
+<span class="n">R</span> <span class="mi">1005</span> <span class="mi">3000</span> <span class="mi">2</span>
+<span class="n">R</span> <span class="mi">3200</span> <span class="mi">3800</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>strings.txt</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n0</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+<span class="n">n1</span><span class="o">=</span><span class="s2">&quot;Intro&quot;</span>
+<span class="n">n2</span><span class="o">=</span><span class="s2">&quot;Main&quot;</span>
+<span class="n">n3</span><span class="o">=</span><span class="s2">&quot;Credits&quot;</span>
+</pre></div>
+</div>
+<p>Obviously strings.txt does not need to be a separate file, but this solution
+is sometimes appropriate in some multilingual applications, e.g.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">language</span><span class="o">=</span><span class="s2">&quot;spanish&quot;</span>
+<span class="n">import</span><span class="p">(</span><span class="n">language</span> <span class="o">+</span> <span class="s2">&quot;_strings.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="74%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Changelog:</th>
+<th class="head">&#160;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>v2.60</td>
+<td>Added OFFSET, Added Type=string.</td>
+</tr>
+</tbody>
+</table>
+<p>$Date: 2011/04/29 20:09:50 $</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="convert.html" title="ConvertBackToYUY2 / ConvertToRGB / ConvertToRGB24 / ConvertToRGB32 / ConvertToY8 / ConvertToYUY2 / ConvertToYV12 / ConvertToYV16 / ConvertToYV24 / ConvertToYV411"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="conditionalfilter.html" title="ConditionalFilter"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

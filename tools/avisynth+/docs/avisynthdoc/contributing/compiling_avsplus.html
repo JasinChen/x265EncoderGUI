@@ -1,0 +1,469 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Compiling AviSynth+ &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Contributing to AviSynth+" href="contributing_with_git.html" />
+    <link rel="prev" title="AviSynth FilterSDK" href="../FilterSDK/FilterSDK.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="contributing_with_git.html" title="Contributing to AviSynth+"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../FilterSDK/FilterSDK.html" title="AviSynth FilterSDK"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Compiling AviSynth+</a><ul>
+<li><a class="reference internal" href="#avisynth-prerequisites">AviSynth+ prerequisites</a></li>
+<li><a class="reference internal" href="#building-with-visual-studio">Building with Visual Studio</a><ul>
+<li><a class="reference internal" href="#directshowsource-prerequisites">DirectShowSource Prerequisites</a><ul>
+<li><a class="reference internal" href="#c-base-classes-library">C++ Base Classes library</a></li>
+<li><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#building-avisynth">Building AviSynth+</a><ul>
+<li><a class="reference internal" href="#using-msbuild">Using MSBuild</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#finishing-up">Finishing up</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#building-with-clang">Building with Clang</a></li>
+<li><a class="reference internal" href="#building-with-gcc">Building with GCC</a><ul>
+<li><a class="reference internal" href="#building-with-gcc-in-msys2">Building with GCC in MSys2</a><ul>
+<li><a class="reference internal" href="#id1">Finishing up</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cross-compiling-with-gcc">Cross-compiling with GCC</a><ul>
+<li><a class="reference internal" href="#id2">Finishing up</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../FilterSDK/FilterSDK.html"
+                        title="previous chapter">AviSynth FilterSDK</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="contributing_with_git.html"
+                        title="next chapter">Contributing to AviSynth+</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/contributing/compiling_avsplus.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="compiling-avisynth">
+<h1><a class="toc-backref" href="#id3">Compiling AviSynth+</a><a class="headerlink" href="#compiling-avisynth" title="Permalink to this headline">¶</a></h1>
+<p>This guide uses a command line-based compilation methodology, because
+it’s easier to provide direct instructions for this that can just be copy/pasted.</p>
+<p><a class="reference external" href="https://msys2.github.io/">MSys2</a> and <a class="reference external" href="http://www.7-zip.org/">7zip</a> should
+already be installed, and msys2’s bin directory should have been added to Windows’
+%PATH% variable.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#compiling-avisynth" id="id3">Compiling AviSynth+</a><ul>
+<li><a class="reference internal" href="#avisynth-prerequisites" id="id4">AviSynth+ prerequisites</a></li>
+<li><a class="reference internal" href="#building-with-visual-studio" id="id5">Building with Visual Studio</a><ul>
+<li><a class="reference internal" href="#directshowsource-prerequisites" id="id6">DirectShowSource Prerequisites</a><ul>
+<li><a class="reference internal" href="#c-base-classes-library" id="id7">C++ Base Classes library</a></li>
+<li><a class="reference internal" href="#miscellaneous" id="id8">Miscellaneous</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#building-avisynth" id="id9">Building AviSynth+</a><ul>
+<li><a class="reference internal" href="#using-msbuild" id="id10">Using MSBuild</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#finishing-up" id="id11">Finishing up</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#building-with-clang" id="id12">Building with Clang</a></li>
+<li><a class="reference internal" href="#building-with-gcc" id="id13">Building with GCC</a><ul>
+<li><a class="reference internal" href="#building-with-gcc-in-msys2" id="id14">Building with GCC in MSys2</a><ul>
+<li><a class="reference internal" href="#id1" id="id15">Finishing up</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cross-compiling-with-gcc" id="id16">Cross-compiling with GCC</a><ul>
+<li><a class="reference internal" href="#id2" id="id17">Finishing up</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="avisynth-prerequisites">
+<h2><a class="toc-backref" href="#id4">AviSynth+ prerequisites</a><a class="headerlink" href="#avisynth-prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>AviSynth+ can be built by a few different compilers:</p>
+<ul class="simple">
+<li>Visual Studio 2017 or higher.</li>
+<li>Clang 7.0.1 or higher.</li>
+<li>GCC 7 or higher.</li>
+</ul>
+<div class="line-block">
+<div class="line">Download and install Visual Studio Community:</div>
+<div class="line"><a class="reference external" href="https://visualstudio.microsoft.com/downloads/">https://visualstudio.microsoft.com/downloads/</a></div>
+</div>
+<div class="line-block">
+<div class="line">Install the latest version of CMake:</div>
+<div class="line"><a class="reference external" href="http://www.cmake.org/cmake/resources/software.html">http://www.cmake.org/cmake/resources/software.html</a></div>
+</div>
+<p>After installing MSys2, make sure to enable some convenience functions in MSys2’s config files.</p>
+<p>In msys.ini:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CHERE_INVOKING</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">MSYS2_PATH_TYPE</span><span class="o">=</span><span class="n">inherit</span>
+<span class="n">MSYSTEM</span><span class="o">=</span><span class="n">MSYS</span>
+</pre></div>
+</div>
+<p>In mingw64.ini:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CHERE_INVOKING</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">MSYS2_PATH_TYPE</span><span class="o">=</span><span class="n">inherit</span>
+<span class="n">MSYSTEM</span><span class="o">=</span><span class="n">MINGW64</span>
+</pre></div>
+</div>
+<p>In mingw32.ini:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CHERE_INVOKING</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">MSYS2_PATH_TYPE</span><span class="o">=</span><span class="n">inherit</span>
+<span class="n">MSYSTEM</span><span class="o">=</span><span class="n">MINGW32</span>
+</pre></div>
+</div>
+<p>Add CMake’s bin directory to the system %PATH% manually if the installer won’t.
+Also add 7zip and upx to the %PATH%.</p>
+</div>
+<div class="section" id="building-with-visual-studio">
+<h2><a class="toc-backref" href="#id5">Building with Visual Studio</a><a class="headerlink" href="#building-with-visual-studio" title="Permalink to this headline">¶</a></h2>
+<p>For ease of use, we’ll also be making use of MSys2 to streamline the build process,
+even with the VC++ compiler.</p>
+<div class="section" id="directshowsource-prerequisites">
+<h3><a class="toc-backref" href="#id6">DirectShowSource Prerequisites</a><a class="headerlink" href="#directshowsource-prerequisites" title="Permalink to this headline">¶</a></h3>
+<p>DirectShowSource requires extra setup that building the AviSynth+ core does not.
+DirectShowSource is not a requirement for a working AviSynth+ setup, especially
+with the options of using either FFmpegSource2 or LSMASHSource, but the guide
+wouldn’t be complete otherwise.</p>
+<div class="section" id="c-base-classes-library">
+<h4><a class="toc-backref" href="#id7">C++ Base Classes library</a><a class="headerlink" href="#c-base-classes-library" title="Permalink to this headline">¶</a></h4>
+<p>DirectShowSource requires strmbase.lib, the C++ Base Classes library, which for some
+reason isn’t included in a standard install of Visual Studio.  The source code for
+the library is provided with the Windows SDK, and requires the user to build it first.</p>
+<div class="line-block">
+<div class="line">Download the Windows SDK 7.1:</div>
+<div class="line"><a class="reference external" href="http://www.microsoft.com/en-US/download/details.aspx?Id=8442">http://www.microsoft.com/en-US/download/details.aspx?Id=8442</a></div>
+</div>
+<div class="line-block">
+<div class="line">Download the following ISO for 32-bit Windows installations:</div>
+<div class="line">GRMSDK_EN_DVD.iso</div>
+</div>
+<div class="line-block">
+<div class="line">Download the following ISO for 64-bit Windows installations:</div>
+<div class="line">GRMSDKX_EN_DVD.iso</div>
+</div>
+<p>The ISO you download is based on the version of Windows you’re actually running,
+<em>not</em> on the Windows installs you’re targetting.  Both ISOs include the correct
+tools to build for either 32-bit or 64-bit targets.</p>
+<div class="line-block">
+<div class="line">Verify the 32-bit ISO against CRC32 or SHA1:</div>
+<div class="line">CRC#: 0xBD8F1237</div>
+<div class="line">SHA1: 0xCDE254E83677C34C8FD509D6B733C32002FE3572</div>
+</div>
+<div class="line-block">
+<div class="line">Verify the 64-bit ISO against CRC32 or SHA1:</div>
+<div class="line">CRC#: 0x04F59E55</div>
+<div class="line">SHA1: 0x9203529F5F70D556A60C37F118A95214E6D10B5A</div>
+</div>
+<p>For convenience (and on computers without an optical drive), you can use either Pismo
+File Mount (if you’ve already got it installed for AVFS) or Windows 10’s own Mount option
+to mount the ISO to a virtual drive. Then just launch setup.exe and follow the wizard.</p>
+<p>Install only the Samples, uncheck everything else.</p>
+<div class="line-block">
+<div class="line">Open Visual Studio, and open the .sln file in the 7.1 SDK, at</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files\Microsoft</span> <span class="pre">SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses</span></code></div>
+</div>
+<p>Allow Visual Studio to convert the project, switch the configuration to <code class="docutils literal notranslate"><span class="pre">Release</span></code>,
+and enter the project Properties by right-clicking on the solution name and selecting
+<code class="docutils literal notranslate"><span class="pre">Properties</span></code>.</p>
+<p>Select the <code class="docutils literal notranslate"><span class="pre">Visual</span> <span class="pre">Studio</span> <span class="pre">17</span> <span class="pre">-</span> <span class="pre">Windows</span> <span class="pre">XP</span> <span class="pre">(v141_xp)</span></code> option on the main Properties page
+under <code class="docutils literal notranslate"><span class="pre">Toolset</span></code>, and on the <code class="docutils literal notranslate"><span class="pre">C/C++</span> <span class="pre">Code</span> <span class="pre">Generation</span></code> page select <em>Disabled</em> or <em>SSE</em>
+from the <code class="docutils literal notranslate"><span class="pre">Enhanced</span> <span class="pre">Instruction</span> <span class="pre">Set</span></code> option (IMO, it’s safer to disable it for system
+support libraries like strmbase.lib), and finally, exit back to the main screen.</p>
+<p>Now select <code class="docutils literal notranslate"><span class="pre">Build</span></code>. That’s it.</p>
+<p>For 64-bit, change to <code class="docutils literal notranslate"><span class="pre">Release</span> <span class="pre">x64</span></code> and <code class="docutils literal notranslate"><span class="pre">Build</span></code>. The SSE2 note isn’t relevant here, since
+64-bit CPUs are required to have SSE2 support.</p>
+</div>
+<div class="section" id="miscellaneous">
+<h4><a class="toc-backref" href="#id8">Miscellaneous</a><a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h4>
+<p>To make the AviSynth+ build instructions more concise, we’ll set a couple of environment
+variables.  After starting msys2, open the file /etc/profile in Wordpad:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">write</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">profile</span>
+</pre></div>
+</div>
+<p>and copy the following three lines into it somewhere:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">STRMBASELIB</span><span class="o">=</span><span class="s2">&quot;C:/Program Files/Microsoft SDKs/Windows/v7.1/Samples/multimedia/directshow/baseclasses/Release/strmbase.lib&quot;</span>
+<span class="n">export</span> <span class="n">STRMBASELIB64</span><span class="o">=</span><span class="s2">&quot;C:/Program Files/Microsoft SDKs/Windows/v7.1/Samples/multimedia/directshow/baseclasses/x64/Release/strmbase.lib&quot;</span>
+</pre></div>
+</div>
+<p>(64-bit Windows users should use <code class="docutils literal notranslate"><span class="pre">Program</span> <span class="pre">Files</span> <span class="pre">(x86)</span></code>, but you probably already knew that ;P)</p>
+<p>Thankfully, all of this setup only needs to be done once.</p>
+</div>
+</div>
+<div class="section" id="building-avisynth">
+<h3><a class="toc-backref" href="#id9">Building AviSynth+</a><a class="headerlink" href="#building-avisynth" title="Permalink to this headline">¶</a></h3>
+<p>Start the Visual Studio x86 Native Command Prompt.</p>
+<p>You can use Visual Studio’s compilers from MSys2 by launching MSys2 from the Visual Studio
+Command Prompt. So type ‘msys’ and hit Enter.</p>
+<p>Note: in the instructions below, the <code class="docutils literal notranslate"><span class="pre">\</span></code> character means the command spans more than
+one line.  Make sure to copy/paste all of the lines in the command.</p>
+<p>Download the AviSynth+ source:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="o">-</span><span class="n">b</span> <span class="n">MT</span> <span class="n">git</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">pinterf</span><span class="o">/</span><span class="n">AviSynthPlus</span><span class="o">.</span><span class="n">git</span> <span class="o">&amp;&amp;</span> \
+<span class="n">cd</span> <span class="n">AviSynthPlus</span>
+</pre></div>
+</div>
+<p>Set up the packaging directory for later:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>AVSDIRNAME=avisynth+_r$(git rev-list --count HEAD)-g$(git rev-parse --short HEAD)-$(date --rfc-3339=date | sed &#39;s/-//g&#39;) &amp;&amp; \
+cd .. &amp;&amp; \
+mkdir -p avisynth_build $AVSDIRNAME/32bit/dev $AVSDIRNAME/64bit/dev &amp;&amp; \
+cd avisynth_build
+</pre></div>
+</div>
+<p>Now, we can build AviSynth+.</p>
+<div class="section" id="using-msbuild">
+<h4><a class="toc-backref" href="#id10">Using MSBuild</a><a class="headerlink" href="#using-msbuild" title="Permalink to this headline">¶</a></h4>
+<p>For 32-bit:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cmake ../AviSynthPlus -DBUILD_DIRECTSHOWSOURCE:bool=on &amp;&amp; \
+
+cmake --build . --config Release -j $(nproc)
+</pre></div>
+</div>
+<p>Copy the .dlls to the packaging directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cp Output/AviSynth.dll Output/system/DevIL.dll Output/plugins/* ../$AVSDIRNAME/32bit
+</pre></div>
+</div>
+<p>Copy the .libs to the packaging directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cp avs_core/Release/AviSynth.lib plugins/DirectShowSource/Release/*.lib \
+../AviSynthPlus/plugins/ImageSeq/lib/DevIL_x86/DevIL.lib plugins/ImageSeq/Release/ImageSeq.lib \
+plugins/Shibatch/PFC/Release/PFC.lib plugins/Shibatch/Release/Shibatch.lib \
+plugins/TimeStretch/Release/TimeStretch.lib plugins/TimeStretch/SoundTouch/Release/SoundTouch.lib \
+plugins/VDubFilter/Release/VDubFilter.lib ../$AVSDIRNAME/32bit/dev
+</pre></div>
+</div>
+<p>Undo the upx packing on the 32-bit copy of DevIL.dll:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>upx -d ../$AVSDIRNAME/32bit/DevIL.dll
+</pre></div>
+</div>
+<p>For 64-bit:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cmake ../AviSynthPlus -G &quot;Visual Studio 15 2017 Win64&quot; -DBUILD_DIRECTSHOWSOURCE:bool=on &amp;&amp; \
+
+cmake --build . --config Release -j $(nproc)
+</pre></div>
+</div>
+<p>Copy the .dlls to the packaging directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cp Output/AviSynth.dll Output/system/DevIL.dll Output/plugins/* ../$AVSDIRNAME/64bit
+</pre></div>
+</div>
+<p>Copy the .libs to the packaging directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cp avs_core/Release/AviSynth.lib plugins/DirectShowSource/Release/*.lib \
+../AviSynthPlus/plugins/ImageSeq/lib/DevIL_x64/DevIL.lib plugins/ImageSeq/Release/ImageSeq.lib \
+plugins/Shibatch/PFC/Release/PFC.lib plugins/Shibatch/Release/Shibatch.lib \
+plugins/TimeStretch/Release/TimeStretch.lib plugins/TimeStretch/SoundTouch/Release/SoundTouch.lib \
+plugins/VDubFilter/Release/VDubFilter.lib ../$AVSDIRNAME/64bit/dev
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="finishing-up">
+<h3><a class="toc-backref" href="#id11">Finishing up</a><a class="headerlink" href="#finishing-up" title="Permalink to this headline">¶</a></h3>
+<p>Packaging up everything can be quickly done with 7-zip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd ..
+7z a -mx9 $AVSDIRNAME.7z $AVSDIRNAME
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="building-with-clang">
+<h2><a class="toc-backref" href="#id12">Building with Clang</a><a class="headerlink" href="#building-with-clang" title="Permalink to this headline">¶</a></h2>
+<p>todo</p>
+</div>
+<div class="section" id="building-with-gcc">
+<h2><a class="toc-backref" href="#id13">Building with GCC</a><a class="headerlink" href="#building-with-gcc" title="Permalink to this headline">¶</a></h2>
+<p>AviSynth+ can be built with GCC two different ways: using MSys2 as a native toolchain,
+or cross-compiled under another OS such as a Linux distribution.</p>
+<div class="section" id="building-with-gcc-in-msys2">
+<h3><a class="toc-backref" href="#id14">Building with GCC in MSys2</a><a class="headerlink" href="#building-with-gcc-in-msys2" title="Permalink to this headline">¶</a></h3>
+<p>Launch MSys2 and install GCC and Ninja:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pacman</span> <span class="o">-</span><span class="n">S</span> <span class="n">mingw64</span><span class="o">/</span><span class="n">mingw</span><span class="o">-</span><span class="n">w64</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">gcc</span> <span class="n">gcc</span> <span class="n">mingw64</span><span class="o">/</span><span class="n">ninja</span> <span class="n">mingw32</span><span class="o">/</span><span class="n">ninja</span> <span class="n">mingw32</span><span class="o">/</span><span class="n">mingw</span><span class="o">-</span><span class="n">w64</span><span class="o">-</span><span class="n">i686</span><span class="o">-</span><span class="n">gcc</span>
+</pre></div>
+</div>
+<p>Grab the AviSynth+ source code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $HOME &amp;&amp; \
+git clone -b MT git://github.com/pinterf/AviSynthPlus.git &amp;&amp; \
+cd AviSynthPlus &amp;&amp; \
+mkdir -p avisynth-build/i686 avisynth-build/amd64
+</pre></div>
+</div>
+<p>If you were in the MSys2 MSYS prompt, open the MinGW32 prompt, then navigate into
+the build directory, build AviSynth+, and install it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $HOME/AviSynthPlus/avisynth-build/i686 &amp;&amp; \
+    cmake ../../ -G &quot;Ninja&quot; -DCMAKE_INSTALL_PREFIX=$HOME/avisynth+_build/32bit \
+    -DBUILD_SHIBATCH:bool=off &amp;&amp; \
+ninja &amp;&amp; \
+ninja install
+</pre></div>
+</div>
+<p>(The Shibatch plugin currently has issues on GCC, so disable it for now.
+DirectShowSource also has issues, but it doesn’t get built by default.)</p>
+<p>Open the MinGW64 prompt now, navigate into the build directory, build AviSynth+, and install it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd $HOME/AviSynthPlus &amp;&amp; \
+AVSDIRNAME=avisynth+_r$(git rev-list --count HEAD)-g$(git rev-parse --short HEAD)-$(date --rfc-3339=date | sed &#39;s/-//g&#39;) &amp;&amp; \
+cd avisynth-build/amd64 &amp;&amp; \
+    cmake ../../ -G &quot;Ninja&quot; -DCMAKE_INSTALL_PREFIX=$HOME/avisynth+_build/64bit \
+    -DBUILD_SHIBATCH:bool=off &amp;&amp; \
+ninja &amp;&amp; \
+ninja install
+</pre></div>
+</div>
+<p>(The Shibatch plugin currently has issues on GCC, so disable it for now.
+DirectShowSource also has issues, but it doesn’t get built by default.)</p>
+<div class="section" id="id1">
+<h4><a class="toc-backref" href="#id15">Finishing up</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>Now, without leaving the MinGW64 prompt, package the binaries up in a 7zip archive:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>mv $HOME/avisynth+_build $HOME/$AVSDIRNAME &amp;&amp; \
+7za a -mx9 ~/$AVSDIRNAME.7z ~/$AVSDIRNAME
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="cross-compiling-with-gcc">
+<h3><a class="toc-backref" href="#id16">Cross-compiling with GCC</a><a class="headerlink" href="#cross-compiling-with-gcc" title="Permalink to this headline">¶</a></h3>
+<p>For ease of explanation, we’ll assume Ubuntu Linux.  The method to cross-compile under
+most distributions is largely the same, so don’t worry about that.</p>
+<p>Ubuntu’s repositories lag behind upstream GCC releases, and my current build
+instructions are built around a most-recent-stable version of GCC and MinGW.
+The full instructions for that are contained in the first section of
+<a class="reference external" href="https://github.com/qyot27/mpv/blob/extra-new/DOCS/crosscompile-mingw-tedious.txt">https://github.com/qyot27/mpv/blob/extra-new/DOCS/crosscompile-mingw-tedious.txt</a></p>
+<p>Download the source code and prepare the build directories:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git clone -b MT git://github.com/pinterf/AviSynthPlus.git &amp;&amp; \
+cd AviSynthPlus &amp;&amp; \
+mkdir -p avisynth-build/i686 avisynth-build/amd64 &amp;&amp; \
+AVSDIRNAME=avisynth+-gcc_r$(git rev-list --count HEAD)-g$(git rev-parse --short HEAD)-$(date --rfc-3339=date | sed &#39;s/-//g&#39;) &amp;&amp; \
+</pre></div>
+</div>
+<p>32-bit:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd avisynth-build/i686 &amp;&amp; \
+    cmake ../../ -G &quot;Ninja&quot; -DCMAKE_INSTALL_PREFIX=$HOME/avisynth+_build/32bit \
+    -DCMAKE_TOOLCHAIN_FILE=&quot;/usr/x86_64-w64-mingw32/toolchain-x86_64-w64-mingw32.cmake&quot; \
+    -DCMAKE_C_FLAGS=&quot;-m32&quot; -DCMAKE_CXX_FLAGS=&quot;-m32&quot; -DCMAKE_RC_FLAGS=&quot;-F pe-i386&quot; \
+    -DBUILD_SHIBATCH:bool=off &amp;&amp; \
+ninja &amp;&amp; \
+ninja install
+</pre></div>
+</div>
+<p>64-bit:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd ../amd64 &amp;&amp; \
+    cmake ../../ -G &quot;Ninja&quot; -DCMAKE_INSTALL_PREFIX=$HOME/avisynth+_build/64bit \
+    -DCMAKE_TOOLCHAIN_FILE=&quot;/usr/x86_64-w64-mingw32/toolchain-x86_64-w64-mingw32.cmake&quot; \
+    -DBUILD_SHIBATCH:bool=off &amp;&amp; \
+ninja &amp;&amp; \
+ninja install
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4><a class="toc-backref" href="#id17">Finishing up</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<p>Packaging:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>mv $HOME/avisynth+_build $HOME/$AVSDIRNAME
+7za a -mx9 ~/$AVSDIRNAME.7z ~/$AVSDIRNAME
+</pre></div>
+</div>
+<p>Back to the <a class="reference internal" href="../../index.html"><span class="doc">main page</span></a></p>
+<p>$ Date: 2019-04-11 21:48:49 -04:00 $</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="contributing_with_git.html" title="Contributing to AviSynth+"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../FilterSDK/FilterSDK.html" title="AviSynth FilterSDK"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

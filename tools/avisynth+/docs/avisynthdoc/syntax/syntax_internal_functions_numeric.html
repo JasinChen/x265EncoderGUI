@@ -1,0 +1,630 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AviSynth Syntax - Numeric functions &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="AviSynth Syntax - Runtime functions" href="syntax_internal_functions_runtime.html" />
+    <link rel="prev" title="AviSynth Syntax - Multithreading functions" href="syntax_internal_functions_multithreading.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="syntax_internal_functions_runtime.html" title="AviSynth Syntax - Runtime functions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="syntax_internal_functions_multithreading.html" title="AviSynth Syntax - Multithreading functions"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="syntax_internal_functions_multithreading.html"
+                        title="previous chapter">AviSynth Syntax - Multithreading functions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="syntax_internal_functions_runtime.html"
+                        title="next chapter">AviSynth Syntax - Runtime functions</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/syntax/syntax_internal_functions_numeric.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="avisynth-syntax-numeric-functions">
+<h1>AviSynth Syntax - Numeric functions<a class="headerlink" href="#avisynth-syntax-numeric-functions" title="Permalink to this headline">¶</a></h1>
+<p>Numeric functions provide common mathematical operations on numeric
+variables.</p>
+<ul class="simple">
+<li>Max   |   v2.58   |   Max(float, float [, …])</li>
+</ul>
+<p>Returns the maximum value of a set of numbers.
+If all the values are of type Int, the result is an Int. If any of the values
+are of type Float, the result is a Float.
+This may cause an unexpected result when an Int value greater than 16777216
+is mixed with Float values.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Max</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">Max</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mf">5.0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Min   |   v2.58   |   Min(float, float [, …])</li>
+</ul>
+<p>Returns the minimum value of a set of numbers.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Max</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">Max</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mf">2.0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>MulDiv   |   v2.56   |   MulDiv(int, int, int)</li>
+</ul>
+<p>Multiplies two ints (m, n) and divides the product by a third (d) in a single
+operation, with 64 bit intermediate result. The actual equation used is <code class="docutils literal notranslate"><span class="pre">(m</span>
+<span class="pre">*</span> <span class="pre">n</span> <span class="pre">+</span> <span class="pre">d</span> <span class="pre">/</span> <span class="pre">2)</span> <span class="pre">/</span> <span class="pre">d</span></code>.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MulDiv</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">MulDiv</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Floor   |     |   Floor(float)</li>
+</ul>
+<p>Converts from float to int (round down on any fractional amount).</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Floor</span><span class="p">(</span><span class="mf">1.2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">Floor</span><span class="p">(</span><span class="mf">1.6</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">Floor</span><span class="p">(</span><span class="o">-</span><span class="mf">1.2</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
+<span class="n">Floor</span><span class="p">(</span><span class="o">-</span><span class="mf">1.6</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Ceil   |     |   Ceil(float)</li>
+</ul>
+<p>Converts from float to int (round up on any fractional amount).
+<em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Ceil</span><span class="p">(</span><span class="mf">1.2</span><span class="p">)</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="n">Ceil</span><span class="p">(</span><span class="mf">1.6</span><span class="p">)</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="n">Ceil</span><span class="p">(</span><span class="o">-</span><span class="mf">1.2</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">Ceil</span><span class="p">(</span><span class="o">-</span><span class="mf">1.6</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Round   |     |   Round(float)</li>
+</ul>
+<p>Converts from float to int (round off to nearest integer).
+<em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Round</span><span class="p">(</span><span class="mf">1.2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">Round</span><span class="p">(</span><span class="mf">1.6</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">Round</span><span class="p">(</span><span class="o">-</span><span class="mf">1.2</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">Round</span><span class="p">(</span><span class="o">-</span><span class="mf">1.6</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Sin   |   v2   |   Sin(float)</li>
+</ul>
+<p>Returns the sine of the argument (assumes it is radians).
+<em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sin</span><span class="p">(</span><span class="n">Pi</span><span class="p">()</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.707</span>
+<span class="n">Sin</span><span class="p">(</span><span class="n">Pi</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mf">1.0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Cos   |   v2   |   Cos(float)</li>
+</ul>
+<p>Returns the cosine of the argument (assumes it is radians).
+<em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Cos</span><span class="p">(</span><span class="n">Pi</span><span class="p">()</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.707</span>
+<span class="n">Cos</span><span class="p">(</span><span class="n">Pi</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Tan   |   v2.60   |   Tan(float)</li>
+</ul>
+<p>Returns the tangent of the argument (assumes it is radians).
+<em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Tan</span><span class="p">(</span><span class="n">Pi</span><span class="p">()</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">Tan</span><span class="p">(</span><span class="n">Pi</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">defined</span>
+</pre></div>
+</div>
+<p>32 bit ieee floats do not have sufficient resolution to exactly represent
+?/2 so AviSynth returns a large positive number for the value slightly less
+than ?/2 and a large negative value for the next possible value which is
+slightly greater than ?/2.</p>
+<ul class="simple">
+<li>Asin   |   v2.60   |   Asin(float)</li>
+</ul>
+<p>Returns the inverse of the sine of the argument (output is radians).</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Asin</span><span class="p">(</span><span class="mf">0.707</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.7852471634</span> <span class="p">(</span><span class="o">~</span> <span class="n">Pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">Asin</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span> <span class="o">=</span> <span class="mf">1.570796327</span> <span class="p">(</span><span class="o">~</span> <span class="n">Pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Acos   |   v2.60   |   Acos(float)</li>
+</ul>
+<p>Returns the inverse of the cosine of the argument (output is in radians).</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Acos</span><span class="p">(</span><span class="mf">0.707</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.7852471634</span> <span class="p">(</span><span class="o">~</span> <span class="n">Pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">Acos</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span> <span class="o">=</span> <span class="mf">1.570796327</span> <span class="p">(</span><span class="o">~</span> <span class="n">Pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Atan   |   v2.60   |   Atan(float)</li>
+</ul>
+<p>Returns the inverse of the tangent of the argument (output is in radians).</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Atan</span><span class="p">(</span><span class="mf">0.707</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.6154085176</span>
+<span class="n">Atan</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.7853981634</span> <span class="p">(</span><span class="o">~</span> <span class="n">Pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Atan2   |   v2.60   |   Atan2(float, float)</li>
+</ul>
+<p>Returns the angle between the positive x-axis of a plane and the point given
+by the coordinates (x, y) on it (output is in radians). See <a class="reference external" href="http://en.wikipedia.org/wiki/Atan2">the wikipedia article on Atan2</a> for
+more information. y is the first argument and x is the second argument.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Atan2</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mf">1.570796327</span> <span class="p">(</span><span class="o">~</span> <span class="n">Pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">Atan2</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.7852471634</span> <span class="p">(</span><span class="o">~</span> <span class="n">Pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">Atan2</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.356194490</span> <span class="p">(</span><span class="o">~</span> <span class="o">-</span><span class="mi">3</span><span class="n">Pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Sinh   |   v2.60   |   Sinh(float)</li>
+</ul>
+<p>Returns the hyperbolic sine of the argument. See <a class="reference external" href="http://en.wikipedia.org/wiki/Hyperbolic_function">wikipedia</a> for more
+information.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sinh</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span> <span class="o">=</span> <span class="mf">3.626860408</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Cosh   |   v2.60   |   Cosh(float)</li>
+</ul>
+<p>Returns the hyperbolic cosine of the argument.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Cosh</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span> <span class="o">=</span> <span class="mf">3.762195691</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Tanh   |   v2.60   |   Tanh(float)</li>
+</ul>
+<p>Returns the hyperbolic tangent of the argument.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Tanh</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.9640275801</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Fmod   |   v2.60   |   Fmod(float, float)</li>
+</ul>
+<p>Returns the modulo of the argument. Output is float.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fmod</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">(</span><span class="n">since</span> <span class="mf">3.5</span> <span class="o">-</span> <span class="mi">7</span><span class="o">*</span><span class="mf">0.5</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">Fmod</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="p">(</span><span class="n">since</span> <span class="mf">3.5</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="mf">1.0</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Pi   |   v2   |   Pi()</li>
+</ul>
+<p>Returns the value of the “pi” constant (the ratio of a circle’s circumference
+to its diameter).</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">Pi</span><span class="p">()</span>    <span class="c1"># d == 3.141593</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Tau   |   v2.60   |   Tau()</li>
+</ul>
+<p>Returns the value of the “tau” constant (the ratio of a circle’s
+circumference to its radius). See <a class="reference external" href="http://en.wikipedia.org/wiki/Tau_(2%CF%80)">Tau_(2?)</a> for more information.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">Tau</span><span class="p">()</span>   <span class="c1"># d == 6.283186</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Exp   |   v2   |   Exp(float)</li>
+</ul>
+<p>Returns the natural (base-e) exponent of the argument.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Exp</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mf">2.718282</span>
+<span class="n">Exp</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mf">1.0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Log   |   v2   |   Log(float)</li>
+</ul>
+<p>Returns the natural (base-e) logarithm of the argument.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Log</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">Log</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">=</span> <span class="mf">2.30259</span>
+<span class="n">Log</span><span class="p">(</span><span class="n">Exp</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">=</span> <span class="mf">1.0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Log10   |   v2.60   |   Log10(float)</li>
+</ul>
+<p>Returns the common logarithm of the argument.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Log10</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">Log10</span><span class="p">(</span><span class="mf">10.0</span><span class="p">)</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">Log10</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.3010299957</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Pow   |   v2   |   Pow(float base, float power)</li>
+</ul>
+<p>Returns “base” raised to the power indicated by the second argument.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">Pow</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">Pow</span><span class="p">(</span><span class="mf">3.45</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">)</span> <span class="o">=</span> <span class="mf">8.7334</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Sqrt   |   v2   |   Sqrt(float)</li>
+</ul>
+<p>Returns the square root of the argument.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sqrt</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">Sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mf">1.4142</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Abs   |   v2.07   |   Abs(float or int)</li>
+</ul>
+<p>Returns the absolute value of its argument (returns float for float, integer
+for integer).</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Abs</span><span class="p">(</span><span class="o">-</span><span class="mf">3.8</span><span class="p">)</span> <span class="o">=</span> <span class="mf">3.8</span>
+<span class="n">Abs</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="mi">4</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Sign   |   v2.07   |   Sign(float)</li>
+</ul>
+<p>Returns the sign of the value passed as argument (1, 0 or -1).</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sign</span><span class="p">(</span><span class="o">-</span><span class="mf">3.5</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">Sign</span><span class="p">(</span><span class="mf">3.5</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">Sign</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Int   |   v2.07   |   Int(float)</li>
+</ul>
+<p>Converts from single-precision, <a class="reference external" href="http://en.wikipedia.org/wiki/Floating_point">floating-point</a> value to int (round towards
+zero).</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Int</span><span class="p">(</span><span class="mf">1.2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">Int</span><span class="p">(</span><span class="mf">1.6</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">Int</span><span class="p">(</span><span class="o">-</span><span class="mf">1.2</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">Int</span><span class="p">(</span><span class="o">-</span><span class="mf">1.6</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Frac   |   v2.07   |   Frac(float)</li>
+</ul>
+<p>Returns the fractional portion of the value provided.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Frac</span><span class="p">(</span><span class="mf">3.7</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.7</span>
+<span class="n">Frac</span><span class="p">(</span><span class="o">-</span><span class="mf">1.8</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.8</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Float   |   v2.07   |   Float(int)</li>
+</ul>
+<p>Converts int to single-precision, <a class="reference external" href="http://en.wikipedia.org/wiki/Floating_point">floating-point</a> value. Integer values
+that require more than 24-bits to be represented will have their lower 8-bits
+truncated yielding unexpected values.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Float</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="mf">4.0</span>
+<span class="n">Float</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span> <span class="o">=</span> <span class="mf">1.333</span> <span class="p">(</span><span class="k">while</span> <span class="mi">4</span> <span class="o">/</span> <span class="mi">3</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">,</span> <span class="n">due</span> <span class="n">to</span> <span class="n">integer</span> <span class="n">division</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Rand   |   v2.07   |   Rand([int max] [, bool scale] [, bool seed])</li>
+</ul>
+<p>Returns a random integer value. All parameters are optional.</p>
+<ul class="simple">
+<li><em>max</em> sets the maximum value+1 (default 32768) and can be set
+negative for negative results. It operates either in scaled or modulus
+mode (default scale=true only if abs(max) &gt; 32768, false otherwise).</li>
+<li>Scaled mode (scale=true) scales the internal random number
+generator value to the maximum value, while modulus mode (scale=false)
+uses the remainder from an integer divide of the random generator value
+by the maximum. I found modulus mode is best for smaller maximums.</li>
+<li>Using <em>seed=true</em> seeds the random number generator with the current
+time. <em>seed</em> defaults to false and probably isn’t necessary, although
+it’s there just in case.</li>
+</ul>
+<p>Typically, this function would be used with the Select function for random
+clips.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Select</span><span class="p">(</span><span class="n">Rand</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">clip1</span><span class="p">,</span> <span class="n">clip2</span><span class="p">,</span> <span class="n">clip3</span><span class="p">,</span> <span class="n">clip4</span><span class="p">,</span> <span class="n">clip5</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Spline   |   v2.51   |   Spline(float X, x1, y1, x2, y2, …. [, bool
+cubic])</li>
+</ul>
+<p>Interpolates the Y value at point X using the control points x1/y1, … There
+have to be at least 2 x/y-pairs. The interpolation can be cubic (the result
+is a spline) or linear (the result is a polygon). Default is cubic.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Spline</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">false</span><span class="p">)</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">Spline</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">true</span><span class="p">)</span> <span class="o">=</span> <span class="mi">7</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>ContinuedNumerator   |   v2.60   |   ContinuedNumerator(float, int
+limit)</li>
+<li>ContinuedNumerator   |   v2.60   |   ContinuedNumerator(int, int, int
+limit)</li>
+<li>ContinuedDenominator   |   v2.60   |   ContinuedDenominator(float,
+int limit)</li>
+<li>ContinuedDenominator   |   v2.60   |   ContinuedDenominator(int, int,
+int limit)</li>
+</ul>
+<p>The rational pair (ContinuedNumerator,ContinuedDenominator) returned has the
+smallest possible denominator such that the absolute error is less than
+1/limit. More information can be found on <a class="reference external" href="http://en.wikipedia.org/wiki/Continued_fraction">the wikipedia article for Continued fraction</a>. If <em>limit</em> is not
+specified in the Float case the rational pair returned is to the limit of the
+single precision floating point value. Thus (float)((double)Num/(double)Den)
+== V. In the Int pair case if <em>limit</em> is not specified then the normalised
+original values will be returned, i.e. reduced by the GCD.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ContinuedNumerator</span><span class="p">(</span><span class="n">PI</span><span class="p">(),</span> <span class="n">limit</span><span class="o">=</span><span class="mi">5000</span><span class="p">])</span> <span class="o">=</span> <span class="mi">355</span>
+<span class="n">ContinuedDenominator</span><span class="p">(</span><span class="n">PI</span><span class="p">(),</span> <span class="n">limit</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span> <span class="o">=</span> <span class="mi">113</span>
+
+<span class="n">ContinuedNumerator</span><span class="p">(</span><span class="n">PI</span><span class="p">(),</span> <span class="n">limit</span><span class="o">=</span><span class="mi">50</span><span class="p">])</span> <span class="o">=</span> <span class="mi">22</span>
+<span class="n">ContinuedDenominator</span><span class="p">(</span><span class="n">PI</span><span class="p">(),</span> <span class="n">limit</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span> <span class="o">=</span> <span class="mi">7</span>
+
+<span class="n">ContinuedNumerator</span><span class="p">(</span><span class="mi">355</span><span class="p">,</span> <span class="mi">113</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">50</span><span class="p">])</span> <span class="o">=</span> <span class="mi">22</span>
+<span class="n">ContinuedDenominator</span><span class="p">(</span><span class="mi">355</span><span class="p">,</span> <span class="mi">113</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span> <span class="o">=</span> <span class="mi">7</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>BitAnd   |   v2.60   |   BitAnd(int, int)</li>
+</ul>
+<p>The functions: BitAnd, BitNot, BitOr, BitXor, etc, are bitwise operators.
+This means that their arguments (being integers) are converted to binary
+numbers, the operation is performed on their bits, and the resulting binary
+number is converted back again. BitAnd returns the bitwise AND (sets bit to 1
+if both bits are 1 and sets bit to 0 otherwise).</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BitAnd</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">=</span> <span class="mi">4</span> <span class="c1"># since 5 = 101, 6 = 110, and 101&amp;110 = 100</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>BitNot   |   v2.60   |   BitNot(int)</li>
+</ul>
+<p>Returns the bit-inversion (sets bit to 1 if bit is 0 and vice-versa).</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BitNOT</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">6</span> <span class="c1"># since 5 = 101, and ~101 = 11111111111111111111111111111010</span>
+</pre></div>
+</div>
+<p>Note: 1111 1111 1111 1111 1111 1111 11111010 = (2^32-1)-2^0-2^2 = 2^32-(1+2^0+2^2) = (signed) -(1+2^0+2^2) = -6.</p>
+<ul class="simple">
+<li>BitOr   |   v2.60   |   BitOr(int, int)</li>
+</ul>
+<p>Returns the bitwise inclusive OR (sets bit to 1 if one of the bits (or both)
+is 1 and sets bit to 0 otherwise).</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BitOr</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">=</span> <span class="mi">7</span> <span class="c1"># since 5 = 101, 6 = 110, and 101|110 = 111</span>
+<span class="n">BitOr</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">6</span> <span class="c1"># since 4 = 100, 2 = 010, and 100|010 = 110</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>BitXor   |   v2.60   |   BitXor(int, int)</li>
+</ul>
+<p>Returns the bitwise exclusive OR (sets bit to 1 if exactly one of the bits is
+1 and sets bit to 0 otherwise).</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BitXor</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># since 5 = 101, 6 = 110, and 101^110 = 011</span>
+<span class="n">BitXor</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">6</span> <span class="c1"># since 4 = 100, 2 = 010, and 100^010 = 110</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>BitLShift   |   v2.60   |   BitLShift(int, int)</li>
+<li>BitShl   |   v2.60   |   BitShl(int, int)</li>
+<li>BitSal   |   v2.60   |   BitSal(int, int)</li>
+</ul>
+<p>Shift the bits of a number to the left.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Shifts</span> <span class="n">the</span> <span class="n">bits</span> <span class="n">of</span> <span class="n">the</span> <span class="n">number</span> <span class="mi">5</span> <span class="n">two</span> <span class="n">bits</span> <span class="n">to</span> <span class="n">the</span> <span class="n">left</span><span class="p">:</span>
+<span class="n">BitLShift</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="mi">20</span> <span class="p">(</span><span class="n">since</span> <span class="mi">101</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span> <span class="o">=</span> <span class="mi">10100</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>BitRShiftL   |   v2.60   |   BitRShiftL(int, int)</li>
+<li>BitRShiftU   |   v2.60   |   BitRShiftU(int, int)</li>
+<li>BitShr   |   v2.60   |   BitShr(int, int)</li>
+</ul>
+<p>Shift the bits of an unsigned integer to the right. (Logical, zero fill,
+Right Shift)</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Shifts</span> <span class="n">the</span> <span class="n">bits</span> <span class="n">of</span> <span class="n">the</span> <span class="n">number</span> <span class="o">-</span><span class="mi">42</span> <span class="n">one</span> <span class="n">bit</span> <span class="n">to</span> <span class="n">the</span> <span class="n">right</span><span class="p">,</span> <span class="n">treating</span> <span class="n">it</span> <span class="k">as</span> <span class="n">unsigned</span><span class="p">:</span>
+<span class="n">BitRShiftL</span><span class="p">(</span><span class="o">-</span><span class="mi">42</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2147483627</span> <span class="p">(</span><span class="n">since</span>
+<span class="mi">11111111111111111111111111010110</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span> <span class="o">=</span>
+<span class="mi">01111111111111111111111111101011</span><span class="p">)</span> <span class="n">Note</span><span class="p">:</span> <span class="o">-</span><span class="mi">42</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="o">^</span><span class="mi">0</span><span class="o">+</span><span class="mi">2</span><span class="o">^</span><span class="mi">3</span><span class="o">+</span><span class="mi">2</span><span class="o">^</span><span class="mi">5</span><span class="p">)</span> <span class="o">=</span>
+<span class="p">(</span><span class="n">unsigned</span><span class="p">)</span> <span class="mi">2</span><span class="o">^</span><span class="mi">32</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="o">^</span><span class="mi">0</span><span class="o">+</span><span class="mi">2</span><span class="o">^</span><span class="mi">3</span><span class="o">+</span><span class="mi">2</span><span class="o">^</span><span class="mi">5</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">^</span><span class="mi">32</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="o">^</span><span class="mi">0</span><span class="o">-</span><span class="mi">2</span><span class="o">^</span><span class="mi">3</span><span class="o">-</span><span class="mi">2</span><span class="o">^</span><span class="mi">5</span> <span class="o">=</span>
+<span class="mf">11111111111111111111111111010110.</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>BitRShiftA   |   v2.60   |   BitRShiftA(int, int)</li>
+<li>BitRShiftS   |   v2.60   |   BitRShiftS(int, int)</li>
+<li>BitSar   |   v2.60   |   BitSar(int, int)</li>
+</ul>
+<p>Shift the bits of an integer to the right. (Arithmetic, Sign bit fill, Right
+Shift)</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Shifts</span> <span class="n">the</span> <span class="n">bits</span> <span class="n">of</span> <span class="n">the</span> <span class="n">number</span> <span class="o">-</span><span class="mi">42</span> <span class="n">one</span> <span class="n">bit</span> <span class="n">to</span> <span class="n">the</span> <span class="n">right</span><span class="p">,</span> <span class="n">treating</span> <span class="n">it</span> <span class="k">as</span> <span class="n">signed</span><span class="p">:</span>
+<span class="n">BitRShiftA</span><span class="p">(</span><span class="o">-</span><span class="mi">42</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">21</span> <span class="p">(</span><span class="n">since</span> <span class="mi">11111111111111111111111111010110</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
+<span class="o">=</span> <span class="mi">11111111111111111111111111101011</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>BitLRotate   |   v2.60   |   BitLRotate(int, int)</li>
+<li>BitRol   |   v2.60   |   BitRol(int, int)</li>
+</ul>
+<p>Rotates the bits of an unsigned integer to the left.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Rotates</span> <span class="n">the</span> <span class="n">bits</span> <span class="n">of</span> <span class="n">the</span> <span class="n">number</span> <span class="o">-</span><span class="mi">2147483642</span> <span class="n">one</span> <span class="n">bit</span> <span class="n">to</span> <span class="n">the</span> <span class="n">right</span><span class="p">:</span>
+<span class="n">BitLRotate</span><span class="p">(</span><span class="o">-</span><span class="mi">2147483642</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">13</span> <span class="p">(</span><span class="n">since</span>
+<span class="mi">10000000000000000000000000000110</span> <span class="n">ROL</span> <span class="mi">1</span> <span class="o">=</span>
+<span class="mi">00000000000000000000000000001101</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>BitRRotate   |   v2.60   |   BitRRotate(int, int)</li>
+<li>BitRor   |   v2.60   |   BitRor(int, int)</li>
+</ul>
+<p>Rotate the bits of an integer to the right.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Rotates</span> <span class="n">the</span> <span class="n">bits</span> <span class="n">of</span> <span class="n">the</span> <span class="n">number</span> <span class="mi">13</span> <span class="n">one</span> <span class="n">bit</span> <span class="n">to</span> <span class="n">the</span> <span class="n">right</span><span class="p">:</span>
+<span class="n">BitRRotate</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2147483642</span> <span class="p">(</span><span class="n">since</span>
+<span class="mi">00000000000000000000000000001101</span> <span class="n">ROR</span> <span class="mi">1</span> <span class="o">=</span>
+<span class="mi">10000000000000000000000000000110</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>BitChange   |   v2.60   |   BitChange(int, int)</li>
+<li>BitChg   |   v2.60   |   BitChg(int, int)</li>
+</ul>
+<p>Invert the state of the n’th bit of an integer. The 1 bit is bit 0. The sign
+bit is bit 31.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Change</span> <span class="n">the</span> <span class="n">state</span> <span class="n">of</span> <span class="n">the</span> <span class="n">fourth</span> <span class="n">bit</span><span class="p">:</span>
+<span class="n">BitChange</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="mi">19</span>
+<span class="n">BitChange</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">Change</span> <span class="n">the</span> <span class="n">state</span> <span class="n">of</span> <span class="n">the</span> <span class="n">sign</span> <span class="n">bit</span><span class="p">:</span>
+<span class="n">BitChange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2147483647</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>BitClear   |   v2.60   |   BitClear(int, int)</li>
+<li>BitClr   |   v2.60   |   BitClr(int, int)</li>
+</ul>
+<p>Clear the state of the n’th bit of an integer.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Clear</span> <span class="n">the</span> <span class="n">state</span> <span class="n">of</span> <span class="n">the</span> <span class="n">fourth</span> <span class="n">bit</span><span class="p">:</span>
+<span class="n">BitClear</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">BitClear</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">Clear</span> <span class="n">the</span> <span class="n">state</span> <span class="n">of</span> <span class="n">the</span> <span class="n">sign</span> <span class="n">bit</span><span class="p">:</span>
+<span class="n">BitClear</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2147483647</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>BitSet   |   v2.60   |   BitSet(int, int)</li>
+</ul>
+<p>Set the state of the n’th bit of an integer.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Set</span> <span class="n">the</span> <span class="n">state</span> <span class="n">of</span> <span class="n">the</span> <span class="n">fourth</span> <span class="n">bit</span><span class="p">:</span>
+<span class="n">BitSet</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="mi">19</span>
+<span class="n">BitSet</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="mi">19</span>
+
+<span class="n">Set</span> <span class="n">the</span> <span class="n">state</span> <span class="n">of</span> <span class="n">the</span> <span class="n">sign</span> <span class="n">bit</span><span class="p">:</span>
+<span class="n">BitSet</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">BitSet</span><span class="p">(</span><span class="mi">2147483647</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>BitTest   |   v2.60   |   BitTest(int, int)</li>
+<li>BitTst   |   v2.60   |   BitTst(int, int)</li>
+</ul>
+<p>Test the state of the n’th bit of an integer. Result is a bool.</p>
+<p><em>Examples:</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Check</span> <span class="n">the</span> <span class="n">state</span> <span class="n">of</span> <span class="n">the</span> <span class="n">fourth</span> <span class="n">bit</span><span class="p">:</span>
+<span class="n">BitTest</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">BitTest</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="n">Check</span> <span class="n">the</span> <span class="n">state</span> <span class="n">of</span> <span class="n">the</span> <span class="n">sign</span> <span class="n">bit</span><span class="p">:</span>
+<span class="n">BitTest</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">BitTest</span><span class="p">(</span><span class="mi">2147483647</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>Back to <a class="reference internal" href="syntax_internal_functions.html"><span class="doc">Internal functions</span></a>.</p>
+<p>$Date: 2013/01/06 13:38:34 $</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="syntax_internal_functions_runtime.html" title="AviSynth Syntax - Runtime functions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="syntax_internal_functions_multithreading.html" title="AviSynth Syntax - Multithreading functions"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

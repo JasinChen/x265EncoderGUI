@@ -1,0 +1,149 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>HorizontalReduceBy2 / VerticalReduceBy2 / ReduceBy2 &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="ResampleAudio" href="resampleaudio.html" />
+    <link rel="prev" title="Pulldown" href="pulldown.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="resampleaudio.html" title="ResampleAudio"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pulldown.html" title="Pulldown"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pulldown.html"
+                        title="previous chapter">Pulldown</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="resampleaudio.html"
+                        title="next chapter">ResampleAudio</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/corefilters/reduceby2.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="horizontalreduceby2-verticalreduceby2-reduceby2">
+<h1>HorizontalReduceBy2 / VerticalReduceBy2 / ReduceBy2<a class="headerlink" href="#horizontalreduceby2-verticalreduceby2-reduceby2" title="Permalink to this headline">¶</a></h1>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">HorizontalReduceBy2</span></code> (clip)</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">VerticalReduceBy2</span></code> (clip)</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">ReduceBy2</span></code> (clip)</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">HorizontalReduceBy2</span></code> reduces the horizontal size of each frame by half,
+and <code class="docutils literal notranslate"><span class="pre">VerticalReduceBy2</span></code> reduces the vertical size by half. Chain them
+together (in either order) to reduce the whole image by half. You can also
+use the shorthand <code class="docutils literal notranslate"><span class="pre">ReduceBy2</span></code>, which is the same as <code class="docutils literal notranslate"><span class="pre">HorizontalReduceBy2</span></code>
+followed by <code class="docutils literal notranslate"><span class="pre">VerticalReduceBy2</span></code>.</p>
+<p>The filter kernel used is (1/4,1/2,1/4), which is the same as in VirtualDub’s
+“2:1 reduction (high quality)” filter. This avoids the aliasing problems that
+occur with a (1/2,1/2) kernel. VirtualDub’s “resize” filter uses a third,
+fancier kernel for 2:1 reduction, but I experimented with it and found that
+it actually produced slightly worse-looking MPEG files–presumably because it
+sharpens edges slightly, and most codecs don’t like sharp edges.</p>
+<p>If your source video is interlaced, the <code class="docutils literal notranslate"><span class="pre">VerticalReduceBy2</span></code> filter will
+deinterlace it (by field blending) as a side-effect. If you plan to produce
+output video in a size like 320x240, I recommend that you capture at full
+interlaced vertical resolution (320x480) and use <code class="docutils literal notranslate"><span class="pre">VerticalReduceBy2</span></code>. You
+will get much better-looking output. My Huffyuv utility will compress
+captured video about 2:1, losslessly, so you can capture 320x480 in about the
+same space as it used to take to capture 320x240. (If your disk has the
+capacity and throughput to support it, you can even capture at 640x480 and
+use both <code class="docutils literal notranslate"><span class="pre">HorizontalReduceBy2</span></code> and <code class="docutils literal notranslate"><span class="pre">VerticalReduceBy2</span></code>. But this won’t
+improve the quality as much, and if you have to go to MotionJPEG to achieve
+640x480, you’re probably better off with Huffyuv at 320x480.)</p>
+<p>Note that, it’s a quick and dirty filter (performance related compromise).
+Unlike the standard <a class="reference internal" href="resize.html"><span class="doc">resize</span></a> filters, the <code class="docutils literal notranslate"><span class="pre">ReduceBy2</span></code> filters do not
+preserve the position of the image center. It shifts color planes by half of
+pixel. In fact, <code class="docutils literal notranslate"><span class="pre">ReduceBy2()</span></code> is equivalent to:</p>
+<p><code class="docutils literal notranslate"><span class="pre">BilinearResize(Width/2,</span> <span class="pre">Height/2,</span> <span class="pre">0.5,</span> <span class="pre">-0.5)</span></code> for RGB,</p>
+<p><code class="docutils literal notranslate"><span class="pre">MergeChroma(BilinearResize(Width/2,Height/2,0.5,0.5),BilinearResize(Width/2</span>
+<span class="pre">,Height/2,1.0,1.0))</span></code> for YV12,</p>
+<p><code class="docutils literal notranslate"><span class="pre">MergeChroma(BilinearResize(Width/2,Height/2,0.5,0.5),BilinearResize(Width/2</span>
+<span class="pre">,Height/2,1.0,0.5))</span></code> for YUY2.</p>
+<p>$Date: 2008/12/24 19:19:07 $</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="resampleaudio.html" title="ResampleAudio"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pulldown.html" title="Pulldown"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>

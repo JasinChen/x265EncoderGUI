@@ -1,0 +1,266 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>InstructionPairing &#8212; AviSynth+ 3.4 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="shortcut icon" href="../../_static/AvsiDoc.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="IntegerSSE" href="IntegerSSE.html" />
+    <link rel="prev" title="GradientMask" href="GradientMask.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="IntegerSSE.html" title="IntegerSSE"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="GradientMask.html" title="GradientMask"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/DocIcon-Large.svg" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">InstructionPairing</a><ul>
+<li><a class="reference internal" href="#intel-p4-specifics">Intel P4 specifics</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="GradientMask.html"
+                        title="previous chapter">GradientMask</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IntegerSSE.html"
+                        title="next chapter">IntegerSSE</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/avisynthdoc/FilterSDK/InstructionPairing.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="instructionpairing">
+<h1><a class="reference external" href="http://www.avisynth.org/InstructionPairing">InstructionPairing</a><a class="headerlink" href="#instructionpairing" title="Permalink to this headline">¶</a></h1>
+<p>Instruction pairing can almost double the performance of you filter. There
+are two execution pipes for <a class="reference internal" href="MMX.html"><span class="doc">MMX</span></a> code, which means that two instructions
+can be executed at the same time. Certain instructions can only be issued in
+the U pipeline, and certain instructions can only be issued in the V
+pipeline. Most MMX instructions can be issued in either</p>
+<p>The original pairing rules for MMX code is as follows:</p>
+<ol class="arabic simple">
+<li>The second instruction does not read or write a register which the
+first instruction writes to.  2) MMX shift, pack or unpack instructions
+can execute in either pipe but cannot pair with other MMX shift, pack or
+unpack instructions.  3) MMX multiply instructions can execute in either
+pipe but cannot pair with other MMX multiply instructions. They take 3
+clock cycles and the last 2 clock cycles can overlap with subsequent
+instructions.  4) an MMX instruction which accesses memory or integer
+registers can execute only in the U-pipe and cannot pair with a non-MMX
+instruction.</li>
+</ol>
+<p><strong>Ad. 1)</strong></p>
+<p>This is the most important rule of them all. Instruction two should never be
+dependant on information from instruction one. The formal definition is “The
+destination of the first operand should not be used as source or destination
+of the second operand”.</p>
+<p>Consider the following code (paired instructions are in bold):</p>
+<p><code class="docutils literal notranslate"><span class="pre">movq</span> <span class="pre">mm0,[eax]</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">movq</span> <span class="pre">mm1,mm0</span> <span class="pre">*;</span> <span class="pre">depends</span> <span class="pre">on</span> <span class="pre">mm0*</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">pavgb</span> <span class="pre">mm1,mm7</span> <span class="pre">*;</span> <span class="pre">depends</span> <span class="pre">on</span> <span class="pre">mm1*</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">por</span> <span class="pre">mm0,mm1</span> <span class="pre">*;</span> <span class="pre">depends</span> <span class="pre">on</span> <span class="pre">mm1*</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">movq</span> <span class="pre">[eax],mm0</span> <span class="pre">*;</span> <span class="pre">depends</span> <span class="pre">on</span> <span class="pre">mm0*</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">**movq</span> <span class="pre">mm0,[eax+ebx]**</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">movq</span> <span class="pre">mm1,mm0</span> <span class="pre">*;</span> <span class="pre">depends</span> <span class="pre">on</span> <span class="pre">mm0*</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">punpcklwd</span> <span class="pre">mm1,mm7</span> <span class="pre">*;</span> <span class="pre">depends</span> <span class="pre">on</span> <span class="pre">mm1*</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">por</span> <span class="pre">mm0,mm1</span> <span class="pre">*;</span> <span class="pre">depends</span> <span class="pre">on</span> <span class="pre">mm1*</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">movq</span> <span class="pre">[eax+ebx],mm0</span> <span class="pre">*;</span> <span class="pre">depends</span> <span class="pre">on</span> <span class="pre">mm0*</span></code></p>
+<p>Rearrange the code to:</p>
+<p><code class="docutils literal notranslate"><span class="pre">movq</span> <span class="pre">mm0,[eax]</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">**movq</span> <span class="pre">mm2,[eax+ebx]**</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">movq</span> <span class="pre">mm1,mm0</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">**movq</span> <span class="pre">mm3,mm0**</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">pavgb</span> <span class="pre">mm1,mm7</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">**pavgb</span> <span class="pre">mm3,mm7**</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">por</span> <span class="pre">mm0,mm1</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">**por</span> <span class="pre">mm2,mm3**</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">movq</span> <span class="pre">[eax],mm0</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">**movq</span> <span class="pre">[eax+ebx],mm2**</span></code></p>
+<p>The latter code executes twice as fast as the upper code!</p>
+<p><strong>Ad. 2)</strong></p>
+<p>It seems like this restriction has been loosened on Athlon and P3. Apparently
+pack does no longer use the shifter unit. So now only shifts are not
+pairable!</p>
+<p><strong>Ad. 3)</strong></p>
+<p>Even though these numbers have changed slighly on Athlon, it still seems like
+a good idea to put in two MMX instructions before depending on the result of
+a multiply. On AMD Athlon a multiply takes 3 cycles, whereas most other
+instructions take 2. See appendix F in the <a class="reference internal" href="AMDOptimizationGuide.html"><span class="doc">AMDOptimizationGuide</span></a>.</p>
+<hr class="docutils" />
+<p><em>phaeron writes:</em></p>
+<p>This information is very old – it applies to the superscalar pipelines of
+the original Pentium. Beginning with the Pentium II instruction decode and
+execution are decoupled, so the dependency restrictions outlined above likely
+don’t apply to any modern CPU which does out-of-order (OOO) execution. Also,
+the Pentium II, Pentium III, and Pentium-M have a 4-1-1 uop decoder pattern,
+not the UV pairing described above. So while this sequence will ideally
+decode on a Pentium MMX:</p>
+<p><code class="docutils literal notranslate"><span class="pre">{movd</span> <span class="pre">mm0,[eax]}</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">{pxor</span> <span class="pre">mm7,mm7}</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">{movd</span> <span class="pre">mm1,[eax+esi]}</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">{punpcklbw</span> <span class="pre">mm1,mm7}</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">{movd</span> <span class="pre">mm2,[eax+esi]}</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">{punpcklbw</span> <span class="pre">mm2,mm7}</span></code></p>
+<p>PPro architectures will instead decode the above at <strong>3</strong> instructions/cycle.</p>
+<p>I don’t think packs are any better on PIII than on Pentium/PII. <a class="reference external" href="http://www.agner.org/assem/">[Agner Fog’s
+optimization tome]</a> says that shifts still only issue in port 1, meaning
+that you still can’t execute more than one per cycle. This seems to be borne
+out in tests as well, as I can get a PADDW loop to execute MMX ops twice as
+fast as a PUNPCKLBW loop on a PIII.</p>
+<p>Perhaps more dangerous than decoding rules on PII/PIII is the register
+renaming limitation:</p>
+<hr class="docutils" />
+<div class="section" id="intel-p4-specifics">
+<h2>Intel P4 specifics<a class="headerlink" href="#intel-p4-specifics" title="Permalink to this headline">¶</a></h2>
+<p>According to the <a class="reference internal" href="IntelOptimizationGuide.html"><span class="doc">IntelOptimizationGuide</span></a>:</p>
+<p><strong>MMX multiply:</strong></p>
+<p>P4 - 8 cycles, K7 - 3 cycles.</p>
+<p>MMX multiply now takes 4 times as many cycles as other MMX commands -
+actually quite a big problem when having to pair them. Therefore there should
+ideally now be at least 4 instructions that doesn’t mulitply between two
+multiply instructions.</p>
+<p><strong>MMX shifter restrictions:</strong></p>
+<p>It seems like there are still issues with one shifter on the P4 - this is
+(alongside the MMX multiplier) one of the biggest problems. I can see that
+pshufw is actually done in the MMX shifter - in contrast to the K7, where
+this restriction has been lifted.</p>
+<p>This means that on P4, none of these instructions are pairable: Pack, unpack,
+shift, shuffle. This is a problem, since it will stall the processor, if any
+of these two instructions follow eachother - even if they are not depending
+on eachother. This is however too often the case.</p>
+<p>In case I’m being too crypitic above: None of the instructions marked with
+MMX_SHFT can be paired with eachother, just as two instructions with FP_MUL
+cannot be paired with eachother. Therefore to have efficient code, the second
+pipe should have code that doesn’t use the same part of the CPU - and doesn’t
+depend on the result from the other pipe. The ISSE code above is a perfect
+example of this - almost none of the instructions pair on P4.</p>
+<hr class="docutils" />
+<p><em>phaeron writes:</em></p>
+<p>I wouldn’t worry about having only one shifter on P4. Intel balanced this out
+by removing the second MMX ALU, so you can only do one PADDW per cycle now
+too.</p>
+<p>A much bigger worry with respect to P4 MMX performance is that register-to-
+register MOVQs aren’t handled entirely by register renaming anymore, and have
+a 6 clock latency! It can be <em>much</em> faster to move via the ALU (pxor mm1,mm1
+/ por mm1, mm0) or the shifter (pshufw mm1, mm0, 0) than via MOVQ. For a sad
+joke, benchmark this in a loop:</p>
+<p><code class="docutils literal notranslate"><span class="pre">movq</span> <span class="pre">mm1,</span> <span class="pre">mm0</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">movq</span> <span class="pre">mm2,</span> <span class="pre">mm1</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">movq</span> <span class="pre">mm3,</span> <span class="pre">mm2</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">movq</span> <span class="pre">mm4,</span> <span class="pre">mm3</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">movq</span> <span class="pre">mm5,</span> <span class="pre">mm4</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">movq</span> <span class="pre">mm6,</span> <span class="pre">mm5</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">movq</span> <span class="pre">mm7,</span> <span class="pre">mm6</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">movq</span> <span class="pre">mm0,</span> <span class="pre">mm7</span></code></p>
+<p>against this on a P4:</p>
+<p><code class="docutils literal notranslate"><span class="pre">pxor</span> <span class="pre">mm1,</span> <span class="pre">mm1</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">por</span> <span class="pre">mm1,</span> <span class="pre">mm0</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">pxor</span> <span class="pre">mm2,</span> <span class="pre">mm2</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">por</span> <span class="pre">mm2,</span> <span class="pre">mm1</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">pxor</span> <span class="pre">mm3,</span> <span class="pre">mm3</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">por</span> <span class="pre">mm3,</span> <span class="pre">mm2</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">pxor</span> <span class="pre">mm4,</span> <span class="pre">mm4</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">por</span> <span class="pre">mm4,</span> <span class="pre">mm3</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">pxor</span> <span class="pre">mm5,</span> <span class="pre">mm5</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">por</span> <span class="pre">mm5,</span> <span class="pre">mm4</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">pxor</span> <span class="pre">mm6,</span> <span class="pre">mm6</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">por</span> <span class="pre">mm6,</span> <span class="pre">mm5</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">pxor</span> <span class="pre">mm7,</span> <span class="pre">mm7</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">por</span> <span class="pre">mm7,</span> <span class="pre">mm6</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">pxor</span> <span class="pre">mm0,</span> <span class="pre">mm0</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">por</span> <span class="pre">mm0,</span> <span class="pre">mm7</span></code></p>
+<p>and watch the second loop run <strong>three times faster</strong> than the first. The
+reason is that both loops end up being one huge dependency chain, for which
+the first takes 8*6 = 48 cycles per iteration, and the second takes 8*2 = 16
+cycles per iteration.</p>
+<p>(Be careful with the pxor trick. It breaks dependency chains on P4, but has a
+false dependency on the source register on PIII and Athlon.)</p>
+<p>Back to <a class="reference internal" href="AssemblerOptimizing.html"><span class="doc">AssemblerOptimizing</span></a></p>
+<p>$Date: 2006/11/24 18:21:26 $</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="IntegerSSE.html" title="IntegerSSE"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="GradientMask.html" title="GradientMask"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">AviSynth+ 3.4 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Invisible Tree</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2000-2019, AviSynth and AviSynth+ contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.5.
+    </div>
+  </body>
+</html>
