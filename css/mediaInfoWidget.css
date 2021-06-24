@@ -1,4 +1,4 @@
-QPushButton{background:#3C91C7;color:white;height:20px;width:70px;padding:4px;border:none}
+QPushButton{background:#3C91C7;color:white;height:20px;padding:4px;border:none}
 QPushButton:hover{font:Bold}
 QPushButton:pressed{background-color:#95C5DE;color:black}
 QPushButton:disabled{background-color:lightgray;color:gray}
