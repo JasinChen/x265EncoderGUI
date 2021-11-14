@@ -8,4 +8,4 @@ x265 GUI program, based on pyqt6
 墙内的小伙伴可于该页面下载：https://gitee.com/jasinchen0119/x265-command-editor/releases/
 
 
-wik: https://github.com/JasinChen/x265-encoder/wiki
+wiki: https://github.com/JasinChen/x265-encoder/wiki
