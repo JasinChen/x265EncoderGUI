@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VSScript.h &mdash; VapourSynth R58 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="VSHelper.h" href="vshelper.h.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> VapourSynth
+          </a>
+              <div class="version">
+                R58
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pythonreference.html">Python Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Function Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../output.html">Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications.html">Applications and Libraries</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../apireference.html">VapourSynth C API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../apireference.html#public-headers">Public Headers</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="vapoursynth.h.html">VapourSynth.h</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vshelper.h.html">VSHelper.h</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">VSScript.h</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#table-of-contents">Table of contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#structs">Structs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#enums">Enums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../apireference.html#common-pitfalls">Common Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../apireference.html#reserved-frame-properties">Reserved Frame Properties</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">VapourSynth</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../apireference.html">VapourSynth C API Reference</a> &raquo;</li>
+      <li>VSScript.h</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/vsscript.h.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vsscript-h">
+<h1>VSScript.h<a class="headerlink" href="#vsscript-h" title="Permalink to this headline"></a></h1>
+<section id="table-of-contents">
+<h2>Table of contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline"></a></h2>
+<p><a class="reference internal" href="#introduction">Introduction</a></p>
+<dl>
+<dt><a class="reference internal" href="#structs">Structs</a></dt><dd><p><a class="reference internal" href="#vsscript">VSScript</a></p>
+</dd>
+<dt><a class="reference internal" href="#enums">Enums</a></dt><dd><p><a class="reference internal" href="#vsevalflags">VSEvalFlags</a></p>
+</dd>
+<dt><a class="reference internal" href="#functions">Functions</a></dt><dd><p><a class="reference internal" href="#vsscript-getapiversion">vsscript_getApiVersion</a></p>
+<p><a class="reference internal" href="#vsscript-init">vsscript_init</a></p>
+<p><a class="reference internal" href="#vsscript-finalize">vsscript_finalize</a></p>
+<p><a class="reference internal" href="#vsscript-evaluatescript">vsscript_evaluateScript</a></p>
+<p><a class="reference internal" href="#vsscript-evaluatefile">vsscript_evaluateFile</a></p>
+<p><a class="reference internal" href="#vsscript-createscript">vsscript_createScript</a></p>
+<p><a class="reference internal" href="#vsscript-freescript">vsscript_freeScript</a></p>
+<p><a class="reference internal" href="#vsscript-geterror">vsscript_getError</a></p>
+<p><a class="reference internal" href="#vsscript-getexitcode">vsscript_getExitCode</a></p>
+<p><a class="reference internal" href="#vsscript-getoutput">vsscript_getOutput</a></p>
+<p><a class="reference internal" href="#vsscript-clearoutput">vsscript_clearOutput</a></p>
+<p><a class="reference internal" href="#vsscript-getcore">vsscript_getCore</a></p>
+<p><a class="reference internal" href="#vsscript-getvsapi">vsscript_getVSApi</a></p>
+<p><a class="reference internal" href="#vsscript-getvsapi2">vsscript_getVSApi2</a></p>
+<p><a class="reference internal" href="#vsscript-getvariable">vsscript_getVariable</a></p>
+<p><a class="reference internal" href="#vsscript-setvariable">vsscript_setVariable</a></p>
+<p><a class="reference internal" href="#vsscript-clearvariable">vsscript_clearVariable</a></p>
+<p><a class="reference internal" href="#vsscript-clearenvironment">vsscript_clearEnvironment</a></p>
+</dd>
+</dl>
+</section>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
+<p>VSScript provides a convenient wrapper for VapourSynth’s scripting interface(s), allowing the evaluation of VapourSynth scripts and retrieval of output clips.</p>
+<p>For reasons unknown, the VSScript library is called <code class="docutils literal notranslate"><span class="pre">VSScript</span></code> in Windows and <code class="docutils literal notranslate"><span class="pre">vapoursynth-script</span></code> everywhere else.</p>
+<p>At this time, VapourSynth scripts can be written only in Python (version 3).</p>
+<p>Here are a few users of the VSScript library:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/vapoursynth/vapoursynth/blob/master/src/vspipe/vspipe.cpp">vspipe</a></p></li>
+<li><p><a class="reference external" href="https://github.com/vapoursynth/vapoursynth/blob/master/src/vfw/vsvfw.cpp">vsvfw</a></p></li>
+<li><p><a class="reference external" href="https://github.com/vapoursynth/vapoursynth/blob/master/sdk/vsscript_example.c">an example program</a></p></li>
+<li><p>the video player <a class="reference external" href="https://github.com/mpv-player/mpv/blob/master/video/filter/vf_vapoursynth.c">mpv</a></p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If libvapoursynth-script is loaded with dlopen(), the RTLD_GLOBAL flag must be used. If not, Python won’t be able to import binary modules. This is due to Python’s design.</p>
+</div>
+</section>
+<section id="structs">
+<h2>Structs<a class="headerlink" href="#structs" title="Permalink to this headline"></a></h2>
+<section id="vsscript">
+<h3>VSScript<a class="headerlink" href="#vsscript" title="Permalink to this headline"></a></h3>
+<p>A script environment. All communication with an evaluated script happens through a VSScript object.</p>
+</section>
+</section>
+<section id="enums">
+<h2>Enums<a class="headerlink" href="#enums" title="Permalink to this headline"></a></h2>
+<section id="vsevalflags">
+<h3>VSEvalFlags<a class="headerlink" href="#vsevalflags" title="Permalink to this headline"></a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>efSetWorkingDir</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline"></a></h2>
+<section id="vsscript-getapiversion">
+<h3>vsscript_getApiVersion<a class="headerlink" href="#vsscript-getapiversion" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vsscript_getApiVersion">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vsscript_getApiVersion</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.vsscript_getApiVersion" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns the api version provided by vsscript.</p>
+</dd></dl>
+
+</section>
+<section id="vsscript-init">
+<h3>vsscript_init<a class="headerlink" href="#vsscript-init" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vsscript_init">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vsscript_init</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.vsscript_init" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Initialises the available scripting interfaces.</p>
+<p>Returns the number of times <a class="reference internal" href="#vsscript-init">vsscript_init</a>() has been called so far, including this call, or 0 in case of failure. This function will only fail if the VapourSynth installation is broken in some way.</p>
+</dd></dl>
+
+</section>
+<section id="vsscript-finalize">
+<h3>vsscript_finalize<a class="headerlink" href="#vsscript-finalize" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vsscript_finalize">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vsscript_finalize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.vsscript_finalize" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Frees all scripting interfaces.</p>
+<p>Returns the difference between the number of times <a class="reference internal" href="#vsscript-init">vsscript_init</a>() was called and the number of times <a class="reference internal" href="#vsscript-finalize">vsscript_finalize</a>() was called, including this call.</p>
+</dd></dl>
+
+</section>
+<section id="vsscript-evaluatescript">
+<h3>vsscript_evaluateScript<a class="headerlink" href="#vsscript-evaluatescript" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vsscript_evaluateScript">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vsscript_evaluateScript</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">VSScript</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">script</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">scriptFilename</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">flags</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.vsscript_evaluateScript" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Evaluates a script contained in a C string.</p>
+<dl>
+<dt><em>handle</em></dt><dd><p>Pointer to a script environment. If it is a pointer to NULL, a new script environment will be created and returned through this parameter. Passing NULL has the same effect as calling <a class="reference internal" href="#vsscript-createscript">vsscript_createScript</a>() first and then passing the handle obtained from that function.</p>
+</dd>
+<dt><em>script</em></dt><dd><p>The entire script to evaluate, as a C string.</p>
+</dd>
+<dt><em>scriptFilename</em></dt><dd><p>A name for the script, which will be displayed in error messages. If this is NULL, the name “&lt;string&gt;” will be used in error messages.</p>
+<p>The special <code class="docutils literal notranslate"><span class="pre">__file__</span></code> variable will be set to <em>scriptFilename</em>’s absolute version if this is not NULL.</p>
+</dd>
+<dt><em>flags</em></dt><dd><p>0 or efSetWorkingDir (see <a class="reference internal" href="#vsevalflags">VSEvalFlags</a>).</p>
+<p>If <em>scriptFilename</em> is not NULL and efSetWorkingDir is passed, the working directory will be changed to <em>scriptFilename</em>’s directory prior to evaluating the script.</p>
+<p>It is recommended to use efSetWorkingDir, so that relative paths in VapourSynth scripts work as expected.</p>
+</dd>
+</dl>
+<p>Restores the working directory before returning.</p>
+<p>Returns non-zero in case of errors. The error message can be retrieved with <a class="reference internal" href="#vsscript-geterror">vsscript_getError</a>(). If the script calls <em>sys.exit(code)</em> the exit code can be retrieved with <a class="reference internal" href="#vsscript-getexitcode">vsscript_getExitCode</a>().</p>
+</dd></dl>
+
+</section>
+<section id="vsscript-evaluatefile">
+<h3>vsscript_evaluateFile<a class="headerlink" href="#vsscript-evaluatefile" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vsscript_evaluateFile">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vsscript_evaluateFile</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">VSScript</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">scriptFilename</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">flags</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.vsscript_evaluateFile" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Evaluates a script contained in a file. This is a convenience function which reads the script from a file for you. It will only read the first 16 MiB (1024 * 1024 * 16), which should be enough for everyone.</p>
+<p>Behaves the same as <a class="reference internal" href="#vsscript-evaluatescript">vsscript_evaluateScript</a>().</p>
+</dd></dl>
+
+</section>
+<section id="vsscript-createscript">
+<h3>vsscript_createScript<a class="headerlink" href="#vsscript-createscript" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vsscript_createScript">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vsscript_createScript</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">VSScript</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.vsscript_createScript" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Creates an empty script environment. This function can be useful when it is necessary to set some variable in the script environment before evaluating any scripts. Like in mpv’s vf_vapoursynth filter, which passes the video to VapourSynth scripts in a variable called “video_in”.</p>
+<p>If <em>handle</em> points to an existing script environment, you must call <a class="reference internal" href="#vsscript-freescript">vsscript_freeScript</a>() first to avoid leaking memory.</p>
+<p>Returns non-zero in case of errors. The error message can be retrieved with <a class="reference internal" href="#vsscript-geterror">vsscript_getError</a>().</p>
+</dd></dl>
+
+</section>
+<section id="vsscript-freescript">
+<h3>vsscript_freeScript<a class="headerlink" href="#vsscript-freescript" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vsscript_freeScript">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vsscript_freeScript</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">VSScript</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.vsscript_freeScript" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Frees a script environment. <em>handle</em> is no longer usable.</p>
+<ul class="simple">
+<li><p>Cancels any clips set for output in the script environment.</p></li>
+<li><p>Clears any variables set in the script environment.</p></li>
+<li><p>Clears the error message from the script environment, if there is one.</p></li>
+<li><p>Frees the VapourSynth core used in the script environment, if there is one.</p></li>
+</ul>
+<p>Since this function frees the VapourSynth core, it must be called only after all frame requests are finished and all objects obtained from the script have been freed (frames, nodes, etc).</p>
+<p>It is safe to pass NULL.</p>
+</dd></dl>
+
+</section>
+<section id="vsscript-geterror">
+<h3>vsscript_getError<a class="headerlink" href="#vsscript-geterror" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vsscript_getError">
+<span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">vsscript_getError</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">VSScript</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.vsscript_getError" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns the error message from a script environment, or NULL, if there is no error message.</p>
+<p>It is okay to pass NULL.</p>
+<p>VSScript retains ownership of the pointer.</p>
+</dd></dl>
+
+</section>
+<section id="vsscript-getexitcode">
+<h3>vsscript_getExitCode<a class="headerlink" href="#vsscript-getexitcode" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vsscript_getExitCode">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vsscript_getExitCode</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">VSScript</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.vsscript_getExitCode" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns the exit code if the script calls <em>sys.exit(code)</em>, or 0, if the script fails for other reasons or calls <em>sys.exit(0)</em>.</p>
+<p>It is okay to pass NULL.</p>
+</dd></dl>
+
+</section>
+<section id="vsscript-getoutput">
+<h3>vsscript_getOutput<a class="headerlink" href="#vsscript-getoutput" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vsscript_getOutput">
+<span class="n"><span class="pre">VSNodeRef</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">vsscript_getOutput</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">VSScript</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">index</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.vsscript_getOutput" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Retrieves a node from the script environment. A node in the script must have been marked for output with the requested <em>index</em>.</p>
+<p>Ownership of the node is transferred to the caller.</p>
+<p>Returns NULL if there is no node at the requested index.</p>
+</dd></dl>
+
+</section>
+<section id="vsscript-clearoutput">
+<h3>vsscript_clearOutput<a class="headerlink" href="#vsscript-clearoutput" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vsscript_clearOutput">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vsscript_clearOutput</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">VSScript</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">index</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.vsscript_clearOutput" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Cancels a node set for output. The node will no longer be available to <a class="reference internal" href="#vsscript-getoutput">vsscript_getOutput</a>().</p>
+<p>Returns non-zero if there is no node at the requested index.</p>
+</dd></dl>
+
+</section>
+<section id="vsscript-getcore">
+<h3>vsscript_getCore<a class="headerlink" href="#vsscript-getcore" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vsscript_getCore">
+<span class="n"><span class="pre">VSCore</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">vsscript_getCore</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">VSScript</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.vsscript_getCore" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Retrieves the VapourSynth core that was created in the script environment. If a VapourSynth core has not been created yet, it will be created now, with the default options (see the <a class="reference internal" href="../pythonreference.html"><span class="doc">Python Reference</span></a>).</p>
+<p>VSScript retains ownership of the pointer.</p>
+<p>Returns NULL on error.</p>
+</dd></dl>
+
+</section>
+<section id="vsscript-getvsapi">
+<h3>vsscript_getVSApi<a class="headerlink" href="#vsscript-getvsapi" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vsscript_getVSApi">
+<span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">VSAPI</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">vsscript_getVSApi</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.vsscript_getVSApi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Deprecated in favor of <a class="reference internal" href="#vsscript-getvsapi2">vsscript_getVSApi2</a>(). Retrieves the VSAPI struct.</p>
+<p>This could return NULL if the scripting interface library (the Python module) expects an API version that the core VapourSynth library doesn’t provide (for example, if either library was replaced with an older/newer copy).</p>
+</dd></dl>
+
+</section>
+<section id="vsscript-getvsapi2">
+<h3>vsscript_getVSApi2<a class="headerlink" href="#vsscript-getvsapi2" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vsscript_getVSApi2">
+<span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">VSAPI</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">vsscript_getVSApi2</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">version</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.vsscript_getVSApi2" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Retrieves the VSAPI struct.</p>
+<p>This could return NULL if the VapourSynth library doesn’t provide the requested version.</p>
+</dd></dl>
+
+</section>
+<section id="vsscript-getvariable">
+<h3>vsscript_getVariable<a class="headerlink" href="#vsscript-getvariable" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vsscript_getVariable">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vsscript_getVariable</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">VSScript</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">name</span></span>, <span class="n"><span class="pre">VSMap</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dst</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.vsscript_getVariable" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Retrieves a variable from the script environment.</p>
+<p>If a VapourSynth core has not been created yet in the script environment, one will be created now, with the default options (see the <a class="reference internal" href="../pythonreference.html"><span class="doc">Python Reference</span></a>).</p>
+<dl class="simple">
+<dt><em>name</em></dt><dd><p>Name of the variable to retrieve.</p>
+</dd>
+<dt><em>dst</em></dt><dd><p>Map where the variable’s value will be placed, with the key <em>name</em>.</p>
+</dd>
+</dl>
+<p>Returns non-zero on error.</p>
+</dd></dl>
+
+</section>
+<section id="vsscript-setvariable">
+<h3>vsscript_setVariable<a class="headerlink" href="#vsscript-setvariable" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vsscript_setVariable">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vsscript_setVariable</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">VSScript</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">VSMap</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">vars</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.vsscript_setVariable" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Sets variables in the script environment.</p>
+<p>The variables are now available to the script.</p>
+<p>If a VapourSynth core has not been created yet in the script environment, one will be created now, with the default options (see the <a class="reference internal" href="../pythonreference.html"><span class="doc">Python Reference</span></a>).</p>
+<dl class="simple">
+<dt><em>vars</em></dt><dd><p>Map containing the variables to set.</p>
+</dd>
+</dl>
+<p>Returns non-zero on error.</p>
+</dd></dl>
+
+</section>
+<section id="vsscript-clearvariable">
+<h3>vsscript_clearVariable<a class="headerlink" href="#vsscript-clearvariable" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vsscript_clearVariable">
+<span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vsscript_clearVariable</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">VSScript</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.vsscript_clearVariable" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Deletes a variable from the script environment.</p>
+<p>Returns non-zero on error.</p>
+</dd></dl>
+
+</section>
+<section id="vsscript-clearenvironment">
+<h3>vsscript_clearEnvironment<a class="headerlink" href="#vsscript-clearenvironment" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vsscript_clearEnvironment">
+<span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vsscript_clearEnvironment</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">VSScript</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">handle</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.vsscript_clearEnvironment" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Clears the script environment.</p>
+<ul class="simple">
+<li><p>Cancels any clips set for output in the script environment.</p></li>
+<li><p>Clears any variables set in the script environment.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="vshelper.h.html" class="btn btn-neutral float-left" title="VSHelper.h" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2012-2022, Fredrik Mellbin.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

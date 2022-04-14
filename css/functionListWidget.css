@@ -1,4 +1,4 @@
-QListWidget{border:none;font:Bold;background:#95C5DE}
-QListWidget:item{height:128px;border:none;padding:10px}
-QListWidget:item:hover{background:rgba(255,255,255,50)}
-QListWidget:item:selected{background:#E0EEFB}
+FunctionListWidget{border:none;font:Bold;background:#95C5DE}
+FunctionListWidget:item{height:128px;border:none;padding:10px}
+FunctionListWidget:item:hover{background:rgba(255,255,255,50)}
+FunctionListWidget:item:selected{background:#E0EEFB}

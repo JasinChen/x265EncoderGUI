@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VSHelper.h &mdash; VapourSynth R58 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="VSScript.h" href="vsscript.h.html" />
+    <link rel="prev" title="VapourSynth.h" href="vapoursynth.h.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> VapourSynth
+          </a>
+              <div class="version">
+                R58
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pythonreference.html">Python Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../functions.html">Function Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../output.html">Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications.html">Applications and Libraries</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../apireference.html">VapourSynth C API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../apireference.html#public-headers">Public Headers</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="vapoursynth.h.html">VapourSynth.h</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">VSHelper.h</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#table-of-contents">Table of contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#macros">Macros</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="vsscript.h.html">VSScript.h</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../apireference.html#common-pitfalls">Common Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../apireference.html#reserved-frame-properties">Reserved Frame Properties</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">VapourSynth</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../apireference.html">VapourSynth C API Reference</a> &raquo;</li>
+      <li>VSHelper.h</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/vshelper.h.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="vshelper-h">
+<h1>VSHelper.h<a class="headerlink" href="#vshelper-h" title="Permalink to this headline"></a></h1>
+<section id="table-of-contents">
+<h2>Table of contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline"></a></h2>
+<p><a class="reference internal" href="#introduction">Introduction</a></p>
+<dl>
+<dt><a class="reference internal" href="#macros">Macros</a></dt><dd><p><a class="reference internal" href="#inline">inline</a></p>
+<p><a class="reference internal" href="#vs-restrict">VS_RESTRICT</a></p>
+<p><a class="reference internal" href="#vs-aligned-malloc-c">VS_ALIGNED_MALLOC</a></p>
+<p><a class="reference internal" href="#vs-aligned-free-c">VS_ALIGNED_FREE</a></p>
+<p><a class="reference internal" href="#vsmin">VSMIN</a></p>
+<p><a class="reference internal" href="#vsmax">VSMAX</a></p>
+</dd>
+<dt><a class="reference internal" href="#functions">Functions</a></dt><dd><p><a class="reference internal" href="#vs-aligned-malloc-cpp">vs_aligned_malloc</a></p>
+<p><a class="reference internal" href="#vs-aligned-free-cpp">vs_aligned_free</a></p>
+<p><a class="reference internal" href="#isconstantformat">isConstantFormat</a></p>
+<p><a class="reference internal" href="#issameformat">isSameFormat</a></p>
+<p><a class="reference internal" href="#muldivrational">muldivRational</a></p>
+<p><a class="reference internal" href="#vs-addrational">vs_addRational</a></p>
+<p><a class="reference internal" href="#vs-normalizerational">vs_normalizeRational</a></p>
+<p><a class="reference internal" href="#int64toints">int64ToIntS</a></p>
+<p><a class="reference internal" href="#vs-bitblt">vs_bitblt</a></p>
+<p><a class="reference internal" href="#arevaliddimensions">areValidDimensions</a></p>
+</dd>
+</dl>
+</section>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
+<p>This is a collection of helpful macros and functions.</p>
+</section>
+<section id="macros">
+<h2>Macros<a class="headerlink" href="#macros" title="Permalink to this headline"></a></h2>
+<section id="inline">
+<h3>inline<a class="headerlink" href="#inline" title="Permalink to this headline"></a></h3>
+<p>It’s defined to <code class="docutils literal notranslate"><span class="pre">_inline</span></code> for Visual Studio’s C mode.</p>
+</section>
+<section id="vs-restrict">
+<h3>VS_RESTRICT<a class="headerlink" href="#vs-restrict" title="Permalink to this headline"></a></h3>
+<p>Attempts to provide a portable definition of the C99 <code class="docutils literal notranslate"><span class="pre">restrict</span></code> keyword,
+or its C++ counterpart.</p>
+</section>
+<section id="vs-aligned-malloc">
+<span id="vs-aligned-malloc-c"></span><h3>VS_ALIGNED_MALLOC<a class="headerlink" href="#vs-aligned-malloc" title="Permalink to this headline"></a></h3>
+<p>VS_ALIGNED_MALLOC(pptr, size, alignment)</p>
+<p>Expands to _aligned_malloc() in Windows, and posix_memalign() elsewhere. Note that
+the arguments are in the style of posix_memalign().</p>
+<p><em>pptr</em> is a pointer to a pointer.</p>
+</section>
+<section id="vs-aligned-free">
+<span id="vs-aligned-free-c"></span><h3>VS_ALIGNED_FREE<a class="headerlink" href="#vs-aligned-free" title="Permalink to this headline"></a></h3>
+<p>VS_ALIGNED_FREE(ptr)</p>
+<p>Expands to _aligned_free() in Windows, and free() elsewhere.</p>
+<p><em>ptr</em> is a pointer.</p>
+</section>
+<section id="vsmin">
+<h3>VSMIN<a class="headerlink" href="#vsmin" title="Permalink to this headline"></a></h3>
+<p>VSMIN(a, b)</p>
+<p>Returns the minimum of the two numbers.</p>
+</section>
+<section id="vsmax">
+<h3>VSMAX<a class="headerlink" href="#vsmax" title="Permalink to this headline"></a></h3>
+<p>VSMAX(a, b)</p>
+<p>Returns the maximum of the two numbers.</p>
+</section>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline"></a></h2>
+<section id="vs-aligned-malloc-cpp">
+<span id="id1"></span><h3>vs_aligned_malloc<a class="headerlink" href="#vs-aligned-malloc-cpp" title="Permalink to this headline"></a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv417vs_aligned_malloc6size_t6size_t">
+<span id="_CPPv317vs_aligned_malloc6size_t6size_t"></span><span id="_CPPv217vs_aligned_malloc6size_t6size_t"></span><span id="vs_aligned_malloc__s.s"></span><span class="n"><span class="pre">T</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">vs_aligned_malloc</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">alignment</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417vs_aligned_malloc6size_t6size_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>A templated aligned malloc for C++. It uses the same functions as the
+<a class="reference internal" href="#vs-aligned-malloc-c">VS_ALIGNED_MALLOC</a> macro but is easier to use.</p>
+</dd></dl>
+
+</section>
+<section id="vs-aligned-free-cpp">
+<span id="id2"></span><h3>vs_aligned_free<a class="headerlink" href="#vs-aligned-free-cpp" title="Permalink to this headline"></a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv415vs_aligned_freePv">
+<span id="_CPPv315vs_aligned_freePv"></span><span id="_CPPv215vs_aligned_freePv"></span><span id="vs_aligned_free__voidP"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vs_aligned_free</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">ptr</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415vs_aligned_freePv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This simply uses the <a class="reference internal" href="#vs-aligned-free-c">VS_ALIGNED_FREE</a> macro.</p>
+</dd></dl>
+
+</section>
+<section id="isconstantformat">
+<h3>isConstantFormat<a class="headerlink" href="#isconstantformat" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.isConstantFormat">
+<span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isConstantFormat</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">VSVideoInfo</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">vi</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.isConstantFormat" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Checks if a clip’s format and dimensions are known (and therefore constant).</p>
+</dd></dl>
+
+</section>
+<section id="issameformat">
+<h3>isSameFormat<a class="headerlink" href="#issameformat" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.isSameFormat">
+<span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isSameFormat</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">VSVideoInfo</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">v1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">VSVideoInfo</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">v2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.isSameFormat" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Checks if two clips have the same format and dimensions. If the format is
+unknown in both, it will be considered the same. This is also true for the
+dimensions.</p>
+</dd></dl>
+
+</section>
+<section id="muldivrational">
+<h3>muldivRational<a class="headerlink" href="#muldivrational" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.muldivRational">
+<span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">muldivRational</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">num</span></span>, <span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">den</span></span>, <span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="n"><span class="pre">mul</span></span>, <span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="n"><span class="pre">div</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.muldivRational" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Multiplies two rational numbers and reduces the result, i.e.
+<em>num</em>/<em>den</em> * <em>mul</em>/<em>div</em>. The result is stored in <em>num</em> and <em>den</em>.</p>
+<p>The caller must ensure that <em>div</em> is not 0.</p>
+</dd></dl>
+
+</section>
+<section id="vs-addrational">
+<h3>vs_addRational<a class="headerlink" href="#vs-addrational" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vs_addRational">
+<span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vs_addRational</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">num</span></span>, <span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">den</span></span>, <span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="n"><span class="pre">addnum</span></span>, <span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="n"><span class="pre">addden</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.vs_addRational" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Adds two rational numbers and reduces the result, i.e.
+<em>num</em>/<em>den</em> + <em>addnum</em>/<em>addden</em>. The result is stored in <em>num</em> and <em>den</em>.</p>
+</dd></dl>
+
+</section>
+<section id="vs-normalizerational">
+<h3>vs_normalizeRational<a class="headerlink" href="#vs-normalizerational" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vs_normalizeRational">
+<span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vs_normalizeRational</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">num</span></span>, <span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">den</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.vs_normalizeRational" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Reduces a rational number.</p>
+</dd></dl>
+
+</section>
+<section id="int64toints">
+<h3>int64ToIntS<a class="headerlink" href="#int64toints" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.int64ToIntS">
+<span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">int64ToIntS</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">int64_t</span></span><span class="w"> </span><span class="n"><span class="pre">i</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.int64ToIntS" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Converts an int64_t to int with signed saturation. It’s useful to silence
+warnings when reading integer properties from a VSMap and to avoid unexpected behavior on int overflow.</p>
+</dd></dl>
+
+</section>
+<section id="vs-bitblt">
+<h3>vs_bitblt<a class="headerlink" href="#vs-bitblt" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.vs_bitblt">
+<span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vs_bitblt</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">dstp</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">dst_stride</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">srcp</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">src_stride</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">row_size</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n"><span class="pre">height</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.vs_bitblt" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Copies bytes from one plane to another. Basically, it is memcpy in a loop.</p>
+<p><em>row_size</em> is in bytes.</p>
+</dd></dl>
+
+</section>
+<section id="arevaliddimensions">
+<h3>areValidDimensions<a class="headerlink" href="#arevaliddimensions" title="Permalink to this headline"></a></h3>
+<dl class="c function">
+<dt class="sig sig-object c" id="c.areValidDimensions">
+<span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">areValidDimensions</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">VSFormat</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n"><span class="pre">fi</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">width</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n"><span class="pre">height</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.areValidDimensions" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Checks if the given dimensions are valid for a particular format, with regards
+to chroma subsampling.</p>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="vapoursynth.h.html" class="btn btn-neutral float-left" title="VapourSynth.h" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="vsscript.h.html" class="btn btn-neutral float-right" title="VSScript.h" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2012-2022, Fredrik Mellbin.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

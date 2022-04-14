@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Function Reference &mdash; VapourSynth R58 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="LoadAllPlugins" href="functions/general/loadallplugins.html" />
+    <link rel="prev" title="Python Reference" href="pythonreference.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> VapourSynth
+          </a>
+              <div class="version">
+                R58
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pythonreference.html">Python Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Function Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#general-functions">General Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="functions/general/loadallplugins.html">LoadAllPlugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/general/loadplugin.html">LoadPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/general/loadpluginavs.html">LoadPlugin (Avisynth Compatibility)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/general/setmaxcpu.html">SetMaxCPU</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#video-functions">Video Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/addborders.html">AddBorders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/assumefps.html">AssumeFPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/averageframes.html">AverageFrames</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/binarize_binarizemask.html">Binarize/BinarizeMask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/blankclip.html">BlankClip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/boxblur.html">BoxBlur</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/cliptoprop.html">ClipToProp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/convolution.html">Convolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/copyframeprops.html">CopyFrameProps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/crop_cropabs.html">Crop/CropAbs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/deflate_inflate.html">Deflate/Inflate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/deleteframes.html">DeleteFrames</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/doubleweave.html">DoubleWeave</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/duplicateframes.html">DuplicateFrames</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/expr.html">Expr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/flipvertical_fliphorizontal.html">FlipVertical/FlipHorizontal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/frameeval.html">FrameEval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/freezeframes.html">FreezeFrames</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/interleave.html">Interleave</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/invert_invertmask.html">Invert/InvertMask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/levels.html">Levels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/limiter.html">Limiter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/loop.html">Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/lut.html">Lut</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/lut2.html">Lut2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/makediff.html">MakeDiff</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/maskedmerge.html">MaskedMerge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/median.html">Median</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/merge.html">Merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/mergediff.html">MergeDiff</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/minimum_maximum.html">Minimum/Maximum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/modifyframe.html">ModifyFrame</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/pemverifier.html">PEMVerifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/planestats.html">PlaneStats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/premultiply.html">PreMultiply</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/prewitt_sobel.html">Prewitt/Sobel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/proptoclip.html">PropToClip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/removeframeprops.html">RemoveFrameProps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/resize.html">Resize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/reverse.html">Reverse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/selectevery.html">SelectEvery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/separatefields.html">SeparateFields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/setfieldbased.html">SetFieldBased</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/setframeprop.html">SetFrameProp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/setframeprops.html">SetFrameProps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/setvideocache.html">SetVideoCache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/shuffleplanes.html">ShufflePlanes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/splice.html">Splice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/splitplanes.html">SplitPlanes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/stackvertical_stackhorizontal.html">StackVertical/StackHorizontal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/transpose.html">Transpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/trim.html">Trim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/video/turn180.html">Turn180</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#text">Text</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="functions/video/text/clipinfo.html">ClipInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="functions/video/text/coreinfo.html">CoreInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="functions/video/text/framenum.html">FrameNum</a></li>
+<li class="toctree-l4"><a class="reference internal" href="functions/video/text/frameprops.html">FrameProps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="functions/video/text/text.html">Text</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#audio-functions">Audio Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="functions/audio/assumesamplerate.html">AssumeSampleRate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/audio/audiogain.html">AudioGain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/audio/audioloop.html">AudioLoop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/audio/audiomix.html">AudioMix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/audio/audioreverse.html">AudioReverse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/audio/audiosplice.html">AudioSplice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/audio/audiotrim.html">AudioTrim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/audio/blankaudio.html">BlankAudio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/audio/setaudiocache.html">SetAudioCache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/audio/shufflechannels.html">ShuffleChannels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="functions/audio/splitchannels.html">SplitChannels</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="output.html">Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">Applications and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apireference.html">VapourSynth C API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">VapourSynth</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Function Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/functions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="function-reference">
+<h1>Function Reference<a class="headerlink" href="#function-reference" title="Permalink to this headline"></a></h1>
+<section id="general-functions">
+<h2>General Functions<a class="headerlink" href="#general-functions" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="functions/general/loadallplugins.html">LoadAllPlugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/general/loadplugin.html">LoadPlugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/general/loadpluginavs.html">LoadPlugin (Avisynth Compatibility)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/general/setmaxcpu.html">SetMaxCPU</a></li>
+</ul>
+</div>
+</section>
+<section id="video-functions">
+<h2>Video Functions<a class="headerlink" href="#video-functions" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/addborders.html">AddBorders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/assumefps.html">AssumeFPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/averageframes.html">AverageFrames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/binarize_binarizemask.html">Binarize/BinarizeMask</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/blankclip.html">BlankClip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/boxblur.html">BoxBlur</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/cliptoprop.html">ClipToProp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/convolution.html">Convolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/copyframeprops.html">CopyFrameProps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/crop_cropabs.html">Crop/CropAbs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/deflate_inflate.html">Deflate/Inflate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/deleteframes.html">DeleteFrames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/doubleweave.html">DoubleWeave</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/duplicateframes.html">DuplicateFrames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/expr.html">Expr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/flipvertical_fliphorizontal.html">FlipVertical/FlipHorizontal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/frameeval.html">FrameEval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/freezeframes.html">FreezeFrames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/interleave.html">Interleave</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/invert_invertmask.html">Invert/InvertMask</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/levels.html">Levels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/limiter.html">Limiter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/loop.html">Loop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/lut.html">Lut</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/lut2.html">Lut2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/makediff.html">MakeDiff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/maskedmerge.html">MaskedMerge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/median.html">Median</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/merge.html">Merge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/mergediff.html">MergeDiff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/minimum_maximum.html">Minimum/Maximum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/modifyframe.html">ModifyFrame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/pemverifier.html">PEMVerifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/planestats.html">PlaneStats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/premultiply.html">PreMultiply</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/prewitt_sobel.html">Prewitt/Sobel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/proptoclip.html">PropToClip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/removeframeprops.html">RemoveFrameProps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/resize.html">Resize</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/reverse.html">Reverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/selectevery.html">SelectEvery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/separatefields.html">SeparateFields</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/setfieldbased.html">SetFieldBased</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/setframeprop.html">SetFrameProp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/setframeprops.html">SetFrameProps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/setvideocache.html">SetVideoCache</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/shuffleplanes.html">ShufflePlanes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/splice.html">Splice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/splitplanes.html">SplitPlanes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/stackvertical_stackhorizontal.html">StackVertical/StackHorizontal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/transpose.html">Transpose</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/trim.html">Trim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/turn180.html">Turn180</a></li>
+</ul>
+</div>
+<section id="text">
+<h3>Text<a class="headerlink" href="#text" title="Permalink to this headline"></a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/text/clipinfo.html">ClipInfo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/text/coreinfo.html">CoreInfo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/text/framenum.html">FrameNum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/text/frameprops.html">FrameProps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/video/text/text.html">Text</a></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="audio-functions">
+<h2>Audio Functions<a class="headerlink" href="#audio-functions" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="functions/audio/assumesamplerate.html">AssumeSampleRate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/audio/audiogain.html">AudioGain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/audio/audioloop.html">AudioLoop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/audio/audiomix.html">AudioMix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/audio/audioreverse.html">AudioReverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/audio/audiosplice.html">AudioSplice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/audio/audiotrim.html">AudioTrim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/audio/blankaudio.html">BlankAudio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/audio/setaudiocache.html">SetAudioCache</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/audio/shufflechannels.html">ShuffleChannels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions/audio/splitchannels.html">SplitChannels</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pythonreference.html" class="btn btn-neutral float-left" title="Python Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="functions/general/loadallplugins.html" class="btn btn-neutral float-right" title="LoadAllPlugins" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2012-2022, Fredrik Mellbin.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

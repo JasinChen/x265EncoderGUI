@@ -1,0 +1,2 @@
+QSpinBox{border-radius:2px;border-style:solid;border-width:1px;border-color:#C8C8C8}
+QSpinBox:disabled{background-color:lightgray;border-color:lightgray}

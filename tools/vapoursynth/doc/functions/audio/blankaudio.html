@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BlankAudio &mdash; VapourSynth R58 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="SetAudioCache" href="setaudiocache.html" />
+    <link rel="prev" title="AudioTrim" href="audiotrim.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> VapourSynth
+          </a>
+              <div class="version">
+                R58
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pythonreference.html">Python Reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../functions.html">Function Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../functions.html#general-functions">General Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../functions.html#video-functions">Video Functions</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../functions.html#audio-functions">Audio Functions</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="assumesamplerate.html">AssumeSampleRate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audiogain.html">AudioGain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audioloop.html">AudioLoop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audiomix.html">AudioMix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audioreverse.html">AudioReverse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audiosplice.html">AudioSplice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="audiotrim.html">AudioTrim</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">BlankAudio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="setaudiocache.html">SetAudioCache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="shufflechannels.html">ShuffleChannels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="splitchannels.html">SplitChannels</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../output.html">Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../applications.html">Applications and Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../apireference.html">VapourSynth C API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">VapourSynth</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../functions.html">Function Reference</a> &raquo;</li>
+      <li>BlankAudio</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/functions/audio/blankaudio.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="blankaudio">
+<h1>BlankAudio<a class="headerlink" href="#blankaudio" title="Permalink to this headline"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="std.BlankAudio">
+<span class="sig-prename descclassname"><span class="pre">std.</span></span><span class="sig-name descname"><span class="pre">BlankAudio</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="n"><span class="pre">anode</span> <span class="pre">clip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">channels=&lt;stereo&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">bits=16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">sampletype=INTEGER</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">samplerate=44100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">length=(10*samplerate)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bint</span> <span class="pre">keep=0</span></span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#std.BlankAudio" title="Permalink to this definition"></a></dt>
+<dd><p>Generates a new empty clip. This can be useful to have when editing audio
+or for testing. The default is a 10 second long 44.1kHz 16 bit stereo clip.
+Instead of specifying every property individually, BlankAudio can also copy
+the properties from <em>clip</em>. If both an argument such as <em>sampletype</em>, and <em>clip</em>
+are set, then <em>sampletype</em> will take precedence.</p>
+<p>The <em>channels</em> argument are a bitmask of shifted channel constants. For example
+the default stereo value is formed by doing (1 &lt;&lt; acFrontLeft) | (1 &lt;&lt; acFrontRight).</p>
+<p>The possible <em>sampletype</em> values are currently INTEGER (0) and FLOAT (1).</p>
+<p>If <em>keep</em> is set, a reference to the same frame is returned on every request.
+Otherwise a new frame is generated every time. There should usually be no
+reason to change this setting.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="audiotrim.html" class="btn btn-neutral float-left" title="AudioTrim" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="setaudiocache.html" class="btn btn-neutral float-right" title="SetAudioCache" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2012-2022, Fredrik Mellbin.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

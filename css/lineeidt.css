@@ -1,0 +1,2 @@
+QLineEdit{border-radius:3px;border:1px solid #c1c1c1}
+QLineEdit:disabled{background-color:lightgray;border-color:lightgray}
