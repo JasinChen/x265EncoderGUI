@@ -1,7 +1,7 @@
 # x265-encoder
-x265 GUI程序，基于pyqt6
+x265 GUI程序，基于pyside6
 
-x265 GUI program, based on pyqt6
+x265 GUI program, based on pyside6
 
 使用说明请参考https://github.com/JasinChen/x265-command-editor/wiki
 
