@@ -9,7 +9,7 @@ VapourSynth-Editor放置路径：./tools/vapoursynth
 
 VapourSynth滤镜放置路径：./tools/vpoursynth/vapoursynth64/plugin
 
-使用说明请参考https://github.com/JasinChen/x265-encoder/wiki
+使用说明请参考https://github.com/JasinChen/x265EncoderGUI/wiki
 
 墙内的小伙伴可于该页面下载：https://gitee.com/jasinchen0119/x265-command-editor/releases/
 
