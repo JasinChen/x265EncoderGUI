@@ -1,4 +1,4 @@
-# x265-encoder
+# x265EncoderGUI
 x265 GUI程序，基于pyside6
 
 x265 GUI program, based on pyside6
